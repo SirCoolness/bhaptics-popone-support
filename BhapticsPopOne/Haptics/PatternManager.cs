@@ -16,8 +16,7 @@ namespace BhapticsPopOne.Haptics
         public static string[] subdirectories = new[]
         {
             "Vest",
-            "Arm",
-            "Head"
+            "Arm"
         };
 
         // loads all subdirectories
