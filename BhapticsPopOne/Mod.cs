@@ -59,7 +59,7 @@ namespace BhapticsPopOne
          */
         private void RootInit()
         {
-            if (instance is null)
+            if (instance == null)
             {
                 instance = this;
             }
@@ -116,7 +116,7 @@ namespace BhapticsPopOne
                 string failedMethodsMessage = String.Join(", ", failedMethods.Select(x =>
                 {
                     var delaringClass = x.DeclaringType;
-                    if (delaringClass is null) return x.Name;
+                    if (delaringClass == null) return x.Name;
                     return $"{delaringClass.Name}.{x.Name}";
                 }));
                 

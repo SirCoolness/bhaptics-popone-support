@@ -15,14 +15,26 @@
             else if (handed == Handedness.Right)
                 effectExtension = "_R";
 
-            if (name  == "SniperAWP" || name == "Pistol357")
-                Mod.Instance.Haptics.Player.SubmitRegistered($"RecoilLevel9001{effectExtension}");
+            if (name == "SniperAWP" || name == "Pistol357")
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel9001{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{effectExtension}");
+            }
             else if (type == FirearmClass.SMG)
-                Mod.Instance.Haptics.Player.SubmitRegistered($"RecoilLevel1{effectExtension}");
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{effectExtension}");
+            }
             else if (type == FirearmClass.Pistol || type == FirearmClass.AR)
-                Mod.Instance.Haptics.Player.SubmitRegistered($"RecoilLevel2{effectExtension}");
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{effectExtension}");
+            }
             else if (type == FirearmClass.Sniper || type == FirearmClass.Shotgun)
-                Mod.Instance.Haptics.Player.SubmitRegistered($"RecoilLevel3{effectExtension}");
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{effectExtension}");
+            }
         }
     }
 }
