@@ -74,17 +74,5 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("EatBanana");
 
         }
-
-        public static void FirearmFire(FirearmClass type, string name)
-        {
-            if (name  == "SniperAWP" || name == "Pistol357")
-                Mod.Instance.Haptics.Player.SubmitRegistered("RecoilLevel9001_R");
-            else if (type == FirearmClass.SMG)
-                Mod.Instance.Haptics.Player.SubmitRegistered("RecoilLevel1_R");
-            else if (type == FirearmClass.Pistol || type == FirearmClass.AR)
-                Mod.Instance.Haptics.Player.SubmitRegistered("RecoilLevel2_R");
-            else if (type == FirearmClass.Sniper || type == FirearmClass.Shotgun)
-                Mod.Instance.Haptics.Player.SubmitRegistered("RecoilLevel3_R");
-        }
     }
 }
