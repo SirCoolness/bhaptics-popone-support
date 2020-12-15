@@ -74,5 +74,10 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("EatBanana");
 
         }
+
+        public static void LowHealthHeartbeat()
+        {
+            Mod.Instance.Haptics.Player.SubmitRegistered("Heartbeat2");
+        }
     }
 }
