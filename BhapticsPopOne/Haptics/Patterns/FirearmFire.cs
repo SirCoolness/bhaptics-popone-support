@@ -23,17 +23,17 @@
             else if (type == FirearmClass.SMG)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{effectExtension}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{effectExtension}");
             }
             else if (type == FirearmClass.Pistol || type == FirearmClass.AR)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{effectExtension}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{effectExtension}");
             }
             else if (type == FirearmClass.Sniper || type == FirearmClass.Shotgun)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{effectExtension}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{effectExtension}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{effectExtension}");
             }
         }
     }
