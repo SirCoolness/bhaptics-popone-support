@@ -95,6 +95,7 @@
         <Compile Include="Haptics\ConnectionManager.cs" />
         <Compile Include="Haptics\EffectLoop.cs" />
         <Compile Include="Haptics\PatternManager.cs" />
+        <Compile Include="Haptics\Patterns\FirearmFire.cs" />
         <Compile Include="Mod.cs" />
         <Compile Include="Patches\PlayerFirearm.cs" />
         <Compile Include="Patches\PlayerBuff.cs" />

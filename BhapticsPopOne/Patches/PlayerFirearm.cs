@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Linq;
 using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.Patterns;
 using Goyfs.Instance;
 using Goyfs.Signal;
 using Harmony;
@@ -19,8 +20,7 @@ namespace BhapticsPopOne.Data
             if (__instance.container != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
             
-            MelonLogger.Log(__instance.usableBehaviour.Info.name);
-            PatternManager.FirearmFire(__instance.usableBehaviour.Info.Class, __instance.usableBehaviour.Info.name);
+            FirearmFire.Execute(__instance.usableBehaviour.Info.Class, __instance.usableBehaviour.Info.name);
         }
     }
 }
