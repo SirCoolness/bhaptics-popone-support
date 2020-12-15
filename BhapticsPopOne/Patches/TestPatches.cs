@@ -24,7 +24,7 @@ namespace BhapticsPopOne.Patches
             foreach (var methodInfo in _methodsToTest)
             {
                 var patchStatus = Mod.Instance.harmonyInstance.GetPatchInfo(methodInfo);
-                if (patchStatus is null)
+                if (patchStatus == null)
                 {
                     pass = false;
                     results.Add(methodInfo);
