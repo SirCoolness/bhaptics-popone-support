@@ -101,5 +101,20 @@ namespace BhapticsPopOne.Data
             
             return null;
         }
+
+        public Transform VestReference()
+        {
+            var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
+            if (trans == null)
+            {
+                MelonLogger.Log("cant find transform");
+                return null;
+            }
+
+            var result = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
+                new Il2CppSystem.Text.RegularExpressions.RegexOptions());
+
+            return result;
+        }
     }
 }

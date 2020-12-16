@@ -3,6 +3,7 @@ using Bhaptics.Tact;
 using MelonLoader;
 using UnityEngine;
 using System.IO;
+using Bhaptics.Tact;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -62,19 +63,6 @@ namespace BhapticsPopOne.Haptics
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Electric1", 0.25f);
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Electric1_back", 0.25f);
         }
-        
-        public static void BulletHit(DamageableHitInfo info)
-        {
-            byte[] play = 
-            {
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100
-            };
-        
-            Mod.Instance.Haptics.Player.Submit("Bytes", PositionType.All, play, (int)(100 * Math.Min(info.Power / 10f, 10f)));
-        }
 
         public static void FallDamage()
         {
@@ -95,5 +83,6 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EatBanana");
 
         }
+
     }
 }
