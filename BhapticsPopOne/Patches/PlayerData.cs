@@ -12,8 +12,12 @@ namespace BhapticsPopOne.Patches.PlayerData2
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
                 return;
 
-            MelonLogger.Log(System.ConsoleColor.Blue, "Name: " + __instance.DisplayName);
             MelonLogger.Log(System.ConsoleColor.Red, "Health: " + newValue);
+
+            if(newValue < 20)
+            {
+                PatternManager.LowHealthHeartbeat();
+            }
         }
     }
 }
