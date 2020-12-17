@@ -26,7 +26,7 @@ namespace BhapticsPopOne.Haptics
             _Player = new HapticPlayer("Population: One", "Population: One", state =>
 #pragma warning restore 618
             {
-                MelonLogger.Log($"BHAPTICS CONNECTION STATE {state}");
+                MelonLogger.Log($"BHAPTICS PLAYER: CONNECTION STATE {state}");
             });
         }
 

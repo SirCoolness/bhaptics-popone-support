@@ -62,14 +62,14 @@ namespace BhapticsPopOne.Data
             
             if (colliderRoot == null)
             {
-                MelonLogger.Log("[HIT] Cant find collider root object");
+                // MelonLogger.Log("[HIT] Cant find collider root object");
                 return null;
             }
             
             var skeleton = colliderRoot.GetComponent<DamageableSkeleton>();
             if (skeleton == null)
             {
-                MelonLogger.Log($"[HIT] NO SKELETON FOUND {colliderRoot.name}");
+                // MelonLogger.Log($"[HIT] NO SKELETON FOUND {colliderRoot.name}");
                 return null;
             }
             
@@ -107,7 +107,7 @@ namespace BhapticsPopOne.Data
             var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
             if (trans == null)
             {
-                MelonLogger.Log("cant find transform");
+                MelonLogger.LogError("Can not find player avatar");
                 return null;
             }
 
@@ -121,8 +121,7 @@ namespace BhapticsPopOne.Data
         {
             var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
             if (trans == null)
-            {
-                MelonLogger.Log("cant find transform");
+            {"Can not find player avatar""cant find transform");
                 return null;
             }
 

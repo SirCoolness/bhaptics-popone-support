@@ -13,7 +13,7 @@ namespace BhapticsPopOne
             var local = Mod.Instance.Data.Players.LocalPlayerContainer;
             if (__instance.container == null || local == null)
             {
-                MelonLogger.LogWarning("container is null");
+                // MelonLogger.LogWarning("container is null");
                 return;
             }
             
@@ -23,7 +23,7 @@ namespace BhapticsPopOne
             var name = __instance.model?.Info?.name;
             if (name == null)
             {
-                MelonLogger.LogWarning("cant find buff info");
+                // MelonLogger.LogWarning("cant find buff info");
                 return;
             }
 
