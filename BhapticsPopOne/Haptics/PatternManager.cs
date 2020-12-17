@@ -3,7 +3,6 @@ using Bhaptics.Tact;
 using MelonLoader;
 using UnityEngine;
 using System.IO;
-using Bhaptics.Tact;
 
 namespace BhapticsPopOne.Haptics
 {
