@@ -19,6 +19,8 @@ namespace BhapticsPopOne.Haptics
             "Arm"
         };
 
+        public static float VestHeight = 0.7f;
+
         // loads all subdirectories
         // TODO: change to recursive
         public static void LoadPatterns()

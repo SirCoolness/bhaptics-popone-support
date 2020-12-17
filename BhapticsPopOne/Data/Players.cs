@@ -116,5 +116,20 @@ namespace BhapticsPopOne.Data
 
             return result;
         }
+        
+        public Transform DebugHandReference()
+        {
+            var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
+            if (trans == null)
+            {
+                MelonLogger.Log("cant find transform");
+                return null;
+            }
+
+            var result = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:hand_r.*",
+                new Il2CppSystem.Text.RegularExpressions.RegexOptions());
+
+            return result;
+        }
     }
 }

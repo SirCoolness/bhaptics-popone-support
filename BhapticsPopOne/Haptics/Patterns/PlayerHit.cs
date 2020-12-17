@@ -48,30 +48,32 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             Vector3 forward = Quaternion.Euler(0, -90f, 0) * vestRef.forward;
             var angle = BhapticsUtils.Angle(forward, -info.Forward);
+
+            float offsetY = Mathf.Clamp((info.ImpactPosition.y - vestRef.position.y) / PatternManager.VestHeight, -0.5f, 0.5f);
             
             if (Array.Exists(BulletWeapons, el => el == info.Weapon))
-                BulletHit(info, -angle, 0f);
+                BulletHit(info, -angle, offsetY);
             else if (Array.Exists(ExplosionItems, el => el == info.Weapon))
                 ExplosionHit(info, -angle);
         }
 
-        public static void BulletHit(DamageableHitInfo info, float angle, float yOffset)
+        public static void BulletHit(DamageableHitInfo info, float angle, float offsetY)
         {
             if (Array.Exists(Shotguns, el => el == info.Weapon))
             {
                 // TODO: add shotgun effect random variants
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Shotgun", new RotationOption(angle, 0));
+                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Shotgun", new RotationOption(angle, offsetY));
                 return;
             }
 
             var damage = info.Damage * -1;
 
             if (damage > 75)
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_HighDamage", new RotationOption(angle, 0));
+                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_HighDamage", new RotationOption(angle, offsetY));
             else if (damage > 19)
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level2", new RotationOption(angle, 0));
+                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level2", new RotationOption(angle, offsetY));
             else
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level1", new RotationOption(angle, 0));
+                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level1", new RotationOption(angle, offsetY));
         }
 
         public static void ExplosionHit(DamageableHitInfo info, float angle)
