@@ -43,4 +43,21 @@ namespace BhapticsPopOne.Patches.PlayerData2
 
         }
     }
+
+    [HarmonyPatch(typeof(PlayerData), "PlayerState", MethodType.Setter)]
+    public class PlayerStateSetter
+    {
+        // haptics while player in a pod
+        static void Prefix(PlayerData __instance, PlayerState value)
+        {
+            if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
+                return;
+
+            if (value == PlayerState.InDropPod)
+            {
+                PatternManager.DuringPod();
+            }
+
+        }
+    }
 }
