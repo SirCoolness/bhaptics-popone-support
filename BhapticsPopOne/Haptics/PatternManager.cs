@@ -20,6 +20,7 @@ namespace BhapticsPopOne.Haptics
         };
 
         // loads all subdirectories
+        // TODO: change to recursive
         public static void LoadPatterns()
         {
             foreach (var subdirectory in subdirectories)
