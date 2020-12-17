@@ -14,8 +14,6 @@ namespace BhapticsPopOne.Patches.PlayerData2
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
                 return;
 
-            MelonLogger.Log(System.ConsoleColor.DarkBlue, "[SyncHealth] Name: " + __instance.DisplayName);
-            MelonLogger.Log(System.ConsoleColor.DarkBlue, "oldValue: " + oldValue + " newValue: " + newValue);
 
             if (newValue < 25 && oldValue >= 25)
             {
@@ -24,22 +22,20 @@ namespace BhapticsPopOne.Patches.PlayerData2
         }
     }
 
-    [HarmonyPatch(typeof(PlayerData), "SyncMotionState")]
-    public class SyncMotionState
+    [HarmonyPatch(typeof(PlayerData), "MotionState", MethodType.Setter)]
+    public class MotionStateSetter
     {
         // haptics while flying
-        static void Prefix(PlayerData __instance, MotionState oldValue, MotionState newValue)
+        static void Prefix(PlayerData __instance, MotionState value)
         {
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
                 return;
 
-            MelonLogger.Log(System.ConsoleColor.Red, "[SyncMotionState] Name: " + __instance.DisplayName);
-            MelonLogger.Log(System.ConsoleColor.Red, "oldValue: " + oldValue + " newValue: " + newValue);
-
-            if (oldValue != MotionState.Flying && newValue == MotionState.Flying)
+            if (value == MotionState.Flying)
             {
                 PatternManager.FlyingAir();
             }
+
         }
-    }
+}
 }
