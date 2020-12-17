@@ -11,10 +11,12 @@ namespace BhapticsPopOne.Patches.PlayerData2
         // heartbeat when HP under 25
         static void Prefix(PlayerData __instance, int oldValue, int newValue)
         {
-            if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
+            var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
+            
+            if (playerData == null || __instance != playerData)
                 return;
-
-
+    
+    
             if (newValue < 25 && oldValue >= 25)
             {
                 PatternManager.LowHealthHeartbeat();
@@ -28,7 +30,9 @@ namespace BhapticsPopOne.Patches.PlayerData2
         // haptics while flying & falling
         static void Prefix(PlayerData __instance, MotionState value)
         {
-            if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
+            var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
+            
+            if (playerData == null || __instance != playerData)
                 return;
 
             if (value == MotionState.Flying)
