@@ -121,7 +121,8 @@ namespace BhapticsPopOne.Data
         {
             var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
             if (trans == null)
-            {"Can not find player avatar""cant find transform");
+            {
+                MelonLogger.Log("Can not find player avatar can't find transform");
                 return null;
             }
 
