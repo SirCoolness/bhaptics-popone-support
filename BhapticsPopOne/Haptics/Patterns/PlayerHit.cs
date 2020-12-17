@@ -51,9 +51,8 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (Array.Exists(BulletWeapons, el => el == info.Weapon))
                 BulletHit(info, -angle, 0f);
-            else if (Array.Exists(BulletWeapons, el => el == info.Weapon))
+            else if (Array.Exists(ExplosionItems, el => el == info.Weapon))
                 ExplosionHit(info, -angle);
-            // Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/TestBullet", new RotationOption(-angle, 0));
         }
 
         public static void BulletHit(DamageableHitInfo info, float angle, float yOffset)
@@ -65,9 +64,11 @@ namespace BhapticsPopOne.Haptics.Patterns
                 return;
             }
 
-            if (info.Damage > 100)
+            var damage = info.Damage * -1;
+
+            if (damage > 75)
                 Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_HighDamage", new RotationOption(angle, 0));
-            else if (info.Damage > 19)
+            else if (damage > 19)
                 Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level2", new RotationOption(angle, 0));
             else
                 Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level1", new RotationOption(angle, 0));
@@ -75,8 +76,10 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void ExplosionHit(DamageableHitInfo info, float angle)
         {
+            var damage = info.Damage * -1;
+            
             // TODO: add level in between
-            if (info.Damage > 65)
+            if (damage > 60)
                 Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/ExplosionHit_Level2", new RotationOption(angle, 0f));
             else
             {
