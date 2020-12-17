@@ -1,5 +1,6 @@
 ﻿using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
+using BigBoxVR.BattleRoyale.Models.Shared;
 using Harmony;
 using MelonLoader;
 
@@ -12,9 +13,11 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             {
                 if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
                     return;
-                
+
                 if (info.Source == HitSourceCategory.Bot || info.Source == HitSourceCategory.Player)
+                {
                     PlayerHit.Execute(info);
+                }
                 else if (info.Source == HitSourceCategory.BattleZone)
                     PatternManager.ZoneHit();
                 else if (info.Source == HitSourceCategory.Falling)
