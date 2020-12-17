@@ -101,5 +101,13 @@ namespace BhapticsPopOne.Haptics
         {
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/HeartbeatMultiple");
         }
+
+        public static void FlyingAir()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FlyingAir"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FlyingAir");
+            }
+        }
     }
 }
