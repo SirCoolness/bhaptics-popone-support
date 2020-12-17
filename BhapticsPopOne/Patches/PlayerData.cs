@@ -25,7 +25,7 @@ namespace BhapticsPopOne.Patches.PlayerData2
     [HarmonyPatch(typeof(PlayerData), "MotionState", MethodType.Setter)]
     public class MotionStateSetter
     {
-        // haptics while flying
+        // haptics while flying & falling
         static void Prefix(PlayerData __instance, MotionState value)
         {
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
@@ -36,6 +36,11 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 PatternManager.FlyingAir();
             }
 
+            if (value == MotionState.Falling)
+            {
+                PatternManager.FallingAir();
+            }
+
         }
-}
+    }
 }
