@@ -98,7 +98,12 @@ namespace BhapticsPopOne.Haptics
 
         public static void LowHealthHeartbeat()
         {
-            Mod.Instance.Haptics.Player.SubmitRegistered("HeartbeatMultiple");
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/HeartbeatMultiple");
+        }
+
+        public static void FlyingAir()
+        {
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FlyingAir");
         }
     }
 }
