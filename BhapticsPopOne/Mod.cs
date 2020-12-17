@@ -1,21 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Text.RegularExpressions;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Patches;
-using BigBoxVR;
-using Goyfs.Instance;
-using Goyfs.Signal;
-using Goyfs.Unity.Context;
-using Harmony;
-using Il2CppSystem;
 using MelonLoader;
-using UnhollowerBaseLib;
-using UnhollowerRuntimeLib;
 using UnityEngine;
-using IntPtr = System.IntPtr;
 using String = System.String;
 
 namespace BhapticsPopOne
@@ -42,7 +31,6 @@ namespace BhapticsPopOne
 
         private LoggingContext _initLoggingContext;
         private LoggingContext _disposeLoggingContext;
-
         private EffectLoop _effectLoop;
 
         public Data.Data Data;
@@ -138,38 +126,12 @@ namespace BhapticsPopOne
 
             Haptics.Stop();
         }
-
+        
         public override void OnFixedUpdate()
         {
             base.OnFixedUpdate();
             
             _effectLoop.FixedUpdate();
         }
-
-        public override void OnLevelWasLoaded(int level)
-        {
-            base.OnLevelWasLoaded(level);
-
-            if (level == 2 || level == 3)
-            {
-                TestRegexFind();
-            }
-        }
-
-        public void TestRegexFind()
-        {
-            var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
-            if (trans == null)
-            {
-                MelonLogger.Log("cant find transform");
-                return;
-            }
-
-            var spine2 = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
-                new Il2CppSystem.Text.RegularExpressions.RegexOptions());
-
-            var spineCenter = spine2.position + spine2.GetComponent<CapsuleCollider>().center;
-        }
-        
     }
 }
