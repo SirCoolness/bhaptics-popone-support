@@ -36,6 +36,11 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 PatternManager.FlyingAir();
             }
 
+            if (value == MotionState.Falling)
+            {
+                PatternManager.FallingAir();
+            }
+
         }
-}
+    }
 }
