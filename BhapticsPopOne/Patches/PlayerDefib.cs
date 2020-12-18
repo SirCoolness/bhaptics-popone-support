@@ -13,8 +13,6 @@ namespace BhapticsPopOne.Patches
         // defibrillator charging with haptics
         static void Prefix(HandControllerMediator __instance, PlayerDefib.DefibState value)
         {
-            MelonLogger.Log(ConsoleColor.Blue, "Defib : " + value);
-
             if (value == PlayerDefib.DefibState.Rubbing)
             {
                 PatternManager.RubbingDefib();
