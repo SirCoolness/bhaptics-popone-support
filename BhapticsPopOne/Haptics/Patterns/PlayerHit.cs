@@ -3,6 +3,7 @@ using Bhaptics.Tact;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using MelonLoader;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -66,6 +67,11 @@ namespace BhapticsPopOne.Haptics.Patterns
                 return;
             }
 
+            if (info.HeadImpact)
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Head/Impact" + Random.RandomRangeInt(1, 4));
+            }
+
             var damage = info.Damage * -1;
 
             if (damage > 75)
@@ -79,8 +85,14 @@ namespace BhapticsPopOne.Haptics.Patterns
         public static void ExplosionHit(DamageableHitInfo info, float angle)
         {
             var damage = info.Damage * -1;
-            
+
+            if (info.HeadImpact)
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Head/Explosion" + Random.RandomRangeInt(1, 3));
+            }
+
             // TODO: add level in between
+            // TODO: You can use ScaleOption!
             if (damage > 60)
                 Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/ExplosionHit_Level2", new RotationOption(angle, 0f));
             else
