@@ -17,7 +17,8 @@ namespace BhapticsPopOne.Haptics
         public static string[] subdirectories = new[]
         {
             "Vest",
-            "Arm"
+            "Arm",
+            "Head"
         };
 
         public static float VestHeight = 0.7f;
