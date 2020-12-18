@@ -64,8 +64,7 @@ namespace BhapticsPopOne.Haptics
         
         public static void ZoneHit()
         {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Electric1", 0.25f);
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Electric1_back", 0.25f);
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
         }
 
         public static void FallDamage()
