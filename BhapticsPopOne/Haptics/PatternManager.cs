@@ -107,6 +107,14 @@ namespace BhapticsPopOne.Haptics
             }
         }
 
+        public static void EnteringPod()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/EnteringPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EnteringPod");
+            }
+        }
+
         public static void DuringPod()
         {
             if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/DuringPod"))
@@ -114,5 +122,7 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/DuringPod");
             }
         }
+
+        
     }
 }

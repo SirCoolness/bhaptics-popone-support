@@ -31,6 +31,8 @@ namespace BhapticsPopOne.Patches.PlayerData2
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
                 return;
 
+            MelonLogger.Log(System.ConsoleColor.Red, value);
+
             if (value == MotionState.Flying)
             {
                 PatternManager.FlyingAir();
@@ -47,15 +49,17 @@ namespace BhapticsPopOne.Patches.PlayerData2
     [HarmonyPatch(typeof(PlayerData), "PlayerState", MethodType.Setter)]
     public class PlayerStateSetter
     {
-        // haptics while player in a pod
+        // haptics when entering
         static void Prefix(PlayerData __instance, PlayerState value)
         {
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer.playerData)
                 return;
 
+            MelonLogger.Log(System.ConsoleColor.Yellow, value);
+
             if (value == PlayerState.InDropPod)
             {
-                PatternManager.DuringPod();
+                PatternManager.EnteringPod();
             }
 
         }
