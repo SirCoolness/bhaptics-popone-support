@@ -98,6 +98,8 @@
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="Patches\PlayerDefib.cs" />
+    <Compile Include="Patches\HandControllerMediator.cs" />
     <Compile Include="Patches\PlayerData.cs" />
     <Compile Include="Patches\PlayerFirearm.cs" />
     <Compile Include="Patches\PlayerBuff.cs" />
@@ -113,6 +115,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>xcopy  /Y "$(TargetDir)$(TargetName).dll" "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods"</PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">

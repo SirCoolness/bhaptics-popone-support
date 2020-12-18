@@ -3,6 +3,7 @@ using Bhaptics.Tact;
 using MelonLoader;
 using UnityEngine;
 using System.IO;
+using BigBox.PopOne.Unity;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -104,6 +105,32 @@ namespace BhapticsPopOne.Haptics
             if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FallingAir"))
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallingAir");
+            }
+        }
+
+        public static void RubbingDefib()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/RubbingDefib_B"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/RubbingDefib_B");
+            }
+
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/RubbingDefib"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/RubbingDefib");
+            }
+        }
+
+        public static void ChargedDefib()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/ChargedDefib_B"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/ChargedDefib_B");
+            }
+
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/ChargedDefib"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ChargedDefib");
             }
         }
     }
