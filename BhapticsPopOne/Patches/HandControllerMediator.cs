@@ -1,5 +1,4 @@
 ﻿using System;
-using System;
 using BigBoxVR;
 using Harmony;
 using MelonLoader;
