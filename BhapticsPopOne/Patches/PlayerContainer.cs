@@ -24,6 +24,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                     PatternManager.FallDamage();
                 else
                     PatternManager.TestPattern();
+
             }
     }
 }

@@ -1,4 +1,5 @@
-﻿using MelonLoader;
+﻿using Bhaptics.Tact;
+using MelonLoader;
 using UnityEngine;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -16,35 +17,80 @@ namespace BhapticsPopOne.Haptics.Patterns
             // DebugRay();
             
             string effectExtension = "";
+            string otherHandeffectExtension = "";
 
             var handed = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.DominantHand;
+            var twoHanded = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.TwoHand == true;
+
+            float intensity = 0.7f;
+            float duration = 1f;
+            
             if (handed == null)
                 return;
 
             if (handed == Handedness.Left)
+            {
                 effectExtension = "_L";
-            else if (handed == Handedness.Right)
+                otherHandeffectExtension = "_R";
+
+            } else if (handed == Handedness.Right)
+            {
                 effectExtension = "_R";
+                otherHandeffectExtension = "_L";
+            }
+
 
             if (name == "SniperAWP" || name == "Pistol357")
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel9001{effectExtension}");
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{effectExtension}");
+
+                if (twoHanded)
+                {
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel9001{otherHandeffectExtension}", 
+                        new ScaleOption(intensity, duration));
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                }
             }
             else if (type == FirearmClass.SMG)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{effectExtension}");
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{effectExtension}");
+
+                if (twoHanded)
+                {
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                }
             }
             else if (type == FirearmClass.Pistol || type == FirearmClass.AR)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{effectExtension}");
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{effectExtension}");
+
+                if (twoHanded)
+                {
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                }
             }
             else if (type == FirearmClass.Sniper || type == FirearmClass.Shotgun)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{effectExtension}");
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{effectExtension}");
+
+                if (twoHanded)
+                {
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                    Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{otherHandeffectExtension}",
+                        new ScaleOption(intensity, duration));
+                }
             }
         }
         

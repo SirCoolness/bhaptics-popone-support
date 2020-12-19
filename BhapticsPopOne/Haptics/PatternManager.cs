@@ -1,8 +1,12 @@
 ﻿using System;
 using Bhaptics.Tact;
 using MelonLoader;
+using MelonLoader.ICSharpCode;
+using Unity;
 using UnityEngine;
 using System.IO;
+using BigBox.PopOne.Unity;
+using System.Collections;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -16,7 +20,8 @@ namespace BhapticsPopOne.Haptics
         public static string[] subdirectories = new[]
         {
             "Vest",
-            "Arm"
+            "Arm",
+            "Head"
         };
 
         public static float VestHeight = 0.7f;
@@ -62,8 +67,7 @@ namespace BhapticsPopOne.Haptics
         
         public static void ZoneHit()
         {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Electric1", 0.25f);
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Electric1_back", 0.25f);
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
         }
 
         public static void FallDamage()
@@ -83,7 +87,6 @@ namespace BhapticsPopOne.Haptics
         { 
             if (state == BuffState.Consumed)
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EatBanana");
-
         }
 
         public static void LowHealthHeartbeat()
@@ -113,6 +116,15 @@ namespace BhapticsPopOne.Haptics
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EnteringPod");
             }
+            
+        }
+
+        public static void LaunchingPod()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/LaunchingPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/LaunchingPod");
+            }
         }
 
         public static void DuringPod()
@@ -123,6 +135,39 @@ namespace BhapticsPopOne.Haptics
             }
         }
 
-        
+        public static void FallingPod()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FallingAir"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallingAir");
+            }
+        }
+
+
+        public static void RubbingDefib()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/RubbingDefib_B"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/RubbingDefib_B");
+            }
+
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/RubbingDefib"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/RubbingDefib");
+            }
+        }
+
+        public static void ChargedDefib()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/ChargedDefib_B"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/ChargedDefib_B");
+            }
+
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/ChargedDefib"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ChargedDefib");
+            }
+        }
     }
 }
