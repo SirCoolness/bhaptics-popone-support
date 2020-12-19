@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.Haptics;
 using BigBoxVR;
 using Harmony;
 using MelonLoader;
@@ -11,7 +12,12 @@ namespace BhapticsPopOne.Patches
         // arms and vest patterns for climbing
         static void Prefix(HandControllerMediator __instance, uint netId, Handedness value)
         {
-            // MelonLogger.Log(ConsoleColor.Blue, "ClimbingHand : " + value);
+            if(value == Handedness.Unknown)
+            {
+                return;
+            }
+
+            PatternManager.Climbing(value);
         }
     }
 }

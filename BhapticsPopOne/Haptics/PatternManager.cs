@@ -167,5 +167,21 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ChargedDefib");
             }
         }
+
+        public static void Climbing(Handedness value)
+        {
+            if(value == Handedness.Left)
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_L");
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
+            }
+
+            if (value == Handedness.Right)
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_R");
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
+            }
+
+        }
     }
 }
