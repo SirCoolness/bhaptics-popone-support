@@ -1,9 +1,12 @@
 ﻿using System;
 using Bhaptics.Tact;
 using MelonLoader;
+using MelonLoader.ICSharpCode;
+using Unity;
 using UnityEngine;
 using System.IO;
 using BigBox.PopOne.Unity;
+using System.Collections;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -84,7 +87,6 @@ namespace BhapticsPopOne.Haptics
         { 
             if (state == BuffState.Consumed)
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EatBanana");
-
         }
 
         public static void LowHealthHeartbeat()
@@ -101,6 +103,38 @@ namespace BhapticsPopOne.Haptics
         }
 
         public static void FallingAir()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FallingAir"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallingAir");
+            }
+        }
+
+        public static void EnteringPod()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/EnteringPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EnteringPod");
+            }
+            
+        }
+        public static void LaunchingPod()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/LaunchingPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/LaunchingPod");
+            }
+        }
+
+        public static void DuringPod()
+        {
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/DuringPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/DuringPod");
+            }
+        }
+
+        public static void FallingPod()
         {
             if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FallingAir"))
             {

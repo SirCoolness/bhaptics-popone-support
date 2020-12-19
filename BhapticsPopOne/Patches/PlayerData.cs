@@ -46,5 +46,5 @@ namespace BhapticsPopOne.Patches.PlayerData2
             }
 
         }
-    }
+    } 
 }
