@@ -69,7 +69,8 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (info.HeadImpact)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Head/Impact" + Random.RandomRangeInt(1, 4));
+                MelonLogger.Log(ConsoleColor.Green, "headshot");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
             }
 
             var damage = info.Damage * -1;
@@ -88,7 +89,7 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (info.HeadImpact)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Head/Explosion" + Random.RandomRangeInt(1, 3));
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Head/ExplosionHit_[{Random.RandomRangeInt(1, 3)}]");
             }
 
             // TODO: add level in between
