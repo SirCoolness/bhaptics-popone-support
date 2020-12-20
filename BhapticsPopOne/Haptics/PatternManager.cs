@@ -186,7 +186,14 @@ namespace BhapticsPopOne.Haptics
 
         public static void ShieldBreak()
         {
+            MelonLogger.Log(ConsoleColor.Magenta, "PLAYING Vest/ShieldBreak");
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ShieldBreak");
+        }
+        
+        public static void ShieldFull()
+        {
+            MelonLogger.Log(ConsoleColor.Magenta, "PLAYING Vest/FullShield");
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FullShield");
         }
     }
 }

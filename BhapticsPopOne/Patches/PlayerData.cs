@@ -46,5 +46,16 @@ namespace BhapticsPopOne.Patches.PlayerData2
             }
 
         }
-    } 
+    }
+
+    [HarmonyPatch(typeof(PlayerData), "Armor", MethodType.Setter)]
+    public class ArmorSetter
+    {
+        // haptics while flying & falling
+        static void Prefix(PlayerData __instance, int value)
+        {
+            if (value >= 100)
+                PatternManager.ShieldFull();
+        }
+    }
 }
