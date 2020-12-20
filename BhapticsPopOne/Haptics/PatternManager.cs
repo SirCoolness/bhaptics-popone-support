@@ -183,5 +183,10 @@ namespace BhapticsPopOne.Haptics
             }
 
         }
+
+        public static void ShieldBreak()
+        {
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ShieldBreak");
+        }
     }
 }
