@@ -1,27 +1,33 @@
-﻿﻿using Harmony;
+﻿using BhapticsPopOne.Haptics.Patterns;
+using Harmony;
 using MelonLoader;
 using UnityEngine;
 
 namespace BhapticsPopOne.DestructibleSceneItem2
 {
-    [HarmonyPatch(typeof(DestructibleSceneItem), "GetHit")]
-    public class GetHit
+    [HarmonyPatch(typeof(DestructibleSceneItem), "LocalDestructItem")]
+    public class LocalDestructItem
     {
-        // using postfix to detect if destroyed 
-        static void Prefix(DestructibleSceneItem __instance, DamageableHitInfo info, Collider impactCollider)
+        // unfortunately this is the only method available to the client
+        static void Prefix(DestructibleSceneItem __instance, Vector3 damagePoint, Vector3 forward, uint owner)
         {
-            if (impactCollider == null)
-            {
+            var container = PlayerContainer.Find(owner);
+            
+            if (!container.isLocalPlayer)
                 return;
-            }
 
-            MelonLogger.Log($"[DESTROY] {__instance.name} {info.Damage} {__instance.IsDestroyed} {impactCollider.name}");
+            float leftDist = Vector3.Distance(container.Avatar.HandLeft.position, damagePoint);
+            float rightDist = Vector3.Distance(container.Avatar.HandRight.position, damagePoint);
+
+
+            if (leftDist > rightDist)
+            {
+                DestructibleHit.Execute(Handedness.Right);
+            }
+            else
+            {
+                DestructibleHit.Execute(Handedness.Left);
+            }
         }
-        
-        // // using postfix to detect if destroyed 
-        // static void Postfix(DestructibleSceneItem __instance, DamageableHitInfo info, Collider impactCollider)
-        // {
-        //     MelonLogger.Log($"[DESTROY] [POST] {__instance.name} {info.Damage} {__instance.IsDestroyed}");
-        // }
     }
 }
