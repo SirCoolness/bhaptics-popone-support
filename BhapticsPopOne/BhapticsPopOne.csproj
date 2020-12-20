@@ -95,9 +95,11 @@
     <Compile Include="Haptics\ConnectionManager.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
+    <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
     <Compile Include="Patches\PlayerDefib.cs" />
     <Compile Include="Patches\HandControllerMediator.cs" />
