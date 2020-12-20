@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Goyfs.Signal;
 using MelonLoader;
 using UnityEngine;
@@ -89,17 +90,10 @@ namespace BhapticsPopOne.Data
             return player;
         }
 
+        [Obsolete("Use PlayerContainer.Find")]
         public PlayerContainer FindPlayerByNetworkID(uint networkId)
         {
-            foreach (var playerContainer in PlayerContainers)
-            {
-                if (playerContainer.netIdentity.netId == networkId)
-                {
-                    return playerContainer;
-                }
-            }
-            
-            return null;
+            return PlayerContainer.Find(networkId);
         }
 
         public Transform VestReference()

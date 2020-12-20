@@ -98,6 +98,7 @@
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
     <Compile Include="Patches\PlayerDefib.cs" />
     <Compile Include="Patches\HandControllerMediator.cs" />
@@ -105,6 +106,7 @@
     <Compile Include="Patches\PlayerFirearm.cs" />
     <Compile Include="Patches\PlayerBuff.cs" />
     <Compile Include="Patches\PlayerContainer.cs" />
+    <Compile Include="Patches\Punch.cs" />
     <Compile Include="Patches\TestPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\BhapticsUtils.cs" />
