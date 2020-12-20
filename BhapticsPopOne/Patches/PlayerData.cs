@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics;
+﻿using System;
+using BhapticsPopOne.Haptics;
 using Harmony;
 using MelonLoader;
 using BigBoxVR.BattleRoyale.Models.Shared;
@@ -48,13 +49,17 @@ namespace BhapticsPopOne.Patches.PlayerData2
         }
     }
 
-    [HarmonyPatch(typeof(PlayerData), "Armor", MethodType.Setter)]
-    public class ArmorSetter
+    [HarmonyPatch(typeof(PlayerData), "Networkarmor", MethodType.Setter)]
+    public class NetworkarmorSetter
     {
-        // haptics while flying & falling
         static void Prefix(PlayerData __instance, int value)
         {
-            if (value >= 100)
+            var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
+            
+            if (playerData == null || __instance != playerData)
+                return;
+            
+            if (value >= PlayerData.MaxArmor)
                 PatternManager.ShieldFull();
         }
     }
