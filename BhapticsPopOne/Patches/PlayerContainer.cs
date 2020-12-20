@@ -26,6 +26,10 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 else
                     PatternManager.TestPattern();
 
+                if (info.ArmorBroke)
+                {
+                    PatternManager.ShieldBreak();
+                }
             }
     }
 }
