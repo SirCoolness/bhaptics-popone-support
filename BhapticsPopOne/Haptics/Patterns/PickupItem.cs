@@ -5,23 +5,19 @@ namespace BhapticsPopOne.Haptics.Patterns
 {
     public class PickupItem
     {
-        private static Handedness _lastGripHand;
-        
-        public static void UpdateLastGrip(Handedness hand)
+        public static void Execute(Handedness handed)
         {
-            _lastGripHand = hand;
-            
-            MelonLogger.Log(ConsoleColor.Red, _lastGripHand.ToString());
-        }
+            string effectExtension = "";
+            if (handed == Handedness.Left)
+            {
+                effectExtension = "_L";
 
-        public static void Execute()
-        {
-            Execute(_lastGripHand);
-        }
-        
-        public static void Execute(Handedness hand)
-        {
-            MelonLogger.Log($"Pickup with {hand.ToString()}");
+            } else if (handed == Handedness.Right)
+            {
+                effectExtension = "_R";
+            }
+            
+            Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ItemPickup{effectExtension}");
         }
     }
 }
