@@ -3,7 +3,9 @@ using BigBoxVR;
 using Harmony;
 using MelonLoader;
 using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.Patterns;
 using BigBox.PopOne.Unity;
+using UnityEngine;
 
 namespace BhapticsPopOne.Patches
 {
@@ -11,7 +13,7 @@ namespace BhapticsPopOne.Patches
     public class OnDefibStateChanged
     {
         // defibrillator charging with haptics
-        static void Prefix(HandControllerMediator __instance, PlayerDefib.DefibState value)
+        static void Prefix(PlayerDefib __instance, PlayerDefib.DefibState value)
         {
             if (value == PlayerDefib.DefibState.Rubbing)
             {
@@ -22,6 +24,18 @@ namespace BhapticsPopOne.Patches
             {
                 PatternManager.ChargedDefib();
             }
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerDefib), "UserCode_RpcReviveEffects")]
+    public class UserCode_RpcReviveEffects
+    {
+        static void Prefix(PlayerDefib __instance, uint revivedPlayerNetId, Vector3 position, Vector3 lookAt)
+        {
+            if (!PlayerContainer.Find(revivedPlayerNetId).isLocalPlayer)
+                return;
+            
+            PlayerRevived.Execute(position, lookAt);
         }
     }
 }
