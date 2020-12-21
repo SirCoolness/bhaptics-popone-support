@@ -98,6 +98,7 @@
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
+    <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
