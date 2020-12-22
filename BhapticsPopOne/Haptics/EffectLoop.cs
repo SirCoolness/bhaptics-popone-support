@@ -1,34 +1,29 @@
-﻿namespace BhapticsPopOne.Haptics
+﻿using BhapticsPopOne.Haptics.Patterns;
+using MelonLoader;
+
+namespace BhapticsPopOne.Haptics
 {
     public class EffectLoop
     {
-        private bool firstActiveBuff = true;
-
-        private bool ConsumeEnergyDrinkStatus = false;
+        private bool ActiveBuffPlaying = false;
         
         private void PlayActiveBuff()
         {
-            if (firstActiveBuff && ConsumeEnergyDrinkStatus)
-                return;
-            
-            var active = Mod.Instance.Data.Players.LocalPlayerContainer?.playerBuff?.healthOverTimes;
+            var active = DrinkSoda.estimatedSodaEffects;
 
             if (active == null)
                 return;
             
-            firstActiveBuff = false;
-
             if (active.Count < 1)
             {
-                firstActiveBuff = false;
-                Mod.Instance.Haptics.Player.TurnOff("ActiveBuff");
+                Mod.Instance.Haptics.Player.TurnOff("Vest/ActiveBuff");
                 return;
             }
-
-            if (Mod.Instance.Haptics.Player.IsPlaying("ActiveBuff"))
-                return;
             
-            Mod.Instance.Haptics.Player.SubmitRegistered("ActiveBuff");
+            if (ActiveBuffPlaying)
+                return;
+
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ActiveBuff");
         }
 
         private int statusSlowdown = 0;
@@ -42,13 +37,13 @@
             }
             
             statusSlowdown = 0;
-            ConsumeEnergyDrinkStatus = Mod.Instance.Haptics.Player.IsPlaying("ConsumeEnergyDrink");
+            ActiveBuffPlaying = Mod.Instance.Haptics.Player.IsPlaying("Vest/ActiveBuff");
         }
         
         public void FixedUpdate()
         {
-            // UpdateStatus();
-            // PlayActiveBuff();
+            UpdateStatus();
+            PlayActiveBuff();
         }
     }
 }

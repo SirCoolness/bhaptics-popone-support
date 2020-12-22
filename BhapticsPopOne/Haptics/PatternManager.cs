@@ -75,14 +75,6 @@ namespace BhapticsPopOne.Haptics
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ExplosionUp3_both", 0.15f);
         }
 
-        public static void DrinkSoda(BuffState state)
-        {
-            if (state != BuffState.Consumed)
-                return;
-            
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem");
-        }
-        
         public static void EatBanana(BuffState state)
         { 
             if (state != BuffState.Consumed)

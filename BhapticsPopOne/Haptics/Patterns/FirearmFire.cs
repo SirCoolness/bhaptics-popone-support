@@ -1,4 +1,5 @@
-﻿using Bhaptics.Tact;
+﻿using System;
+using Bhaptics.Tact;
 using MelonLoader;
 using UnityEngine;
 

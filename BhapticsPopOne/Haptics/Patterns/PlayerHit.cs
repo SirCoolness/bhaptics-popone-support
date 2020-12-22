@@ -69,7 +69,6 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (info.HeadImpact)
             {
-                MelonLogger.Log(ConsoleColor.Green, "headshot");
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
             }
 
