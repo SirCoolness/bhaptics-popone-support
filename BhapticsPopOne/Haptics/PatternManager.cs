@@ -80,13 +80,16 @@ namespace BhapticsPopOne.Haptics
             if (state != BuffState.Consumed)
                 return;
             
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeEnergyDrink");
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem");
         }
         
         public static void EatBanana(BuffState state)
         { 
-            if (state == BuffState.Consumed)
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EatBanana");
+            if (state != BuffState.Consumed)
+                return;
+            
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem");
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/BananaHeal");
         }
 
         public static void LowHealthHeartbeat()
