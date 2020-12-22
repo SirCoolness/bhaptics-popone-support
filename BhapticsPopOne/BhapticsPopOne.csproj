@@ -100,6 +100,7 @@
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
+    <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />

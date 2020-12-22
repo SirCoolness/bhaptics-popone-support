@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
 
@@ -9,9 +10,15 @@ namespace BhapticsPopOne.PlayerInventory2
     {
         static void Prefix(PlayerInventory __instance, int value)
         {
-            MelonLogger.Log(ConsoleColor.Gray, value);
-            if (!__instance.isLocalPlayer)
+            var containerData = PlayerContainer.Find(__instance.netId)?.Data;
+            if (containerData?.isLocalPlayer != true)
                 return;
+            
+            var current = __instance.NetworkequipIndex;
+            if (value == current)
+                return;
+            
+            WeaponSwap.Execute(current, value);
         }
     }
 }
