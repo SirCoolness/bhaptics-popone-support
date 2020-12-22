@@ -1,7 +1,12 @@
-﻿using BhapticsPopOne.Haptics;
+﻿using System;
+using System.Collections;
+using System.Runtime.InteropServices;
+using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.Patterns;
 using BigBoxVR;
 using Harmony;
 using MelonLoader;
+using UnhollowerBaseLib;
 
 namespace BhapticsPopOne
 {
@@ -20,6 +25,7 @@ namespace BhapticsPopOne
             if (__instance.container != local)
                 return;
 
+            
             var name = __instance.model?.Info?.name;
             if (name == null)
             {
@@ -29,7 +35,7 @@ namespace BhapticsPopOne
 
             if (name == "EnergyDrink")
             {
-                PatternManager.DrinkSoda(state);
+                DrinkSoda.Execute(__instance.model.Info.TimeToApply, state);
             } else if (name == "Banana")
             {
                 PatternManager.EatBanana(state);

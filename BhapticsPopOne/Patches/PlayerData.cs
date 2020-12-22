@@ -1,5 +1,6 @@
 ﻿using System;
 using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
 using BigBoxVR.BattleRoyale.Models.Shared;
@@ -21,6 +22,11 @@ namespace BhapticsPopOne.Patches.PlayerData2
             if (newValue < 25 && oldValue >= 25)
             {
                 PatternManager.LowHealthHeartbeat();
+            }
+
+            if (newValue >= PlayerData.MaxHealth)
+            {
+                DrinkSoda.FullHealth();
             }
         }
     }
