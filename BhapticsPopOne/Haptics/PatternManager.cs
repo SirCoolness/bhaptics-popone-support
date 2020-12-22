@@ -96,6 +96,11 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FlyingAir");
             }
         }
+        
+        public static void FlyingAirClear()
+        {
+            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir");
+        }
 
         public static void FallingAir()
         {
@@ -103,6 +108,11 @@ namespace BhapticsPopOne.Haptics
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallingAir");
             }
+        }
+        
+        public static void FallingAirClear()
+        {
+            Mod.Instance.Haptics.Player.TurnOff("Vest/FallingAir");
         }
 
         public static void EnteringPod()

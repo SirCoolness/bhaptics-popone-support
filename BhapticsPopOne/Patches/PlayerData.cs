@@ -42,16 +42,20 @@ namespace BhapticsPopOne.Patches.PlayerData2
             if (playerData == null || __instance != playerData)
                 return;
 
+            MotionState previousValue = __instance.MotionState;
+            
+            if (value != previousValue)
+            {
+                if (previousValue == MotionState.Flying)
+                    PatternManager.FlyingAirClear();
+                else if (previousValue == MotionState.Falling)
+                    PatternManager.FallingAirClear();
+            }
+            
             if (value == MotionState.Flying)
-            {
                 PatternManager.FlyingAir();
-            }
-
-            if (value == MotionState.Falling)
-            {
+            else if (value == MotionState.Falling)
                 PatternManager.FallingAir();
-            }
-
         }
     }
 
