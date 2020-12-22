@@ -16,6 +16,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem");
             
+            // TODO: check against server time instead
             estimatedSodaEffects.Add(true);
             Task.Delay(TimeSpan.FromSeconds(consumptionTime)).ContinueWith(t =>
             {
