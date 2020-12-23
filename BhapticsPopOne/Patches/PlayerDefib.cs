@@ -4,7 +4,6 @@ using Harmony;
 using MelonLoader;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
-using BigBox.PopOne.Unity;
 using UnityEngine;
 
 namespace BhapticsPopOne.Patches
