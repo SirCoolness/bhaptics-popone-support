@@ -1,4 +1,5 @@
 ﻿using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
 using BigBoxVR.BattleRoyale.Models.Shared;
@@ -39,7 +40,7 @@ namespace BhapticsPopOne.Patches
             {
                 if (__instance.attachedContainer.playerData.MotionState == MotionState.Idle || __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal)
                 {
-                    PatternManager.FallDamage();
+                    FallDamage.Execute(75, 500f);
                 }
             }
             else
