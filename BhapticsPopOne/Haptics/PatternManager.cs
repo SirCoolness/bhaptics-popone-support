@@ -5,7 +5,6 @@ using MelonLoader.ICSharpCode;
 using Unity;
 using UnityEngine;
 using System.IO;
-using BigBox.PopOne.Unity;
 using System.Collections;
 
 namespace BhapticsPopOne.Haptics
