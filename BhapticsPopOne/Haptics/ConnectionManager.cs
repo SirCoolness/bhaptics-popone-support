@@ -6,35 +6,32 @@ namespace BhapticsPopOne.Haptics
     // TODO: use HapticPlayerManager
     public class ConnectionManager
     {
-        // public HapticPlayerManager HapticPlayerManager = null;
+        public HapticPlayerManager HapticPlayerManager = null;
 
-        private IHapticPlayer _Player;
+        public PlayerResponse Status = null;
 
         public IHapticPlayer Player
         {
             get
             {
-                // return HapticPlayerManager.GetHapticPlayer();
-                return _Player;
+                return HapticPlayerManager.GetHapticPlayer();
             }
         }
 
         public void Start()
         {
-            // HapticPlayerManager = HapticPlayerManager.Instance();
-#pragma warning disable 618
-            _Player = new HapticPlayer("Population: One", "Population: One", state =>
-#pragma warning restore 618
-            {
-                MelonLogger.Log($"BHAPTICS PLAYER: CONNECTION STATE {state}");
-            });
+            HapticPlayerManager = HapticPlayerManager.Instance();
+            Player.StatusReceived += PlayerStatus;
         }
 
         public void Stop()
         {
-            // HapticPlayerManager.Dispose();
-            _Player.Disable();
-            _Player.Dispose();
+            HapticPlayerManager.Dispose();
+        }
+
+        public void PlayerStatus(PlayerResponse res)
+        {
+            Status = res;
         }
     }
 }

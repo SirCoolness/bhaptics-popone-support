@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics;
+﻿using System;
+using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using Harmony;
@@ -22,7 +23,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 else if (info.Source == HitSourceCategory.BattleZone)
                     PatternManager.ZoneHit();
                 else if (info.Source == HitSourceCategory.Falling)
-                    PatternManager.FallDamage();
+                    FallDamage.Execute(-info.Damage, info.Power);
                 else
                     PatternManager.TestPattern();
 

@@ -46,9 +46,9 @@ namespace BhapticsPopOne.Haptics
             {
                 var label = Path.GetFileNameWithoutExtension(file);
                 Mod.Instance.Haptics.Player.RegisterTactFileStr($"{subdirectory}/{label}", System.IO.File.ReadAllText(file));
+                
+                MelonLogger.Log($"[Pattern Loader] Loaded [{subdirectory}/{label}]");
             }
-            
-            MelonLogger.Log("Loaded patterns");
         }
         
         public static void TestPattern()
@@ -67,11 +67,6 @@ namespace BhapticsPopOne.Haptics
         public static void ZoneHit()
         {
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
-        }
-
-        public static void FallDamage()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ExplosionUp3_both", 0.15f);
         }
 
         public static void EatBanana(BuffState state)
