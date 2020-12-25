@@ -9,7 +9,12 @@ namespace BhapticsPopOne.PlayerFirearmUsableBehaviour2
     {
         static void Prefix(PlayerFirearmUsableBehaviour __instance, FirearmState value)
         {
-            if (!__instance.playerContainer.isLocalPlayer)
+            var netId = __instance.playerContainer?.netId;
+            
+            if (netId == null)
+                return;
+            
+            if (!PlayerContainer.Find(netId.Value).isLocalPlayer)
                 return;
             
             ReloadWeapon.Execute(value);
