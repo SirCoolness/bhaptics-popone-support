@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Bhaptics.Tact;
 using MelonLoader;
 using UnityEngine;
@@ -43,52 +44,48 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (name == "SniperAWP" || name == "Pistol357")
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel9001{effectExtension}");
+                PlayPooledEffect($"Vest/RecoilLevel9001{effectExtension}", 4);
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{effectExtension}");
 
                 if (twoHanded)
                 {
-                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel9001{otherHandeffectExtension}", 
-                        new ScaleOption(intensity, duration));
+                    PlayPooledEffect($"Vest/RecoilLevel9001{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
             }
             else if (type == FirearmClass.SMG)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{effectExtension}");
+                PlayPooledEffect($"Vest/RecoilLevel1{effectExtension}", 4);
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{effectExtension}");
 
                 if (twoHanded)
                 {
-                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel1{otherHandeffectExtension}",
-                        new ScaleOption(intensity, duration));
+                    PlayPooledEffect($"Vest/RecoilLevel1{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
             }
             else if (type == FirearmClass.Pistol || type == FirearmClass.AR)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{effectExtension}");
+                PlayPooledEffect($"Vest/RecoilLevel2{effectExtension}", 4);
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{effectExtension}");
 
                 if (twoHanded)
                 {
-                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel2{otherHandeffectExtension}",
-                        new ScaleOption(intensity, duration));
+                    PlayPooledEffect($"Vest/RecoilLevel2{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
             }
             else if (type == FirearmClass.Sniper || type == FirearmClass.Shotgun)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{effectExtension}");
+                PlayPooledEffect($"Vest/RecoilLevel3{effectExtension}", 4);
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{effectExtension}");
 
                 if (twoHanded)
                 {
-                    Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/RecoilLevel3{otherHandeffectExtension}",
-                        new ScaleOption(intensity, duration));
+                    PlayPooledEffect($"Vest/RecoilLevel3{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
@@ -118,6 +115,21 @@ namespace BhapticsPopOne.Haptics.Patterns
             line2.DrawLineInGameView(pos1, pos2, Color.blue);
             
             MelonLogger.Log(Logging.StringifyVector3(new Vector3(Mathf.Abs(pos1.x - pos2.x), Mathf.Abs(pos1.y - pos2.y), Mathf.Abs(pos1.z - pos2.z))));
+        }
+        
+        public static void PlayPooledEffect(string effect, int poolSize, [Optional] ScaleOption scale)
+        {
+            for (int i = 0; i < poolSize; i++)
+            {
+                if (!Mod.Instance.Haptics.Player.IsPlaying($"{effect}_Pool{i + 1}"))
+                {
+                    if (scale != null)
+                        Mod.Instance.Haptics.Player.SubmitRegistered($"{effect}_Pool{i + 1}", scale);
+                    else 
+                        Mod.Instance.Haptics.Player.SubmitRegistered($"{effect}_Pool{i + 1}");
+                    return;
+                }
+            }
         }
     }
 }
