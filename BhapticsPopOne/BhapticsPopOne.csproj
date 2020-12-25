@@ -104,6 +104,7 @@
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
+    <Compile Include="Haptics\Patterns\ReloadWeapon.cs" />
     <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
@@ -116,6 +117,7 @@
     <Compile Include="Patches\PlayerBuff.cs" />
     <Compile Include="Patches\PlayerContainer.cs" />
     <Compile Include="Patches\LootItem.cs" />
+    <Compile Include="Patches\PlayerFirearmUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerInventory.cs" />
     <Compile Include="Patches\TestPatches.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
