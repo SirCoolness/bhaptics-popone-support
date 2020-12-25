@@ -25,7 +25,6 @@ namespace BhapticsPopOne.LootItem2
     {
         static void Prefix(LootItem __instance, Vector3 ejectVelocity)
         {
-            MelonLogger.Log(__instance.netIdentity.isLocalPlayer);
             if (!__instance.netIdentity.isLocalPlayer)
                 return;
             
