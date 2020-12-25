@@ -46,9 +46,9 @@ namespace BhapticsPopOne.Haptics
             {
                 var label = Path.GetFileNameWithoutExtension(file);
                 Mod.Instance.Haptics.Player.RegisterTactFileStr($"{subdirectory}/{label}", System.IO.File.ReadAllText(file));
+                
+                MelonLogger.Log($"[Pattern Loader] Loaded [{subdirectory}/{label}]");
             }
-            
-            MelonLogger.Log("Loaded patterns");
         }
         
         public static void TestPattern()
@@ -69,11 +69,6 @@ namespace BhapticsPopOne.Haptics
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
         }
 
-        public static void FallDamage()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ExplosionUp3_both", 0.15f);
-        }
-
         public static void EatBanana(BuffState state)
         { 
             if (state != BuffState.Consumed)
@@ -90,15 +85,27 @@ namespace BhapticsPopOne.Haptics
 
         public static void FlyingAir()
         {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FlyingAir"))
+            RaycastHit hit;
+
+            var hitItem = Physics.Raycast(Mod.Instance.Data.Players.VestReference().position, -Vector3.up, out hit);
+
+            string extension = "";
+
+            if (!hitItem || hit.distance > 10f)
+                extension = "_Level2";
+            else
+                extension = "_Level1";
+            
+            if (!Mod.Instance.Haptics.Player.IsPlaying($"Vest/FlyingAir{extension}"))
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FlyingAir");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FlyingAir{extension}");
             }
         }
         
         public static void FlyingAirClear()
         {
-            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir");
+            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir_Level1");
+            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir_Level2");
         }
 
         public static void FallingAir()

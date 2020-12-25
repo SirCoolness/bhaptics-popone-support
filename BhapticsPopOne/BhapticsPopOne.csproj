@@ -97,6 +97,8 @@
     <Compile Include="Haptics\PatternManager.cs" />
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
+    <Compile Include="Haptics\Patterns\DropItem.cs" />
+    <Compile Include="Haptics\Patterns\FallDamage.cs" />
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />

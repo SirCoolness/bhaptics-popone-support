@@ -19,4 +19,17 @@ namespace BhapticsPopOne.LootItem2
             PickupItem.Execute(handedness);
         }
     }
+    
+    [HarmonyPatch(typeof(LootItem), "EjectWithVelocity")]
+    public class EjectWithVelocity
+    {
+        static void Prefix(LootItem __instance, Vector3 ejectVelocity)
+        {
+            MelonLogger.Log(__instance.netIdentity.isLocalPlayer);
+            if (!__instance.netIdentity.isLocalPlayer)
+                return;
+            
+            DropItem.Execute();
+        }
+    }
 }
