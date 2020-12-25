@@ -204,5 +204,10 @@ namespace BhapticsPopOne.Haptics
         {
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FullShield");
         }
+        
+        public static void Victory()
+        {
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Win");
+        }
     }
 }
