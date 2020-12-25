@@ -16,7 +16,6 @@ namespace BhapticsPopOne.UnetGameManager2
 
 
             var playerstate = Mod.Instance.Data.Players.LocalPlayerContainer.Data.PlayerState;
-            MelonLogger.Log(ConsoleColor.Green, $"{playerstate.ToString()}");
             if (playerstate == PlayerState.Eliminated)
                 return;
             
