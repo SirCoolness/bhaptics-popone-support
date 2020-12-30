@@ -56,15 +56,17 @@ namespace BhapticsPopOne.ConfigManager
             var input = new StringReader(contents);
 
             var deserializer = new DeserializerBuilder()
-                .WithNamingConvention(CamelCaseNamingConvention.Instance)
                 .Build();
             
-            return deserializer.Deserialize<Config>(input);
+            var config = deserializer.Deserialize<Config>(input);
+            contentsUpdated = config.Version != Config.CurrentVersion.ToString();
+            
+            return config;
         }
         
         public static bool ConfigExists(string path)
         {
-            return Directory.Exists(path);
+            return File.Exists(path);
         }
 
         public static void WriteConfig(Config config, string path)
