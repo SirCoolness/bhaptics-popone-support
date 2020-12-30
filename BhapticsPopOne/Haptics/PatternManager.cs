@@ -6,12 +6,14 @@ using Unity;
 using UnityEngine;
 using System.IO;
 using System.Collections;
+using BhapticsPopOne.ConfigManager;
 
 namespace BhapticsPopOne.Haptics
 {
     // TODO: NO
     public class PatternManager
     {
+        public static string RootDirectory => FileHelpers.RootDirectory + @"\Effects";
         // an effects name is "{gear}/{effect name}"
         
         // The subdirectories of effects
@@ -39,7 +41,7 @@ namespace BhapticsPopOne.Haptics
         // prefixes them with that subdirectory
         public static void LoadSubDirectory(string subdirectory)
         {
-            string baseDir = Directory.GetCurrentDirectory() + @"\Mods\BhapticsPopOne\Effects" + $"\\{subdirectory}";
+            string baseDir = RootDirectory + $"\\{subdirectory}";
             var files = Directory.GetFiles(baseDir);
             
             foreach (var file in files)
@@ -184,13 +186,15 @@ namespace BhapticsPopOne.Haptics
             if(value == Handedness.Left)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_L");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
+                if (ConfigLoader.Config.VestClimbEffects)
+                    Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
             }
 
             if (value == Handedness.Right)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_R");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
+                if (ConfigLoader.Config.VestClimbEffects)
+                    Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
             }
 
         }

@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Patches;
 using MelonLoader;
@@ -51,7 +53,7 @@ namespace BhapticsPopOne
             {
                 instance = this;
             }
-
+            
             Data = new Data.Data();
             _effectLoop = new EffectLoop();
         }
@@ -63,6 +65,8 @@ namespace BhapticsPopOne
             base.OnApplicationStart();
 
             RootInit();
+            
+            ConfigLoader.InitConfig();
             
             Validation();
             

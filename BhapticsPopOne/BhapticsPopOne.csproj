@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -30,7 +31,6 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <PostBuildEvent Label="Copying to game">copy BhapticsPopOne.dll "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods\"</PostBuildEvent>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
@@ -90,6 +90,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigManager\ConfigElements\Config.cs" />
+    <Compile Include="ConfigManager\ConfigLoader.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\Players.cs" />
     <Compile Include="Haptics\ConnectionManager.cs" />
@@ -123,17 +125,35 @@
     <Compile Include="Patches\UnetGameManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utils\BhapticsUtils.cs" />
+    <Compile Include="Utils\FileHelpers.cs" />
     <Compile Include="Utils\LineDrawer.cs" />
     <Compile Include="Utils\Logging.cs" />
     <Compile Include="Utils\LoggingContext.cs" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="ILMerge" Version="3.0.29" />
+    <PackageReference Include="YamlDotNet" Version="9.1.0" />
+  </ItemGroup>
+  <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="ILMerge">
+    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
+    <Exec Command="$(ILMergeConsolePath) /out:BhapticsPopOne-merged.dll BhapticsPopOne.dll Bhaptics.Tact.dll" />
+  </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy  /Y "$(TargetDir)$(TargetName).dll" "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods"</PostBuildEvent>
+    <PostBuildEvent>^
+$(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll &amp;&amp; ^
+xcopy /y "$(TargetDir)$(TargetName)-Merged.dll" "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods\$(TargetName).dll*"
+    </PostBuildEvent>
   </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.41\build\ILMerge.props'))" />
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
