@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
 using MelonLoader;
 using UnityEngine;
 
@@ -13,6 +14,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static Vector3 pos1 = Vector3.zero;
         private static Vector3 pos2 = Vector3.zero;
+
+        private static float _effectStrength => Mathf.Clamp(ConfigLoader.Config.VestRecoil, 0f, 1f);
+        private static bool _disableVest => _effectStrength <= 0f;
         
         public static void Execute(FirearmClass type, string name)
         {
@@ -24,7 +28,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             var handed = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.DominantHand;
             var twoHanded = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.TwoHand == true;
 
-            float intensity = 0.7f;
+            float intensity = ConfigLoader.Config.OffhandRecoilStrength;
             float duration = 1f;
             
             if (handed == null)
@@ -44,48 +48,56 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (name == "SniperAWP" || name == "Pistol357")
             {
-                PlayPooledEffect($"Vest/RecoilLevel9001{effectExtension}", 4);
+                if (!_disableVest)
+                PlayPooledEffect($"Vest/RecoilLevel9001{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{effectExtension}");
 
                 if (twoHanded)
                 {
-                    PlayPooledEffect($"Vest/RecoilLevel9001{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
+                    if (!_disableVest)
+                        PlayPooledEffect($"Vest/RecoilLevel9001{otherHandeffectExtension}", 4, new ScaleOption(_effectStrength * intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
             }
             else if (type == FirearmClass.SMG)
             {
-                PlayPooledEffect($"Vest/RecoilLevel1{effectExtension}", 4);
+                if (!_disableVest)
+                    PlayPooledEffect($"Vest/RecoilLevel1{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{effectExtension}");
 
                 if (twoHanded)
                 {
-                    PlayPooledEffect($"Vest/RecoilLevel1{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
+                    if (!_disableVest)
+                        PlayPooledEffect($"Vest/RecoilLevel1{otherHandeffectExtension}", 4, new ScaleOption(_effectStrength * intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel1{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
             }
             else if (type == FirearmClass.Pistol || type == FirearmClass.AR)
             {
-                PlayPooledEffect($"Vest/RecoilLevel2{effectExtension}", 4);
+                if (!_disableVest)
+                    PlayPooledEffect($"Vest/RecoilLevel2{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{effectExtension}");
 
                 if (twoHanded)
                 {
-                    PlayPooledEffect($"Vest/RecoilLevel2{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
+                    if (!_disableVest)
+                        PlayPooledEffect($"Vest/RecoilLevel2{otherHandeffectExtension}", 4, new ScaleOption(_effectStrength * intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel2{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
             }
             else if (type == FirearmClass.Sniper || type == FirearmClass.Shotgun)
             {
-                PlayPooledEffect($"Vest/RecoilLevel3{effectExtension}", 4);
+                if (!_disableVest)
+                    PlayPooledEffect($"Vest/RecoilLevel3{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{effectExtension}");
 
                 if (twoHanded)
                 {
-                    PlayPooledEffect($"Vest/RecoilLevel3{otherHandeffectExtension}", 4, new ScaleOption(intensity, duration));
+                    if (!_disableVest)
+                        PlayPooledEffect($"Vest/RecoilLevel3{otherHandeffectExtension}", 4, new ScaleOption(_effectStrength * intensity, duration));
                     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel3{otherHandeffectExtension}",
                         new ScaleOption(intensity, duration));
                 }
