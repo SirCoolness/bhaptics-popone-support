@@ -12,6 +12,7 @@ namespace BhapticsPopOne.Haptics
     // TODO: NO
     public class PatternManager
     {
+        public static string RootDirectory => FileHelpers.RootDirectory + @"\Effects";
         // an effects name is "{gear}/{effect name}"
         
         // The subdirectories of effects
@@ -39,7 +40,7 @@ namespace BhapticsPopOne.Haptics
         // prefixes them with that subdirectory
         public static void LoadSubDirectory(string subdirectory)
         {
-            string baseDir = Directory.GetCurrentDirectory() + @"\Mods\BhapticsPopOne\Effects" + $"\\{subdirectory}";
+            string baseDir = RootDirectory + $"\\{subdirectory}";
             var files = Directory.GetFiles(baseDir);
             
             foreach (var file in files)
