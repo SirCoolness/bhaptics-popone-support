@@ -6,6 +6,7 @@ using Unity;
 using UnityEngine;
 using System.IO;
 using System.Collections;
+using BhapticsPopOne.ConfigManager;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -185,13 +186,15 @@ namespace BhapticsPopOne.Haptics
             if(value == Handedness.Left)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_L");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
+                if (ConfigLoader.Config.VestClimbEffects)
+                    Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
             }
 
             if (value == Handedness.Right)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_R");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
+                if (ConfigLoader.Config.VestClimbEffects)
+                    Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
             }
 
         }
