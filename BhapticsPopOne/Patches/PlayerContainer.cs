@@ -1,6 +1,8 @@
 ﻿using System;
+using BhapticsPopOne.Data;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
+using BhapticsPopOne.MonoBehaviours;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using Harmony;
 using MelonLoader;
@@ -62,6 +64,32 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 FistBump.lastPunchhandR = Handedness.Unknown;
             else if (handedness == Handedness.Left)
                 FistBump.lastPunchhandL = Handedness.Unknown;
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerContainer), "Avatar", MethodType.Setter)]
+    public class AvatarSetter
+    {
+        static void Prefix(PlayerContainer __instance, PlayerAvatar value)
+        {
+            MelonLogger.Log($"{Logging.StringifyVector3(value.HandLeftAttachPoint.transform.position)}");
+        }
+    }
+    
+    [HarmonyPatch(typeof(PlayerContainer), "OnContainerComponentReady")]
+    public class OnContainerComponentReady
+    {
+        static void Postfix(PlayerContainer __instance)
+        {
+            if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
+                return;
+            
+            MelonLogger.Log($"OnContainerComponentReady {Logging.StringifyVector3(__instance.Avatar.HandLeftAttachPoint.transform.position)} {__instance.Data.DisplayName} {__instance.Avatar.IsAvatarReady}");
+            HandCollider.BindToTransform(__instance.Avatar.HandLeftAttachPoint);
+            HandCollider.BindToTransform(__instance.Avatar.HandRightAttachPoint);
+            
+            DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandLeft);
+            DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandRight);
         }
     }
 }
