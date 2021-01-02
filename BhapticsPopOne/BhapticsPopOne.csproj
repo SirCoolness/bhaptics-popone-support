@@ -110,6 +110,7 @@
     <Compile Include="MonoBehaviours\DebugMarker.cs" />
     <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
     <Compile Include="MonoBehaviours\HandCollider.cs" />
+    <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
     <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
     <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />

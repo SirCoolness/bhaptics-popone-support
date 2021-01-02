@@ -2,6 +2,7 @@
 using BhapticsPopOne;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.MonoBehaviours;
+using MelonLoader;
 using UnityEngine;
 
 public static class ModX
@@ -65,5 +66,24 @@ public static class ModX
     {
         var obj1 = GameObject.Find("obj1");
         obj1.transform.position = Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig.transform.position;
+    }
+
+    public static void LookupCollision(int extra)
+    {
+        for (int i = 0; i < 32; i++)
+        {
+            if (!Physics.GetIgnoreLayerCollision(i, i) && !Physics.GetIgnoreLayerCollision(i, extra))
+                MelonLogger.Log(ConsoleColor.Green, $"Self Collision on {i}");
+        }
+    }
+    
+    public static void MaterialLookup()
+    {
+        var materials = Resources.FindObjectsOfTypeAll<Material>();
+        Resources.Load<Material>("MainMenu--Batched");
+        foreach (var material in materials)
+        {
+            MelonLogger.Log(material.name);
+        }
     }
 }
