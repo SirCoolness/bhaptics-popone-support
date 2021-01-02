@@ -49,7 +49,8 @@ namespace BhapticsPopOne.Haptics
                 var label = Path.GetFileNameWithoutExtension(file);
                 Mod.Instance.Haptics.Player.RegisterTactFileStr($"{subdirectory}/{label}", System.IO.File.ReadAllText(file));
                 
-                MelonLogger.Log($"[Pattern Loader] Loaded [{subdirectory}/{label}]");
+                if (ConfigLoader.Config.ShowLoadedEffects)
+                    MelonLogger.Log($"[Pattern Loader] Loaded [{subdirectory}/{label}]");
             }
         }
         

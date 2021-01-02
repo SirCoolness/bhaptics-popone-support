@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Data;
 using BhapticsPopOne;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.MonoBehaviours;
+using Goyfs.Command;
 using MelonLoader;
 using UnityEngine;
 
@@ -113,5 +116,10 @@ public static class ModX
             DestructibleCollisionHelp.BindToTransform(playerContainer.Avatar.HandLeft, Handedness.Left, playerContainer.netId);
             DestructibleCollisionHelp.BindToTransform(playerContainer.Avatar.HandRight, Handedness.Right, playerContainer.netId);
         }
+    }
+    
+    public static void ForceReloadConfig()
+    {
+        ConfigLoader.InitConfig();
     }
 }

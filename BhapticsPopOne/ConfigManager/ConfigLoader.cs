@@ -38,8 +38,17 @@ namespace BhapticsPopOne.ConfigManager
                 WriteConfig(_config, path);
                 return;
             }
-            
-            _config = ParseConfig(configContents);
+
+            bool updated;
+            _config = ParseConfig(configContents, out updated);
+
+            if (updated)
+            {
+                MelonLogger.LogWarning($"!!!CONFIG UPDATED!!! Please verify your settings ({path}).");
+                _config = Config.DefaultConfig;
+                WriteConfig(_config, path);
+                return;
+            }
         }
 
         public static Config ParseConfig(string contents)
