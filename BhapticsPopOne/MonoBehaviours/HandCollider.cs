@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 using UnityEngine;
 using UnhollowerRuntimeLib;
@@ -10,69 +11,86 @@ namespace BhapticsPopOne.MonoBehaviours
 {
     public class HandCollider : MonoBehaviour
     {
-        public static float width = 0.1f;
+        public static float width = 0.115f;
         public static float height = 0.25f;
         
         public HandCollider(System.IntPtr ptr) : base(ptr) {}
 
-        private Punch _punch;
+        public Handedness Hand;
+        public uint OwnerID;
 
-        private Punch Punch
-        {
-            get
-            {
-                if (_punch != null)
-                    return _punch;
+        public static int Layer = 19;
+            
 
-                _punch = GetComponentInParent<Punch>();
-                return _punch;
-            }
-        }
-        
         private void OnTriggerEnter(Collider other)
         {
             // MelonLogger.Log(other.name);
-            
-            if (other.transform.GetComponent<HighFiveTarget>() != null)
-                HandlePunch(other);
+            if (other?.transform == null)
+                return;
+
+            var target = other.transform.GetComponent<HighFiveTarget>();
+            if (target != null)
+                HandlePunch(other, target);
         }
 
-        private void HandlePunch(Collider other)
+        private void HandlePunch(Collider other, HighFiveTarget target)
         {
-            var otherPunch = other.GetComponentInParent<Punch>();
+            // MelonLogger.Log(other.name);
+
+            if (target.Hand == Hand && target.OwnerID == OwnerID)
+                return;
+
+            var owner = PlayerContainer.Find(OwnerID);
+            var otherOwner = PlayerContainer.Find(target.OwnerID);
             
-            MelonLogger.Log(other.name);
-            MelonLogger.Log($"High Five: [{Punch.netIdentity.netId} {Punch.handedness.ToString()}] [{otherPunch.netIdentity.netId} {otherPunch.handedness.ToString()}]");
+            if (otherOwner == null || owner == null)
+                return;
+            
+            if (owner.Inventory.NetworkequipIndex != 0)
+                return;
+            
+
+            MelonLogger.Log($"High Five: [{owner.Data.DisplayName} {Hand.ToString()}] -> [{otherOwner.Data.DisplayName} {target.Hand}]");
+            if (!owner.isLocalPlayer)
+                return;
+            
+            HighFive.Execute(Hand);
         }
 
-        public static void BindToTransform(Transform dest)
+        public static void BindToTransform(Transform dest, Handedness hand, uint netId)
         {
             var exists = dest.Find("HandCollider") != null;
             if (exists)
                 return;
             
-            var punch = dest.GetComponentInParent<Punch>();
-            if (punch == null)
-                return;
+            // var punch = dest.GetComponentInParent<Punch>();
+            // if (punch == null)
+            //     return;
             
-            var gameObject = new GameObject("HandCollider");
+            var gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            gameObject.name = "HandCollider";
+            gameObject.transform.localScale = new Vector3(width, width, width);
 
-            gameObject.layer = 3;
+            gameObject.layer = Layer;
 
             gameObject.transform.parent = dest;
             gameObject.transform.localPosition = Vector3.zero;
             // gameObject.transform.position = dest.position;
 
-            var marker = gameObject.AddComponent<DebugMarker>();
-            marker._size = width;
-            marker.SetSize();
+            // var marker = gameObject.AddComponent<DebugMarker>();
+            // marker._size = width;
+            // marker.SetSize();
             
-            var collider = gameObject.AddComponent<SphereCollider>();
+            DestroyImmediate(gameObject.GetComponent<Rigidbody>());
+            
+            var collider = gameObject.GetComponent<SphereCollider>();
             // collider.height = HandCollider.height;
             collider.radius = width / 2f;
             collider.isTrigger = true;
 
-            gameObject.AddComponent<HandCollider>();
+            var handCollider = gameObject.AddComponent<HandCollider>();
+            handCollider.Hand = hand;
+            handCollider.OwnerID = netId;
 
             // var rb = gameObject.AddComponent<Rigidbody>();
             // rb.isKinematic = true;
@@ -82,52 +100,46 @@ namespace BhapticsPopOne.MonoBehaviours
             sphereProxy.UseBounce = false;
             sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
             sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
+
+            var meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            // meshRenderer.material = null;
             
-            AddRB(dest);
-            TestMesh(dest);
+            AddRB(dest, hand, netId);
         }
 
-        private static void AddRB(Transform dest)
+        private static void AddRB(Transform dest, Handedness hand, uint netId)
         {
             var handRB = new GameObject("HandRB");
 
-            handRB.layer = 3;
+            handRB.transform.localScale = new Vector3(width, width, width);
             
+            handRB.layer = Layer;
+
             handRB.transform.parent = dest;
             handRB.transform.localPosition = Vector3.zero;
-            
+
+
             var collider = handRB.AddComponent<SphereCollider>();
             // collider.height = HandCollider.height;
+
             collider.radius = width / 2f;
             collider.isTrigger = false;
             
             var rb = handRB.AddComponent<Rigidbody>();
             rb.isKinematic = true;
             rb.useGravity = false;
+            rb.detectCollisions = false;
             
             var sphereProxy = handRB.AddComponent<CustomPhysicsObjectProxy>();
             sphereProxy.UseBounce = false;
             sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
             sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
 
-            handRB.AddComponent<HighFiveTarget>();
-        }
-
-        private static void TestMesh(Transform dest)
-        {
-            var gameObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+            var target = handRB.AddComponent<HighFiveTarget>();
+            target.Hand = hand;
+            target.OwnerID = netId;
             
-            gameObject.transform.parent = dest;
-            gameObject.transform.localPosition = Vector3.zero;
-            gameObject.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            
-            // var materials = Resources.FindObjectsOfTypeAll<Material>();
-            // Resources.Load<Material>("MainMenu--Batched");
-
-
-            var meshRenderer = gameObject.GetComponent<MeshRenderer>();
-            meshRenderer.material = Resources.Load<Material>("MainMenu--Batched");
+            BattleRoyaleExtensions.DrawBounds(collider.bounds, Color.blue);
         }
-        
     }
 }

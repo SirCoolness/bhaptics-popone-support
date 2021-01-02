@@ -26,9 +26,10 @@ public static class ModX
 
     public static void InitHandColliders(float size)
     {
-        var avatar = Mod.Instance.Data.Players.LocalPlayerContainer.Avatar;
-        HandCollider.BindToTransform(Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.HandLeftAttachPoint);
-        HandCollider.BindToTransform(Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.HandRightAttachPoint);
+        var player = Mod.Instance.Data.Players.LocalPlayerContainer;
+        var avatar = player.Avatar;
+        HandCollider.BindToTransform(Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.HandLeftAttachPoint, Handedness.Left, player.netId);
+        HandCollider.BindToTransform(Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.HandRightAttachPoint, Handedness.Right, player.netId);
     }
 
     public static GameObject AddColliderToPlayer(Transform position, float size)
@@ -84,6 +85,33 @@ public static class ModX
         foreach (var material in materials)
         {
             MelonLogger.Log(material.name);
+        }
+    }
+    
+    public static void DrawBounds()
+    {
+        var hands = GameObject.FindObjectsOfType<HandCollider>();
+        foreach (var handCollider in hands)
+        {
+            BattleRoyaleExtensions.DrawBounds(handCollider.GetComponent<Collider>().bounds, handCollider.transform.position, Color.red);
+        }
+    }
+
+    public static void ForceBind()
+    {
+        var players = Mod.Instance.Data.Players.PlayerContainers;
+
+        foreach (var playerContainer in players)
+        {
+            if (playerContainer.transform.root != playerContainer.transform || playerContainer.Avatar?.Rig == null || !playerContainer.Data.IsReady)
+                return;
+            
+            MelonLogger.Log($"ForceBind {Logging.StringifyVector3(playerContainer.Avatar.HandLeftAttachPoint.transform.position)} {playerContainer.Data.DisplayName} {playerContainer.Avatar.IsAvatarReady}");
+            HandCollider.BindToTransform(playerContainer.Avatar.HandLeftAttachPoint, Handedness.Left, playerContainer.netId);
+            HandCollider.BindToTransform(playerContainer.Avatar.HandRightAttachPoint, Handedness.Right, playerContainer.netId);
+            
+            DestructibleCollisionHelp.BindToTransform(playerContainer.Avatar.HandLeft, Handedness.Left, playerContainer.netId);
+            DestructibleCollisionHelp.BindToTransform(playerContainer.Avatar.HandRight, Handedness.Right, playerContainer.netId);
         }
     }
 }

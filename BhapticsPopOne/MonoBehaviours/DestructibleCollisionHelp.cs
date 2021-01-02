@@ -12,19 +12,8 @@ namespace BhapticsPopOne.MonoBehaviours
     {
         public DestructibleCollisionHelp(System.IntPtr ptr) : base(ptr) {}
 
-        private Punch _punch;
-
-        private Punch Punch
-        {
-            get
-            {
-                if (_punch != null)
-                    return _punch;
-
-                _punch = GetComponentInParent<Punch>();
-                return _punch;
-            }
-        }
+        public Handedness Hand;
+        public uint OwnerID;
         
         private void OnTriggerEnter(Collider other)
         {
@@ -42,7 +31,8 @@ namespace BhapticsPopOne.MonoBehaviours
                 return;
             }
 
-            if (PlayerContainer.Find(Punch.netIdentity.netId)?.isLocalPlayer != true)
+            var Player = PlayerContainer.Find(OwnerID);
+            if (Player?.isLocalPlayer != true)
             {
                 MelonLogger.Log("not local");
                 return;
@@ -56,11 +46,11 @@ namespace BhapticsPopOne.MonoBehaviours
                 MelonLogger.Log("adding");
             }
             
-            handHelper.brokenDestructibles[destructibleSceneItem.SceneId].Add(Punch.handedness);
+            handHelper.brokenDestructibles[destructibleSceneItem.SceneId].Add(Hand);
             MelonLogger.Log("punch added");
         }
         
-        public static void BindToTransform(Transform dest)
+        public static void BindToTransform(Transform dest, Handedness hand, uint netId)
         {
             if (dest.GetComponent<DestructibleCollisionHelp>() != null)
                 return;
@@ -69,7 +59,9 @@ namespace BhapticsPopOne.MonoBehaviours
             if (punch == null)
                 return;
 
-            dest.gameObject.AddComponent<DestructibleCollisionHelp>();
+            var helper = dest.gameObject.AddComponent<DestructibleCollisionHelp>();
+            helper.Hand = hand;
+            helper.OwnerID = netId;
         }
     }
 }
