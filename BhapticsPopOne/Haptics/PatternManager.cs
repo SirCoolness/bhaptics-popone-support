@@ -86,31 +86,6 @@ namespace BhapticsPopOne.Haptics
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/HeartbeatMultiple");
         }
 
-        public static void FlyingAir()
-        {
-            RaycastHit hit;
-
-            var hitItem = Physics.Raycast(Mod.Instance.Data.Players.VestReference().position, -Vector3.up, out hit);
-
-            string extension = "";
-
-            if (!hitItem || hit.distance > 10f)
-                extension = "_Level2";
-            else
-                extension = "_Level1";
-            
-            if (!Mod.Instance.Haptics.Player.IsPlaying($"Vest/FlyingAir{extension}"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FlyingAir{extension}");
-            }
-        }
-        
-        public static void FlyingAirClear()
-        {
-            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir_Level1");
-            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir_Level2");
-        }
-
         public static void FallingAir()
         {
             if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FallingAir"))

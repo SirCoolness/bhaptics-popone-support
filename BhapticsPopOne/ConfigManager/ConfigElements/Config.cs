@@ -28,7 +28,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             Version = CurrentVersion.ToString(),
             VestRecoil = 1f,
             OffhandRecoilStrength = 0.7f,
-            VestClimbEffects = true,
+            VestClimbEffects = false,
             Clapping = false,
             HighFive = true,
             ShowHighFiveRegion = false,
