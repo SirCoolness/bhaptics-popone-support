@@ -109,7 +109,7 @@ public static class ModX
             if (playerContainer.transform.root != playerContainer.transform || playerContainer.Avatar?.Rig == null || !playerContainer.Data.IsReady)
                 return;
             
-            MelonLogger.Log($"ForceBind {Logging.StringifyVector3(playerContainer.Avatar.HandLeftAttachPoint.transform.position)} {playerContainer.Data.DisplayName} {playerContainer.Avatar.IsAvatarReady}");
+            // MelonLogger.Log($"ForceBind {Logging.StringifyVector3(playerContainer.Avatar.HandLeftAttachPoint.transform.position)} {playerContainer.Data.DisplayName} {playerContainer.Avatar.IsAvatarReady}");
             HandCollider.BindToTransform(playerContainer.Avatar.HandLeftAttachPoint, Handedness.Left, playerContainer.netId);
             HandCollider.BindToTransform(playerContainer.Avatar.HandRightAttachPoint, Handedness.Right, playerContainer.netId);
             

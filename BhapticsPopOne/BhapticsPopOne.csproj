@@ -116,7 +116,6 @@
     <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
-    <Compile Include="Patches\PlayerAvatar.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
     <Compile Include="Patches\PlayerDefib.cs" />
     <Compile Include="Patches\HandControllerMediator.cs" />

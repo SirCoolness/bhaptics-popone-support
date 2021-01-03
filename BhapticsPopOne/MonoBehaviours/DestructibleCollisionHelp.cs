@@ -24,17 +24,17 @@ namespace BhapticsPopOne.MonoBehaviours
 
         private void HandleBreak(Collider other, DestructibleSceneItem destructibleSceneItem)
         {
-            MelonLogger.Log("Destructible hit");
+            // MelonLogger.Log("Destructible hit");
             if (destructibleSceneItem == null)
             {
-                MelonLogger.LogWarning("cant find scene item");
+                // MelonLogger.LogWarning("cant find scene item");
                 return;
             }
 
             var Player = PlayerContainer.Find(OwnerID);
             if (Player?.isLocalPlayer != true)
             {
-                MelonLogger.Log("not local");
+                // MelonLogger.Log("not local");
                 return;
             }
 
@@ -43,11 +43,11 @@ namespace BhapticsPopOne.MonoBehaviours
             if (!handHelper.brokenDestructibles.ContainsKey(destructibleSceneItem.SceneId))
             {
                 handHelper.brokenDestructibles.Add(destructibleSceneItem.SceneId, new List<Handedness>());
-                MelonLogger.Log("adding");
+                // MelonLogger.Log("adding");
             }
             
             handHelper.brokenDestructibles[destructibleSceneItem.SceneId].Add(Hand);
-            MelonLogger.Log("punch added");
+            // MelonLogger.Log("punch added");
         }
         
         public static void BindToTransform(Transform dest, Handedness hand, uint netId)

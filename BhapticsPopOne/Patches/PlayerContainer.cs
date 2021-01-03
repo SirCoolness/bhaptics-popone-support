@@ -66,15 +66,6 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 FistBump.lastPunchhandL = Handedness.Unknown;
         }
     }
-
-    [HarmonyPatch(typeof(PlayerContainer), "Avatar", MethodType.Setter)]
-    public class AvatarSetter
-    {
-        static void Prefix(PlayerContainer __instance, PlayerAvatar value)
-        {
-            MelonLogger.Log($"{Logging.StringifyVector3(value.HandLeftAttachPoint.transform.position)}");
-        }
-    }
     
     [HarmonyPatch(typeof(PlayerContainer), "OnContainerComponentReady")]
     public class OnContainerComponentReady
@@ -84,7 +75,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
                 return;
             
-            MelonLogger.Log($"OnContainerComponentReady {Logging.StringifyVector3(__instance.Avatar.HandLeftAttachPoint.transform.position)} {__instance.Data.DisplayName} {__instance.Avatar.IsAvatarReady}");
+            // MelonLogger.Log($"OnContainerComponentReady {Logging.StringifyVector3(__instance.Avatar.HandLeftAttachPoint.transform.position)} {__instance.Data.DisplayName} {__instance.Avatar.IsAvatarReady}");
             HandCollider.BindToTransform(__instance.Avatar.HandLeftAttachPoint, Handedness.Left, __instance.netId);
             HandCollider.BindToTransform(__instance.Avatar.HandRightAttachPoint, Handedness.Right, __instance.netId);
             

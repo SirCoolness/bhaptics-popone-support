@@ -32,7 +32,7 @@ namespace BhapticsPopOne.DestructibleSceneItem2
             var handHelper = Mod.Instance.Data.Players.LocalHandHelper;
             if (!handHelper.brokenDestructibles.ContainsKey(__instance.SceneId))
             {
-                MelonLogger.Log("cannot find key");
+                // MelonLogger.Log("cannot find key");
                 return;
             }
 
