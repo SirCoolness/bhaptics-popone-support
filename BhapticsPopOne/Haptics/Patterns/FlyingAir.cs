@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using MelonLoader;
 using UnityEngine;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -12,10 +13,12 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             string extension = "";
 
-            if (hit.HasValue || hit.Value.distance > 10f)
+            if (hit.HasValue && hit.Value.distance > 10f)
                 extension = "_Level2";
             else
                 extension = "_Level1";
+
+            MelonLogger.Log(extension);
             
             if (!Mod.Instance.Haptics.Player.IsPlaying($"Vest/FlyingAir{extension}"))
             {
