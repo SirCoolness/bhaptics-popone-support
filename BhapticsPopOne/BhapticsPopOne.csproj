@@ -95,6 +95,7 @@
     <Compile Include="Data\Players.cs" />
     <Compile Include="Haptics\ConnectionManager.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
+    <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />

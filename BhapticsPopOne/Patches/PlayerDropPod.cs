@@ -22,8 +22,11 @@ namespace BhapticsPopOne.Patches
                 FallingAir.Execute(__instance.PodSpeedFalling);
                 return;
             }
-            
-            FallingAir.Clear();
+
+            if (__instance.attachedContainer.playerData.MotionState != MotionState.Falling)
+            {
+                FallingAir.Clear();
+            }
             
             if (value == PodState.WaitingToLaunch)
             {
