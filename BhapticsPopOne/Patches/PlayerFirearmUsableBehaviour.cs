@@ -17,7 +17,7 @@ namespace BhapticsPopOne.PlayerFirearmUsableBehaviour2
             if (!PlayerContainer.Find(netId.Value).isLocalPlayer)
                 return;
             
-            ReloadWeapon.Execute(value);
+            ReloadWeapon.Execute(value, __instance.GetInstanceID());
         }
     }
 }
