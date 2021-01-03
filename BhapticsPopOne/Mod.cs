@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Patches;
 using MelonLoader;
 using UnityEngine;
@@ -140,6 +141,14 @@ namespace BhapticsPopOne
             base.OnFixedUpdate();
             
             _effectLoop.FixedUpdate();
+        }
+
+        public override void OnLevelWasLoaded(int level)
+        {
+            base.OnLevelWasLoaded(level);
+            
+            // clear when level reloads to avoid memory overflow
+            ReloadWeapon.PreviousStateMap.Clear();
         }
     }
 }

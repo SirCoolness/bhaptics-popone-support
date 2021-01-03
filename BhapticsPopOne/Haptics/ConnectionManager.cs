@@ -1,4 +1,6 @@
-﻿using Bhaptics.Tact;
+﻿using System;
+using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics
@@ -22,6 +24,11 @@ namespace BhapticsPopOne.Haptics
         {
             HapticPlayerManager = HapticPlayerManager.Instance();
             Player.StatusReceived += PlayerStatus;
+
+            if (!HapticPlayerManager.Connected)
+            {
+                MelonLogger.LogWarning($"!!! WARNING !!! bHaptics player is not running.");
+            }
         }
 
         public void Stop()

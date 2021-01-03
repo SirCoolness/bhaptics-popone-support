@@ -1,21 +1,28 @@
-﻿using MelonLoader;
+﻿using System;
+using System.Collections.Generic;
+using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
     public class ReloadWeapon
     {
-        private static FirearmState _previous;
+        public static Dictionary<int, FirearmState> PreviousStateMap = new Dictionary<int, FirearmState>();
         
-        public static void Execute(FirearmState state)
+        public static void Execute(FirearmState state, int instanceId)
         {
-            if (_previous == FirearmState.Fire)
+            if (!PreviousStateMap.ContainsKey(instanceId))
             {
-                _previous = state;
+                PreviousStateMap.Add(instanceId, state);
+                // return early because the only reason this would be executed is that if a weapon is spawned with ready
                 return;
             }
-
-            _previous = state;
             
+            var previous = PreviousStateMap[instanceId];
+            PreviousStateMap[instanceId] = state;
+                
+            if (previous == FirearmState.Fire || previous == state)
+                return;
+
             var dominant = Mod.Instance.Data.Players.LocalPlayerContainer.Data.DominantHand;
             
             var ext = FistBump.HandExt(dominant == Handedness.Right ? Handedness.Left : Handedness.Right);
