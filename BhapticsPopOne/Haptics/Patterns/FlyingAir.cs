@@ -18,8 +18,6 @@ namespace BhapticsPopOne.Haptics.Patterns
             else
                 extension = "_Level1";
 
-            MelonLogger.Log(extension);
-            
             if (!Mod.Instance.Haptics.Player.IsPlaying($"Vest/FlyingAir{extension}"))
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FlyingAir{extension}");

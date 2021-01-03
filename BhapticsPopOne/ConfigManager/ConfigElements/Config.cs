@@ -18,6 +18,8 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             set;
         }
         public bool ShowLoadedEffects { get; set; }
+        public float FoodEatIntensity { get; set; }
+        public float SodaBubbleIntensity { get; set; }
 
         [YamlIgnore] 
         public static Version CurrentVersion => new Version("0.0.2");
@@ -32,7 +34,9 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             Clapping = false,
             HighFive = true,
             ShowHighFiveRegion = false,
-            ShowLoadedEffects = false
+            ShowLoadedEffects = false,
+            FoodEatIntensity = 1.0f,
+            SodaBubbleIntensity = 1.0f
         };
     }
 }
