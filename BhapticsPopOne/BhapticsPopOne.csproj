@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigManager\ConfigElements\Config.cs" />
+    <Compile Include="ConfigManager\ConfigElements\FallEffects.cs" />
     <Compile Include="ConfigManager\ConfigLoader.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\HandHelper.cs" />
