@@ -49,13 +49,13 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 if (previousValue == MotionState.Flying)
                     FlyingAir.Clear();
                 else if (previousValue == MotionState.Falling)
-                    PatternManager.FallingAirClear();
+                    FallingAir.Clear();
             }
             
             if (value == MotionState.Flying)
                 FlyingAir.Execute();
             else if (value == MotionState.Falling)
-                PatternManager.FallingAir();
+                FallingAir.Execute();
         }
     }
 
