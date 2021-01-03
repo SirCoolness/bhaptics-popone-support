@@ -21,17 +21,19 @@ namespace BhapticsPopOne.Haptics.Patterns
         private static float ConcurrentTarget => Mathf.Max(0f, ConfigLoader.Config.FallEffect.ConcurrentTarget);
         private static float StrengthMultiplier => Mathf.Max(0f, ConfigLoader.Config.FallEffect.StrengthMultiplier);
 
-
         public static void Execute()
+        {
+            var player = Mod.Instance.Data.Players.LocalPlayerContainer;
+            var absVelocity = Mathf.Abs(player.RigidbodyVelocity.y);
+            Execute(absVelocity);
+        }
+        
+        public static void Execute(float absVelocity)
         {
             DequeueCompletedEffects();
             
             if (FlyingVariants == 0 || MaxEffectCount == 0 || StrengthTarget == 0 || SpeedTarget == 0 || ConcurrentTarget == 0)
                 return;
-            
-            var player = Mod.Instance.Data.Players.LocalPlayerContainer;
-
-            var absVelocity = Mathf.Abs(player.RigidbodyVelocity.y);
             
             // calc progress
             var fallStrengthProgress = absVelocity / StrengthTarget;

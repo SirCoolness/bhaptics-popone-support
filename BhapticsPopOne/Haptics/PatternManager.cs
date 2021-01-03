@@ -109,15 +109,7 @@ namespace BhapticsPopOne.Haptics
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/DuringPod");
             }
         }
-
-        public static void FallingPod()
-        {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/FallingAir"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallingAir");
-            }
-        }
-
+        
         public static void RubbingDefib()
         {
             if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/RubbingDefib_B"))
