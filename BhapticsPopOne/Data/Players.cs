@@ -8,9 +8,6 @@ namespace BhapticsPopOne.Data
 {
     public class Players
     {
-        private GameObject _gameRoot;
-
-        public BattleContextView _battleContext;
         
         private PlayerContainer _localPlayerContainer;
         public PlayerContainer LocalPlayerContainer
@@ -35,25 +32,14 @@ namespace BhapticsPopOne.Data
             }
         }
 
+        public HandHelper LocalHandHelper;
+
         public List<PlayerContainer> PlayerContainers =>
             new List<PlayerContainer>(GameObject.FindObjectsOfType<PlayerContainer>());
         
         public void Initialize()
         {
-            _gameRoot = GameObject.Find("SceneFunction/SceneRoot");
-            if (_gameRoot == null)
-            {
-                MelonLogger.LogError("Failed to find SceneFunction/SceneRoot");
-                return;
-            }
-            
-            _battleContext = _gameRoot.GetComponent<BattleContextView>();
-            if (_battleContext == null)
-            {
-                MelonLogger.LogError("Failed to load battle context.");
-                return;
-            }
-
+            LocalHandHelper = new HandHelper();
             _localPlayerContainer = null;
         }
 

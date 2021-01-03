@@ -60,15 +60,9 @@
     <Reference Include="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\deps\mscorlib.dll</HintPath>
     </Reference>
-    <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\deps\System.dll</HintPath>
-    </Reference>
     <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="System.Core, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\deps\System.Core.dll</HintPath>
     </Reference>
     <Reference Include="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\deps\System.Data.dll</HintPath>
@@ -78,6 +72,9 @@
     </Reference>
     <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\UnhollowerBaseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\deps\Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\UnityEngine.dll</HintPath>
@@ -93,6 +90,7 @@
     <Compile Include="ConfigManager\ConfigElements\Config.cs" />
     <Compile Include="ConfigManager\ConfigLoader.cs" />
     <Compile Include="Data\Data.cs" />
+    <Compile Include="Data\HandHelper.cs" />
     <Compile Include="Data\Players.cs" />
     <Compile Include="Haptics\ConnectionManager.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
@@ -103,12 +101,19 @@
     <Compile Include="Haptics\Patterns\FallDamage.cs" />
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\FistBump.cs" />
+    <Compile Include="Haptics\Patterns\HighFive.cs" />
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
     <Compile Include="Haptics\Patterns\ReloadWeapon.cs" />
     <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
     <Compile Include="Mod.cs" />
+    <Compile Include="MonoBehaviours\DebugMarker.cs" />
+    <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
+    <Compile Include="MonoBehaviours\HandCollider.cs" />
+    <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
+    <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
+    <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
@@ -129,6 +134,7 @@
     <Compile Include="Utils\LineDrawer.cs" />
     <Compile Include="Utils\Logging.cs" />
     <Compile Include="Utils\LoggingContext.cs" />
+    <Compile Include="Utils\ModX.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILMerge" Version="3.0.29" />
@@ -138,10 +144,6 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <Target Name="ILMerge">
-    <!-- the ILMergePath property points to the location of ILMerge.exe console application -->
-    <Exec Command="$(ILMergeConsolePath) /out:BhapticsPopOne-merged.dll BhapticsPopOne.dll Bhaptics.Tact.dll" />
-  </Target>
   <PropertyGroup>
     <PostBuildEvent>^
 $(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll &amp;&amp; ^

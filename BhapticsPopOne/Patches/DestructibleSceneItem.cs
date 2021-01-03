@@ -16,17 +16,29 @@ namespace BhapticsPopOne.DestructibleSceneItem2
             if (!container.isLocalPlayer)
                 return;
 
-            float leftDist = Vector3.Distance(container.Avatar.HandLeft.position, damagePoint);
-            float rightDist = Vector3.Distance(container.Avatar.HandRight.position, damagePoint);
+            // float leftDist = Vector3.Distance(container.Avatar.HandLeft.position, damagePoint);
+            // float rightDist = Vector3.Distance(container.Avatar.HandRight.position, damagePoint);
+            //
+            //
+            // if (leftDist > rightDist)
+            // {
+            //     DestructibleHit.Execute(Handedness.Right);
+            // }
+            // else
+            // {
+            //     DestructibleHit.Execute(Handedness.Left);
+            // }
 
-
-            if (leftDist > rightDist)
+            var handHelper = Mod.Instance.Data.Players.LocalHandHelper;
+            if (!handHelper.brokenDestructibles.ContainsKey(__instance.SceneId))
             {
-                DestructibleHit.Execute(Handedness.Right);
+                // MelonLogger.Log("cannot find key");
+                return;
             }
-            else
+
+            foreach (var handedness in handHelper.brokenDestructibles[__instance.SceneId])
             {
-                DestructibleHit.Execute(Handedness.Left);
+                DestructibleHit.Execute(handedness);
             }
         }
     }

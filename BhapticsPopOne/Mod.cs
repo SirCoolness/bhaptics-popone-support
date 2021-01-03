@@ -70,11 +70,15 @@ namespace BhapticsPopOne
             
             Validation();
             
+            MonoBehavioursLoader.Inject();
+            
             InitializeManagers();
             
             StartServices();
             
             PatternManager.LoadPatterns();
+            
+            Data.Initialize();
         }
 
         public override void OnApplicationQuit()
