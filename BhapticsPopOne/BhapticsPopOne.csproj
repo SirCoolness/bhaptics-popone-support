@@ -99,6 +99,7 @@
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
     <Compile Include="Haptics\Patterns\DropItem.cs" />
     <Compile Include="Haptics\Patterns\FallDamage.cs" />
+    <Compile Include="Haptics\Patterns\FallingAir.cs" />
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\FistBump.cs" />
     <Compile Include="Haptics\Patterns\FlyingAir.cs" />
