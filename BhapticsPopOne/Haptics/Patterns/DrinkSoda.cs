@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
 
@@ -14,7 +16,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (state != BuffState.Consumed)
                 return;
             
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem");
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem", new ScaleOption(ConfigHelpers.EnforceIntensity(ConfigLoader.Config.FoodEatIntensity), 1f));
             
             // TODO: check against server time instead
             estimatedSodaEffects.Add(true);

@@ -1,4 +1,6 @@
-﻿using BhapticsPopOne.Haptics.Patterns;
+﻿using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics
@@ -23,7 +25,7 @@ namespace BhapticsPopOne.Haptics
             if (ActiveBuffPlaying)
                 return;
 
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ActiveBuff");
+            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ActiveBuff", new ScaleOption(ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity), 1f));
         }
 
         private int statusSlowdown = 0;
