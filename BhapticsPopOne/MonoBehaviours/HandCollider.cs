@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using Aws.GameLift.Server.Model;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 using UnityEngine;
@@ -12,15 +14,13 @@ namespace BhapticsPopOne.MonoBehaviours
     public class HandCollider : MonoBehaviour
     {
         public static float width = 0.115f;
-        public static float height = 0.25f;
         
         public HandCollider(System.IntPtr ptr) : base(ptr) {}
 
         public Handedness Hand;
         public uint OwnerID;
 
-        public static int Layer = 19;
-            
+        public static int Layer = 19; // punch
 
         private void OnTriggerEnter(Collider other)
         {
@@ -35,8 +35,6 @@ namespace BhapticsPopOne.MonoBehaviours
 
         private void HandlePunch(Collider other, HighFiveTarget target)
         {
-            // MelonLogger.Log(other.name);
-
             if (target.Hand == Hand && target.OwnerID == OwnerID)
                 return;
 
@@ -49,9 +47,13 @@ namespace BhapticsPopOne.MonoBehaviours
             if (owner.Inventory.NetworkequipIndex != 0)
                 return;
             
-
-            MelonLogger.Log($"High Five: [{owner.Data.DisplayName} {Hand.ToString()}] -> [{otherOwner.Data.DisplayName} {target.Hand}]");
             if (!owner.isLocalPlayer)
+                return;
+            
+            if (!ConfigLoader.Config.Clapping && otherOwner.isLocalPlayer)
+                return;
+            
+            if (!ConfigLoader.Config.HighFive && owner != otherOwner)
                 return;
             
             HighFive.Execute(Hand);
@@ -63,10 +65,6 @@ namespace BhapticsPopOne.MonoBehaviours
             if (exists)
                 return;
             
-            // var punch = dest.GetComponentInParent<Punch>();
-            // if (punch == null)
-            //     return;
-            
             var gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
             gameObject.name = "HandCollider";
             gameObject.transform.localScale = new Vector3(width, width, width);
@@ -75,16 +73,10 @@ namespace BhapticsPopOne.MonoBehaviours
 
             gameObject.transform.parent = dest;
             gameObject.transform.localPosition = Vector3.zero;
-            // gameObject.transform.position = dest.position;
 
-            // var marker = gameObject.AddComponent<DebugMarker>();
-            // marker._size = width;
-            // marker.SetSize();
-            
             DestroyImmediate(gameObject.GetComponent<Rigidbody>());
             
             var collider = gameObject.GetComponent<SphereCollider>();
-            // collider.height = HandCollider.height;
             collider.radius = width / 2f;
             collider.isTrigger = true;
 
@@ -92,17 +84,16 @@ namespace BhapticsPopOne.MonoBehaviours
             handCollider.Hand = hand;
             handCollider.OwnerID = netId;
 
-            // var rb = gameObject.AddComponent<Rigidbody>();
-            // rb.isKinematic = true;
-            // rb.useGravity = false;
-            
             var sphereProxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
             sphereProxy.UseBounce = false;
             sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
             sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
 
-            var meshRenderer = gameObject.GetComponent<MeshRenderer>();
-            // meshRenderer.material = null;
+            if (ConfigLoader.Config.ShowHighFiveRegion && PlayerContainer.Find(netId)?.isLocalPlayer == true)
+            {
+                var meshRenderer = gameObject.GetComponent<MeshRenderer>();
+                meshRenderer.material = null;
+            }
             
             AddRB(dest, hand, netId);
         }
@@ -120,7 +111,6 @@ namespace BhapticsPopOne.MonoBehaviours
 
 
             var collider = handRB.AddComponent<SphereCollider>();
-            // collider.height = HandCollider.height;
 
             collider.radius = width / 2f;
             collider.isTrigger = false;
