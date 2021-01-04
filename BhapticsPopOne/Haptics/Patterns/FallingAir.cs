@@ -12,6 +12,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 {
     public class FallingAir
     {
+        private static float BaselineVelocity = 0f;
+        private static float TargetMultiplier = 1f;
+        
         private static ProceduralEffect EffectManager = new ProceduralEffect
         {
             EffectPrefix = "Vest/FallingAir",
@@ -25,22 +28,29 @@ namespace BhapticsPopOne.Haptics.Patterns
         private static float ConcurrentTarget => Mathf.Max(0f, ConfigLoader.Config.FallEffect.ConcurrentTarget);
         private static float StrengthMultiplier => Mathf.Max(0f, ConfigLoader.Config.FallEffect.StrengthMultiplier);
 
-        public static void Execute()
+        public static void Execute(bool wasFlying)
         {
             var player = Mod.Instance.Data.Players.LocalPlayerContainer;
             var absVelocity = Mathf.Abs(player.RigidbodyVelocity.y);
-            Execute(absVelocity);
+            Execute(absVelocity, wasFlying);
         }
         
-        public static void Execute(float absVelocity)
+        public static void Execute(float absVelocity, bool wasFlying)
         {
             if (FlyingVariants == 0 || MaxEffectCount == 0 || StrengthTarget == 0 || SpeedTarget == 0 || ConcurrentTarget == 0)
                 return;
-            
+
+            if (wasFlying)
+            {
+                BaselineVelocity = 5f;
+                TargetMultiplier = 1f;
+            }
+
+            var velocity = (BaselineVelocity + absVelocity) * TargetMultiplier;
             // calc progress
-            var fallStrengthProgress = Mathf.Min(absVelocity / StrengthTarget, 1f);
-            var fallSpeedProgress = Mathf.Min(absVelocity / SpeedTarget, 1f);
-            var fallCountProgress = Mathf.Min(absVelocity / ConcurrentTarget, 1f);
+            var fallStrengthProgress = Mathf.Min(velocity / StrengthTarget, 1f);
+            var fallSpeedProgress = Mathf.Min(velocity / SpeedTarget, 1f);
+            var fallCountProgress = Mathf.Min(velocity / ConcurrentTarget, 1f);
             
             // calculate effect parameters
             float fallStrength = Mathf.Clamp(Mathf.Lerp(0.1f, 1f, fallStrengthProgress) * StrengthMultiplier, 0f, 1f);
@@ -63,6 +73,8 @@ namespace BhapticsPopOne.Haptics.Patterns
         // clear playing effects
         public static void Clear()
         {
+            BaselineVelocity = 0f;
+            TargetMultiplier = 1f;
             EffectManager.Clear();
         }
     }

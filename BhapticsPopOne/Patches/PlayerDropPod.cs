@@ -17,9 +17,11 @@ namespace BhapticsPopOne.Patches
 
             PodState value = __instance.State;
 
-            if((value == PodState.GlidingOpened || value == PodState.Gliding || value == PodState.Falling) && __instance.attachedContainer.playerData.MotionState == MotionState.Idle || __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal)
+            if((value == PodState.GlidingOpened || value == PodState.Gliding || value == PodState.Falling) &&
+               (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
+                __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
             {
-                FallingAir.Execute(__instance.PodSpeedFalling);
+                FallingAir.Execute(__instance.PodSpeedFalling, false);
                 return;
             }
 
