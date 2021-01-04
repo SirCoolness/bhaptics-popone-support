@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigManager\ConfigElements\Config.cs" />
+    <Compile Include="ConfigManager\ConfigElements\Disableable.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectsConfig.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\HighFlightModifier.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\StateModifier.cs" />
