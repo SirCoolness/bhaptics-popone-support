@@ -37,5 +37,5 @@ using MelonLoader;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: MelonInfo(typeof(BhapticsPopOne.Mod), "Bhaptics Support", "0.0.14", "SirCoolness, jOoN, Sangwon")]
+[assembly: MelonInfo(typeof(BhapticsPopOne.Mod), "Bhaptics Support", "0.0.15", "SirCoolness, jOoN, Sangwon")]
 [assembly: MelonGame("BigBoxVR", "POPULATION: ONE")]
