@@ -16,7 +16,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
         {
             EffectVariants = 10,
             MaxConcurrentEffectCount = 6,
-            StrengthTarget = 50f,
+            StrengthTarget = 40f,
             SpeedTarget = 15f,
             ConcurrentTarget = 30f,
             StrengthMultiplier = 1f
