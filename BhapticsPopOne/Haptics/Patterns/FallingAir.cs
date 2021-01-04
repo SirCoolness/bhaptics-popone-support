@@ -34,15 +34,13 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(float absVelocity)
         {
-            EffectManager.DequeueCompletedEffects();
-            
             if (FlyingVariants == 0 || MaxEffectCount == 0 || StrengthTarget == 0 || SpeedTarget == 0 || ConcurrentTarget == 0)
                 return;
             
             // calc progress
-            var fallStrengthProgress = absVelocity / StrengthTarget;
-            var fallSpeedProgress = absVelocity / SpeedTarget;
-            var fallCountProgress = absVelocity / ConcurrentTarget;
+            var fallStrengthProgress = Mathf.Min(absVelocity / StrengthTarget, 1f);
+            var fallSpeedProgress = Mathf.Min(absVelocity / SpeedTarget, 1f);
+            var fallCountProgress = Mathf.Min(absVelocity / ConcurrentTarget, 1f);
             
             // calculate effect parameters
             float fallStrength = Mathf.Clamp(Mathf.Lerp(0.1f, 1f, fallStrengthProgress) * StrengthMultiplier, 0f, 1f);
@@ -53,7 +51,6 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             EffectManager.DispatchEffect(effectCount, (name) =>
             {
-                MelonLogger.Log(name);
                 Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation(
                     name, 
                     name, 

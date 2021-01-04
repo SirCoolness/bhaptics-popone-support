@@ -18,6 +18,8 @@ namespace BhapticsPopOne.Haptics.EffectManagers
 
         public void DispatchEffect(int maxCount, Action<string> callback)
         {
+            DequeueCompletedEffects();
+            
             int remainingFill = Math.Max(maxCount - ActiveEffects.Count, 0);
 
             // find remaining effects that need to be filled out
@@ -53,7 +55,6 @@ namespace BhapticsPopOne.Haptics.EffectManagers
             {
                 if (!Mod.Instance.Haptics.Player.IsPlaying($"{EffectPrefix}[{activeEffect}]"))
                 {
-                    MelonLogger.Log(ConsoleColor.Blue, $"{EffectPrefix}[{activeEffect}]");
                     readyToRemove.Add(activeEffect);
                 }
             }
@@ -71,7 +72,6 @@ namespace BhapticsPopOne.Haptics.EffectManagers
             {
                 Mod.Instance.Haptics.Player.TurnOff($"{EffectPrefix}[{activeEffect}]");
             }
-
             DequeueCompletedEffects();
         }
     }
