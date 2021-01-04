@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
 using UnityEngine;
@@ -13,11 +15,12 @@ namespace BhapticsPopOne.Haptics.Patterns
         private static float BaselineTime = 0f;
         private static float TargetMultiplier = 1f;
         private static bool ResetFlight = true;
+        private static bool HighFlightTriggered = false;
 
         private static ProceduralEffect VestFrontEffectManager = new ProceduralEffect
         {
             EffectPrefix = "Vest/FlyingAir_Front",
-            Variants = 8
+            Variants = Variants
         };
         
         private static ProceduralEffect VestBackEffectManager = new ProceduralEffect
@@ -35,38 +38,53 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
         }
 
-        private static float StrengthTarget = 0.75f;
-        private static float SpeedTarget = 0.75f;
-        private static float ConcurrentTarget = 2f;
-        private static float StrengthMultiplier = 0.4f;
-        private static float MaxEffectCount = 4;
-        private static float FallingBaselineTime = 0.2f;
-        private static float FallingProgressMultiplier = 0.7f;
-        private static float HighFlightBaselineTime = 0.3f;
-        private static float HighFlightProgressMultiplier = 0.5f;
-        private static float HighFlightDistance = 25f;
+        private static FlyEffects Config => ConfigLoader.Config.Effects.Flying;
+        private static float StrengthTarget => Mathf.Max(Config.Front.Strength.Target, 0f);
+        private static float SpeedTarget => Mathf.Max(Config.Front.Speed.Target, 0f);
+        private static float ConcurrentTarget => Mathf.Max(Config.Front.EffectPool.Target, 0f);
+        private static float StrengthMultiplier => Mathf.Max(Config.Front.Strength.Multiplier, 0f);
+        private static int MaxEffectCount => Mathf.Max(Config.Front.EffectPool.MaxConcurrency, 0);
+        private static int Variants => Mathf.Max(Config.Front.EffectPool.Variants, 0);
+        private static float FallingBaselineTime => Mathf.Max(Config.Modifiers.FromFalling.BaselineTime, 0f);
+        private static float FallingProgressMultiplier => Mathf.Max(Config.Modifiers.FromFalling.ProgressMultiplier, 0f);
+        private static float HighFlightBaselineTime => Mathf.Max(Config.Modifiers.HighFlight.ProgressMultiplier, 0f);
+        private static float HighFlightProgressMultiplier => Mathf.Max(Config.Modifiers.HighFlight.ProgressMultiplier, 0f);
+        private static float HighFlightDistance => Mathf.Max(Config.Modifiers.HighFlight.MinDistance, 0f);
+        private static float StrengthLerpStart => Mathf.Clamp(Config.Front.Strength.Goal.Start, 0f, 1f);
+        private static float StrengthLerpEnd => Mathf.Clamp(Config.Front.Strength.Goal.End, 0f, 1f);
+        private static float SpeedLerpStart => Mathf.Max(Config.Front.Speed.Goal.Start, 0f);
+        private static float SpeedLerpEnd => Mathf.Max(Config.Front.Speed.Goal.End, 0f);
+
+        private static bool MathValidation()
+        {
+            return true;
+        }
         
         public static void Execute(bool wasFalling)
         {
+            if (!MathValidation())
+                return;
+
             if (ResetFlight)
             {
                 ResetFlight = false;
                 FlightStart = DateTime.Now;
 
-                if (IsHighFlight())
-                {
-                    MelonLogger.Log(ConsoleColor.Magenta, "High Flight");
-                    UpdateBaselines(HighFlightBaselineTime, HighFlightProgressMultiplier);
-                }
-                
                 if (wasFalling)
                 {
-                    MelonLogger.Log(ConsoleColor.Magenta, "Was Falling");
                     UpdateBaselines(FallingBaselineTime, FallingProgressMultiplier);
                 }
             }
 
-            var duration = FlightDuration + BaselineTime;
+            var internalDuration = FlightDuration + BaselineTime;
+            
+            if (internalDuration < 0.1f && !HighFlightTriggered && IsHighFlight())
+            {
+                UpdateBaselines(HighFlightBaselineTime, HighFlightProgressMultiplier);
+                HighFlightTriggered = true;
+            }
+            
+            var duration = internalDuration + BaselineTime;
             
             // calc progress
             var strengthProgress = Math.Min(duration / (StrengthTarget * TargetMultiplier), 1f);
@@ -74,8 +92,8 @@ namespace BhapticsPopOne.Haptics.Patterns
             var countProgress = Math.Min(duration / (ConcurrentTarget * TargetMultiplier), 1f);
             
             // calculate effect parameters
-            float strength = Mathf.Clamp(Mathf.Lerp(0.3f, 1f, strengthProgress) * StrengthMultiplier, 0f, 1f);
-            float speed = Mathf.Lerp(1f, 0.3f, speedProgress);
+            float strength = Mathf.Clamp(Mathf.Lerp(StrengthLerpStart, StrengthLerpEnd, strengthProgress) * StrengthMultiplier, 0f, 1f);
+            float speed = Mathf.Lerp(SpeedLerpStart, SpeedLerpEnd, speedProgress);
             int count = Mathf.FloorToInt(Mathf.Lerp(1, MaxEffectCount, countProgress));
             
             VestFrontEffectManager.DispatchEffect(count, (name) =>
@@ -86,32 +104,15 @@ namespace BhapticsPopOne.Haptics.Patterns
                     new ScaleOption(strength, speed)
                 );
             });
-            // var hit = GetFlyingHeight();
-            //
-            // string extension = "";
-            //
-            // if (hit.HasValue && hit.Value.distance > 10f)
-            //     extension = "_Level2";
-            // else
-            //     extension = "_Level1";
-            //
-            // if (!Mod.Instance.Haptics.Player.IsPlaying($"Vest/FlyingAir{extension}"))
-            // {
-            //     Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FlyingAir{extension}");
-            // }
-            //
-            // if (!Mod.Instance.Haptics.Player.IsPlaying($"Arm/FlyingAir{extension}"))
-            // {
-            //     Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FlyingAir{extension}");
-            // }
         }
         
         public static void Clear()
         {
             ResetFlight = true;
+            HighFlightTriggered = false;
             BaselineTime = 0f;
             TargetMultiplier = 1f;
-            
+
             VestFrontEffectManager.Clear();
             VestBackEffectManager.Clear();
             
