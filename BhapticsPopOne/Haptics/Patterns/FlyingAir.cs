@@ -1,5 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.ConfigManager.ConfigElements;
+using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
 using UnityEngine;
 
@@ -7,35 +11,162 @@ namespace BhapticsPopOne.Haptics.Patterns
 {
     public class FlyingAir
     {
-        public static void Execute()
+        private static DateTime FlightStart;
+        private static float BaselineTime = 0f;
+        private static float TargetMultiplier = 1f;
+        private static bool ResetFlight = true;
+        private static bool HighFlightTriggered = false;
+
+        private static ProceduralEffect VestFrontEffectManager = new ProceduralEffect
         {
-            var hit = GetFlyingHeight();
-
-            string extension = "";
-
-            if (hit.HasValue && hit.Value.distance > 10f)
-                extension = "_Level2";
-            else
-                extension = "_Level1";
-
-            if (!Mod.Instance.Haptics.Player.IsPlaying($"Vest/FlyingAir{extension}"))
+            EffectPrefix = "Vest/FlyingAir_Front",
+            Variants = FrontConfig.Variants
+        };
+        
+        private static ProceduralEffect VestBackEffectManager = new ProceduralEffect
+        {
+            EffectPrefix = "Vest/FlyingAir_Back",
+            Variants = BackConfig.Variants
+        };
+        
+        private static float FlightDuration
+        {
+            get
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FlyingAir{extension}");
-            }
-            
-            if (!Mod.Instance.Haptics.Player.IsPlaying($"Arm/FlyingAir{extension}"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FlyingAir{extension}");
+                TimeSpan ts = DateTime.Now - FlightStart;
+                return (float)ts.TotalSeconds;
             }
         }
 
+        private static FlyEffects Config => ConfigLoader.Config.Effects.Flying;
+
+        private static float FallingBaselineTime => Mathf.Max(Config.Modifiers.FromFalling.BaselineTime, 0f);
+        private static float FallingProgressMultiplier => Mathf.Max(Config.Modifiers.FromFalling.ProgressMultiplier, 0f);
+        private static float HighFlightBaselineTime => Mathf.Max(Config.Modifiers.HighFlight.ProgressMultiplier, 0f);
+        private static float HighFlightProgressMultiplier => Mathf.Max(Config.Modifiers.HighFlight.ProgressMultiplier, 0f);
+        private static float HighFlightDistance => Mathf.Max(Config.Modifiers.HighFlight.MinDistance, 0f);
+
+        public static void Execute(bool wasFalling)
+        {
+            if (!Config.Enabled)
+                return;
+
+            if (ResetFlight)
+            {
+                ResetFlight = false;
+                FlightStart = DateTime.Now;
+
+                if (wasFalling)
+                {
+                    UpdateBaselines(FallingBaselineTime, FallingProgressMultiplier);
+                }
+            }
+
+            var internalDuration = FlightDuration + BaselineTime;
+            
+            if (internalDuration < 0.1f && !HighFlightTriggered && IsHighFlight())
+            {
+                UpdateBaselines(HighFlightBaselineTime, HighFlightProgressMultiplier);
+                HighFlightTriggered = true;
+            }
+            
+            var duration = internalDuration + BaselineTime;
+            ExecuteFront(duration);
+            ExecuteBack(duration);
+            ExecuteArms(duration);
+        }
+
+        private static void ExecuteFront(float duration)
+        {
+            if (!Config.Front.Enabled)
+                return;
+            
+            // calc progress
+            var strengthProgress = Math.Min(duration / (FrontConfig.StrengthTarget * TargetMultiplier), 1f);
+            var speedProgress = Math.Min(duration / (FrontConfig.SpeedTarget * TargetMultiplier), 1f);
+            var countProgress = Math.Min(duration / (FrontConfig.ConcurrentTarget * TargetMultiplier), 1f);
+            
+            // calculate effect parameters
+            float strength = Mathf.Clamp(Mathf.Lerp(FrontConfig.StrengthLerpStart, FrontConfig.StrengthLerpEnd, strengthProgress) * FrontConfig.StrengthMultiplier, 0f, 1f);
+            float speed = Mathf.Lerp(FrontConfig.SpeedLerpStart, FrontConfig.SpeedLerpEnd, speedProgress);
+            int count = Mathf.FloorToInt(Mathf.Lerp(1, FrontConfig.MaxEffectCount, countProgress));
+            
+            VestFrontEffectManager.DispatchEffect(count, (name) =>
+            {
+                // MelonLogger.Log(name);
+                Mod.Instance.Haptics.Player.SubmitRegistered(
+                    name, 
+                    new ScaleOption(strength, speed)
+                );
+            });
+        }
+
+        private static void ExecuteBack(float duration)
+        {
+            if (!Config.Back.Enabled)
+                return;
+            
+            // calc progress
+            var strengthProgress = Math.Min(duration / (BackConfig.StrengthTarget * TargetMultiplier), 1f);
+            var speedProgress = Math.Min(duration / (BackConfig.SpeedTarget * TargetMultiplier), 1f);
+            var countProgress = Math.Min(duration / (BackConfig.ConcurrentTarget * TargetMultiplier), 1f);
+            
+            // calculate effect parameters
+            float strength = Mathf.Clamp(Mathf.Lerp(BackConfig.StrengthLerpStart, BackConfig.StrengthLerpEnd, strengthProgress) * BackConfig.StrengthMultiplier, 0f, 1f);
+            float speed = Mathf.Lerp(BackConfig.SpeedLerpStart, BackConfig.SpeedLerpEnd, speedProgress);
+            int count = Mathf.FloorToInt(Mathf.Lerp(1, BackConfig.MaxEffectCount, countProgress));
+            
+            VestBackEffectManager.DispatchEffect(count, (name) =>
+            {
+                // MelonLogger.Log(name);
+                Mod.Instance.Haptics.Player.SubmitRegistered(
+                    name, 
+                    new ScaleOption(strength, speed)
+                );
+            });
+        }
+
+        private static void ExecuteArms(float duration)
+        {
+            if (!Config.Arms.Enabled)
+                return;
+            
+            string[] effectPool = new[] {"Arm/FlyingAir_Level1", "Arm/FlyingAir_Level2"};
+            foreach (var s in effectPool)
+            {
+                if (Mod.Instance.Haptics.Player.IsPlaying(s))
+                    return;
+            }
+            
+            var progress = Math.Min(duration / (ArmConfig.Target * TargetMultiplier), 1f);
+            if (progress >= 1f)
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered(effectPool[1], new ScaleOption(ArmConfig.Strength, 1f));
+                return;
+            }
+            
+            Mod.Instance.Haptics.Player.SubmitRegistered(effectPool[0], new ScaleOption(ArmConfig.Strength, 1f));
+        }
+        
         public static void Clear()
         {
-            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir_Level1");
-            Mod.Instance.Haptics.Player.TurnOff("Vest/FlyingAir_Level2");
+            ResetFlight = true;
+            HighFlightTriggered = false;
+            BaselineTime = 0f;
+            TargetMultiplier = 1f;
+
+            VestFrontEffectManager.Clear();
+            VestBackEffectManager.Clear();
             
             Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level1");
             Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level2");
+        }
+
+        public static bool IsHighFlight()
+        {
+            var hit = GetFlyingHeight();
+
+            return hit.HasValue && hit.Value.distance >= HighFlightDistance;
         }
 
         public static RaycastHit? GetFlyingHeight()
@@ -48,6 +179,46 @@ namespace BhapticsPopOne.Haptics.Patterns
                 return null;
             
             return hit;
+        }
+
+        private static void UpdateBaselines(float baselineTime, float targetMultiplier)
+        {
+            BaselineTime = Mathf.Max(BaselineTime, baselineTime);
+            TargetMultiplier = Mathf.Min(TargetMultiplier, targetMultiplier);
+        }
+
+        private class FrontConfig
+        {
+            public static float StrengthTarget => Mathf.Max(Config.Front.Strength.Target, 0f);
+            public static float SpeedTarget => Mathf.Max(Config.Front.Speed.Target, 0f);
+            public static float ConcurrentTarget => Mathf.Max(Config.Front.EffectPool.Target, 0f);
+            public static float StrengthMultiplier => Mathf.Max(Config.Front.Strength.Multiplier, 0f);
+            public static int MaxEffectCount => Mathf.Max(Config.Front.EffectPool.MaxConcurrency, 0);
+            public static int Variants => Mathf.Max(Config.Front.EffectPool.Variants, 0);
+            public static float StrengthLerpStart => Mathf.Clamp(Config.Front.Strength.Goal.Start, 0f, 1f);
+            public static float StrengthLerpEnd => Mathf.Clamp(Config.Front.Strength.Goal.End, 0f, 1f);
+            public static float SpeedLerpStart => Mathf.Max(Config.Front.Speed.Goal.Start, 0f);
+            public static float SpeedLerpEnd => Mathf.Max(Config.Front.Speed.Goal.End, 0f);
+        }
+        
+        private class BackConfig
+        {
+            public static float StrengthTarget => Mathf.Max(Config.Back.Strength.Target, 0f);
+            public static float SpeedTarget => Mathf.Max(Config.Back.Speed.Target, 0f);
+            public static float ConcurrentTarget => Mathf.Max(Config.Back.EffectPool.Target, 0f);
+            public static float StrengthMultiplier => Mathf.Max(Config.Back.Strength.Multiplier, 0f);
+            public static int MaxEffectCount => Mathf.Max(Config.Back.EffectPool.MaxConcurrency, 0);
+            public static int Variants => Mathf.Max(Config.Back.EffectPool.Variants, 0);
+            public static float StrengthLerpStart => Mathf.Clamp(Config.Back.Strength.Goal.Start, 0f, 1f);
+            public static float StrengthLerpEnd => Mathf.Clamp(Config.Back.Strength.Goal.End, 0f, 1f);
+            public static float SpeedLerpStart => Mathf.Max(Config.Back.Speed.Goal.Start, 0f);
+            public static float SpeedLerpEnd => Mathf.Max(Config.Back.Speed.Goal.End, 0f);
+        }
+
+        private class ArmConfig
+        {
+            public static float Strength => Mathf.Clamp(Config.Arms.Strength, 0f, 1f);
+            public static float Target => Mathf.Max(Config.Arms.Target, 0f);
         }
     }
 }

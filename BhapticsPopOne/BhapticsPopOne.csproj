@@ -88,13 +88,24 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigManager\ConfigElements\Config.cs" />
+    <Compile Include="ConfigManager\ConfigElements\Disableable.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectsConfig.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\HighFlightModifier.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\StateModifier.cs" />
     <Compile Include="ConfigManager\ConfigElements\FallEffects.cs" />
+    <Compile Include="ConfigManager\ConfigElements\FlyEffects.cs" />
+    <Compile Include="ConfigManager\ConfigElements\LerpGoal.cs" />
+    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralEffectBase.cs" />
+    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralEffectTarget.cs" />
+    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralPool.cs" />
+    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralStrength.cs" />
     <Compile Include="ConfigManager\ConfigLoader.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\HandHelper.cs" />
     <Compile Include="Data\Players.cs" />
     <Compile Include="Haptics\ConnectionManager.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
+    <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
