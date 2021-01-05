@@ -69,6 +69,9 @@ namespace BhapticsPopOne
             
             ConfigLoader.InitConfig();
             
+            Patreon.ThankBurgerKing();
+            Patreon.ThankCoffee();
+            
             Validation();
             
             MonoBehavioursLoader.Inject();
