@@ -49,7 +49,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (name == "SniperAWP" || name == "Pistol357")
             {
                 if (!_disableVest)
-                PlayPooledEffect($"Vest/RecoilLevel9001{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
+                    PlayPooledEffect($"Vest/RecoilLevel9001{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/RecoilLevel9001{effectExtension}");
 
                 if (twoHanded)
