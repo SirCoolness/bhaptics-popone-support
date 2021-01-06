@@ -69,8 +69,7 @@ namespace BhapticsPopOne
             
             ConfigLoader.InitConfig();
             
-            Patreon.ThankBurgerKing();
-            Patreon.ThankCoffee();
+            Patreon.Run(); // (●'◡'●)
             
             Validation();
             
