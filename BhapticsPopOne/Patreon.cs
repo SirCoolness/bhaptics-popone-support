@@ -27,7 +27,7 @@ namespace BhapticsPopOne
         {
             if (ExistContributors.Length <= 0)
                 return;
-
+            
             int rowSize = 1;
             int offsetLen = Mathf.CeilToInt(ExistContributors.Length / (float) rowSize);
 
@@ -41,7 +41,8 @@ namespace BhapticsPopOne
         public static string[] BurgerKingContributors = new string[]
         {
             "AceJas",
-            "ZstormGames"
+            "ZstormGames",
+            "NerdNational"
         };
 
         /**
@@ -51,6 +52,7 @@ namespace BhapticsPopOne
          * Burger King:
          * - AceJas
          * - ZstormGames
+         * - NerdNational
          */
         public static void ThankBurgerKing()
         {
