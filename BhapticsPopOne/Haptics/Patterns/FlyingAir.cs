@@ -74,6 +74,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             ExecuteFront(duration);
             ExecuteBack(duration);
             ExecuteArms(duration);
+            ExecuteHands(duration);
         }
 
         private static void ExecuteFront(float duration)
@@ -148,6 +149,18 @@ namespace BhapticsPopOne.Haptics.Patterns
             Mod.Instance.Haptics.Player.SubmitRegistered(effectPool[0], new ScaleOption(ArmConfig.Strength, 1f));
         }
         
+        private static void ExecuteHands(float duration)
+        {
+            if (!Config.Hands.Enabled)
+                return;
+            
+            if (Mod.Instance.Haptics.Player.IsPlaying("Hands/FlyingAir"))
+                return;
+            
+            var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
+            Mod.Instance.Haptics.Player.SubmitRegistered("Hands/FlyingAir", new ScaleOption(progress * HandConfig.Strength, 1f));
+        }
+        
         public static void Clear()
         {
             ResetFlight = true;
@@ -160,6 +173,8 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level1");
             Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level2");
+            
+            Mod.Instance.Haptics.Player.TurnOff("Hands/FlyingAir");
         }
 
         public static bool IsHighFlight()
@@ -219,6 +234,12 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             public static float Strength => Mathf.Clamp(Config.Arms.Strength, 0f, 1f);
             public static float Target => Mathf.Max(Config.Arms.Target, 0f);
+        }
+        
+        private class HandConfig
+        {
+            public static float Strength => Mathf.Clamp(Config.Hands.Strength, 0f, 1f);
+            public static float Target => Mathf.Max(Config.Hands.Target, 0f);
         }
     }
 }
