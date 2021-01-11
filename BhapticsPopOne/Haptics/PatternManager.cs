@@ -142,6 +142,7 @@ namespace BhapticsPopOne.Haptics
             if(value == Handedness.Left)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_L");
+                Mod.Instance.Haptics.Player.SubmitRegistered("Hand/Climbing_L");
                 if (ConfigLoader.Config.VestClimbEffects)
                     Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
             }
@@ -149,6 +150,7 @@ namespace BhapticsPopOne.Haptics
             if (value == Handedness.Right)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_R");
+                Mod.Instance.Haptics.Player.SubmitRegistered("Hand/Climbing_R");
                 if (ConfigLoader.Config.VestClimbEffects)
                     Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
             }
