@@ -154,11 +154,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (!Config.Hands.Enabled)
                 return;
             
-            if (Mod.Instance.Haptics.Player.IsPlaying("Hands/FlyingAir"))
+            if (Mod.Instance.Haptics.Player.IsPlaying("Hand/FlyingAir"))
                 return;
             
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
-            Mod.Instance.Haptics.Player.SubmitRegistered("Hands/FlyingAir", new ScaleOption(progress * HandConfig.Strength, 1f));
+            Mod.Instance.Haptics.Player.SubmitRegistered("Hand/FlyingAir", new ScaleOption(progress * HandConfig.Strength, 1f));
         }
         
         public static void Clear()
@@ -174,7 +174,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level1");
             Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level2");
             
-            Mod.Instance.Haptics.Player.TurnOff("Hands/FlyingAir");
+            Mod.Instance.Haptics.Player.TurnOff("Hand/FlyingAir");
         }
 
         public static bool IsHighFlight()
