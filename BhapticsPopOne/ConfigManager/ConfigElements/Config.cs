@@ -25,7 +25,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
         public EffectsConfig Effects { get; set; }
         
         [YamlIgnore] 
-        public static Version CurrentVersion => new Version("0.0.3");
+        public static Version CurrentVersion => new Version("0.0.4");
         
         [YamlIgnore] 
         public static Config DefaultConfig = new Config

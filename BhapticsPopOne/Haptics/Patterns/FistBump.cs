@@ -30,6 +30,9 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FistBumpHit{HandExt(currentFistbump)}");
             Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FistBumpStarted{HandExt(currentFistbump)}", new ScaleOption(1f, time));
+            
+            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/FistBumpHit{HandExt(currentFistbump)}");
+            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/FistBumpStarted{HandExt(currentFistbump)}", new ScaleOption(1f, time));
         }
 
         public static void Stop(bool finished)
@@ -38,9 +41,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FistBump{HandExt(currentFistbump)}");
                 Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FistBumpComplete{HandExt(currentFistbump)}");
+                Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/FistBumpComplete{HandExt(currentFistbump)}");
             }
             
             Mod.Instance.Haptics.Player.TurnOff($"Arm/FistBumpStarted{HandExt(currentFistbump)}");
+            Mod.Instance.Haptics.Player.TurnOff($"Hand/FistBumpStarted{HandExt(currentFistbump)}");
 
             currentFistbump = Handedness.Unknown;
         }

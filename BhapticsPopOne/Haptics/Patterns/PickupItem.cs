@@ -19,6 +19,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ItemPickup{effectExtension}");
             Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/ItemPickup{effectExtension}");
+            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/ItemPickup{effectExtension}");
         }
     }
 }
