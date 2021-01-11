@@ -7,6 +7,7 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         private static string lastVestEffect = "";
         private static string lastArmEffect = "";
+        private static string lastHandEffect = "";
         
         public static void Execute(int current, int next)
         {
@@ -20,7 +21,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             Mod.Instance.Haptics.Player.TurnOff(lastVestEffect);
             Mod.Instance.Haptics.Player.TurnOff(lastArmEffect);
-
+            Mod.Instance.Haptics.Player.TurnOff(lastHandEffect);
         }
 
         public static void PlayDraw()
@@ -29,15 +30,18 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/SelectItem{EffectExtension()}");
             Mod.Instance.Haptics.Player.SubmitRegistered( $"Arm/SelectItem{EffectExtension()}");
+            Mod.Instance.Haptics.Player.SubmitRegistered( $"Hand/SelectItem{EffectExtension()}");
         }
 
         public static void PlayHide()
         {
             lastVestEffect = $"Vest/HideWeapon{EffectExtension()}";
             lastArmEffect = $"Arm/HideWeapon{EffectExtension()}";
+            lastHandEffect = $"Hand/HideWeapon{EffectExtension()}";
             
             Mod.Instance.Haptics.Player.SubmitRegistered(lastVestEffect);
             Mod.Instance.Haptics.Player.SubmitRegistered(lastArmEffect);
+            Mod.Instance.Haptics.Player.SubmitRegistered(lastHandEffect);
         }
 
         private static string EffectExtension()
