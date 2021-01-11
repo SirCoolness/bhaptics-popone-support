@@ -23,7 +23,8 @@ namespace BhapticsPopOne.Haptics
             "Vest",
             "Arm",
             "Head",
-            "Hand"
+            "Hand",
+            "Foot"
         };
 
         public static float VestHeight = 0.7f;
