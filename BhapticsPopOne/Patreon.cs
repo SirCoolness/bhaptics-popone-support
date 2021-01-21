@@ -72,7 +72,8 @@ namespace BhapticsPopOne
         public static string[] CoffeeContributors = new string[]
         {
             "Alex VR",
-            "Ham VR"
+            "Ham VR",
+            "Delistd"
         };
 
         /**
@@ -82,6 +83,7 @@ namespace BhapticsPopOne
          * Coffee:
          * - Alex VR
          * - Ham VR
+         * - Delistd
          */
         public static void ThankCoffee()
         {
