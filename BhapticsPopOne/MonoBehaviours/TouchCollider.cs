@@ -44,14 +44,21 @@ namespace BhapticsPopOne
                 return;
             }
 
+            var direction = (transform.position - vestRef.position).normalized;
+            var forward = Quaternion.Euler(0, -90f, 0) * vestRef.forward;
+            var angle = -BhapticsUtils.Angle(forward, direction);
+
+            var relativeY = transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset);
+            var localizedY = Mathf.Clamp(relativeY / PatternManager.VestHeight, -0.5f, 0.5f);
+            
             // MelonLogger.Log($"{Mathf.Clamp((transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f)} {transform.position.y -  (vestRef.position.y + PatternManager.VestCenterOffset)}");
             var effect = PatternManager.Effects["Vest/ReceiveTouch"];
             effect.Play(new Effect.EffectProperties
             {
                 Strength = 0.25f,
                 Time = Time.fixedDeltaTime,
-                // XRotation = ,
-                YOffset = Mathf.Clamp((transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f)
+                XRotation = angle,
+                YOffset = localizedY
             });
         }
 
