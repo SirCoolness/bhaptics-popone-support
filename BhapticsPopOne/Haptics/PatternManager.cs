@@ -6,7 +6,9 @@ using Unity;
 using UnityEngine;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -28,7 +30,14 @@ namespace BhapticsPopOne.Haptics
         };
 
         public static float VestHeight = 0.7f;
+        
+        public static Dictionary<string, Effect> Effects = new Dictionary<string, Effect>();
 
+        public static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
+        {
+            ["Vest/ReceiveTouch"] = 64
+        };
+        
         // loads all subdirectories
         // TODO: change to recursive
         public static void LoadPatterns()
@@ -45,14 +54,21 @@ namespace BhapticsPopOne.Haptics
         {
             string baseDir = RootDirectory + $"\\{subdirectory}";
             var files = Directory.GetFiles(baseDir);
-            
+
             foreach (var file in files)
             {
                 var label = Path.GetFileNameWithoutExtension(file);
-                Mod.Instance.Haptics.Player.RegisterTactFileStr($"{subdirectory}/{label}", System.IO.File.ReadAllText(file));
-                
+
+                var effect = new Effect($"{subdirectory}/{label}", file);
+                Effects[effect.Name] = effect;
+
+                if (PoolSettings.ContainsKey(effect.Name))
+                    effect.PoolSize = PoolSettings[effect.Name];
+
+                Mod.Instance.Haptics.Player.Register(effect.Name, effect.Contents);
+
                 if (ConfigLoader.Config.ShowLoadedEffects)
-                    MelonLogger.Log($"[Pattern Loader] Loaded [{subdirectory}/{label}]");
+                    MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
             }
         }
         
