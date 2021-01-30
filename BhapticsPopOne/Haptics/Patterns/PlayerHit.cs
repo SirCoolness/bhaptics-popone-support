@@ -50,7 +50,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             Vector3 forward = Quaternion.Euler(0, -90f, 0) * vestRef.forward;
             var angle = BhapticsUtils.Angle(forward, -info.Forward);
 
-            float offsetY = Mathf.Clamp((info.ImpactPosition.y - vestRef.position.y) / PatternManager.VestHeight, -0.5f, 0.5f);
+            float offsetY = Mathf.Clamp((info.ImpactPosition.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f);
             
             if (Array.Exists(BulletWeapons, el => el == info.Weapon))
                 BulletHit(info, -angle, offsetY);

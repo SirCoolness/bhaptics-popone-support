@@ -82,8 +82,8 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandLeft, Handedness.Left, __instance.netId);
             DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandRight, Handedness.Right, __instance.netId);
             
-            // TouchCollider.BindToTransform(__instance.Avatar.HandLeft);
-            // TouchCollider.BindToTransform(__instance.Avatar.HandRight);
+            TouchCollider.BindToTransform(__instance.Avatar.HandLeft);
+            TouchCollider.BindToTransform(__instance.Avatar.HandRight);
         }
     }
 }

@@ -29,7 +29,8 @@ namespace BhapticsPopOne.Haptics
             "Foot"
         };
 
-        public static float VestHeight = 0.7f;
+        public static float VestHeight = 0.35f;
+        public static float VestCenterOffset = 0.2f;
         
         public static Dictionary<string, Effect> Effects = new Dictionary<string, Effect>();
 

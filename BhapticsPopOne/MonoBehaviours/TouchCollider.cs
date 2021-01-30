@@ -1,4 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
 
@@ -23,12 +26,35 @@ namespace BhapticsPopOne
         
         private void OnTriggerEnter(Collider other)
         {
+            // if (!filter.Contains(other.name))
+                // return;
+            
+            // MelonLogger.Log($"{other.name}");
+        }
+
+        private void OnTriggerStay(Collider other)
+        {
             if (!filter.Contains(other.name))
                 return;
             
-            MelonLogger.Log($"{other.name}");
+            var vestRef = Mod.Instance.Data.Players.VestReference();
+            if (vestRef == null)
+            {
+                MelonLogger.LogWarning("Cant the reference transform for the vest.");
+                return;
+            }
+
+            // MelonLogger.Log($"{Mathf.Clamp((transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f)} {transform.position.y -  (vestRef.position.y + PatternManager.VestCenterOffset)}");
+            var effect = PatternManager.Effects["Vest/ReceiveTouch"];
+            effect.Play(new Effect.EffectProperties
+            {
+                Strength = 0.25f,
+                Time = Time.fixedDeltaTime,
+                // XRotation = ,
+                YOffset = Mathf.Clamp((transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f)
+            });
         }
-        
+
         public static void BindToTransform(Transform dest)
         {
             var exists = dest.Find("TouchCollider") != null;
