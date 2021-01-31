@@ -27,7 +27,7 @@ namespace BhapticsPopOne
         
         private void OnTriggerStay(Collider other)
         {
-            if (!filter.Contains(other.name))
+            if (!filter.Contains(other.name) || other.transform.root != Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig)
                 return;
             
             var vestRef = Mod.Instance.Data.Players.VestReference();
