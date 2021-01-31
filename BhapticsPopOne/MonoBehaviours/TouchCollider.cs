@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
@@ -15,7 +16,7 @@ namespace BhapticsPopOne
 
         public static int Layer = 7; // punch
 
-        public static string[] filter = new[]
+        public static HashSet<string> filter = new HashSet<string>
         {
             "male_a_rig:spine_01",
             "male_a_rig:spine_02",
@@ -24,14 +25,6 @@ namespace BhapticsPopOne
             "male_a_rig:clavicle_l",
         };
         
-        private void OnTriggerEnter(Collider other)
-        {
-            // if (!filter.Contains(other.name))
-                // return;
-            
-            // MelonLogger.Log($"{other.name}");
-        }
-
         private void OnTriggerStay(Collider other)
         {
             if (!filter.Contains(other.name))
@@ -64,31 +57,11 @@ namespace BhapticsPopOne
 
         public static void BindToTransform(Transform dest)
         {
-            var exists = dest.Find("TouchCollider") != null;
+            var exists = dest.gameObject.GetComponent<TouchCollider>() != null;
             if (exists)
                 return;
             
-            var gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            gameObject.name = "TouchCollider";
-            gameObject.transform.localScale = new Vector3(width, width, width);
-
-            gameObject.layer = Layer;
-
-            gameObject.transform.parent = dest;
-            gameObject.transform.localPosition = Vector3.zero;
-
-            DestroyImmediate(gameObject.GetComponent<Rigidbody>());
-            
-            var collider = gameObject.GetComponent<SphereCollider>();
-            collider.radius = width / 2f;
-            collider.isTrigger = true;
-
-            gameObject.AddComponent<TouchCollider>();
-
-            var sphereProxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
-            sphereProxy.UseBounce = false;
-            sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
-            sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
+            dest.gameObject.AddComponent<TouchCollider>();
         }
     }
 }

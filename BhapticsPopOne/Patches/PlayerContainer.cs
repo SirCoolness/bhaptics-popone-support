@@ -76,8 +76,8 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 return;
             
             // MelonLogger.Log($"OnContainerComponentReady {Logging.StringifyVector3(__instance.Avatar.HandLeftAttachPoint.transform.position)} {__instance.Data.DisplayName} {__instance.Avatar.IsAvatarReady}");
-            HandCollider.BindToTransform(__instance.Avatar.HandLeftAttachPoint, Handedness.Left, __instance.netId);
-            HandCollider.BindToTransform(__instance.Avatar.HandRightAttachPoint, Handedness.Right, __instance.netId);
+            HandCollider.BindToTransform(__instance.Avatar.HandLeft, Handedness.Left, __instance.netId);
+            HandCollider.BindToTransform(__instance.Avatar.HandRight, Handedness.Right, __instance.netId);
             
             DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandLeft, Handedness.Left, __instance.netId);
             DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandRight, Handedness.Right, __instance.netId);

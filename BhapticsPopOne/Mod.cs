@@ -82,6 +82,8 @@ namespace BhapticsPopOne
             PatternManager.LoadPatterns();
             
             Data.Initialize();
+            
+            Physics.IgnoreLayerCollision(10, 19, false);
         }
 
         public override void OnApplicationQuit()

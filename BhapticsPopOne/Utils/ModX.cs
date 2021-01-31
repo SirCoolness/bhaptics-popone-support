@@ -76,7 +76,7 @@ public static class ModX
     {
         for (int i = 0; i < 32; i++)
         {
-            if (!Physics.GetIgnoreLayerCollision(i, i) && !Physics.GetIgnoreLayerCollision(i, extra))
+            if (!Physics.GetIgnoreLayerCollision(i, extra))
                 MelonLogger.Log(ConsoleColor.Green, $"Self Collision on {i}");
         }
     }
@@ -121,5 +121,30 @@ public static class ModX
     public static void ForceReloadConfig()
     {
         ConfigLoader.InitConfig();
+    }
+
+    public static void CheckIgnore()
+    {
+        var avatar =  Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar;
+        
+        if (avatar == null)
+            return;
+
+        var leftColl = avatar.HandLeft.GetComponent<CapsuleCollider>();
+        var rightColl = avatar.HandRight.GetComponent<CapsuleCollider>(); 
+        
+        Physics.IgnoreCollision(leftColl, rightColl, false);
+    }
+
+    public static void Simulate(int amount)
+    {
+        Physics.Simulate(amount);
+        MelonLogger.Log(ConsoleColor.Red, Physics.autoSimulation);
+    }
+
+    public static void Start()
+    {
+        Physics.autoSimulation = true;
+        ModX.CheckIgnore();
     }
 }

@@ -24,16 +24,16 @@ namespace BhapticsPopOne.MonoBehaviours
 
         private void OnTriggerEnter(Collider other)
         {
-            // MelonLogger.Log(other.name);
+            // MelonLogger.Log($"{other.name} {name}");
             if (other?.transform == null)
                 return;
 
-            var target = other.transform.GetComponent<HighFiveTarget>();
+            var target = other.transform.GetComponent<HandCollider>();
             if (target != null)
                 HandlePunch(other, target);
         }
 
-        private void HandlePunch(Collider other, HighFiveTarget target)
+        private void HandlePunch(Collider other, HandCollider target)
         {
             if (target.Hand == Hand && target.OwnerID == OwnerID)
                 return;
@@ -57,79 +57,84 @@ namespace BhapticsPopOne.MonoBehaviours
                 return;
             
             HighFive.Execute(Hand);
+            MelonLogger.Log($"Playing high five {Hand.ToString()}");
         }
 
         public static void BindToTransform(Transform dest, Handedness hand, uint netId)
         {
-            var exists = dest.Find("HandCollider") != null;
+            var exists = dest.gameObject.GetComponent<HandCollider>() != null;
             if (exists)
                 return;
-            
-            var gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-            gameObject.name = "HandCollider";
-            gameObject.transform.localScale = new Vector3(width, width, width);
 
-            gameObject.layer = Layer;
-
-            gameObject.transform.parent = dest;
-            gameObject.transform.localPosition = Vector3.zero;
-
-            DestroyImmediate(gameObject.GetComponent<Rigidbody>());
-            
-            var collider = gameObject.GetComponent<SphereCollider>();
-            collider.radius = width / 2f;
-            collider.isTrigger = true;
-
-            var handCollider = gameObject.AddComponent<HandCollider>();
+            var handCollider = dest.gameObject.AddComponent<HandCollider>();
             handCollider.Hand = hand;
             handCollider.OwnerID = netId;
-
-            var sphereProxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
-            sphereProxy.UseBounce = false;
-            sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
-            sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
-
-            if (ConfigLoader.Config.ShowHighFiveRegion && PlayerContainer.Find(netId)?.isLocalPlayer == true)
-            {
-                var meshRenderer = gameObject.GetComponent<MeshRenderer>();
-                meshRenderer.material = null;
-            }
             
-            AddRB(dest, hand, netId);
+            // var gameObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+            // gameObject.name = "HandCollider";
+            // gameObject.transform.localScale = new Vector3(width, width, width);
+
+            // gameObject.layer = Layer;
+
+            // gameObject.transform.parent = dest;
+            // gameObject.transform.localPosition = Vector3.zero;
+
+            // DestroyImmediate(gameObject.GetComponent<Rigidbody>());
+
+            // var collider = gameObject.GetComponent<SphereCollider>();
+            // collider.radius = width / 2f;
+            // collider.isTrigger = true;
+
+            // var handCollider = gameObject.AddComponent<HandCollider>();
+            // handCollider.Hand = hand;
+            // handCollider.OwnerID = netId;
+
+            // var sphereProxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
+            // sphereProxy.UseBounce = false;
+            // sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
+            // sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
+
+            // if (ConfigLoader.Config.ShowHighFiveRegion && PlayerContainer.Find(netId)?.isLocalPlayer == true)
+            // {
+            // var meshRenderer = gameObject.GetComponent<MeshRenderer>();
+            // meshRenderer.material = null;
+            // }
+
+            // AddRB(dest, hand, netId);
         }
 
-        private static void AddRB(Transform dest, Handedness hand, uint netId)
-        {
-            var handRB = new GameObject("HandRB");
-
-            handRB.transform.localScale = new Vector3(width, width, width);
-            
-            handRB.layer = Layer;
-
-            handRB.transform.parent = dest;
-            handRB.transform.localPosition = Vector3.zero;
-
-
-            var collider = handRB.AddComponent<SphereCollider>();
-
-            collider.radius = width / 2f;
-            collider.isTrigger = false;
-            
-            var rb = handRB.AddComponent<Rigidbody>();
-            rb.isKinematic = true;
-            rb.useGravity = false;
-            rb.detectCollisions = false;
-            
-            var sphereProxy = handRB.AddComponent<CustomPhysicsObjectProxy>();
-            sphereProxy.UseBounce = false;
-            sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
-            sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
-
-            var target = handRB.AddComponent<HighFiveTarget>();
-            target.Hand = hand;
-            target.OwnerID = netId;
-            
-            BattleRoyaleExtensions.DrawBounds(collider.bounds, Color.blue);
-        }
+        // private static void AddRB(Transform dest, Handedness hand, uint netId)
+        // {
+        //     var handRB = new GameObject("HandRB");
+        //
+        //     handRB.transform.localScale = new Vector3(width, width, width);
+        //     
+        //     handRB.layer = Layer;
+        //
+        //     handRB.transform.parent = dest;
+        //     handRB.transform.localPosition = Vector3.zero;
+        //
+        //
+        //     var collider = handRB.AddComponent<SphereCollider>();
+        //
+        //     collider.radius = width / 2f;
+        //     collider.isTrigger = false;
+        //     
+        //     var rb = handRB.AddComponent<Rigidbody>();
+        //     rb.isKinematic = true;
+        //     rb.useGravity = false;
+        //     rb.detectCollisions = false;
+        //     
+        //     var sphereProxy = handRB.AddComponent<CustomPhysicsObjectProxy>();
+        //     sphereProxy.UseBounce = false;
+        //     sphereProxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
+        //     sphereProxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
+        //
+        //     var target = handRB.AddComponent<HighFiveTarget>();
+        //     target.Hand = hand;
+        //     target.OwnerID = netId;
+        //     
+        //     BattleRoyaleExtensions.DrawBounds(collider.bounds, Color.blue);
+        // }
     }
 }
