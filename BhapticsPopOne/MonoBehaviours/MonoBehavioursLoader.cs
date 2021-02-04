@@ -20,6 +20,7 @@ namespace BhapticsPopOne
             ClassInjector.RegisterTypeInIl2Cpp<DestructibleCollisionHelp>();
             ClassInjector.RegisterTypeInIl2Cpp<HighFiveTarget>();
             ClassInjector.RegisterTypeInIl2Cpp<TouchCollider>();
+            ClassInjector.RegisterTypeInIl2Cpp<VelocityTracker>();
         }
     }
 }

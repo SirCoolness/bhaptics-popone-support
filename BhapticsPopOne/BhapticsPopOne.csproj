@@ -133,6 +133,7 @@
     <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
     <Compile Include="MonoBehaviours\TouchCollider.cs" />
     <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
+    <Compile Include="MonoBehaviours\VelocityTracker.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />

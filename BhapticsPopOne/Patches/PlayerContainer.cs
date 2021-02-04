@@ -130,6 +130,10 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             //
             // TouchCollider.BindToTransform(left);
             // TouchCollider.BindToTransform(right);
+
+            if (__instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
+                __instance.Avatar.Rig.gameObject.AddComponent<VelocityTracker>();
+            
             AddHandReference.AddHandsToPlayer(__instance);
         }
     }
