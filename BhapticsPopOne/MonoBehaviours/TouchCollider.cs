@@ -22,13 +22,15 @@ namespace BhapticsPopOne
             "male_a_rig:spine_02",
             "male_a_rig:spine_03",
             "male_a_rig:clavicle_l",
-            "male_a_rig:clavicle_l",
+            "male_a_rig:clavicle_r",
         };
         
         private void OnTriggerStay(Collider other)
         {
             if (!filter.Contains(other.name) || other.transform.root != Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig)
                 return;
+            
+            MelonLogger.Log(other.name);
             
             var vestRef = Mod.Instance.Data.Players.VestReference();
             if (vestRef == null)

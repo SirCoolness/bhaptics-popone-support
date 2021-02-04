@@ -24,7 +24,6 @@ namespace BhapticsPopOne.MonoBehaviours
 
         private void OnTriggerEnter(Collider other)
         {
-            // MelonLogger.Log($"{other.name} {name}");
             if (other?.transform == null)
                 return;
 

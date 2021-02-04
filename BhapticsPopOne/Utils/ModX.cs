@@ -4,12 +4,29 @@ using BhapticsPopOne;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.MonoBehaviours;
+using BigBoxVR;
 using Goyfs.Command;
 using MelonLoader;
 using UnityEngine;
 
 public static class ModX
 {
+    private static ServerDiscoveryRecord _serverDiscoveryRecord = new ServerDiscoveryRecord
+    {
+        Address = "25.17.174.195",
+        Port = 9999,
+        Hostname = "Testing",
+        Source = DiscoverySource.LAN,
+        Version = "1.2.15849",
+        GameMode = GameMode.Undefined,
+        InstanceID = "BEANS",
+        LastHeartbeatReceived = 0,
+        MapName = "MainMenu--Batched",
+        GameState = GameState.Default,
+        MaxPlayers = 10,
+        BuildNumber = "15849"
+    };
+    
     public static void InitColliders()
     {
         var obj1 = GameObject.CreatePrimitive(PrimitiveType.Sphere);
@@ -130,10 +147,25 @@ public static class ModX
         if (avatar == null)
             return;
 
-        var leftColl = avatar.HandLeft.GetComponent<CapsuleCollider>();
-        var rightColl = avatar.HandRight.GetComponent<CapsuleCollider>(); 
+        var leftColl = avatar.HandLeft.gameObject;
+        var rightColl = avatar.HandRight.gameObject; 
         
-        Physics.IgnoreCollision(leftColl, rightColl, false);
+        MonoBehaviour.Destroy(leftColl.GetComponent<CustomPhysicsObjectProxy>());
+        MonoBehaviour.Destroy(rightColl.GetComponent<CustomPhysicsObjectProxy>());
+        
+        Physics.IgnoreCollision(leftColl.GetComponent<CapsuleCollider>(), rightColl.GetComponent<CapsuleCollider>(), false);
+        
+        // var leftP = avatar.HandLeft.GetComponent<CustomPhysicsObjectProxy>();
+        // var rightP = avatar.HandRight.GetComponent<CustomPhysicsObjectProxy>();
+        //
+        // leftP.RemoveCustomProxy();
+        // rightP.RemoveCustomProxy();
+        //
+        // leftP.AddCustomProxy();
+        // rightP.AddCustomProxy();
+        
+        leftColl.gameObject.AddComponent<CustomPhysicsObjectProxy>();
+        rightColl.gameObject.AddComponent<CustomPhysicsObjectProxy>();
     }
 
     public static void Simulate(int amount)
@@ -144,7 +176,44 @@ public static class ModX
 
     public static void Start()
     {
-        Physics.autoSimulation = true;
+        // Physics.autoSimulation = true;
         ModX.CheckIgnore();
+    }
+
+    // public static void LoadInternalPhysics()
+    // {
+    //     MelonLogger.Log(Data.PhysicsSystem);
+    //     MelonLogger.Log(Data.PhysicsSystem.masksByLayer.Length);
+    // }
+
+    // public static void Bind()
+    // {
+    //     var controllers = GameObject.FindObjectsOfType<HandController>();
+    //     foreach (var handController in controllers)
+    //     {
+    //         handController.ha
+    //     }
+    // }
+    
+    public static void TestServer()
+    {
+        var server = GameObject.FindObjectOfType<NetworkingHost>();
+        var serverDiscovery = server.GetComponent<BigBoxServerDiscovery>();
+        MelonLogger.Log(server);
+        
+        server.StopServer();
+        server.ConnectRule = NetworkingHost.Role.DedicatedServer;
+        server.ServerPort = 7777;
+        server.publishRoomAfterSceneLoads = false;
+        server.SetupServer();
+        server.StartServer();
+    }
+    
+    public static void TestClient()
+    {
+        var server = GameObject.FindObjectOfType<NetworkingHost>();
+        var serverDiscovery = server.GetComponent<BigBoxServerDiscovery>();
+        
+        server.ConnectToServerOnSceneChange(_serverDiscoveryRecord);
     }
 }
