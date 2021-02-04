@@ -5,15 +5,15 @@ namespace BhapticsPopOne
 {
     public class AddHandReference
     {
-        public static float width = 0.115f;
+        public static float width = 0.125f;
 
         public static void AddHandsToPlayer(PlayerContainer player)
         {
-            ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar.HandLeftAttachPoint.gameObject, new []
+            ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar?.HandLeftAttachPoint?.gameObject, new []
             {
                 player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>()
             }));
-            ApplyComponents(player.netId, Handedness.Right, AddHand(player.Avatar.HandRightAttachPoint.gameObject, new []
+            ApplyComponents(player.netId, Handedness.Right, AddHand(player.Avatar?.HandRightAttachPoint?.gameObject, new []
             {
                 player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>()
             }));
@@ -27,7 +27,7 @@ namespace BhapticsPopOne
 
         private static GameObject AddHand(GameObject dest, Collider[] ignoreC)
         {
-            if (dest.transform.Find(nameof(AddHandReference)) != null)
+            if (dest?.transform.Find(nameof(AddHandReference)) != null)
                 return null;
             
             var gameObject = new GameObject(nameof(AddHandReference));
@@ -61,6 +61,9 @@ namespace BhapticsPopOne
 
         private static void ApplyComponents(uint netId, Handedness hand, GameObject dest)
         {
+            if (dest == null)
+                return;
+            
             HandCollider.BindToTransform(dest.transform, hand, netId);
             DestructibleCollisionHelp.BindToTransform(dest.transform, hand, netId);
             TouchCollider.BindToTransform(dest.transform);

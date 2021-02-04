@@ -30,7 +30,7 @@ namespace BhapticsPopOne
             if (!filter.Contains(other.name) || other.transform.root != Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig)
                 return;
             
-            MelonLogger.Log(other.name);
+            // MelonLogger.Log(other.name);
             
             var vestRef = Mod.Instance.Data.Players.VestReference();
             if (vestRef == null)

@@ -56,7 +56,7 @@ namespace BhapticsPopOne.MonoBehaviours
                 return;
             
             HighFive.Execute(Hand);
-            MelonLogger.Log($"Playing high five {Hand.ToString()}");
+            // MelonLogger.Log($"Playing high five {Hand.ToString()}");
         }
 
         public static void BindToTransform(Transform dest, Handedness hand, uint netId)
