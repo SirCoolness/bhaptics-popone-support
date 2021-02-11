@@ -42,7 +42,8 @@ namespace BhapticsPopOne
         {
             "AceJas",
             "ZstormGames",
-            "NerdNational"
+            "NerdNational",
+            "TheMysticle"
         };
 
         /**
@@ -53,6 +54,8 @@ namespace BhapticsPopOne
          * - AceJas
          * - ZstormGames
          * - NerdNational
+         * - Anonymous [JR]
+         * - TheMysticle
          */
         public static void ThankBurgerKing()
         {
