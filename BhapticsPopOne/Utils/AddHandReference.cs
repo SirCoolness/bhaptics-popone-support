@@ -66,8 +66,9 @@ namespace BhapticsPopOne
             
             HandCollider.BindToTransform(dest.transform, hand, netId);
             DestructibleCollisionHelp.BindToTransform(dest.transform, hand, netId);
-            
-            // if (!PlayerContainer.Find(netId).isLocalPlayer)
+
+            PlayerContainer found;
+            if (!PlayerContainer.TryFind(netId, out found) || !found.isLocalPlayer)
                 TouchCollider.BindToTransform(dest.transform);
         }
     }

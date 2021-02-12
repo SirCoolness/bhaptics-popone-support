@@ -72,7 +72,7 @@ namespace BhapticsPopOne
             var relativeY = transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset);
             var localizedY = Mathf.Clamp(relativeY / PatternManager.VestHeight, -0.5f, 0.5f);
             
-            var effect = PatternManager.Effects["Vest/InitialTouchV2"];
+            var effect = PatternManager.Effects["Vest/InitialTouch"];
             effect.Play(new Effect.EffectProperties
             {
                 Strength = Math.Min(1f, magnitude / 4f),
@@ -134,7 +134,7 @@ namespace BhapticsPopOne
 
         public static void BindToTransform(Transform dest)
         {
-            var exists = dest.gameObject.GetComponent<TouchCollider>() != null;
+            var exists = dest?.gameObject.GetComponent<TouchCollider>() != null;
             if (exists)
                 return;
             
