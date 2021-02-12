@@ -16,7 +16,7 @@ namespace BhapticsPopOne
         private void FixedUpdate()
         {
             _current = transform.position;
-            _velocity = (_current - _previous) / Time.deltaTime;
+            _velocity = (_previous - _current) / Time.deltaTime;
             _previous = _current;
         }
     }

@@ -36,7 +36,8 @@ namespace BhapticsPopOne.Haptics
 
         public static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
         {
-            ["Vest/ReceiveTouch"] = 64
+            ["Vest/ReceiveTouch"] = 32,
+            ["Vest/InitialTouch"] = 8
         };
         
         // loads all subdirectories
