@@ -107,9 +107,12 @@
     <Compile Include="Data\HandHelper.cs" />
     <Compile Include="Data\Players.cs" />
     <Compile Include="Haptics\ConnectionManager.cs" />
+    <Compile Include="Haptics\EffectHelpers\ByteEffect.cs" />
     <Compile Include="Haptics\EffectHelpers\Effect.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
+    <Compile Include="Haptics\EffectManagers\EffectLoopRegistry.cs" />
     <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
+    <Compile Include="Haptics\Loaders\InitializeByteEffects.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="Utils\Logging.cs" />
     <Compile Include="Utils\LoggingContext.cs" />
     <Compile Include="Utils\ModX.cs" />
+    <Compile Include="Utils\TestOcilate.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILMerge" Version="3.0.29" />

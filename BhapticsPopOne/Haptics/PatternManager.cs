@@ -9,6 +9,7 @@ using System.Collections;
 using System.Collections.Generic;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
+using BhapticsPopOne.Haptics.Loaders;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -48,6 +49,8 @@ namespace BhapticsPopOne.Haptics
             {
                 LoadSubDirectory(subdirectory);
             }
+            
+            InitializeByteEffects.Init();
         }
         
         // loads a set of patterns in a subdirectory

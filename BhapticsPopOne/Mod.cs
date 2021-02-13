@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.EffectManagers;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Patches;
 using MelonLoader;
@@ -145,6 +146,12 @@ namespace BhapticsPopOne
             base.OnFixedUpdate();
             
             _effectLoop.FixedUpdate();
+            // TestOcilate.FixedUpdate();
+        }
+
+        public override void OnUpdate()
+        {
+            EffectLoopRegistry.Update();
         }
 
         public override void OnLevelWasLoaded(int level)
@@ -153,6 +160,11 @@ namespace BhapticsPopOne
             
             // clear when level reloads to avoid memory overflow
             ReloadWeapon.PreviousStateMap.Clear();
+            
+            if (level == 0)
+                EffectLoopRegistry.Start("Arm/SendTouch_L");
+            else
+                EffectLoopRegistry.Stop("Arm/SendTouch_L");
         }
     }
 }
