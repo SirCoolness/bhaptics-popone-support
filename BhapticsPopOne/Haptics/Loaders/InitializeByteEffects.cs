@@ -8,7 +8,9 @@ namespace BhapticsPopOne.Haptics.Loaders
     {
         public static void Init()
         {
-            byte armTouchPowered = 22;
+            byte armTouchPowered = 30;
+            byte armTouchTime = 40;
+            byte armTouchDelay = 40;
             
             EffectLoopRegistry.Register("Arm/SendTouch_L", new ByteEffect
             {
@@ -17,8 +19,8 @@ namespace BhapticsPopOne.Haptics.Loaders
                 {
                     new ByteEffect.Step
                     {
-                        Delay = 10,
-                        Length = 30,
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
                         State = new byte[]
                         {
                             0, 0, armTouchPowered,
@@ -27,14 +29,42 @@ namespace BhapticsPopOne.Haptics.Loaders
                     }, 
                     new ByteEffect.Step
                     {
-                        Delay = 10,
-                        Length = 30,
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
                         State = new byte[]
                         {
                             0, armTouchPowered, 0,
                             0, 0, 0
                         }
+                    }
+                }
+            });
+            
+            EffectLoopRegistry.Register("Arm/SendTouch_R", new ByteEffect
+            {
+                Position = PositionType.ForearmR,
+                Steps = new []
+                {
+                    new ByteEffect.Step
+                    {
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
+                        State = new byte[]
+                        {
+                            armTouchPowered, 0, 0,
+                            0, 0, 0
+                        }
                     }, 
+                    new ByteEffect.Step
+                    {
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
+                        State = new byte[]
+                        {
+                            0, armTouchPowered, 0,
+                            0, 0, 0
+                        }
+                    }
                 }
             });
         }

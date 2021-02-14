@@ -26,6 +26,15 @@ namespace BhapticsPopOne.Haptics.EffectManagers
             effect.Playing = true;
             effect.CurrentStep = 0;
             effect.NextInvoke = GetCurrentTime();
+            effect.Timeout = 0;
+        }
+        
+        public static void Start(string name, uint duration)
+        {
+            Start(name);
+            
+            var effect = effects[name];
+            effect.Timeout = GetCurrentTime() + duration;
         }
         
         public static void Stop(string name)
@@ -45,10 +54,24 @@ namespace BhapticsPopOne.Haptics.EffectManagers
             }
         }
 
+        public static void LevelInit()
+        {
+            foreach (var effectTimingData in effects)
+            {
+                Stop(effectTimingData.Key);
+            }
+        }
+
         private static void Play(string key, EffectTimingData effect, uint time)
         {
             if (!effect.Playing || effect.NextInvoke > time)
                 return;
+
+            if (effect.Timeout != 0 && time > effect.Timeout)
+            {
+                Stop(key);
+                return;
+            }
             
             Mod.Instance.Haptics.Player.Submit(key, effect.Effect.Position, effect.Current.State, (int)effect.Current.Length);
             effect.NextInvoke = time + (effect.Current.Length + effect.Current.Delay);
@@ -69,6 +92,7 @@ namespace BhapticsPopOne.Haptics.EffectManagers
             public ByteEffect.Step Current => Effect.Steps[CurrentStep];
 
             public bool Playing = false;
+            public uint Timeout = 0;
 
             public void Next()
             {

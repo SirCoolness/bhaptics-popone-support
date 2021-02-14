@@ -160,11 +160,11 @@ namespace BhapticsPopOne
             
             // clear when level reloads to avoid memory overflow
             ReloadWeapon.PreviousStateMap.Clear();
-            
-            if (level == 0)
-                EffectLoopRegistry.Start("Arm/SendTouch_L");
-            else
-                EffectLoopRegistry.Stop("Arm/SendTouch_L");
+        }
+
+        public override void OnLevelWasInitialized(int level)
+        {
+            EffectLoopRegistry.LevelInit();
         }
     }
 }

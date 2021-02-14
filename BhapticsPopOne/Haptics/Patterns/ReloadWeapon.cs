@@ -25,7 +25,7 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             var dominant = Mod.Instance.Data.Players.LocalPlayerContainer.Data.DominantHand;
             
-            var ext = FistBump.HandExt(dominant == Handedness.Right ? Handedness.Left : Handedness.Right);
+            var ext = HapticUtils.HandExt(dominant == Handedness.Right ? Handedness.Left : Handedness.Right);
 
             if (state == FirearmState.Prime1)
             {

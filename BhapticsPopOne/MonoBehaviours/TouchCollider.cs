@@ -139,7 +139,10 @@ namespace BhapticsPopOne
                 return;
             
             var touchC = dest.gameObject.AddComponent<TouchCollider>();
-            touchC.velocityTracker = dest.gameObject.AddComponent<VelocityTracker>();
+            if (dest.GetComponent<VelocityTracker>() == null)
+                touchC.velocityTracker = dest.gameObject.AddComponent<VelocityTracker>();
+            else
+                touchC.velocityTracker = dest.GetComponent<VelocityTracker>();
         }
     }
 }

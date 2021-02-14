@@ -122,6 +122,7 @@
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\FistBump.cs" />
     <Compile Include="Haptics\Patterns\FlyingAir.cs" />
+    <Compile Include="Haptics\Patterns\HapticUtils.cs" />
     <Compile Include="Haptics\Patterns\HighFive.cs" />
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
@@ -134,6 +135,7 @@
     <Compile Include="MonoBehaviours\HandCollider.cs" />
     <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
     <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
+    <Compile Include="MonoBehaviours\SendTouch.cs" />
     <Compile Include="MonoBehaviours\TouchCollider.cs" />
     <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
     <Compile Include="MonoBehaviours\VelocityTracker.cs" />
