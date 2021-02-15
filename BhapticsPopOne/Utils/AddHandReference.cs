@@ -58,7 +58,7 @@ namespace BhapticsPopOne
             if (dest == null)
                 return;
             
-            HandCollider.BindToTransform(dest.transform, hand, netId);
+            // HandCollider.BindToTransform(dest.transform, hand, netId);
             // TouchCollider.BindToTransform(dest.transform);
             // GeneralTouchCollider.BindToTransform(dest.transform);
 
