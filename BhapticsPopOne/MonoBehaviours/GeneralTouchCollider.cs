@@ -20,8 +20,7 @@ namespace BhapticsPopOne
             ["male_a_rig:calf_l"] = PositionType.FootL, 
             ["male_a_rig:foot_r"] = PositionType.FootR, 
             ["male_a_rig:calf_r"] = PositionType.FootR, 
-            ["male_a_rig:head"] = PositionType.Head, 
-            ["male_a_rig:neck_01"] = PositionType.Head
+            ["male_a_rig:head"] = PositionType.Head
         };
         
         public VelocityTracker velocityTracker;
