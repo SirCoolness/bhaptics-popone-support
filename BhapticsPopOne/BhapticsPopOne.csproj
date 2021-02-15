@@ -170,7 +170,6 @@
     <Compile Include="Utils\Logging.cs" />
     <Compile Include="Utils\LoggingContext.cs" />
     <Compile Include="Utils\ModX.cs" />
-    <Compile Include="Utils\TestOcilate.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILMerge" Version="3.0.29" />

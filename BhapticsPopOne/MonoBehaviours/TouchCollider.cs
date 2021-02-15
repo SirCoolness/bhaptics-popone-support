@@ -57,7 +57,6 @@ namespace BhapticsPopOne
 
             var magnitude = Vector3.Magnitude(relativeVelocity);
             
-            MelonLogger.Log(magnitude);
             var vestRef = Mod.Instance.Data.Players.VestReference();
             if (vestRef == null)
             {
