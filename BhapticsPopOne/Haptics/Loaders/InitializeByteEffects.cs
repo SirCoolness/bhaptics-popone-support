@@ -67,6 +67,58 @@ namespace BhapticsPopOne.Haptics.Loaders
                     }
                 }
             });
+            
+            EffectLoopRegistry.Register("Hand/SendTouch_L", new ByteEffect
+            {
+                Position = PositionType.HandL,
+                Steps = new []
+                {
+                    new ByteEffect.Step
+                    {
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
+                        State = new byte[]
+                        {
+                            armTouchPowered, 0, 0
+                        }
+                    }, 
+                    new ByteEffect.Step
+                    {
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
+                        State = new byte[]
+                        {
+                            0, armTouchPowered, 0
+                        }
+                    }
+                }
+            });
+            
+            EffectLoopRegistry.Register("Hand/SendTouch_R", new ByteEffect
+            {
+                Position = PositionType.HandR,
+                Steps = new []
+                {
+                    new ByteEffect.Step
+                    {
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
+                        State = new byte[]
+                        {
+                            armTouchPowered, 0, 0
+                        }
+                    }, 
+                    new ByteEffect.Step
+                    {
+                        Delay = armTouchDelay,
+                        Length = armTouchTime,
+                        State = new byte[]
+                        {
+                            0, armTouchPowered, 0
+                        }
+                    }
+                }
+            });
         }
     }
 }

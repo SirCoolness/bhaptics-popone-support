@@ -42,26 +42,49 @@ namespace BhapticsPopOne
             var relativeVelocity = targetVelocity - localVelocity;
 
             var magnitude = Vector3.Magnitude(relativeVelocity);
-            
+
             if (magnitude > 1.35f)
+            {
                 PatternManager.Effects[$"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
                 {
                     Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
-                    OnComplete = OnComplete
+                    OnComplete = OnCompleteArm
                 }); 
+                
+                PatternManager.Effects[$"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                {
+                    Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
+                    OnComplete = OnCompleteHand
+                }); 
+            }
             else
+            {
                 PatternManager.Effects[$"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
                 {
                     Time = 0.275f,
                     Strength = Mathf.Min(1f, magnitude / 1.35f),
-                    OnComplete = OnComplete
+                    OnComplete = OnCompleteArm
                 });
+                
+                PatternManager.Effects[$"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                {
+                    Time = 0.275f,
+                    Strength = Mathf.Min(1f, magnitude / 1.35f),
+                    OnComplete = OnCompleteHand
+                });
+            }
         }
 
-        private void OnComplete()
+        private void OnCompleteArm()
         {
             if (activeParts.Count > 0)
                 EffectLoopRegistry.Start($"Arm/SendTouch{HapticUtils.HandExt(hand)}");
+        }
+        
+        private void OnCompleteHand()
+        {
+            if (activeParts.Count > 0)
+                EffectLoopRegistry.Start($"Hand/SendTouch{HapticUtils.HandExt(hand)}");
         }
 
         private void OnTriggerExit(Collider other)
@@ -70,9 +93,12 @@ namespace BhapticsPopOne
                 return;
             
             activeParts.Remove(other.gameObject.GetInstanceID());
-            
+
             if (activeParts.Count <= 0)
+            {
                 EffectLoopRegistry.Stop($"Arm/SendTouch{HapticUtils.HandExt(hand)}");
+                EffectLoopRegistry.Stop($"Hand/SendTouch{HapticUtils.HandExt(hand)}");
+            }
 
         }
 
