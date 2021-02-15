@@ -73,4 +73,17 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 PatternManager.ShieldFull();
         }
     }
+    
+    [HarmonyPatch(typeof(PlayerData), "NetworkplayerState", MethodType.Setter)]
+    public class NetworkplayerStateSetter
+    {
+        static void Postfix(PlayerData __instance, PlayerState value)
+        {
+            if (!__instance.isLocalPlayer)
+                return;
+            
+            if (value != PlayerState.Active)
+                DrinkSoda.Clear();
+        }
+    }
 }

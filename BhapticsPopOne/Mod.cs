@@ -166,6 +166,7 @@ namespace BhapticsPopOne
         public override void OnLevelWasInitialized(int level)
         {
             EffectLoopRegistry.LevelInit();
+            DrinkSoda.Clear();
         }
     }
 }

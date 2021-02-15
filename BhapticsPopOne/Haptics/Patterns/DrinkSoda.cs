@@ -29,6 +29,11 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void FullHealth()
         {
+            Clear();
+        }
+
+        public static void Clear()
+        {
             estimatedSodaEffects.Clear();
         }
     }

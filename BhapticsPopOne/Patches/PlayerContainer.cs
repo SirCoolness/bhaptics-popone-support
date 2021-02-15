@@ -75,62 +75,6 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
                 return;
 
-            // var left = __instance.Avatar.HandLeft;
-            // var right = __instance.Avatar.HandRight;
-
-            // var lp = left.GetComponent<CustomPhysicsObjectProxy>();
-            // var rp = right.GetComponent<CustomPhysicsObjectProxy>();
-            //
-            // MonoBehaviour.Destroy(lp);
-            // MonoBehaviour.Destroy(rp);
-            //
-            // var lc = left.GetComponent<CapsuleCollider>();
-            // var rc = right.GetComponent<CapsuleCollider>();
-            //
-            // if (lc != null)
-            // {
-            //     // var bounds = lc.bounds;
-            //     var center = lc.center;
-            //     var size = new Vector3(lc.radius, lc.height, lc.radius);
-            //     float radius = lc.radius;
-            //     
-            //     MonoBehaviour.Destroy(lc);
-            //
-            //     var boxC = left.gameObject.AddComponent<BoxCollider>();
-            //     boxC.size = size;
-            //     // boxC.radius = radius;
-            //     boxC.center = center;
-            //     boxC.isTrigger = true;
-            // }
-            //
-            // if (rc != null)
-            // {
-            //     var center = rc.center;
-            //     var size = new Vector3(rc.radius, rc.height, rc.radius);
-            //     float radius = lc.radius;
-            //     
-            //     MonoBehaviour.Destroy(rc);
-            //
-            //     var boxC = right.gameObject.AddComponent<BoxCollider>();
-            //     boxC.size = size;
-            //     // boxC.radius = radius;
-            //     boxC.center = center;
-            //     boxC.isTrigger = true;
-            // }
-            //
-            // left.gameObject.AddComponent<CustomPhysicsObjectProxy>();
-            // right.gameObject.AddComponent<CustomPhysicsObjectProxy>();
-
-            // MelonLogger.Log($"OnContainerComponentReady {Logging.StringifyVector3(__instance.Avatar.HandLeftAttachPoint.transform.position)} {__instance.Data.DisplayName} {__instance.Avatar.IsAvatarReady}");
-            // HandCollider.BindToTransform(left, Handedness.Left, __instance.netId);
-            // HandCollider.BindToTransform(right, Handedness.Right, __instance.netId);
-            //
-            // DestructibleCollisionHelp.BindToTransform(left, Handedness.Left, __instance.netId);
-            // DestructibleCollisionHelp.BindToTransform(right, Handedness.Right, __instance.netId);
-            //
-            // TouchCollider.BindToTransform(left);
-            // TouchCollider.BindToTransform(right);
-
             if (__instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
                 __instance.Avatar.Rig.gameObject.AddComponent<VelocityTracker>();
             
