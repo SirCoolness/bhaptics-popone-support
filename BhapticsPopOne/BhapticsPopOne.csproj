@@ -160,6 +160,7 @@
     <Compile Include="Utils\BhapticsUtils.cs" />
     <Compile Include="Utils\ConfigHelpers.cs" />
     <Compile Include="Utils\FileHelpers.cs" />
+    <Compile Include="Utils\GoyfsUtils.cs" />
     <Compile Include="Utils\LineDrawer.cs" />
     <Compile Include="Utils\Logging.cs" />
     <Compile Include="Utils\LoggingContext.cs" />

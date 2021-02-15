@@ -4,9 +4,11 @@ using BhapticsPopOne;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.MonoBehaviours;
+using BhapticsPopOne.Utils;
 using BigBoxVR;
 using Goyfs.Command;
 using MelonLoader;
+using UnhollowerRuntimeLib;
 using UnityEngine;
 
 public static class ModX
@@ -215,5 +217,13 @@ public static class ModX
         var serverDiscovery = server.GetComponent<BigBoxServerDiscovery>();
         
         server.ConnectToServerOnSceneChange(_serverDiscoveryRecord);
+    }
+
+    public static void TestSoda()
+    {
+        MelonLogger.Log(GoyfsHelper.TryAddListener<PlayerBuffConsumedSignal, uint, BuffInfo>((a, b) =>
+        {
+            MelonLogger.Log(ConsoleColor.Magenta, $"{a} {b.BuffType.ToString()} {b.UsableModelType.FullName}");
+        }));
     }
 }
