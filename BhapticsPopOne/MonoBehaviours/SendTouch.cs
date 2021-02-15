@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Aws.GameLift.Server.Model;
 using BhapticsPopOne.Haptics;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.EffectManagers;
 using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
@@ -20,9 +21,8 @@ namespace BhapticsPopOne
 
         private void OnTriggerEnter(Collider other)
         {
-            MelonLogger.Log(ConsoleColor.Magenta, other.name);
             if (activeParts.Contains(other.gameObject.GetInstanceID()) 
-                || other.transform.root.GetComponent<DamageableSkeleton>() == null
+                || other?.transform?.root.GetComponent<DamageableSkeleton>() == null
                 || Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig == other.transform.root)
                 return;
 
@@ -31,8 +31,37 @@ namespace BhapticsPopOne
             if (activeParts.Count > 1)
                 return;
             
-            PatternManager.Effects[$"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play();
-            EffectLoopRegistry.Start($"Arm/SendTouch{HapticUtils.HandExt(hand)}");
+            var targetTracker = other.transform.root.GetComponent<VelocityTracker>();
+
+            if (targetTracker == null)
+                return;
+
+            var targetVelocity = targetTracker.Velocity;
+            var localVelocity = velocityTracker.Velocity;
+
+            var relativeVelocity = targetVelocity - localVelocity;
+
+            var magnitude = Vector3.Magnitude(relativeVelocity);
+            
+            if (magnitude > 1.35f)
+                PatternManager.Effects[$"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                {
+                    Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
+                    OnComplete = OnComplete
+                }); 
+            else
+                PatternManager.Effects[$"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                {
+                    Time = 0.275f,
+                    Strength = Mathf.Min(1f, magnitude / 1.35f),
+                    OnComplete = OnComplete
+                });
+        }
+
+        private void OnComplete()
+        {
+            if (activeParts.Count > 0)
+                EffectLoopRegistry.Start($"Arm/SendTouch{HapticUtils.HandExt(hand)}");
         }
 
         private void OnTriggerExit(Collider other)

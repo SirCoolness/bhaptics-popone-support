@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using Bhaptics.Tact;
+using BhapticsPopOne.Haptics.EffectManagers;
 using Il2CppSystem.Linq;
 using MelonLoader;
 using PlayFab.Json;
@@ -16,6 +17,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             public float YOffset { get; internal set; } = 0f;
             public float Time { get; internal set; } = 1f;
             public float Strength { get; internal set; } = 1f;
+            public Action OnComplete { get; internal set; } = () => { }; 
             
             public static EffectProperties Default => new EffectProperties();
         }
@@ -36,6 +38,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         
         private readonly HashSet<System.Guid> EffectNames = new HashSet<System.Guid>();
         private readonly HashSet<System.Guid> ActiveEffects = new HashSet<System.Guid>();
+        private readonly Dictionary<System.Guid, Action> OnEffectStop = new Dictionary<System.Guid, Action>();
 
         public Effect(string name, string path, bool register = true)
         {
@@ -75,7 +78,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             foreach (var activeEffect in ActiveEffects)
                 Mod.Instance.Haptics.Player.TurnOff(activeEffect.ToString());
             
-            ActiveEffects.Clear();
+            // ActiveEffects.Clear();
         }
         
         private void ResizePool(bool force = false)
@@ -92,6 +95,9 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             {
                 var id = System.Guid.NewGuid();
                 EffectNames.Add(id);
+
+                EffectEventsDispatcher.OnEffectStop[id.ToString()] = () => { OnEffectStopLabel(id); };
+                OnEffectStop[id] = DefaultOnStop;
                 
                 Mod.Instance.Haptics.Player.Register(id.ToString(), Contents);
             }
@@ -102,6 +108,8 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             EffectProperties properties = EffectProperties.Default;
             if (_properties != null)
                 properties = _properties;
+
+            OnEffectStop[id] = properties.OnComplete;
             
             Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation(
                 id.ToString(), 
@@ -115,13 +123,17 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
 
         private void DequeueCompletedEffects()
         {
-            var readyToRemove = new HashSet<System.Guid>();
-            foreach (var activeEffect in ActiveEffects)
-                if (!Mod.Instance.Haptics.Player.IsPlaying(activeEffect.ToString()))
-                    readyToRemove.Add(activeEffect);
-            
-            foreach (var s in readyToRemove)
-                ActiveEffects.Remove(s);
+            // MelonLogger.Log(ActiveEffects.Count);
+            // var readyToRemove = new HashSet<System.Guid>();
+            // foreach (var activeEffect in ActiveEffects)
+            //     if (!Mod.Instance.Haptics.Player.IsPlaying(activeEffect.ToString()))
+            //         readyToRemove.Add(activeEffect);
+            //
+            // foreach (var s in readyToRemove)
+            // {
+            //     ActiveEffects.Remove(s);
+            //     OnEffectStop[s] = DefaultOnStop;
+            // }
         }
 
         private System.Guid? GetAvailableEffect()
@@ -135,7 +147,17 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
 
             return null;
         }
+
+        private void OnEffectStopLabel(System.Guid id)
+        {
+            ActiveEffects.Remove(id);
+            OnEffectStop[id].Invoke();
+            OnEffectStop[id] = DefaultOnStop;
+        }
         
+        private void DefaultOnStop()
+        {}
+
         private static string ReadFile(string path)
         {
             return System.IO.File.ReadAllText(path);

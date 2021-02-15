@@ -81,6 +81,7 @@ namespace BhapticsPopOne
             StartServices();
             
             PatternManager.LoadPatterns();
+            EffectEventsDispatcher.Init();
             
             Data.Initialize();
             

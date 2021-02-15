@@ -131,7 +131,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             // TouchCollider.BindToTransform(left);
             // TouchCollider.BindToTransform(right);
 
-            if (__instance.isLocalPlayer == true && __instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
+            if (__instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
                 __instance.Avatar.Rig.gameObject.AddComponent<VelocityTracker>();
             
             AddHandReference.AddHandsToPlayer(__instance);

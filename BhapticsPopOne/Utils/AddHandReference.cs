@@ -66,12 +66,8 @@ namespace BhapticsPopOne
             
             HandCollider.BindToTransform(dest.transform, hand, netId);
             DestructibleCollisionHelp.BindToTransform(dest.transform, hand, netId);
-
-            PlayerContainer found;
-            if (!PlayerContainer.TryFind(netId, out found))
-                return;
             
-            if (!found.isLocalPlayer)
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId != netId)
                 TouchCollider.BindToTransform(dest.transform);
             else
                 SendTouch.BindToTransform(dest.transform, hand);

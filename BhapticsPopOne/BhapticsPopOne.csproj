@@ -111,6 +111,7 @@
     <Compile Include="Haptics\EffectHelpers\Effect.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
     <Compile Include="Haptics\EffectManagers\EffectLoopRegistry.cs" />
+    <Compile Include="Haptics\EffectManagers\EffectEventsDispatcher.cs" />
     <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
     <Compile Include="Haptics\Loaders\InitializeByteEffects.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
