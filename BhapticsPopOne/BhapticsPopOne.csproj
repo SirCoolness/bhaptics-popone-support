@@ -51,6 +51,9 @@
     <Reference Include="Il2CppSystem.Core, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\Il2CppSystem.Core.dll</HintPath>
     </Reference>
+    <Reference Include="Il2CppSystem.Reflection, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Il2CppSystem.Reflection.dll</HintPath>
+    </Reference>
     <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\MelonLoader.ModHandler.dll</HintPath>
     </Reference>
@@ -78,6 +81,9 @@
     </Reference>
     <Reference Include="Unity.Collections, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\Unity.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\UnityEngine.dll</HintPath>
@@ -133,6 +139,7 @@
     <Compile Include="Mod.cs" />
     <Compile Include="MonoBehaviours\DebugMarker.cs" />
     <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
+    <Compile Include="MonoBehaviours\GeneralTouchCollider.cs" />
     <Compile Include="MonoBehaviours\HandCollider.cs" />
     <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
     <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />

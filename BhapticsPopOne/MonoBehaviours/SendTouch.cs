@@ -26,9 +26,11 @@ namespace BhapticsPopOne
                 || Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig == other.transform.root)
                 return;
 
+            bool firstTime = activeParts.Count == 0;
+            
             activeParts.Add(other.gameObject.GetInstanceID());
             
-            if (activeParts.Count > 1)
+            if (!firstTime)
                 return;
             
             var targetTracker = other.transform.root.GetComponent<VelocityTracker>();
