@@ -17,12 +17,6 @@ namespace BhapticsPopOne
             {
                 player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>()
             }));
-            
-            // ApplyComponents(player.netId, Handedness.Left, player.Avatar.HandLeft.gameObject);
-            // ApplyComponents(player.netId, Handedness.Right, player.Avatar.HandRight.gameObject);
-
-            // player.Avatar.HandLeft.GetComponent<CustomPhysicsObjectProxy>().ColliderUsage = ColliderUsage.All;
-            // player.Avatar.HandRight.GetComponent<CustomPhysicsObjectProxy>().ColliderUsage = ColliderUsage.All;
         }
 
         private static GameObject AddHand(GameObject dest, Collider[] ignoreC)
@@ -65,12 +59,14 @@ namespace BhapticsPopOne
                 return;
             
             HandCollider.BindToTransform(dest.transform, hand, netId);
-            DestructibleCollisionHelp.BindToTransform(dest.transform, hand, netId);
-            
+
             if (Mod.Instance.Data.Players.LocalPlayerContainer.netId != netId)
                 TouchCollider.BindToTransform(dest.transform);
             else
+            {
+                DestructibleCollisionHelp.BindToTransform(dest.transform, hand, netId);
                 SendTouch.BindToTransform(dest.transform, hand);
+            }
         }
     }
 }
