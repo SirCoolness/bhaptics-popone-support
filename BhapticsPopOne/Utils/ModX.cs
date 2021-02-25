@@ -219,11 +219,11 @@ public static class ModX
         server.ConnectToServerOnSceneChange(_serverDiscoveryRecord);
     }
 
-    public static void TestSoda()
-    {
-        MelonLogger.Log(GoyfsHelper.TryAddListener<PlayerBuffConsumedSignal, uint, BuffInfo>((a, b) =>
-        {
-            MelonLogger.Log(ConsoleColor.Magenta, $"{a} {b.BuffType.ToString()} {b.UsableModelType.FullName}");
-        }));
-    }
+    // public static void TestSoda()
+    // {
+    //     MelonLogger.Log(GoyfsHelper.TryAddListener<PlayerBuffConsumedSignal, uint, BuffInfo>((a, b) =>
+    //     {
+    //         MelonLogger.Log(ConsoleColor.Magenta, $"{a} {b.BuffType.ToString()} {b.UsableModelType.FullName}");
+    //     }));
+    // }
 }

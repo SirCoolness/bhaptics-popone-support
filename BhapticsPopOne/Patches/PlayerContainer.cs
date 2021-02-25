@@ -19,7 +19,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
 
-            if (info.Source == HitSourceCategory.Bot || info.Source == HitSourceCategory.Player)
+            if (info.Source == HitSourceCategory.Firearm)
             {
                 PlayerHit.Execute(info);
             }
@@ -27,8 +27,9 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 PatternManager.ZoneHit();
             else if (info.Source == HitSourceCategory.Falling)
                 FallDamage.Execute(-info.Damage, info.Power);
-            else
-                PatternManager.TestPattern();
+            
+            // else
+            //     PatternManager.TestPattern();
 
             if (info.ArmorBroke)
             {
@@ -74,7 +75,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
         {
             if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
                 return;
-
+            
             if (__instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
                 __instance.Avatar.Rig.gameObject.AddComponent<VelocityTracker>();
             

@@ -64,7 +64,6 @@ namespace BhapticsPopOne
         public override void OnApplicationStart()
         {
             MelonLogger.Log($"{_initLoggingContext.Prefix} Application initializing");
-            base.OnApplicationStart();
 
             RootInit();
             
@@ -72,7 +71,7 @@ namespace BhapticsPopOne
             
             Patreon.Run(); // (●'◡'●)
             
-            Validation();
+            // Validation();
             
             MonoBehavioursLoader.Inject();
             
@@ -86,6 +85,8 @@ namespace BhapticsPopOne
             Data.Initialize();
             
             Physics.IgnoreLayerCollision(10, 19, false);
+            
+            MelonLogger.Log("Successfully started");
         }
 
         public override void OnApplicationQuit()
@@ -102,31 +103,31 @@ namespace BhapticsPopOne
             Haptics = new ConnectionManager();
         }
         
-        private void Validation()
-        {
-            var validationLogContext = new LoggingContext("validation", _initLoggingContext);
-            
-            var patchTester = new TestPatches();
-            var failedMethods = new List<MethodInfo>();
-
-            var status = patchTester.Test(failedMethods);
-            
-            if (status) {
-                MelonLogger.Log($"{validationLogContext.Prefix} Methods have been patched successfully");
-            }
-            else
-            {
-                string failedMethodsMessage = String.Join(", ", failedMethods.Select(x =>
-                {
-                    var delaringClass = x.DeclaringType;
-                    if (delaringClass == null) return x.Name;
-                    return $"{delaringClass.Name}.{x.Name}";
-                }));
-                
-                MelonLogger.Log($"{validationLogContext.Prefix} Some methods failed to be patched. Exiting early. ({failedMethods.Count})[{failedMethodsMessage}]");
-                Application.Quit();
-            }
-        }
+        // private void Validation()
+        // {
+        //     var validationLogContext = new LoggingContext("validation", _initLoggingContext);
+        //     
+        //     // var patchTester = new TestPatches();
+        //     var failedMethods = new List<MethodInfo>();
+        //
+        //     var status = patchTester.Test(failedMethods);
+        //     
+        //     if (status) {
+        //         MelonLogger.Log($"{validationLogContext.Prefix} Methods have been patched successfully");
+        //     }
+        //     else
+        //     {
+        //         string failedMethodsMessage = String.Join(", ", failedMethods.Select(x =>
+        //         {
+        //             var delaringClass = x.DeclaringType;
+        //             if (delaringClass == null) return x.Name;
+        //             return $"{delaringClass.Name}.{x.Name}";
+        //         }));
+        //         
+        //         MelonLogger.Log($"{validationLogContext.Prefix} Some methods failed to be patched. Exiting early. ({failedMethods.Count})[{failedMethodsMessage}]");
+        //         Application.Quit();
+        //     }
+        // }
 
         private void StartServices()
         {
@@ -152,7 +153,7 @@ namespace BhapticsPopOne
 
         public override void OnUpdate()
         {
-            EffectLoopRegistry.Update();
+            // EffectLoopRegistry.Update();
         }
 
         public override void OnLevelWasLoaded(int level)
@@ -160,13 +161,16 @@ namespace BhapticsPopOne
             base.OnLevelWasLoaded(level);
             
             // clear when level reloads to avoid memory overflow
-            ReloadWeapon.PreviousStateMap.Clear();
+            // ReloadWeapon.PreviousStateMap.Clear();
+            
+            // MelonLogger.Log("load level");
         }
 
         public override void OnLevelWasInitialized(int level)
         {
-            EffectLoopRegistry.LevelInit();
-            DrinkSoda.Clear();
+            // EffectLoopRegistry.LevelInit();
+            // DrinkSoda.Clear();
+            // MelonLogger.Log("init level");
         }
     }
 }

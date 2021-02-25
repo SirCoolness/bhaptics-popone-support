@@ -36,6 +36,9 @@
     <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\Assembly-CSharp.dll</HintPath>
     </Reference>
+    <Reference Include="Assembly-CSharp-firstpass, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
     <Reference Include="Bhaptics.Tact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\Bhaptics.Tact.dll</HintPath>
     </Reference>
