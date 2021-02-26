@@ -43,6 +43,7 @@ namespace BhapticsPopOne
             "AceJas",
             "ZstormGames",
             "NerdNational",
+            "Anonymous Supporter",
             "TheMysticle"
         };
 
@@ -54,7 +55,7 @@ namespace BhapticsPopOne
          * - AceJas
          * - ZstormGames
          * - NerdNational
-         * - Anonymous [JR]
+         * - Anonymous Supporter [JR]
          * - TheMysticle
          */
         public static void ThankBurgerKing()
@@ -76,7 +77,9 @@ namespace BhapticsPopOne
         {
             "Alex VR",
             "Ham VR",
-            "Delistd"
+            "Delistd",
+            "Sky Candy",
+            "Mike."
         };
 
         /**
@@ -87,6 +90,8 @@ namespace BhapticsPopOne
          * - Alex VR
          * - Ham VR
          * - Delistd
+         * - Sky Candy
+         * - Mike.
          */
         public static void ThankCoffee()
         {

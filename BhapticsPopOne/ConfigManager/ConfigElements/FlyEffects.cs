@@ -9,6 +9,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
         public FrontEffects Front { get; set; }
         public BackEffects Back { get; set; }
         public ArmEffects Arms { get; set; }
+        public HandEffects Hands { get; set; }
 
         [YamlIgnore] 
         public static FlyEffects DefaultConfig = new FlyEffects
@@ -17,6 +18,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             Front = FrontEffects.DefaultConfig,
             Back = BackEffects.DefaultConfig,
             Arms = ArmEffects.DefaultConfig,
+            Hands = HandEffects.DefaultConfig,
             Modifiers = EffectStateModifiers.DefaultConfig
         };
 
@@ -122,7 +124,21 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             public static ArmEffects DefaultConfig = new ArmEffects
             {
                 Enabled = true,
-                Strength = 0.5f,
+                Strength = 1f,
+                Target = 0.75f
+            };
+        }
+        
+        public class HandEffects : Disableable
+        {
+            public float Strength { get; set; }
+            public float Target { get; set; }
+            
+            [YamlIgnore] 
+            public static HandEffects DefaultConfig = new HandEffects
+            {
+                Enabled = true,
+                Strength = 1f,
                 Target = 0.75f
             };
         }

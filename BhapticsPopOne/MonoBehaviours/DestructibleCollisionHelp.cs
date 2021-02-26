@@ -24,17 +24,9 @@ namespace BhapticsPopOne.MonoBehaviours
 
         private void HandleBreak(Collider other, DestructibleSceneItem destructibleSceneItem)
         {
-            // MelonLogger.Log("Destructible hit");
             if (destructibleSceneItem == null)
             {
                 // MelonLogger.LogWarning("cant find scene item");
-                return;
-            }
-
-            var Player = PlayerContainer.Find(OwnerID);
-            if (Player?.isLocalPlayer != true)
-            {
-                // MelonLogger.Log("not local");
                 return;
             }
 
@@ -55,10 +47,6 @@ namespace BhapticsPopOne.MonoBehaviours
             if (dest.GetComponent<DestructibleCollisionHelp>() != null)
                 return;
             
-            var punch = dest.GetComponent<Punch>();
-            if (punch == null)
-                return;
-
             var helper = dest.gameObject.AddComponent<DestructibleCollisionHelp>();
             helper.Hand = hand;
             helper.OwnerID = netId;

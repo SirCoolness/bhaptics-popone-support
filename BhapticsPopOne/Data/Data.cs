@@ -3,7 +3,7 @@
     public class Data
     {
         public Players Players;
-        
+        public static PhysicsSystem PhysicsSystem => PhysicsWrapper.System.Cast<PhysicsSystem>();
 
         public Data()
         {

@@ -15,7 +15,7 @@ namespace BhapticsPopOne.UnetGameManager2
                 return;
 
 
-            var playerstate = Mod.Instance.Data.Players.LocalPlayerContainer.Data.PlayerState;
+            var playerstate = Mod.Instance.Data.Players.LocalPlayerContainer.Data.NetworkplayerState;
             if (playerstate == PlayerState.Eliminated)
                 return;
             

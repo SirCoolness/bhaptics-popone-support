@@ -6,7 +6,10 @@ using Unity;
 using UnityEngine;
 using System.IO;
 using System.Collections;
+using System.Collections.Generic;
 using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
+using BhapticsPopOne.Haptics.Loaders;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -22,11 +25,22 @@ namespace BhapticsPopOne.Haptics
         {
             "Vest",
             "Arm",
-            "Head"
+            "Head",
+            "Hand",
+            "Foot"
         };
 
-        public static float VestHeight = 0.7f;
+        public static float VestHeight = 0.35f;
+        public static float VestCenterOffset = 0.2f;
+        
+        public static Dictionary<string, Effect> Effects = new Dictionary<string, Effect>();
 
+        public static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
+        {
+            ["Vest/ReceiveTouch"] = 32,
+            ["Vest/InitialTouch"] = 8
+        };
+        
         // loads all subdirectories
         // TODO: change to recursive
         public static void LoadPatterns()
@@ -35,6 +49,8 @@ namespace BhapticsPopOne.Haptics
             {
                 LoadSubDirectory(subdirectory);
             }
+            
+            InitializeByteEffects.Init();
         }
         
         // loads a set of patterns in a subdirectory
@@ -43,30 +59,24 @@ namespace BhapticsPopOne.Haptics
         {
             string baseDir = RootDirectory + $"\\{subdirectory}";
             var files = Directory.GetFiles(baseDir);
-            
+
             foreach (var file in files)
             {
                 var label = Path.GetFileNameWithoutExtension(file);
-                Mod.Instance.Haptics.Player.RegisterTactFileStr($"{subdirectory}/{label}", System.IO.File.ReadAllText(file));
-                
+
+                var effect = new Effect($"{subdirectory}/{label}", file);
+                Effects[effect.Name] = effect;
+
+                if (PoolSettings.ContainsKey(effect.Name))
+                    effect.PoolSize = PoolSettings[effect.Name];
+
+                Mod.Instance.Haptics.Player.Register(effect.Name, effect.Contents);
+
                 if (ConfigLoader.Config.ShowLoadedEffects)
-                    MelonLogger.Log($"[Pattern Loader] Loaded [{subdirectory}/{label}]");
+                    MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
             }
         }
-        
-        public static void TestPattern()
-        {
-            byte[] play = 
-            {
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100
-            };
-        
-            Mod.Instance.Haptics.Player.Submit("Bytes", PositionType.All, play, 50);
-        }
-        
+
         public static void ZoneHit()
         {
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
@@ -100,6 +110,11 @@ namespace BhapticsPopOne.Haptics
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/LaunchingPod");
             }
+            
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Foot/LaunchingPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Foot/LaunchingPod");
+            }
         }
 
         public static void DuringPod()
@@ -107,6 +122,11 @@ namespace BhapticsPopOne.Haptics
             if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/DuringPod"))
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Vest/DuringPod");
+            }
+            
+            if (!Mod.Instance.Haptics.Player.IsPlaying("Foot/DuringPod"))
+            {
+                Mod.Instance.Haptics.Player.SubmitRegistered("Foot/DuringPod");
             }
         }
         
@@ -141,6 +161,7 @@ namespace BhapticsPopOne.Haptics
             if(value == Handedness.Left)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_L");
+                Mod.Instance.Haptics.Player.SubmitRegistered("Hand/Climbing_L");
                 if (ConfigLoader.Config.VestClimbEffects)
                     Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
             }
@@ -148,6 +169,7 @@ namespace BhapticsPopOne.Haptics
             if (value == Handedness.Right)
             {
                 Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_R");
+                Mod.Instance.Haptics.Player.SubmitRegistered("Hand/Climbing_R");
                 if (ConfigLoader.Config.VestClimbEffects)
                     Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
             }

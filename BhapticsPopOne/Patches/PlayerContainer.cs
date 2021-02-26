@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
@@ -19,7 +20,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
 
-            if (info.Source == HitSourceCategory.Bot || info.Source == HitSourceCategory.Player)
+            if (info.Source == HitSourceCategory.Firearm)
             {
                 PlayerHit.Execute(info);
             }
@@ -27,8 +28,9 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 PatternManager.ZoneHit();
             else if (info.Source == HitSourceCategory.Falling)
                 FallDamage.Execute(-info.Damage, info.Power);
-            else
-                PatternManager.TestPattern();
+            
+            // else
+            //     PatternManager.TestPattern();
 
             if (info.ArmorBroke)
             {
@@ -72,15 +74,16 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
     {
         static void Postfix(PlayerContainer __instance)
         {
+            if (ConfigLoader.Config.Toggles.LowPerformanceMode)
+                return;
+            
             if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
                 return;
             
-            // MelonLogger.Log($"OnContainerComponentReady {Logging.StringifyVector3(__instance.Avatar.HandLeftAttachPoint.transform.position)} {__instance.Data.DisplayName} {__instance.Avatar.IsAvatarReady}");
-            HandCollider.BindToTransform(__instance.Avatar.HandLeftAttachPoint, Handedness.Left, __instance.netId);
-            HandCollider.BindToTransform(__instance.Avatar.HandRightAttachPoint, Handedness.Right, __instance.netId);
+            if (__instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
+                __instance.Avatar.Rig.gameObject.AddComponent<VelocityTracker>();
             
-            DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandLeft, Handedness.Left, __instance.netId);
-            DestructibleCollisionHelp.BindToTransform(__instance.Avatar.HandRight, Handedness.Right, __instance.netId);
+            AddHandReference.AddHandsToPlayer(__instance);
         }
     }
 }

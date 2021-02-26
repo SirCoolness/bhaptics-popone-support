@@ -17,6 +17,7 @@
             
             Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/DestructibleHit{effectExtension}");
             Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/DestructibleHit{effectExtension}");
+            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/DestructibleHit{effectExtension}");
         }
     }
 }
