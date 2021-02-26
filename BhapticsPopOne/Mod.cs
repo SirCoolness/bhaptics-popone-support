@@ -153,7 +153,7 @@ namespace BhapticsPopOne
 
         public override void OnUpdate()
         {
-            // EffectLoopRegistry.Update();
+            EffectLoopRegistry.Update();
         }
 
         public override void OnLevelWasLoaded(int level)
@@ -168,8 +168,8 @@ namespace BhapticsPopOne
 
         public override void OnLevelWasInitialized(int level)
         {
-            // EffectLoopRegistry.LevelInit();
-            // DrinkSoda.Clear();
+            EffectLoopRegistry.LevelInit();
+            DrinkSoda.Clear();
             // MelonLogger.Log("init level");
         }
     }

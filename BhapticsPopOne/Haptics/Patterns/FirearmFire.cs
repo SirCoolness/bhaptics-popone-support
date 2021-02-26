@@ -46,7 +46,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
 
 
-            if (name == "SniperAWP" || name == "Pistol357")
+            if (name == "SniperAWP" || name == "Pistol357"  || name == "AssaultM60")
             {
                 if (!_disableVest)
                     PlayPooledEffect($"Vest/RecoilLevel9001{effectExtension}", 4, new ScaleOption(_effectStrength, duration));
