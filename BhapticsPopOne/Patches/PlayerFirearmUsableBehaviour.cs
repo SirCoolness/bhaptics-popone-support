@@ -1,23 +1,19 @@
-﻿using BhapticsPopOne.Haptics.Patterns;
+﻿using System.Runtime.InteropServices;
+using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
 
-// namespace BhapticsPopOne.PlayerFirearmUsableBehaviour2
-// {
-//     [HarmonyPatch(typeof(PlayerFirearmUsableBehaviour), "State", MethodType.Setter)]
-//     public class StateSetter
-//     {
-//         static void Prefix(PlayerFirearmUsableBehaviour __instance, FirearmState value)
-//         {
-//             var netId = __instance.playerContainer?.netId;
-//             
-//             if (netId == null)
-//                 return;
-//             
-//             if (!PlayerContainer.Find(netId.Value).isLocalPlayer)
-//                 return;
-//             
-//             ReloadWeapon.Execute(value, __instance.GetInstanceID());
-//         }
-//     }
-// }
+namespace BhapticsPopOne.PlayerFirearmUsableBehaviour2
+{
+    [HarmonyPatch(typeof(PlayerFirearmUsableBehaviour), "SetFirearmState")]
+    public class SetFirearmState
+    {
+        static void Prefix(PlayerFirearmUsableBehaviour __instance, FirearmState state, [Optional] int primeIndex)
+        {
+            if (!__instance.playerContainer.isLocalPlayer)
+                return;
+            
+            ReloadWeapon.Execute(state, primeIndex != null ? primeIndex : 0, __instance.LastReloadIndex, __instance.GetInstanceID());
+        }
+    }
+}

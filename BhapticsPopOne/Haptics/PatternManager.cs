@@ -76,20 +76,7 @@ namespace BhapticsPopOne.Haptics
                     MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
             }
         }
-        
-        public static void TestPattern()
-        {
-            byte[] play = 
-            {
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100,
-                100, 100, 100, 100, 100
-            };
-        
-            Mod.Instance.Haptics.Player.Submit("Bytes", PositionType.All, play, 50);
-        }
-        
+
         public static void ZoneHit()
         {
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);

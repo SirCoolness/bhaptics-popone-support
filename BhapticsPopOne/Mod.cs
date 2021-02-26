@@ -161,7 +161,7 @@ namespace BhapticsPopOne
             base.OnLevelWasLoaded(level);
             
             // clear when level reloads to avoid memory overflow
-            // ReloadWeapon.PreviousStateMap.Clear();
+            ReloadWeapon.PreviousStateMap.Clear();
             
             // MelonLogger.Log("load level");
         }
