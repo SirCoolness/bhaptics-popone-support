@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.Patterns;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.MonoBehaviours;
 using UnityEngine;
 
@@ -121,13 +122,17 @@ namespace BhapticsPopOne
 
             if (Mod.Instance.Data.Players.LocalPlayerContainer.netId != netId)
             {
-                TouchCollider.BindToTransform(dest.transform);
-                GeneralTouchCollider.BindToTransform(dest.transform);
+                if (ConfigLoader.Config.Toggles.PlayerTouching)
+                {
+                    TouchCollider.BindToTransform(dest.transform);
+                    GeneralTouchCollider.BindToTransform(dest.transform);
+                }
             }
             else
             {
                 DestructibleCollisionHelp.BindToTransform(dest.transform, hand, netId);
-                SendTouch.BindToTransform(dest.transform, hand);
+                if (ConfigLoader.Config.Toggles.PlayerTouching)
+                    SendTouch.BindToTransform(dest.transform, hand);
             }
         }
     }

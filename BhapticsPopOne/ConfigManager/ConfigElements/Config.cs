@@ -24,8 +24,10 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
 
         public EffectsConfig Effects { get; set; }
         
+        public AllEffectToggles Toggles { get; set; }
+        
         [YamlIgnore] 
-        public static Version CurrentVersion => new Version("0.0.4");
+        public static Version CurrentVersion => new Version("0.0.5");
         
         [YamlIgnore] 
         public static Config DefaultConfig = new Config
@@ -41,7 +43,8 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             FoodEatIntensity = 1.0f,
             SodaBubbleIntensity = 1.0f,
             FallEffect = FallEffects.DefaultConfig,
-            Effects = EffectsConfig.DefaultConfig
+            Effects = EffectsConfig.DefaultConfig,
+            Toggles = AllEffectToggles.DefaultConfig
         };
     }
 }

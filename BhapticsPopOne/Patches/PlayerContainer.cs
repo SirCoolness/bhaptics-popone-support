@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
@@ -73,6 +74,9 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
     {
         static void Postfix(PlayerContainer __instance)
         {
+            if (ConfigLoader.Config.Toggles.LowPerformanceMode)
+                return;
+            
             if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
                 return;
             

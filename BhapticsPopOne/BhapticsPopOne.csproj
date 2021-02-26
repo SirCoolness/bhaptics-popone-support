@@ -99,6 +99,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ConfigManager\ConfigElements\AllEffectToggles.cs" />
     <Compile Include="ConfigManager\ConfigElements\Config.cs" />
     <Compile Include="ConfigManager\ConfigElements\Disableable.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectsConfig.cs" />
@@ -155,7 +156,7 @@
     <Compile Include="Patches\HandControllerMediator.cs" />
     <Compile Include="Patches\PlayerData.cs" />
     <Compile Include="Patches\PlayerFirearm.cs" />
-    <Compile Include="Patches\PlayerBuff.cs" />
+    <Compile Include="Patches\PlayerBuffUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerContainer.cs" />
     <Compile Include="Patches\LootItem.cs" />
     <Compile Include="Patches\PlayerFirearmUsableBehaviour.cs" />

@@ -22,8 +22,6 @@ namespace BhapticsPopOne
                 return;
             }
             
-            MelonLogger.Log($"{value.ToString()} {__instance?.playerContainer?.netId} {__instance?.playerContainer?.isLocalPlayer}");
-            
             if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffEnergyDrink || __instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffShieldDrink)
             {
                 DrinkSoda.Execute(__instance.Info.TimeToApply, value);
