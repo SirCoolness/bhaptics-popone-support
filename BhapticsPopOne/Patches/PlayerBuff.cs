@@ -11,28 +11,25 @@ using UnhollowerBaseLib;
 
 namespace BhapticsPopOne
 {
-    [HarmonyPatch(typeof(PlayerBuff), "OnBuffStateChanged")]
+    [HarmonyPatch(typeof(PlayerBuffUsableBehaviour), "State", MethodType.Setter)]
     public class OnBuffStateChanged
     {
-        static void Prefix(PlayerBuff __instance, InventorySlot.BuffRecord record, BuffState state)
+        static void Prefix(PlayerBuffUsableBehaviour __instance, BuffState value)
         {
-            if (!__instance.container.isLocalPlayer)
+            if (!(__instance?.playerContainer?.isLocalPlayer == true))
             {
-                // MelonLogger.LogWarning("container is null");
+                MelonLogger.LogWarning("container is null");
                 return;
             }
             
-            MelonLogger.Log(state.ToString());
-
-            var name = __instance.EquippedSlot.ItemType;
-            MelonLogger.Log(name);
+            MelonLogger.Log($"{value.ToString()} {__instance?.playerContainer?.netId} {__instance?.playerContainer?.isLocalPlayer}");
             
-            if (__instance.EquippedSlot.ItemType == InventoryItemType.BuffEnergyDrink || __instance.EquippedSlot.ItemType == InventoryItemType.BuffShieldDrink)
+            if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffEnergyDrink || __instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffShieldDrink)
             {
-                DrinkSoda.Execute(__instance.usableBehaviour.Info.TimeToApply, state);
-            } else if (__instance.EquippedSlot.ItemType == InventoryItemType.BuffBanana)
+                DrinkSoda.Execute(__instance.Info.TimeToApply, value);
+            } else if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffBanana)
             {
-                PatternManager.EatBanana(state);
+                PatternManager.EatBanana(value);
             }
         }
     }
