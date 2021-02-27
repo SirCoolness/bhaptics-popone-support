@@ -14,34 +14,42 @@ namespace BhapticsPopOne
             // is this the way to do things, no.
             Collider[] leftIgnore;
             Collider[] rightIgnore;
-
-            var leftRBRes = AddColliderHand(player.Avatar?.HandLeftAttachPoint?.gameObject, Handedness.Left);
-            var rightRBRes = AddColliderHand(player.Avatar?.HandRightAttachPoint?.gameObject, Handedness.Right);
-
-            if (leftRBRes == null)
-                leftIgnore = new Collider[]
-                {
-                    player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>()
-                };
-            else
-                leftIgnore = new Collider[]
-                {
-                    player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>(),
-                    leftRBRes.GetComponent<SphereCollider>()
-                };
             
-            if (rightRBRes == null)
-                rightIgnore = new Collider[]
-                {
-                    player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>()
-                };
-            else
-                rightIgnore = new Collider[]
-                {
-                    player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>(),
-                    rightRBRes.GetComponent<SphereCollider>()
-                };
+            if (!ConfigLoader.Config.Toggles.LowPerformanceMode)
+            {
+                var leftRBRes = AddColliderHand(player.Avatar?.HandLeftAttachPoint?.gameObject, Handedness.Left);
+                var rightRBRes = AddColliderHand(player.Avatar?.HandRightAttachPoint?.gameObject, Handedness.Right);
+
+                if (leftRBRes == null)
+                    leftIgnore = new Collider[]
+                    {
+                        player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>()
+                    };
+                else
+                    leftIgnore = new Collider[]
+                    {
+                        player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>(),
+                        leftRBRes.GetComponent<SphereCollider>()
+                    };
             
+                if (rightRBRes == null)
+                    rightIgnore = new Collider[]
+                    {
+                        player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>()
+                    };
+                else
+                    rightIgnore = new Collider[]
+                    {
+                        player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>(),
+                        rightRBRes.GetComponent<SphereCollider>()
+                    };
+            }
+            else
+            {
+                leftIgnore = new Collider[]{};
+                rightIgnore = new Collider[]{};
+            }
+
             ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar?.HandLeftAttachPoint?.gameObject, leftIgnore));
             ApplyComponents(player.netId, Handedness.Right, AddHand(player.Avatar?.HandRightAttachPoint?.gameObject, rightIgnore));
         }
@@ -120,6 +128,22 @@ namespace BhapticsPopOne
             // TouchCollider.BindToTransform(dest.transform);
             // GeneralTouchCollider.BindToTransform(dest.transform);
 
+            VelocityTracker velocityTracker;
+            if (dest.GetComponent<VelocityTracker>() == null)
+                velocityTracker = dest.gameObject.AddComponent<VelocityTracker>();
+            else
+                velocityTracker = dest.GetComponent<VelocityTracker>();
+                    
+            if (PlayerContainer.Find(netId)?.isLocalPlayer == true && dest.GetComponent<MeleeVelocity>() == null)
+            {
+                var meleeVelocity = dest.gameObject.AddComponent<MeleeVelocity>();
+                meleeVelocity.Target = velocityTracker;
+                meleeVelocity.Hand = hand;
+            }
+
+            if (ConfigLoader.Config.Toggles.LowPerformanceMode)
+                return;
+            
             if (Mod.Instance.Data.Players.LocalPlayerContainer.netId != netId)
             {
                 if (ConfigLoader.Config.Toggles.PlayerTouching)

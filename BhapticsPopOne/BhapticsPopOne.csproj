@@ -136,6 +136,7 @@
     <Compile Include="Haptics\Patterns\HapticUtils.cs" />
     <Compile Include="Haptics\Patterns\KatanaHit.cs" />
     <Compile Include="Haptics\Patterns\KatanaShield.cs" />
+    <Compile Include="Haptics\Patterns\MeleeVelocity.cs" />
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
     <Compile Include="MonoBehaviours\GeneralTouchCollider.cs" />
     <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
+    <Compile Include="MonoBehaviours\MeleeVelocity.cs" />
     <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
     <Compile Include="MonoBehaviours\SendTouch.cs" />
     <Compile Include="MonoBehaviours\TouchCollider.cs" />
@@ -153,6 +155,7 @@
     <Compile Include="MonoBehaviours\VelocityTracker.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
+    <Compile Include="Patches\MeleeCollisionDetector.cs" />
     <Compile Include="Patches\MeleeShield.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
     <Compile Include="Patches\PlayerDefib.cs" />
@@ -164,6 +167,7 @@
     <Compile Include="Patches\LootItem.cs" />
     <Compile Include="Patches\PlayerFirearmUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerInventory.cs" />
+    <Compile Include="Patches\PlayerMelee.cs" />
     <Compile Include="Patches\TestPatches.cs" />
     <Compile Include="Patches\UnetGameManager.cs" />
     <Compile Include="Patreon.cs" />
