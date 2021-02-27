@@ -19,6 +19,15 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
         }
 
+        public static void Block()
+        {
+            PatternManager.Effects["Arm/MeleeBlock"]?.Play(new Effect.EffectProperties
+            {
+                Strength = 0.8f,
+                Time = 0.125f
+            });
+        }
+
         public static void FixedUpdate()
         {
             if (!Active)

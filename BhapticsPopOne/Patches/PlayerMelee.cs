@@ -13,6 +13,8 @@ namespace BhapticsPopOne
             if (!__instance.isLocalPlayer)
                 return;
             
+            MelonLogger.Log("Slicing started");
+            
             Haptics.Patterns.MeleeVelocity.IsSlicing = true;
         }
     }

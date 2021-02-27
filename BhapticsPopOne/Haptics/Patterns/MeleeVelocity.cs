@@ -9,24 +9,36 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static bool IsSlicing = false;
         private static bool trackerFound = false;
-        private static VelocityTracker tracker; 
+        private static VelocityTracker tracker;
+        private static PlayerContainer localPlayer;
         
         public static void LoadTrackers()
         {
-            tracker = Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig.GetComponent<VelocityTracker>();
+            localPlayer = Mod.Instance.Data.Players.LocalPlayerContainer;
+            tracker = localPlayer.Avatar.Rig.GetComponent<VelocityTracker>();
             trackerFound = tracker != null;
+            
+            if (!trackerFound)
+                MelonLogger.LogError("Failed to find tracked in MeleeVelocity");
         }
         
         public static void Execute(Handedness hand, Vector3 velocity)
         {
+            if (hand == Handedness.Right)
+            {
+                if (velocity.magnitude < 0.5f)
+                    return;
+            
+                MelonLogger.Log($"{IsSlicing} {hand.ToString()}");
+            }
+            
             if (!IsSlicing || !trackerFound)
                 return;
             
-            var container = Mod.Instance.Data.Players.LocalPlayerContainer;
-            if (container.Inventory.Slots[container.Inventory.EquipIndex].Info.ItemClass != InventoryItemClass.Melee)
+            if (localPlayer.Inventory.Slots[localPlayer.Inventory.EquipIndex].Info.ItemClass != InventoryItemClass.Melee)
                 return;
             
-            if (container.Data.DominantHand != hand && !container.Data.TwoHand)
+            if (localPlayer.Data.DominantHand != hand && !localPlayer.Data.TwoHand)
                 return;
             
             var relativeV = tracker.Velocity - velocity;
@@ -34,7 +46,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             PatternManager.Effects[$"Arm/MeleeVelocity{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
             {
                 Time = Time.fixedDeltaTime,
-                Strength = Mathf.Clamp((relativeV.magnitude / 5f), 0, 1f),
+                Strength = Mathf.Clamp((relativeV.magnitude / 3.5f), 0, 1f),
             });
         }
 
@@ -43,6 +55,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             IsSlicing = false;
             trackerFound = false;
             tracker = null;
+            localPlayer = null;
         }
     }
 }
