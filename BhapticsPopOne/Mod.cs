@@ -148,6 +148,7 @@ namespace BhapticsPopOne
             base.OnFixedUpdate();
             
             _effectLoop.FixedUpdate();
+            KatanaShield.FixedUpdate();
             // TestOcilate.FixedUpdate();
         }
 
@@ -170,6 +171,7 @@ namespace BhapticsPopOne
         {
             EffectLoopRegistry.LevelInit();
             DrinkSoda.Clear();
+            KatanaShield.Execute(false);
             // MelonLogger.Log("init level");
         }
     }

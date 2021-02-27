@@ -35,7 +35,10 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
                 ResizePool();
             }
         }
-        
+
+        public bool isPlaying => ActiveEffects.Count > 0;
+        public bool isAllPlaying => EffectNames.Count <= ActiveEffects.Count;
+
         private readonly HashSet<System.Guid> EffectNames = new HashSet<System.Guid>();
         private readonly HashSet<System.Guid> ActiveEffects = new HashSet<System.Guid>();
         private readonly Dictionary<System.Guid, Action> OnEffectStop = new Dictionary<System.Guid, Action>();

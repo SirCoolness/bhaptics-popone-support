@@ -135,6 +135,7 @@
     <Compile Include="Haptics\Patterns\FlyingAir.cs" />
     <Compile Include="Haptics\Patterns\HapticUtils.cs" />
     <Compile Include="Haptics\Patterns\KatanaHit.cs" />
+    <Compile Include="Haptics\Patterns\KatanaShield.cs" />
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="MonoBehaviours\VelocityTracker.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
+    <Compile Include="Patches\MeleeShield.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
     <Compile Include="Patches\PlayerDefib.cs" />
     <Compile Include="Patches\HandControllerMediator.cs" />
