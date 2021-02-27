@@ -81,9 +81,12 @@ namespace BhapticsPopOne.Patches.PlayerData2
         {
             if (!__instance.isLocalPlayer)
                 return;
-            
+
             if (value != PlayerState.Active)
+            {
                 DrinkSoda.Clear();
+                KatanaShield.Execute(false);
+            }
         }
     }
 }

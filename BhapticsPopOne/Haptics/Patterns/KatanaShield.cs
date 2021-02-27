@@ -21,10 +21,11 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Block()
         {
+            MelonLogger.Log($"Playing Block {PatternManager.Effects.ContainsKey("Arm/MeleeBlock")}");
             PatternManager.Effects["Arm/MeleeBlock"]?.Play(new Effect.EffectProperties
             {
-                Strength = 0.8f,
-                Time = 0.125f
+                Strength = 1f,
+                Time = 0.18f
             });
         }
 

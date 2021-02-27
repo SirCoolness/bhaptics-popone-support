@@ -24,14 +24,6 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(Handedness hand, Vector3 velocity)
         {
-            if (hand == Handedness.Right)
-            {
-                if (velocity.magnitude < 0.5f)
-                    return;
-            
-                MelonLogger.Log($"{IsSlicing} {hand.ToString()}");
-            }
-            
             if (!IsSlicing || !trackerFound)
                 return;
             
@@ -46,7 +38,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             PatternManager.Effects[$"Arm/MeleeVelocity{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
             {
                 Time = Time.fixedDeltaTime,
-                Strength = Mathf.Clamp((relativeV.magnitude / 3.5f), 0, 1f),
+                Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
             });
         }
 

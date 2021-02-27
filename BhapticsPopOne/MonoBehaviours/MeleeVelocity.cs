@@ -1,4 +1,5 @@
 ﻿using System;
+using MelonLoader;
 using UnityEngine;
 
 namespace BhapticsPopOne
@@ -10,7 +11,12 @@ namespace BhapticsPopOne
         public VelocityTracker Target;
         public Handedness Hand;
 
-        private void FixedUpdate()
+        private void OnEnable()
+        {
+            MelonLogger.Log("Added melee");
+        }
+
+        void FixedUpdate()
         {
             Haptics.Patterns.MeleeVelocity.Execute(Hand, Target.Velocity);
         }

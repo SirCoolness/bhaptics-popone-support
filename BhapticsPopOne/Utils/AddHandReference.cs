@@ -1,6 +1,7 @@
 ﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.MonoBehaviours;
+using MelonLoader;
 using UnityEngine;
 
 namespace BhapticsPopOne
@@ -50,8 +51,17 @@ namespace BhapticsPopOne
                 rightIgnore = new Collider[]{};
             }
 
-            ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar?.HandLeftAttachPoint?.gameObject, leftIgnore));
-            ApplyComponents(player.netId, Handedness.Right, AddHand(player.Avatar?.HandRightAttachPoint?.gameObject, rightIgnore));
+            if (!ConfigLoader.Config.Toggles.LowPerformanceMode)
+            {
+                ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar?.HandLeftAttachPoint?.gameObject, leftIgnore));
+                ApplyComponents(player.netId, Handedness.Right,
+                    AddHand(player.Avatar?.HandRightAttachPoint?.gameObject, rightIgnore));
+            }
+            else
+            {
+                ApplyComponents(player.netId, Handedness.Left, player.Avatar?.HandLeftAttachPoint?.gameObject);
+                ApplyComponents(player.netId, Handedness.Right, player.Avatar?.HandRightAttachPoint?.gameObject);
+            }
         }
 
         private static GameObject AddColliderHand(GameObject dest, Handedness hand)
@@ -128,13 +138,15 @@ namespace BhapticsPopOne
             // TouchCollider.BindToTransform(dest.transform);
             // GeneralTouchCollider.BindToTransform(dest.transform);
 
+            // MelonLogger.Log($"adding trackers {PlayerContainer.Find(netId)?.isLocalPlayer} {dest.gameObject.GetComponent<MeleeVelocity>()}");
+            
             VelocityTracker velocityTracker;
             if (dest.GetComponent<VelocityTracker>() == null)
                 velocityTracker = dest.gameObject.AddComponent<VelocityTracker>();
             else
                 velocityTracker = dest.GetComponent<VelocityTracker>();
                     
-            if (PlayerContainer.Find(netId)?.isLocalPlayer == true && dest.GetComponent<MeleeVelocity>() == null)
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId == netId && dest.gameObject.GetComponent<MeleeVelocity>() == null)
             {
                 var meleeVelocity = dest.gameObject.AddComponent<MeleeVelocity>();
                 meleeVelocity.Target = velocityTracker;
