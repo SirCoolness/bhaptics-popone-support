@@ -18,7 +18,7 @@ namespace BhapticsPopOne
         {
             if (!(__instance?.playerContainer?.isLocalPlayer == true))
             {
-                MelonLogger.LogWarning("container is null");
+                // MelonLogger.LogWarning("container is null");
                 return;
             }
             

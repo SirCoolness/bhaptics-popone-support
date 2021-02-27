@@ -13,7 +13,7 @@ namespace BhapticsPopOne.PlayerFirearmUsableBehaviour2
             if (!(__instance?.playerContainer?.isLocalPlayer == true))
                 return;
             
-            ReloadWeapon.Execute(state, primeIndex != null ? primeIndex : 0, __instance.LastReloadIndex, __instance.GetInstanceID());
+            ReloadWeapon.Execute(state, primeIndex, __instance.LastReloadIndex, __instance.GetInstanceID());
         }
     }
 }

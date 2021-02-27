@@ -20,7 +20,11 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
 
-            if (info.Source == HitSourceCategory.Firearm)
+            if (info.Source == HitSourceCategory.Melee)
+            {
+                KatanaHit.Execute(__instance, info);
+            } 
+            else if (info.Source == HitSourceCategory.Firearm)
             {
                 PlayerHit.Execute(info);
             }
