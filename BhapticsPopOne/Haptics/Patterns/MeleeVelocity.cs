@@ -24,7 +24,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(Handedness hand, Vector3 velocity)
         {
-            if (!IsSlicing || !trackerFound)
+            if (!IsSlicing || !trackerFound || localPlayer.Data.PlayerState != PlayerState.Active)
                 return;
             
             if (localPlayer.Inventory.Slots[localPlayer.Inventory.EquipIndex].Info.ItemClass != InventoryItemClass.Melee)

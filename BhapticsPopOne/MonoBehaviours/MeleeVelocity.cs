@@ -10,12 +10,7 @@ namespace BhapticsPopOne
 
         public VelocityTracker Target;
         public Handedness Hand;
-
-        private void OnEnable()
-        {
-            MelonLogger.Log("Added melee");
-        }
-
+        
         void FixedUpdate()
         {
             Haptics.Patterns.MeleeVelocity.Execute(Hand, Target.Velocity);
