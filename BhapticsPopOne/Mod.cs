@@ -40,6 +40,8 @@ namespace BhapticsPopOne
         public Data.Data Data;
         public ConnectionManager Haptics;
 
+        public bool Disabled { get; private set; } = false;
+
         public Mod()
         {
             _initLoggingContext = new LoggingContext("init");
@@ -117,7 +119,8 @@ namespace BhapticsPopOne
         
         public override void OnFixedUpdate()
         {
-            base.OnFixedUpdate();
+            if (Disabled)
+                return;
             
             _effectLoop.FixedUpdate();
             KatanaShield.FixedUpdate();
@@ -148,6 +151,16 @@ namespace BhapticsPopOne
             ZoneDamage.Clear();
             BhapticsPopOne.Haptics.Patterns.MeleeVelocity.Reset();
             // MelonLogger.Log("init level");
+        }
+
+        public void Disable()
+        {
+            if (Disabled)
+                return;
+            
+            harmonyInstance.UnpatchAll();
+            
+            Disabled = true;
         }
     }
 }
