@@ -1,4 +1,5 @@
 ﻿using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -46,7 +47,8 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (finished)
             {
-                EffectPlayer.Play($"Vest/FistBump{HapticUtils.HandExt(currentFistbump)}");
+                if (ConfigLoader.Config.EffectToggles.Vest.FistBumpComplete)
+                    EffectPlayer.Play($"Vest/FistBump{HapticUtils.HandExt(currentFistbump)}");
                 EffectPlayer.Play($"Arm/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
                 EffectPlayer.Play($"Hand/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
             }

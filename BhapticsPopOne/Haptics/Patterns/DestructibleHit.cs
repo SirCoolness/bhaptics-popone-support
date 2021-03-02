@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -17,7 +18,8 @@ namespace BhapticsPopOne.Haptics.Patterns
                 effectExtension = "_R";
             }
             
-            EffectPlayer.Play($"Vest/DestructibleHit{effectExtension}");
+            if (ConfigLoader.Config.EffectToggles.Vest.DestructibleHit)
+                EffectPlayer.Play($"Vest/DestructibleHit{effectExtension}");
             EffectPlayer.Play($"Arm/DestructibleHit{effectExtension}");
             EffectPlayer.Play($"Hand/DestructibleHit{effectExtension}");
         }

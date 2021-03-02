@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using UnityEngine;
@@ -33,18 +34,20 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
             {
-                EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
-                {
-                    Strength = 0.75f,
-                    Time = 0.4f
-                });   
+                if (ConfigLoader.Config.EffectToggles.Vest.ZoneDamage)
+                    EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
+                    {
+                        Strength = 0.75f,
+                        Time = 0.4f
+                    });   
             }
             else
             {
-                EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
-                {
-                    Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
-                });   
+                if (ConfigLoader.Config.EffectToggles.Vest.ZoneDamage)
+                    EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
+                    {
+                        Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
+                    });   
             }
         }
 
@@ -66,6 +69,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void OnFixedUpdate()
         {
+            if (!ConfigLoader.Config.EffectToggles.Vest.InsideZone)
+                return;
+            
             if (!Active)
                 return;
 

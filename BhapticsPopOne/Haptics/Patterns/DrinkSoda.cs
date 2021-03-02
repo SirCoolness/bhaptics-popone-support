@@ -30,10 +30,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (state != BuffState.Consumed)
                 return;
             
-            EffectPlayer.Play("Vest/ConsumeItem", new Effect.EffectProperties
-            {
-                Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.FoodEatIntensity)
-            });
+            if (ConfigLoader.Config.EffectToggles.Vest.ConsumeItem)
+                EffectPlayer.Play("Vest/ConsumeItem", new Effect.EffectProperties
+                {
+                    Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.FoodEatIntensity)
+                });
             
             if (!estimatedSodaEffects.ContainsKey(type))
                 estimatedSodaEffects[type] = new List<bool>();

@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -6,7 +7,8 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void Victory()
         {
-            EffectPlayer.Play("Vest/Win");
+            if (ConfigLoader.Config.EffectToggles.Vest.Victory)
+                EffectPlayer.Play("Vest/Win");
         }
         
         public static void Land()

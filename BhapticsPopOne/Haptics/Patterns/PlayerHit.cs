@@ -1,5 +1,6 @@
 ﻿using System;
 using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using MelonLoader;
@@ -24,7 +25,8 @@ namespace BhapticsPopOne.Haptics.Patterns
             InventoryItemType.FirearmShotgunDT11,
             InventoryItemType.FirearmShotgunM1014,
             InventoryItemType.FirearmSniperSako85,
-            InventoryItemType.FirearmSniperAWP
+            InventoryItemType.FirearmSniperAWP,
+            InventoryItemType.FirearmAssaultM60,
         };
 
         private static InventoryItemType[] ExplosionItems = new[]
@@ -64,10 +66,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (Array.Exists(Shotguns, el => el == info.Weapon))
             {
                 // TODO: add shotgun effect random variants
-                EffectPlayer.Play("Vest/BulletHit_Shotgun", new Effect.EffectProperties
-                {
-                    XRotation = angle
-                });
+                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_Shotgun", new Effect.EffectProperties
+                    {
+                        XRotation = angle
+                    });
                 return;
             }
 
@@ -77,23 +80,31 @@ namespace BhapticsPopOne.Haptics.Patterns
             var damage = info.Damage * -1;
 
             if (damage > 75)
-                EffectPlayer.Play("Vest/BulletHit_HighDamage", new Effect.EffectProperties
-                {
-                    XRotation = angle,
-                    YOffset = offsetY
-                });
+            {
+                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_HighDamage", new Effect.EffectProperties
+                    {
+                        XRotation = angle,
+                        YOffset = offsetY
+                    });
+            }
             else if (damage > 19)
-                EffectPlayer.Play("Vest/BulletHit_Level2" , new Effect.EffectProperties
-                {
-                    XRotation = angle,
-                    YOffset = offsetY
-                });
-            else
-                EffectPlayer.Play("Vest/BulletHit_Level1", new Effect.EffectProperties
-                {
-                    XRotation = angle,
-                    YOffset = offsetY
-                });
+            {
+                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_Level2", new Effect.EffectProperties
+                    {
+                        XRotation = angle,
+                        YOffset = offsetY
+                    });
+            }
+            else {
+                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_Level1", new Effect.EffectProperties
+                    {
+                        XRotation = angle,
+                        YOffset = offsetY
+                    });
+            }
         }
 
         public static void ExplosionHit(DamageableHitInfo info, float angle)
@@ -106,14 +117,21 @@ namespace BhapticsPopOne.Haptics.Patterns
             // TODO: add level in between
             // TODO: You can use ScaleOption!
             if (damage > 60)
-                EffectPlayer.Play("Vest/ExplosionHit_Level2", new Effect.EffectProperties{
-                    XRotation = angle
-                });
+            {
+                if (ConfigLoader.Config.EffectToggles.Vest.ExplosionHit)
+                    EffectPlayer.Play("Vest/ExplosionHit_Level2", new Effect.EffectProperties
+                    {
+                        XRotation = angle
+                    });
+            }
             else
-                EffectPlayer.Play("Vest/ExplosionHit_Level1", new Effect.EffectProperties
-                {
-                    XRotation = angle
-                });
+            {
+                if (ConfigLoader.Config.EffectToggles.Vest.ExplosionHit)
+                    EffectPlayer.Play("Vest/ExplosionHit_Level1", new Effect.EffectProperties
+                    {
+                        XRotation = angle
+                    });
+            }
         }
     }
 }

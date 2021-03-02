@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
@@ -29,7 +30,8 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             CancelLastPlayback();
             
-            EffectPlayer.Play($"Vest/SelectItem{EffectExtension()}");
+            if (ConfigLoader.Config.EffectToggles.Vest.SelectItem)
+                EffectPlayer.Play($"Vest/SelectItem{EffectExtension()}");
             EffectPlayer.Play( $"Arm/SelectItem{EffectExtension()}");
             EffectPlayer.Play( $"Hand/SelectItem{EffectExtension()}");
         }
@@ -39,8 +41,9 @@ namespace BhapticsPopOne.Haptics.Patterns
             lastVestEffect = $"Vest/HideWeapon{EffectExtension()}";
             lastArmEffect = $"Arm/HideWeapon{EffectExtension()}";
             lastHandEffect = $"Hand/HideWeapon{EffectExtension()}";
-            
-            EffectPlayer.Play(lastVestEffect);
+         
+            if (ConfigLoader.Config.EffectToggles.Vest.HideItem)
+                EffectPlayer.Play(lastVestEffect);
             EffectPlayer.Play(lastArmEffect);
             EffectPlayer.Play(lastHandEffect);
         }

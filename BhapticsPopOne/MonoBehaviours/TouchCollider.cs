@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
@@ -42,6 +43,9 @@ namespace BhapticsPopOne
                 return;
             
             TargetEntered = true;
+            
+            if (!ConfigLoader.Config.EffectToggles.Vest.PlayerTouchVelocity)
+                return;
             
             var targetTracker = other.transform.root.GetComponent<VelocityTracker>();
 
@@ -101,6 +105,9 @@ namespace BhapticsPopOne
         
         private void FixedUpdate()
         {
+            if (!ConfigLoader.Config.EffectToggles.Vest.PlayerTouch)
+                return;
+            
             if (!TargetEntered || activeParts.Count == 0)
                 return;
             

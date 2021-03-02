@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -6,17 +7,20 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void LowHealthHeartbeat()
         {
-            EffectPlayer.Play("Vest/HeartbeatMultiple");
+            if (ConfigLoader.Config.EffectToggles.Vest.Heartbeat)
+                EffectPlayer.Play("Vest/HeartbeatMultiple");
         }
 
         public static void ShieldBreak()
         {
-            EffectPlayer.Play("Vest/ShieldBreak");
+            if (ConfigLoader.Config.EffectToggles.Vest.ShieldBreak)
+                EffectPlayer.Play("Vest/ShieldBreak");
         }
         
         public static void ShieldFull()
         {
-            EffectPlayer.Play("Vest/FullShield");
+            if (ConfigLoader.Config.EffectToggles.Vest.FullShield)
+                EffectPlayer.Play("Vest/FullShield");
         }
     }
 }

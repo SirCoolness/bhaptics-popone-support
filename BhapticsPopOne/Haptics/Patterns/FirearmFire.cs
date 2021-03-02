@@ -12,7 +12,6 @@ namespace BhapticsPopOne.Haptics.Patterns
     public class FirearmFire
     {
         private static float _effectStrength => Mathf.Clamp(ConfigLoader.Config.VestRecoil, 0f, 1f);
-        private static bool _disableVest => _effectStrength <= 0f;
         
         public static void Execute(FirearmClass type, InventoryItemType item)
         {
@@ -60,7 +59,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (effectName == "RecoilLevel0")
                 return;
             
-            if (!_disableVest)
+            if (ConfigLoader.Config.EffectToggles.Vest.Recoil)
                 EffectPlayer.Play($"Vest/{effectName}{effectExtension}", new Effect.EffectProperties
                 {
                     Strength = _effectStrength,
@@ -78,7 +77,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (twoHanded)
             {
-                if (!_disableVest)
+                if (ConfigLoader.Config.EffectToggles.Vest.Recoil)
                     EffectPlayer.Play($"Vest/{effectName}{otherEffectExtension}", new Effect.EffectProperties
                     {
                         Strength = _effectStrength * offhandIntensity,

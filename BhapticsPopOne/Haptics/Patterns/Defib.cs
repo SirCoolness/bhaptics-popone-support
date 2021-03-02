@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -7,13 +8,15 @@ namespace BhapticsPopOne.Haptics.Patterns
         public static void RubbingDefib()
         {
             EffectPlayer.Play("Arm/RubbingDefib");
-            EffectPlayer.Play("Vest/RubbingDefib");
+            if (ConfigLoader.Config.EffectToggles.Vest.RubbingDefib)
+                EffectPlayer.Play("Vest/RubbingDefib");
         }
 
         public static void ChargedDefib()
         {
             EffectPlayer.Play("Arm/ChargedDefib");
-            EffectPlayer.Play("Vest/ChargedDefib");
+            if (ConfigLoader.Config.EffectToggles.Vest.ChargedDefib)
+                EffectPlayer.Play("Vest/ChargedDefib");
         }
     }
 }

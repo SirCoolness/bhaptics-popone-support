@@ -31,6 +31,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Execute(bool wasFlying)
         {
+            if (!ConfigLoader.Config.EffectToggles.Vest.FallingWind)
+                return;
+            
             var player = Mod.Instance.Data.Players.LocalPlayerContainer;
             var absVelocity = Mathf.Abs(player.RigidbodyVelocity.y);
             Execute(absVelocity, wasFlying);
@@ -38,6 +41,9 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(float absVelocity, bool wasFlying)
         {
+            if (!ConfigLoader.Config.EffectToggles.Vest.FallingWind)
+                return;
+            
             if (FlyingVariants == 0 || MaxEffectCount == 0 || StrengthTarget == 0 || SpeedTarget == 0 || ConcurrentTarget == 0)
                 return;
 

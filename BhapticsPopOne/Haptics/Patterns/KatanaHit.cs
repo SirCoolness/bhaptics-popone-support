@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
 
@@ -8,6 +9,9 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void Execute(PlayerContainer player, DamageableHitInfo info)
         {
+            if (!ConfigLoader.Config.EffectToggles.Vest.SwordSlice)
+                return;
+            
             var source = PlayerContainer.Find(info.OwningPlayer);
             var sourceDirection = (source.Avatar.rig.position - info.ImpactPosition).normalized;
             

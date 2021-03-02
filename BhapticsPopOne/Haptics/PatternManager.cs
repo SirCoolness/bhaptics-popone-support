@@ -40,14 +40,14 @@ namespace BhapticsPopOne.Haptics
         {
             ["Vest/ReceiveTouch"] = 32,
             ["Vest/InitialTouch"] = 8,
-            ["Vest/RecoilLevel9001_R"] = 4,
-            ["Vest/RecoilLevel9001_L"] = 4,
-            ["Vest/RecoilLevel3_R"] = 4,
-            ["Vest/RecoilLevel3_L"] = 4,
-            ["Vest/RecoilLevel2_R"] = 4,
-            ["Vest/RecoilLevel2_L"] = 4,
-            ["Vest/RecoilLevel1_R"] = 4,
-            ["Vest/RecoilLevel1_L"] = 4,
+            ["Vest/RecoilLevel9001_R"] = 5,
+            ["Vest/RecoilLevel9001_L"] = 5,
+            ["Vest/RecoilLevel3_R"] = 5,
+            ["Vest/RecoilLevel3_L"] = 5,
+            ["Vest/RecoilLevel2_R"] = 5,
+            ["Vest/RecoilLevel2_L"] = 5,
+            ["Vest/RecoilLevel1_R"] = 5,
+            ["Vest/RecoilLevel1_L"] = 5,
         };
         
         // loads all subdirectories

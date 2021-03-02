@@ -72,8 +72,12 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
             
             var duration = internalDuration + BaselineTime;
-            ExecuteFront(duration);
-            ExecuteBack(duration);
+            if (ConfigLoader.Config.EffectToggles.Vest.FlyingWind)
+            {
+                ExecuteFront(duration);
+                ExecuteBack(duration);
+            }
+            
             ExecuteArms(duration);
             ExecuteHands(duration);
             ExecuteFeet(duration);

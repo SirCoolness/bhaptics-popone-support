@@ -7,18 +7,20 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void EnteringPod()
         {
-            EffectPlayer.Play("Vest/EnteringPod");
-            
+            if (ConfigLoader.Config.EffectToggles.Vest.EnterPod)
+                EffectPlayer.Play("Vest/EnteringPod");
         }
         public static void LaunchingPod()
         {
-            EffectPlayer.Play("Vest/LaunchingPod");
+            if (ConfigLoader.Config.EffectToggles.Vest.LaunchPod)
+                EffectPlayer.Play("Vest/LaunchingPod");
             EffectPlayer.Play("Foot/LaunchingPod");
         }
 
         public static void DuringPod()
         {
-            EffectPlayer.Play("Vest/DuringPod");
+            if (ConfigLoader.Config.EffectToggles.Vest.FlyingPod)
+                EffectPlayer.Play("Vest/DuringPod");
             EffectPlayer.Play("Foot/DuringPod");
         }
     }

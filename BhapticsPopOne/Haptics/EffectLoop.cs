@@ -18,10 +18,11 @@ namespace BhapticsPopOne.Haptics
                 return;
             }
 
-            EffectPlayer.Play("Vest/ActiveBuff", new Effect.EffectProperties
-            {
-                Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity)
-            });
+            if (ConfigLoader.Config.EffectToggles.Vest.ActiveDrink)
+                EffectPlayer.Play("Vest/ActiveBuff", new Effect.EffectProperties
+                {
+                    Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity)
+                });
             WasPlaying = true;
         }
 

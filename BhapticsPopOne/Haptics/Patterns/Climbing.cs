@@ -9,7 +9,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             EffectPlayer.Play($"Arm/Climbing{HapticUtils.HandExt(value)}");
             EffectPlayer.Play($"Hand/Climbing{HapticUtils.HandExt(value)}");
-            if (ConfigLoader.Config.VestClimbEffects)
+            if (ConfigLoader.Config.EffectToggles.Vest.Climbing)
                 EffectPlayer.Play($"Vest/Climbing{HapticUtils.HandExt(value)}");
         }
     }

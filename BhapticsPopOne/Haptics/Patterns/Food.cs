@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -9,8 +10,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (state != BuffState.Consumed)
                 return;
             
-            EffectPlayer.Play("Vest/ConsumeItem");
-            EffectPlayer.Play("Vest/BananaHeal");
+            if (ConfigLoader.Config.EffectToggles.Vest.ConsumeItem)
+                EffectPlayer.Play("Vest/ConsumeItem");
+            
+            if (ConfigLoader.Config.EffectToggles.Vest.BananaHeal)
+                EffectPlayer.Play("Vest/BananaHeal");
         }
     }
 }
