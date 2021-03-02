@@ -104,6 +104,7 @@ namespace BhapticsPopOne.Haptics
         {
         }
 
+#pragma warning disable 169, 414, 67
         public event Action<PlayerResponse> StatusReceived;
     }
 }
