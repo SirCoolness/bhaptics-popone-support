@@ -70,24 +70,4 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 FistBump.lastPunchhandL = Handedness.Unknown;
         }
     }
-    
-    // [HarmonyPatch(typeof(PlayerContainer), "OnContainerComponentReady")]
-    // public class OnContainerComponentReady
-    // {
-    //     static void Postfix(PlayerContainer __instance)
-    //     {
-    //         if (__instance.transform.root != __instance.transform || __instance.Avatar?.Rig == null || !__instance.Data.IsReady)
-    //             return;
-    //         
-    //         if (__instance.Avatar?.Rig != null && __instance.Avatar.Rig.GetComponent<VelocityTracker>() == null)
-    //         {
-    //             __instance.Avatar.Rig.gameObject.AddComponent<VelocityTracker>();
-    //             
-    //             if (__instance.isLocalPlayer)
-    //                 Haptics.Patterns.MeleeVelocity.LoadTrackers();
-    //         }
-    //         
-    //         AddHandReference.AddHandsToPlayer(__instance);
-    //     }
-    // }
 }

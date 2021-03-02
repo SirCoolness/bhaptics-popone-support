@@ -27,6 +27,9 @@ namespace BhapticsPopOne.Data
             }
         }
 
+        public bool FoundVestRef { get; private set;  } = false;
+        private Transform VestRef;
+        
         public HandHelper LocalHandHelper;
 
         public Il2CppSystem.Collections.Generic.List<PlayerContainer> PlayerContainers => GoyfsHelper.Get<Il2CppSystem.Collections.Generic.List<PlayerContainer>>();
@@ -39,21 +42,28 @@ namespace BhapticsPopOne.Data
         public void Reset()
         {
             _foundLocalProperties = false;
+            FoundVestRef = false;
         }
         
         public Transform VestReference()
         {
-            var trans = LocalPlayerContainer?.Avatar?.Rig?.transform;
-            if (trans == null)
+            if (!FoundVestRef)
             {
-                MelonLogger.LogError("Can not find player avatar");
-                return null;
+                var trans = LocalPlayerContainer?.Avatar?.Rig?.transform;
+                if (trans == null)
+                {
+                    MelonLogger.LogError("Can not find player avatar");
+                    return null;
+                }
+
+                VestRef = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
+                    new Il2CppSystem.Text.RegularExpressions.RegexOptions());
+
+                if (VestRef != null)
+                    FoundVestRef = true;
             }
 
-            var result = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
-                new Il2CppSystem.Text.RegularExpressions.RegexOptions());
-
-            return result;
+            return VestRef;
         }
     }
 }
