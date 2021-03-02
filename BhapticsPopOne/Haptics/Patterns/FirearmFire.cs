@@ -35,7 +35,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             {
                 effectName = "RecoilLevel9001";
                 handTime = 0.4f;
-                effectTime = 0.6f;
+                effectTime = 0.5f;
             }
             else if (item == InventoryItemType.FirearmSniperAWP || item == InventoryItemType.FirearmPistol357)
             {
