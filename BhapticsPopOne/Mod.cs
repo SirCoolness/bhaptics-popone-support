@@ -71,8 +71,6 @@ namespace BhapticsPopOne
             
             Patreon.Run(); // (●'◡'●)
             
-            // Validation();
-            
             MonoBehavioursLoader.Inject();
             
             InitializeManagers();
@@ -102,32 +100,6 @@ namespace BhapticsPopOne
         {
             Haptics = new ConnectionManager();
         }
-        
-        // private void Validation()
-        // {
-        //     var validationLogContext = new LoggingContext("validation", _initLoggingContext);
-        //     
-        //     // var patchTester = new TestPatches();
-        //     var failedMethods = new List<MethodInfo>();
-        //
-        //     var status = patchTester.Test(failedMethods);
-        //     
-        //     if (status) {
-        //         MelonLogger.Log($"{validationLogContext.Prefix} Methods have been patched successfully");
-        //     }
-        //     else
-        //     {
-        //         string failedMethodsMessage = String.Join(", ", failedMethods.Select(x =>
-        //         {
-        //             var delaringClass = x.DeclaringType;
-        //             if (delaringClass == null) return x.Name;
-        //             return $"{delaringClass.Name}.{x.Name}";
-        //         }));
-        //         
-        //         MelonLogger.Log($"{validationLogContext.Prefix} Some methods failed to be patched. Exiting early. ({failedMethods.Count})[{failedMethodsMessage}]");
-        //         Application.Quit();
-        //     }
-        // }
 
         private void StartServices()
         {
@@ -149,6 +121,7 @@ namespace BhapticsPopOne
             
             _effectLoop.FixedUpdate();
             KatanaShield.FixedUpdate();
+            ZoneDamage.OnFixedUpdate();
             // TestOcilate.FixedUpdate();
         }
 

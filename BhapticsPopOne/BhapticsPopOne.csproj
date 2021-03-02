@@ -143,6 +143,8 @@
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
     <Compile Include="Haptics\Patterns\ReloadWeapon.cs" />
     <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
+    <Compile Include="Haptics\Patterns\ZoneDamage.cs" />
+    <Compile Include="Helpers\BindGlobals.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="MonoBehaviours\DebugMarker.cs" />
     <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
@@ -154,6 +156,7 @@
     <Compile Include="MonoBehaviours\TouchCollider.cs" />
     <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
     <Compile Include="MonoBehaviours\VelocityTracker.cs" />
+    <Compile Include="Patches\BattleContextView.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
     <Compile Include="Patches\MeleeCollisionDetector.cs" />

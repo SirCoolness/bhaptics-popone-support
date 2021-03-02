@@ -77,11 +77,6 @@ namespace BhapticsPopOne.Haptics
             }
         }
 
-        public static void ZoneHit()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
-        }
-
         public static void EatBanana(BuffState state)
         { 
             if (state != BuffState.Consumed)

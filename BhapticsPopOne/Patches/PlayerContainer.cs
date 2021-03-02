@@ -19,27 +19,27 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
         {
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
+            MelonLogger.Log(info.Source.ToString());
+            
 
             if (info.Source == HitSourceCategory.Melee)
-            {
                 KatanaHit.Execute(__instance, info);
-            } 
             else if (info.Source == HitSourceCategory.Firearm)
-            {
                 PlayerHit.Execute(info);
-            }
             else if (info.Source == HitSourceCategory.BattleZone)
-                PatternManager.ZoneHit();
+                ZoneDamage.Hit(info);
+            else if (info.Source == HitSourceCategory.Explosive)
+            {
+                if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
+                    ZoneDamage.Hit(info);
+                else if (info.Weapon == InventoryItemType.ThrowableGrenade)
+                    PlayerHit.Execute(info);
+            }
             else if (info.Source == HitSourceCategory.Falling)
                 FallDamage.Execute(-info.Damage, info.Power);
             
-            // else
-            //     PatternManager.TestPattern();
-
             if (info.ArmorBroke)
-            {
                 PatternManager.ShieldBreak();
-            }
         }
     }
 
