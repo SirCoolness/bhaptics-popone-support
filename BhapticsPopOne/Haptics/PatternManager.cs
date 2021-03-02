@@ -79,7 +79,7 @@ namespace BhapticsPopOne.Haptics
                 if (PoolSettings.ContainsKey(effect.Name))
                     effect.PoolSize = PoolSettings[effect.Name];
 
-                if (ConfigLoader.Config.ShowLoadedEffects)
+                if (ConfigLoader.Config.Toggles.ShowLoadedEffects)
                     MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
             }
         }

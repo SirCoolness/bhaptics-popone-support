@@ -6,12 +6,14 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
     {
         public bool LowPerformanceMode { get; set; }
         public bool PlayerTouching { get; set; }
-        
+        public bool ShowLoadedEffects { get; set; }
+
         [YamlIgnore] 
         public static AllEffectToggles DefaultConfig = new AllEffectToggles
         {
             LowPerformanceMode = false,
-            PlayerTouching = true
+            PlayerTouching = true,
+            ShowLoadedEffects = false
         };
     }
 }

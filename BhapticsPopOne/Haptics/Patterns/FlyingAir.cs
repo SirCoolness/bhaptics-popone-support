@@ -49,9 +49,6 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Execute(bool wasFalling)
         {
-            if (!Config.Enabled)
-                return;
-
             if (ResetFlight)
             {
                 ResetFlight = false;
@@ -85,9 +82,6 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static void ExecuteFront(float duration)
         {
-            if (!Config.Front.Enabled)
-                return;
-            
             // calc progress
             var strengthProgress = Math.Min(duration / (FrontConfig.StrengthTarget * TargetMultiplier), 1f);
             var speedProgress = Math.Min(duration / (FrontConfig.SpeedTarget * TargetMultiplier), 1f);
@@ -113,9 +107,6 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static void ExecuteBack(float duration)
         {
-            if (!Config.Back.Enabled)
-                return;
-            
             // calc progress
             var strengthProgress = Math.Min(duration / (BackConfig.StrengthTarget * TargetMultiplier), 1f);
             var speedProgress = Math.Min(duration / (BackConfig.SpeedTarget * TargetMultiplier), 1f);
@@ -179,16 +170,15 @@ namespace BhapticsPopOne.Haptics.Patterns
             });
         }
         
-        // TODO: create config
         private static void ExecuteFeet(float duration)
         {
             if (!ConfigLoader.Config.EffectToggles.Feet.FlyingWind)
                 return;
             
-            var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
+            var progress = Math.Min(duration / (FeetConfig.Target * TargetMultiplier), 1f);
             EffectPlayer.Play("Foot/FlyingAir", new Effect.EffectProperties
             {
-                Strength = progress * HandConfig.Strength
+                Strength = progress * FeetConfig.Strength
             });
         }
         
@@ -272,6 +262,12 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             public static float Strength => Mathf.Clamp(Config.Hands.Strength, 0f, 1f);
             public static float Target => Mathf.Max(Config.Hands.Target, 0f);
+        }
+        
+        private class FeetConfig
+        {
+            public static float Strength => Mathf.Clamp(Config.Feet.Strength, 0f, 1f);
+            public static float Target => Mathf.Max(Config.Feet.Target, 0f);
         }
     }
 }

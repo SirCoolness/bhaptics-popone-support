@@ -3,22 +3,23 @@ using YamlDotNet.Serialization;
 
 namespace BhapticsPopOne.ConfigManager.ConfigElements
 {
-    public class FlyEffects : Disableable
+    public class FlyEffects
     {
         public EffectStateModifiers Modifiers { get; set; }
         public FrontEffects Front { get; set; }
         public BackEffects Back { get; set; }
         public ArmEffects Arms { get; set; }
         public HandEffects Hands { get; set; }
+        public FeetEffects Feet { get; set; }
 
         [YamlIgnore] 
         public static FlyEffects DefaultConfig = new FlyEffects
         {
-            Enabled = true,
             Front = FrontEffects.DefaultConfig,
             Back = BackEffects.DefaultConfig,
             Arms = ArmEffects.DefaultConfig,
             Hands = HandEffects.DefaultConfig,
+            Feet = FeetEffects.DefaultConfig,
             Modifiers = EffectStateModifiers.DefaultConfig
         };
 
@@ -39,7 +40,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             };
         }
         
-        public class FrontEffects : Disableable
+        public class FrontEffects
         {
             public ProceduralStrength Strength { get; set; }
             public ProceduralEffectTarget Speed { get; set; }
@@ -48,7 +49,6 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             [YamlIgnore] 
             public static FrontEffects DefaultConfig = new FrontEffects
             {
-                Enabled = true,
                 Strength = new ProceduralStrength
                 {
                     Multiplier = 0.4f,
@@ -77,7 +77,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             };
         }
         
-        public class BackEffects : Disableable
+        public class BackEffects
         {
             public ProceduralStrength Strength { get; set; }
             public ProceduralEffectTarget Speed { get; set; }
@@ -86,7 +86,6 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             [YamlIgnore] 
             public static BackEffects DefaultConfig = new BackEffects
             {
-                Enabled = true,
                 Strength = new ProceduralStrength
                 {
                     Multiplier = 0.4f,
@@ -115,7 +114,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             };
         }
 
-        public class ArmEffects : Disableable
+        public class ArmEffects
         {
             public float Strength { get; set; }
             public float Target { get; set; }
@@ -123,13 +122,12 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             [YamlIgnore] 
             public static ArmEffects DefaultConfig = new ArmEffects
             {
-                Enabled = true,
                 Strength = 1f,
                 Target = 0.75f
             };
         }
         
-        public class HandEffects : Disableable
+        public class HandEffects
         {
             public float Strength { get; set; }
             public float Target { get; set; }
@@ -137,7 +135,19 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             [YamlIgnore] 
             public static HandEffects DefaultConfig = new HandEffects
             {
-                Enabled = true,
+                Strength = 1f,
+                Target = 0.75f
+            };
+        }
+        
+        public class FeetEffects
+        {
+            public float Strength { get; set; }
+            public float Target { get; set; }
+            
+            [YamlIgnore] 
+            public static FeetEffects DefaultConfig = new FeetEffects
+            {
                 Strength = 1f,
                 Target = 0.75f
             };
