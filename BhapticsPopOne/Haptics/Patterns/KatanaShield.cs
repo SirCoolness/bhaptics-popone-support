@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -22,11 +23,12 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Block()
         {
-            EffectPlayer.Play("Arm/MeleeBlock", new Effect.EffectProperties
-            {
-                Strength = 1f,
-                Time = 0.08f
-            });
+            if (ConfigLoader.Config.EffectToggles.Arms.MeleeBlock)
+                EffectPlayer.Play("Arm/MeleeBlock", new Effect.EffectProperties
+                {
+                    Strength = 1f,
+                    Time = 0.08f
+                });
             
             EffectPlayer.Play("Hand/MeleeBlock", new Effect.EffectProperties
             {
@@ -40,10 +42,12 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (!Active)
                 return;
 
-            EffectPlayer.Play("Arm/MeleeShield", new Effect.EffectProperties
-            {
-                Strength = 0.15f
-            });
+            if (ConfigLoader.Config.EffectToggles.Arms.MeleeShield)
+                EffectPlayer.Play("Arm/MeleeShield", new Effect.EffectProperties
+                {
+                    Strength = 0.15f
+                });
+            
             EffectPlayer.Play("Hand/MeleeShield", new Effect.EffectProperties
             {
                 Strength = 0.15f

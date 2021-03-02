@@ -65,10 +65,13 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Strength = _effectStrength,
                     Time = effectTime
                 });
-            EffectPlayer.Play($"Arm/{effectName}{effectExtension}", new Effect.EffectProperties
-            {
-                Time = effectTime
-            });
+            
+            if (ConfigLoader.Config.EffectToggles.Arms.Recoil)
+                EffectPlayer.Play($"Arm/{effectName}{effectExtension}", new Effect.EffectProperties
+                {
+                    Time = effectTime
+                });
+            
             EffectPlayer.Play($"Hand/Recoil{effectExtension}", new Effect.EffectProperties
             {
                 Strength = handStrength,
@@ -83,11 +86,14 @@ namespace BhapticsPopOne.Haptics.Patterns
                         Strength = _effectStrength * offhandIntensity,
                         Time = effectTime
                     });
-                EffectPlayer.Play($"Arm/{effectName}{otherEffectExtension}", new Effect.EffectProperties
-                {
-                    Strength = offhandIntensity,
-                    Time = effectTime
-                });
+                
+                if (ConfigLoader.Config.EffectToggles.Arms.Recoil)
+                    EffectPlayer.Play($"Arm/{effectName}{otherEffectExtension}", new Effect.EffectProperties
+                    {
+                        Strength = offhandIntensity,
+                        Time = effectTime
+                    });
+                
                 EffectPlayer.Play($"Hand/Recoil{otherEffectExtension}", new Effect.EffectProperties
                 {
                     Strength = offhandIntensity * handStrength,

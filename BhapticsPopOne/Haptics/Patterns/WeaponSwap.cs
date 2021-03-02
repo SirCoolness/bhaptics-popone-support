@@ -32,7 +32,9 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (ConfigLoader.Config.EffectToggles.Vest.SelectItem)
                 EffectPlayer.Play($"Vest/SelectItem{EffectExtension()}");
-            EffectPlayer.Play( $"Arm/SelectItem{EffectExtension()}");
+            
+            if (ConfigLoader.Config.EffectToggles.Arms.SelectItem)
+                EffectPlayer.Play( $"Arm/SelectItem{EffectExtension()}");
             EffectPlayer.Play( $"Hand/SelectItem{EffectExtension()}");
         }
 
@@ -44,7 +46,10 @@ namespace BhapticsPopOne.Haptics.Patterns
          
             if (ConfigLoader.Config.EffectToggles.Vest.HideItem)
                 EffectPlayer.Play(lastVestEffect);
-            EffectPlayer.Play(lastArmEffect);
+            
+            if (ConfigLoader.Config.EffectToggles.Arms.HideItem)
+                EffectPlayer.Play(lastArmEffect);
+            
             EffectPlayer.Play(lastHandEffect);
         }
 

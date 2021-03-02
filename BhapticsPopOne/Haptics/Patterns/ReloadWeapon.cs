@@ -43,12 +43,16 @@ namespace BhapticsPopOne.Haptics.Patterns
             {
                 if (ConfigLoader.Config.EffectToggles.Vest.Reload)
                     EffectPlayer.Play($"Vest/ReloadStep1{ext}");
-                EffectPlayer.Play($"Arm/ReloadStep1{ext}");
+                
+                if (ConfigLoader.Config.EffectToggles.Arms.Reload)
+                    EffectPlayer.Play($"Arm/ReloadStep1{ext}");
             } else if (state == FirearmState.Ready && previous == FirearmState.Prime)
             {
                 if (ConfigLoader.Config.EffectToggles.Vest.Reload)
                     EffectPlayer.Play($"Vest/ReloadStep2{ext}");
-                EffectPlayer.Play($"Arm/ReloadStep2{ext}");
+                
+                if (ConfigLoader.Config.EffectToggles.Arms.Reload)
+                    EffectPlayer.Play($"Arm/ReloadStep2{ext}");
             }
         }
     }

@@ -141,7 +141,7 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static void ExecuteArms(float duration)
         {
-            if (!Config.Arms.Enabled)
+            if (!ConfigLoader.Config.EffectToggles.Arms.FlyingWind)
                 return;
             
             string[] effectPool = new[] {"Arm/FlyingAir_Level1", "Arm/FlyingAir_Level2"};

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
@@ -35,12 +36,13 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             var relativeV = tracker.Velocity - velocity;
             
-            EffectPlayer.Play($"Arm/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-            {
-                Time = Time.fixedDeltaTime,
-                Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
-            });
-            
+            if (ConfigLoader.Config.EffectToggles.Arms.MeleeVelocity)
+                EffectPlayer.Play($"Arm/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                {
+                    Time = Time.fixedDeltaTime,
+                    Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
+                });
+                
             EffectPlayer.Play($"Hand/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
             {
                 Time = Time.fixedDeltaTime,

@@ -21,7 +21,10 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (ConfigLoader.Config.EffectToggles.Vest.PickupItem)
                 EffectPlayer.Play($"Vest/ItemPickup{effectExtension}");
-            EffectPlayer.Play($"Arm/ItemPickup{effectExtension}");
+            
+            if (ConfigLoader.Config.EffectToggles.Arms.PickupItem)
+                EffectPlayer.Play($"Arm/ItemPickup{effectExtension}");
+            
             EffectPlayer.Play($"Hand/ItemPickup{effectExtension}");
         }
     }

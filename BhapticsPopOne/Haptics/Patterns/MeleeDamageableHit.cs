@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using UnityEngine;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -15,11 +16,12 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static void Play(Handedness hand)
         {
-            EffectPlayer.Play($"Arm/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-            {
-                Strength = 0.8f,
-                Time = 0.8f
-            });
+            if (ConfigLoader.Config.EffectToggles.Arms.MeleeSlice)
+                EffectPlayer.Play($"Arm/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                {
+                    Strength = 0.8f,
+                    Time = 0.8f
+                });
             
             EffectPlayer.Play($"Hand/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Aws.GameLift.Server.Model;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.EffectManagers;
@@ -47,11 +48,12 @@ namespace BhapticsPopOne
 
             if (magnitude > 1.35f)
             {
-                EffectPlayer.Play($"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-                {
-                    Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
-                    OnComplete = OnCompleteArm
-                }); 
+                if (ConfigLoader.Config.EffectToggles.Arms.PlayerTouchVelocity)
+                    EffectPlayer.Play($"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                    {
+                        Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
+                        OnComplete = OnCompleteArm
+                    }); 
                 
                 EffectPlayer.Play($"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
@@ -61,12 +63,13 @@ namespace BhapticsPopOne
             }
             else
             {
-                EffectPlayer.Play($"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-                {
-                    Time = 0.275f,
-                    Strength = Mathf.Min(1f, magnitude / 1.35f),
-                    OnComplete = OnCompleteArm
-                });
+                if (ConfigLoader.Config.EffectToggles.Arms.PlayerTouchVelocity)
+                    EffectPlayer.Play($"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                    {
+                        Time = 0.275f,
+                        Strength = Mathf.Min(1f, magnitude / 1.35f),
+                        OnComplete = OnCompleteArm
+                    });
                 
                 EffectPlayer.Play($"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
@@ -79,6 +82,9 @@ namespace BhapticsPopOne
 
         private void OnCompleteArm()
         {
+            if (!ConfigLoader.Config.EffectToggles.Arms.PlayerTouch)
+                return;
+            
             if (activeParts.Count > 0)
                 EffectLoopRegistry.Start($"Arm/SendTouch{HapticUtils.HandExt(hand)}");
         }
@@ -101,7 +107,6 @@ namespace BhapticsPopOne
                 EffectLoopRegistry.Stop($"Arm/SendTouch{HapticUtils.HandExt(hand)}");
                 EffectLoopRegistry.Stop($"Hand/SendTouch{HapticUtils.HandExt(hand)}");
             }
-
         }
 
         public static void BindToTransform(Transform dest, Handedness hand)
