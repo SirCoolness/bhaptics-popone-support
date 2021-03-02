@@ -167,10 +167,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (!Config.Hands.Enabled)
                 return;
-            
-            if (EffectPlayer.IsPlaying("Hand/FlyingAir"))
-                return;
-            
+
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
             EffectPlayer.Play("Hand/FlyingAir", new Effect.EffectProperties
             {
@@ -181,9 +178,6 @@ namespace BhapticsPopOne.Haptics.Patterns
         // TODO: create config
         private static void ExecuteFeet(float duration)
         {
-            if (EffectPlayer.IsPlaying("Foot/FlyingAir"))
-                return;
-            
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
             EffectPlayer.Play("Foot/FlyingAir", new Effect.EffectProperties
             {
