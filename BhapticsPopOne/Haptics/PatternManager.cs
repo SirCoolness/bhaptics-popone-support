@@ -48,6 +48,14 @@ namespace BhapticsPopOne.Haptics
             ["Vest/RecoilLevel2_L"] = 5,
             ["Vest/RecoilLevel1_R"] = 5,
             ["Vest/RecoilLevel1_L"] = 5,
+            ["Arm/RecoilLevel9001_R"] = 5,
+            ["Arm/RecoilLevel9001_L"] = 5,
+            ["Arm/RecoilLevel3_R"] = 5,
+            ["Arm/RecoilLevel3_L"] = 5,
+            ["Arm/RecoilLevel2_R"] = 5,
+            ["Arm/RecoilLevel2_L"] = 5,
+            ["Arm/RecoilLevel1_R"] = 5,
+            ["Arm/RecoilLevel1_L"] = 5,
         };
         
         // loads all subdirectories

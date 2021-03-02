@@ -8,16 +8,16 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
     {
         public string Version { get; set; }
         public EffectToggles.EffectToggles EffectToggles { get; set; }
+        public AllEffectToggles Toggles { get; set; }
         public float VestRecoil { get; set; }
         public float OffhandRecoilStrength { get; set; }
         public float FoodEatIntensity { get; set; }
         public float SodaBubbleIntensity { get; set; }
-        public AllEffectToggles Toggles { get; set; }
         public FallEffects FallEffect { get; set; }
         public EffectsConfig Effects { get; set; }
 
         [YamlIgnore] 
-        public static Version CurrentVersion => new Version("0.0.5");
+        public static Version CurrentVersion => new Version("0.0.6");
         
         [YamlIgnore] 
         public static Config DefaultConfig = new Config
