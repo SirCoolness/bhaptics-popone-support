@@ -40,12 +40,16 @@ namespace BhapticsPopOne.Haptics.Patterns
                         Time = time
                     });
             }
-            
-            EffectPlayer.Play($"Hand/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
-            EffectPlayer.Play($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}", new Effect.EffectProperties
+
+            if (ConfigLoader.Config.EffectToggles.Hands.FistBumpFriend)
             {
-                Time = time
-            });
+                EffectPlayer.Play($"Hand/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
+                EffectPlayer.Play($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}",
+                    new Effect.EffectProperties
+                    {
+                        Time = time
+                    });
+            }
         }
 
         public static void Stop(bool finished)
@@ -58,7 +62,8 @@ namespace BhapticsPopOne.Haptics.Patterns
                 if (ConfigLoader.Config.EffectToggles.Arms.FistBumpComplete)
                     EffectPlayer.Play($"Arm/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
                 
-                EffectPlayer.Play($"Hand/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
+                if (ConfigLoader.Config.EffectToggles.Hands.FistBumpComplete)
+                    EffectPlayer.Play($"Hand/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
             }
             
             EffectPlayer.Stop($"Arm/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}");

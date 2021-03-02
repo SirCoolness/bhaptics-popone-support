@@ -43,11 +43,12 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
                 });
                 
-            EffectPlayer.Play($"Hand/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-            {
-                Time = Time.fixedDeltaTime,
-                Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
-            });
+            if (ConfigLoader.Config.EffectToggles.Hands.MeleeVelocity)
+                EffectPlayer.Play($"Hand/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                {
+                    Time = Time.fixedDeltaTime,
+                    Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
+                });
         }
 
         public static void Reset()

@@ -55,11 +55,12 @@ namespace BhapticsPopOne
                         OnComplete = OnCompleteArm
                     }); 
                 
-                EffectPlayer.Play($"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-                {
-                    Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
-                    OnComplete = OnCompleteHand
-                }); 
+                if (ConfigLoader.Config.EffectToggles.Hands.PlayerTouchVelocity)
+                    EffectPlayer.Play($"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                    {
+                        Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
+                        OnComplete = OnCompleteHand
+                    }); 
             }
             else
             {
@@ -71,12 +72,13 @@ namespace BhapticsPopOne
                         OnComplete = OnCompleteArm
                     });
                 
-                EffectPlayer.Play($"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-                {
-                    Time = 0.275f,
-                    Strength = Mathf.Min(1f, magnitude / 1.35f),
-                    OnComplete = OnCompleteHand
-                });
+                if (ConfigLoader.Config.EffectToggles.Hands.PlayerTouchVelocity)
+                    EffectPlayer.Play($"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                    {
+                        Time = 0.275f,
+                        Strength = Mathf.Min(1f, magnitude / 1.35f),
+                        OnComplete = OnCompleteHand
+                    });
             }
         }
 
@@ -91,6 +93,9 @@ namespace BhapticsPopOne
         
         private void OnCompleteHand()
         {
+            if (!ConfigLoader.Config.EffectToggles.Hands.PlayerTouch)
+                return;
+            
             if (activeParts.Count > 0)
                 EffectLoopRegistry.Start($"Hand/SendTouch{HapticUtils.HandExt(hand)}");
         }

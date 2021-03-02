@@ -23,11 +23,12 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Time = 0.8f
                 });
             
-            EffectPlayer.Play($"Hand/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
-            {
-                Strength = 0.8f,
-                Time = 0.8f
-            });
+            if (ConfigLoader.Config.EffectToggles.Hands.MeleeSlice)
+                EffectPlayer.Play($"Hand/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
+                {
+                    Strength = 0.8f,
+                    Time = 0.8f
+                });
         }
     }
 }

@@ -169,7 +169,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         private static void ExecuteHands(float duration)
         {
-            if (!Config.Hands.Enabled)
+            if (!ConfigLoader.Config.EffectToggles.Hands.FlyingWind)
                 return;
 
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);

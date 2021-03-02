@@ -30,11 +30,12 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Time = 0.08f
                 });
             
-            EffectPlayer.Play("Hand/MeleeBlock", new Effect.EffectProperties
-            {
-                Strength = 1f,
-                Time = 0.08f
-            });
+            if (ConfigLoader.Config.EffectToggles.Hands.MeleeBlock)
+                EffectPlayer.Play("Hand/MeleeBlock", new Effect.EffectProperties
+                {
+                    Strength = 1f,
+                    Time = 0.08f
+                });
         }
 
         public static void FixedUpdate()
@@ -48,10 +49,11 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Strength = 0.15f
                 });
             
-            EffectPlayer.Play("Hand/MeleeShield", new Effect.EffectProperties
-            {
-                Strength = 0.15f
-            });
+            if (ConfigLoader.Config.EffectToggles.Hands.MeleeShield)
+                EffectPlayer.Play("Hand/MeleeShield", new Effect.EffectProperties
+                {
+                    Strength = 0.15f
+                });
             
             WasPlaying = true;
         }

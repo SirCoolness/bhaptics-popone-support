@@ -72,11 +72,12 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Time = effectTime
                 });
             
-            EffectPlayer.Play($"Hand/Recoil{effectExtension}", new Effect.EffectProperties
-            {
-                Strength = handStrength,
-                Time = effectTime * handTime
-            });
+            if (ConfigLoader.Config.EffectToggles.Hands.Recoil)
+                EffectPlayer.Play($"Hand/Recoil{effectExtension}", new Effect.EffectProperties
+                {
+                    Strength = handStrength,
+                    Time = effectTime * handTime
+                });
             
             if (twoHanded)
             {
@@ -94,11 +95,12 @@ namespace BhapticsPopOne.Haptics.Patterns
                         Time = effectTime
                     });
                 
-                EffectPlayer.Play($"Hand/Recoil{otherEffectExtension}", new Effect.EffectProperties
-                {
-                    Strength = offhandIntensity * handStrength,
-                    Time = effectTime * handTime
-                });
+                if (ConfigLoader.Config.EffectToggles.Hands.Recoil)
+                    EffectPlayer.Play($"Hand/Recoil{otherEffectExtension}", new Effect.EffectProperties
+                    {
+                        Strength = offhandIntensity * handStrength,
+                        Time = effectTime * handTime
+                    });
             }
         }
     }

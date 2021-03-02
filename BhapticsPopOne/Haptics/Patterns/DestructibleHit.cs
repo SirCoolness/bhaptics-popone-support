@@ -24,7 +24,8 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (ConfigLoader.Config.EffectToggles.Arms.DestructibleHit)
                 EffectPlayer.Play($"Arm/DestructibleHit{effectExtension}");
             
-            EffectPlayer.Play($"Hand/DestructibleHit{effectExtension}");
+            if (ConfigLoader.Config.EffectToggles.Hands.DestructibleHit)
+                EffectPlayer.Play($"Hand/DestructibleHit{effectExtension}");
         }
     }
 }
