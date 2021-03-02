@@ -132,6 +132,9 @@ namespace BhapticsPopOne
 
         private static void EnterFootEffect(float magnitude, Handedness foot)
         {
+            if (!ConfigLoader.Config.EffectToggles.Feet.PlayerTouchVelocity)
+                return;
+            
             if (magnitude > 1.35f)
             {
                 EffectPlayer.Play($"Foot/HighVInitialTouch{HapticUtils.HandExt(foot)}", new Effect.EffectProperties
@@ -167,7 +170,8 @@ namespace BhapticsPopOne
 
         private static void PlayFootEffect(Handedness foot)
         {
-            EffectPlayer.Play($"Foot/ReceiveTouch{HapticUtils.HandExt(foot)}");
+            if (ConfigLoader.Config.EffectToggles.Feet.PlayerTouch)
+                EffectPlayer.Play($"Foot/ReceiveTouch{HapticUtils.HandExt(foot)}");
         }
 
         #endregion

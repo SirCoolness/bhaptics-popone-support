@@ -13,11 +13,12 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Land()
         {
-            EffectPlayer.Play("Foot/LandOnGround", new Effect.EffectProperties
-            {
-                Strength = 0.4f,
-                Time = 0.12f
-            });
+            if (ConfigLoader.Config.EffectToggles.Feet.LandOnGround)
+                EffectPlayer.Play("Foot/LandOnGround", new Effect.EffectProperties
+                {
+                    Strength = 0.4f,
+                    Time = 0.12f
+                });
         }
     }
 }

@@ -182,6 +182,9 @@ namespace BhapticsPopOne.Haptics.Patterns
         // TODO: create config
         private static void ExecuteFeet(float duration)
         {
+            if (!ConfigLoader.Config.EffectToggles.Feet.FlyingWind)
+                return;
+            
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
             EffectPlayer.Play("Foot/FlyingAir", new Effect.EffectProperties
             {

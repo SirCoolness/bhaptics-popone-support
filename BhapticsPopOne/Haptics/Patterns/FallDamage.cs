@@ -14,16 +14,20 @@ namespace BhapticsPopOne.Haptics.Patterns
             {
                 if (ConfigLoader.Config.EffectToggles.Vest.FallDamage)
                     EffectPlayer.Play("Vest/FallDamage_Level2");
-                EffectPlayer.Play("Foot/FallDamage");
+                
+                if (ConfigLoader.Config.EffectToggles.Feet.FallDamage)
+                    EffectPlayer.Play("Foot/FallDamage");
             }
             else
             {
                 if (ConfigLoader.Config.EffectToggles.Vest.FallDamage)
                     EffectPlayer.Play("Vest/FallDamage_Level1");
-                EffectPlayer.Play("Foot/FallDamage", new Effect.EffectProperties
-                {
-                    Strength = 0.6f
-                });
+                
+                if (ConfigLoader.Config.EffectToggles.Feet.FallDamage)
+                    EffectPlayer.Play("Foot/FallDamage", new Effect.EffectProperties
+                    {
+                        Strength = 0.6f
+                    });
             }
         }
     }

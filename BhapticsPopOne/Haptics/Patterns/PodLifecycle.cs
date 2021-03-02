@@ -14,14 +14,18 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (ConfigLoader.Config.EffectToggles.Vest.LaunchPod)
                 EffectPlayer.Play("Vest/LaunchingPod");
-            EffectPlayer.Play("Foot/LaunchingPod");
+            
+            if (ConfigLoader.Config.EffectToggles.Feet.LaunchPod)
+                EffectPlayer.Play("Foot/LaunchingPod");
         }
 
         public static void DuringPod()
         {
             if (ConfigLoader.Config.EffectToggles.Vest.FlyingPod)
                 EffectPlayer.Play("Vest/DuringPod");
-            EffectPlayer.Play("Foot/DuringPod");
+            
+            if (ConfigLoader.Config.EffectToggles.Feet.FlyingPod)
+                EffectPlayer.Play("Foot/DuringPod");
         }
     }
 }
