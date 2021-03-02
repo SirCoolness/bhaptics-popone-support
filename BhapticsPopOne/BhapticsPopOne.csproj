@@ -105,6 +105,12 @@
     <Compile Include="ConfigManager\ConfigElements\EffectsConfig.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\HighFlightModifier.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\StateModifier.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Arms.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\EffectToggles.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Face.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Feet.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Hands.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Vest.cs" />
     <Compile Include="ConfigManager\ConfigElements\FallEffects.cs" />
     <Compile Include="ConfigManager\ConfigElements\FlyEffects.cs" />
     <Compile Include="ConfigManager\ConfigElements\LerpGoal.cs" />

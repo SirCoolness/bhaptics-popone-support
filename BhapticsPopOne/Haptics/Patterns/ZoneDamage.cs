@@ -35,7 +35,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             {
                 PatternManager.Effects["Vest/ZoneDamage"]?.Play(new Effect.EffectProperties
                 {
-                    Strength = 0.30f + Mathf.Clamp(((float)info.Damage / 6f) * 0.5f, 0f, 0.5f),
+                    Strength = 0.75f,
                     Time = 0.4f
                 });   
             }
@@ -43,7 +43,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             {
                 PatternManager.Effects["Vest/ZoneDamage"]?.Play(new Effect.EffectProperties
                 {
-                    Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.35f, 0f, 0.35f)
+                    Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
                 });   
             }
         }

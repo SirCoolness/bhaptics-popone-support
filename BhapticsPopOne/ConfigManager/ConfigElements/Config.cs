@@ -7,6 +7,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
     public class Config
     {
         public string Version { get; set; }
+        public EffectToggles.EffectToggles EffectToggles { get; set; }
         public float VestRecoil { get; set; }
         public float OffhandRecoilStrength { get; set; }
         public bool VestClimbEffects { get; set; }
@@ -33,6 +34,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
         public static Config DefaultConfig = new Config
         {
             Version = CurrentVersion.ToString(),
+            EffectToggles = ConfigElements.EffectToggles.EffectToggles.DefaultConfig,
             VestRecoil = 1f,
             OffhandRecoilStrength = 0.7f,
             VestClimbEffects = false,
