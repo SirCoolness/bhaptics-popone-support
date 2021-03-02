@@ -33,7 +33,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
             {
-                PatternManager.Effects["Vest/ZoneDamage"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
                 {
                     Strength = 0.75f,
                     Time = 0.4f
@@ -41,7 +41,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
             else
             {
-                PatternManager.Effects["Vest/ZoneDamage"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
                 {
                     Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
                 });   
@@ -54,7 +54,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (!Active && WasPlaying)
             {
-                PatternManager.Effects["Vest/ZonePassive"]?.Stop();
+                EffectPlayer.Stop("Vest/ZonePassive");
                 WasPlaying = false;
             }
         }
@@ -68,11 +68,8 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (!Active)
                 return;
-            
-            if (WasPlaying && PatternManager.Effects["Vest/ZonePassive"]?.isPlaying == true)
-                return;
-                
-            PatternManager.Effects["Vest/ZonePassive"]?.Play(new Effect.EffectProperties
+
+            EffectPlayer.Play("Vest/ZonePassive", new Effect.EffectProperties
             {
                 Strength = 0.1f
             });

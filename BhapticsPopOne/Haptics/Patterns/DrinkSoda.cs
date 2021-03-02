@@ -30,7 +30,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (state != BuffState.Consumed)
                 return;
             
-            PatternManager.Effects["Vest/ConsumeItem"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play("Vest/ConsumeItem", new Effect.EffectProperties
             {
                 Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.FoodEatIntensity)
             });

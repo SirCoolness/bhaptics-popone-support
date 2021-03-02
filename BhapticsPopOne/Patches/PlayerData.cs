@@ -20,14 +20,10 @@ namespace BhapticsPopOne.Patches.PlayerData2
     
     
             if (newValue < 25 && oldValue >= 25)
-            {
-                PatternManager.LowHealthHeartbeat();
-            }
+                Health.LowHealthHeartbeat();
 
             if (newValue >= PlayerData.MaxHealth)
-            {
                 DrinkSoda.FullHealth();
-            }
         }
     }
 
@@ -58,7 +54,7 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 FallingAir.Execute(previousValue == MotionState.Flying);
             
             if ((value == MotionState.Bipedal || value == MotionState.Idle) && (previousValue == MotionState.Flying || previousValue == MotionState.Falling))
-                PatternManager.Land();
+                GameState.Land();
         }
     }
 
@@ -74,7 +70,7 @@ namespace BhapticsPopOne.Patches.PlayerData2
 
             if (value >= PlayerData.MaxArmor)
             {
-                PatternManager.ShieldFull();
+                Health.ShieldFull();
                 DrinkSoda.FullShield();
             }
         }

@@ -125,6 +125,7 @@
     <Compile Include="Haptics\ConnectionManager.cs" />
     <Compile Include="Haptics\EffectHelpers\ByteEffect.cs" />
     <Compile Include="Haptics\EffectHelpers\Effect.cs" />
+    <Compile Include="Haptics\EffectHelpers\EffectPlayer.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
     <Compile Include="Haptics\EffectManagers\EffectLoopRegistry.cs" />
     <Compile Include="Haptics\EffectManagers\EffectEventsDispatcher.cs" />
@@ -132,6 +133,8 @@
     <Compile Include="Haptics\FakeInstance.cs" />
     <Compile Include="Haptics\Loaders\InitializeByteEffects.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
+    <Compile Include="Haptics\Patterns\Climbing.cs" />
+    <Compile Include="Haptics\Patterns\Defib.cs" />
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
     <Compile Include="Haptics\Patterns\DropItem.cs" />
@@ -140,7 +143,10 @@
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\FistBump.cs" />
     <Compile Include="Haptics\Patterns\FlyingAir.cs" />
+    <Compile Include="Haptics\Patterns\Food.cs" />
+    <Compile Include="Haptics\Patterns\GameState.cs" />
     <Compile Include="Haptics\Patterns\HapticUtils.cs" />
+    <Compile Include="Haptics\Patterns\Health.cs" />
     <Compile Include="Haptics\Patterns\KatanaHit.cs" />
     <Compile Include="Haptics\Patterns\KatanaShield.cs" />
     <Compile Include="Haptics\Patterns\MeleeDamageableHit.cs" />
@@ -148,6 +154,7 @@
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
+    <Compile Include="Haptics\Patterns\PodLifecycle.cs" />
     <Compile Include="Haptics\Patterns\ReloadWeapon.cs" />
     <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
     <Compile Include="Haptics\Patterns\ZoneDamage.cs" />

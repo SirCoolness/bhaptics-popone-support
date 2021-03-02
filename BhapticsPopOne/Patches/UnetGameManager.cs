@@ -9,6 +9,7 @@ namespace BhapticsPopOne.UnetGameManager2
     [HarmonyPatch(typeof(UnetGameManager), "OnGameStateChanged")]
     public class OnGameStateChanged
     {
+        // TODO: switch to goyfs
         static void Postfix(GameState oldValue, GameState newValue)
         {
             if (newValue != GameState.MatchEnded)
@@ -19,7 +20,7 @@ namespace BhapticsPopOne.UnetGameManager2
             if (playerstate == PlayerState.Eliminated)
                 return;
             
-            PatternManager.Victory();
+            Haptics.Patterns.GameState.Victory();
         }
     }
 }

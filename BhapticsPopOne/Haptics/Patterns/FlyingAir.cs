@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.ConfigManager.ConfigElements;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
 using UnityEngine;
@@ -95,10 +96,13 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             VestFrontEffectManager.DispatchEffect(count, (name) =>
             {
-                // MelonLogger.Log(name);
-                Mod.Instance.Haptics.Player.SubmitRegistered(
+                EffectPlayer.Play(
                     name, 
-                    new ScaleOption(strength, speed)
+                    new Effect.EffectProperties
+                    {
+                        Strength = strength,
+                        Time = speed
+                    }
                 );
             });
         }
@@ -120,10 +124,13 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             VestBackEffectManager.DispatchEffect(count, (name) =>
             {
-                // MelonLogger.Log(name);
-                Mod.Instance.Haptics.Player.SubmitRegistered(
+                EffectPlayer.Play(
                     name, 
-                    new ScaleOption(strength, speed)
+                    new Effect.EffectProperties
+                    {
+                        Strength = strength,
+                        Time = speed
+                    }
                 );
             });
         }
@@ -136,18 +143,24 @@ namespace BhapticsPopOne.Haptics.Patterns
             string[] effectPool = new[] {"Arm/FlyingAir_Level1", "Arm/FlyingAir_Level2"};
             foreach (var s in effectPool)
             {
-                if (Mod.Instance.Haptics.Player.IsPlaying(s))
+                if (EffectPlayer.IsPlaying(s))
                     return;
             }
             
             var progress = Math.Min(duration / (ArmConfig.Target * TargetMultiplier), 1f);
             if (progress >= 1f)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered(effectPool[1], new ScaleOption(ArmConfig.Strength, 1f));
+                EffectPlayer.Play(effectPool[1], new Effect.EffectProperties
+                {
+                    Strength = ArmConfig.Strength
+                });
                 return;
             }
             
-            Mod.Instance.Haptics.Player.SubmitRegistered(effectPool[0], new ScaleOption(ArmConfig.Strength, 1f));
+            EffectPlayer.Play(effectPool[0], new Effect.EffectProperties
+            {
+                Strength = ArmConfig.Strength
+            });
         }
         
         private static void ExecuteHands(float duration)
@@ -155,24 +168,27 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (!Config.Hands.Enabled)
                 return;
             
-            if (Mod.Instance.Haptics.Player.IsPlaying("Hand/FlyingAir"))
+            if (EffectPlayer.IsPlaying("Hand/FlyingAir"))
                 return;
             
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
-            Mod.Instance.Haptics.Player.SubmitRegistered("Hand/FlyingAir", new ScaleOption(progress * HandConfig.Strength, 1f));
+            EffectPlayer.Play("Hand/FlyingAir", new Effect.EffectProperties
+            {
+                Strength = progress * HandConfig.Strength
+            });
         }
         
         // TODO: create config
         private static void ExecuteFeet(float duration)
         {
-            // if (!Config.Hands.Enabled)
-                // return;
-            
-            if (Mod.Instance.Haptics.Player.IsPlaying("Foot/FlyingAir"))
+            if (EffectPlayer.IsPlaying("Foot/FlyingAir"))
                 return;
             
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
-            Mod.Instance.Haptics.Player.SubmitRegistered("Foot/FlyingAir", new ScaleOption(progress * HandConfig.Strength, 1f));
+            EffectPlayer.Play("Foot/FlyingAir", new Effect.EffectProperties
+            {
+                Strength = progress * HandConfig.Strength
+            });
         }
         
         public static void Clear()
@@ -185,11 +201,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             VestFrontEffectManager.Clear();
             VestBackEffectManager.Clear();
             
-            Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level1");
-            Mod.Instance.Haptics.Player.TurnOff("Arm/FlyingAir_Level2");
+            EffectPlayer.Stop("Arm/FlyingAir_Level1");
+            EffectPlayer.Stop("Arm/FlyingAir_Level2");
             
-            Mod.Instance.Haptics.Player.TurnOff("Hand/FlyingAir");
-            Mod.Instance.Haptics.Player.TurnOff("Foot/FlyingAir");
+            EffectPlayer.Stop("Hand/FlyingAir");
+            EffectPlayer.Stop("Foot/FlyingAir");
         }
 
         public static bool IsHighFlight()

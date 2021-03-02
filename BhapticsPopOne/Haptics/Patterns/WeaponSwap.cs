@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -19,18 +20,18 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void CancelLastPlayback()
         {
-            Mod.Instance.Haptics.Player.TurnOff(lastVestEffect);
-            Mod.Instance.Haptics.Player.TurnOff(lastArmEffect);
-            Mod.Instance.Haptics.Player.TurnOff(lastHandEffect);
+            EffectPlayer.Stop(lastVestEffect);
+            EffectPlayer.Stop(lastArmEffect);
+            EffectPlayer.Stop(lastHandEffect);
         }
 
         public static void PlayDraw()
         {
             CancelLastPlayback();
             
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/SelectItem{EffectExtension()}");
-            Mod.Instance.Haptics.Player.SubmitRegistered( $"Arm/SelectItem{EffectExtension()}");
-            Mod.Instance.Haptics.Player.SubmitRegistered( $"Hand/SelectItem{EffectExtension()}");
+            EffectPlayer.Play($"Vest/SelectItem{EffectExtension()}");
+            EffectPlayer.Play( $"Arm/SelectItem{EffectExtension()}");
+            EffectPlayer.Play( $"Hand/SelectItem{EffectExtension()}");
         }
 
         public static void PlayHide()
@@ -39,9 +40,9 @@ namespace BhapticsPopOne.Haptics.Patterns
             lastArmEffect = $"Arm/HideWeapon{EffectExtension()}";
             lastHandEffect = $"Hand/HideWeapon{EffectExtension()}";
             
-            Mod.Instance.Haptics.Player.SubmitRegistered(lastVestEffect);
-            Mod.Instance.Haptics.Player.SubmitRegistered(lastArmEffect);
-            Mod.Instance.Haptics.Player.SubmitRegistered(lastHandEffect);
+            EffectPlayer.Play(lastVestEffect);
+            EffectPlayer.Play(lastArmEffect);
+            EffectPlayer.Play(lastHandEffect);
         }
 
         private static string EffectExtension()

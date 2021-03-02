@@ -19,7 +19,7 @@ namespace BhapticsPopOne.Haptics.Patterns
                 Mathf.Clamp(Mathf.FloorToInt(Mathf.Floor(angle.y / 22.5f) + Mathf.Round(((angle.y) % 22.5f) / 22.5f)) %
                  17 , 0, 16);
             
-            PatternManager.Effects[$"Vest/SwordSlice_{effectIndex}"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play($"Vest/SwordSlice_{effectIndex}", new Effect.EffectProperties
             {
                 Time = 0.25f,
                 XRotation = -rotation

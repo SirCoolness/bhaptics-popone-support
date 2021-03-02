@@ -61,16 +61,16 @@ namespace BhapticsPopOne.Haptics.Patterns
                 return;
             
             if (!_disableVest)
-                PatternManager.Effects[$"Vest/{effectName}{effectExtension}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Vest/{effectName}{effectExtension}", new Effect.EffectProperties
                 {
                     Strength = _effectStrength,
                     Time = effectTime
                 });
-            PatternManager.Effects[$"Arm/{effectName}{effectExtension}"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play($"Arm/{effectName}{effectExtension}", new Effect.EffectProperties
             {
                 Time = effectTime
             });
-            PatternManager.Effects[$"Hand/Recoil{effectExtension}"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play($"Hand/Recoil{effectExtension}", new Effect.EffectProperties
             {
                 Strength = handStrength,
                 Time = effectTime * handTime
@@ -79,17 +79,17 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (twoHanded)
             {
                 if (!_disableVest)
-                    PatternManager.Effects[$"Vest/{effectName}{otherEffectExtension}"]?.Play(new Effect.EffectProperties
+                    EffectPlayer.Play($"Vest/{effectName}{otherEffectExtension}", new Effect.EffectProperties
                     {
                         Strength = _effectStrength * offhandIntensity,
                         Time = effectTime
                     });
-                PatternManager.Effects[$"Arm/{effectName}{otherEffectExtension}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Arm/{effectName}{otherEffectExtension}", new Effect.EffectProperties
                 {
                     Strength = offhandIntensity,
                     Time = effectTime
                 });
-                PatternManager.Effects[$"Hand/Recoil{otherEffectExtension}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Hand/Recoil{otherEffectExtension}", new Effect.EffectProperties
                 {
                     Strength = offhandIntensity * handStrength,
                     Time = effectTime * handTime

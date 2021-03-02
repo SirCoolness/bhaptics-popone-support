@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -17,9 +18,9 @@ namespace BhapticsPopOne.Haptics.Patterns
                 effectExtension = "_R";
             }
             
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ItemPickup{effectExtension}");
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/ItemPickup{effectExtension}");
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/ItemPickup{effectExtension}");
+            EffectPlayer.Play($"Vest/ItemPickup{effectExtension}");
+            EffectPlayer.Play($"Arm/ItemPickup{effectExtension}");
+            EffectPlayer.Play($"Hand/ItemPickup{effectExtension}");
         }
     }
 }

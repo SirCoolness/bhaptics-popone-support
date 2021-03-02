@@ -47,13 +47,13 @@ namespace BhapticsPopOne
 
             if (magnitude > 1.35f)
             {
-                PatternManager.Effects[$"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
                     OnComplete = OnCompleteArm
                 }); 
                 
-                PatternManager.Effects[$"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
                     OnComplete = OnCompleteHand
@@ -61,14 +61,14 @@ namespace BhapticsPopOne
             }
             else
             {
-                PatternManager.Effects[$"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Time = 0.275f,
                     Strength = Mathf.Min(1f, magnitude / 1.35f),
                     OnComplete = OnCompleteArm
                 });
                 
-                PatternManager.Effects[$"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}"]?.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Time = 0.275f,
                     Strength = Mathf.Min(1f, magnitude / 1.35f),

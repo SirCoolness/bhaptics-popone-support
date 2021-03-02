@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -39,12 +40,12 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (state == FirearmState.Prime)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ReloadStep1{ext}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/ReloadStep1{ext}");
+                EffectPlayer.Play($"Vest/ReloadStep1{ext}");
+                EffectPlayer.Play($"Arm/ReloadStep1{ext}");
             } else if (state == FirearmState.Ready && previous == FirearmState.Prime)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ReloadStep2{ext}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/ReloadStep2{ext}");
+                EffectPlayer.Play($"Vest/ReloadStep2{ext}");
+                EffectPlayer.Play($"Arm/ReloadStep2{ext}");
             }
         }
     }

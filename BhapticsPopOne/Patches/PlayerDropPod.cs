@@ -21,7 +21,7 @@ namespace BhapticsPopOne.Patches
                (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
                 __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
             {
-                FallingAir.Execute(__instance.PodSpeedFalling, false);
+                FallingAir.Execute(8f, false);
                 return;
             }
 
@@ -31,24 +31,16 @@ namespace BhapticsPopOne.Patches
             }
             
             if (value == PodState.WaitingToLaunch)
-            {
-                PatternManager.EnteringPod();
-            }
+                PodLifecycle.EnteringPod();
             else if (value == PodState.Launching)
-            {
-                PatternManager.LaunchingPod();
-            }
+                PodLifecycle.LaunchingPod();
             else if(value == PodState.WaitingToDrop)
-            {
-                PatternManager.DuringPod();
-            }
+                PodLifecycle.DuringPod();
             else if (value == PodState.Impacted)
-            {
                 if (__instance.attachedContainer.playerData.MotionState == MotionState.Idle || __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal)
                 {
                     FallDamage.Execute(75, 500f);
                 }
-            }
         }
     }
 

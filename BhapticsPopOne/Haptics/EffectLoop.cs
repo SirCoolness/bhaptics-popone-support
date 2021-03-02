@@ -8,42 +8,22 @@ namespace BhapticsPopOne.Haptics
 {
     public class EffectLoop
     {
-        private bool ActiveBuffPlaying = false;
-        
         private void PlayActiveBuff()
         {
             if (!DrinkSoda.Active)
             {
-                PatternManager.Effects["Vest/ActiveBuff"]?.Stop();
+                EffectPlayer.Stop("Vest/ActiveBuff");
                 return;
             }
-            
-            if (ActiveBuffPlaying)
-                return;
 
-            PatternManager.Effects["Vest/ActiveBuff"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play("Vest/ActiveBuff", new Effect.EffectProperties
             {
                 Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity)
             });
         }
 
-        private int statusSlowdown = 0;
-        private void UpdateStatus()
-        {
-            statusSlowdown++;
-            
-            if (statusSlowdown < 10)
-            {
-                return;
-            }
-            
-            statusSlowdown = 0;
-            ActiveBuffPlaying = PatternManager.Effects["Vest/ActiveBuff"]?.isPlaying ?? false;
-        }
-        
         public void FixedUpdate()
         {
-            UpdateStatus();
             PlayActiveBuff();
         }
     }

@@ -42,6 +42,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         private readonly HashSet<System.Guid> EffectNames = new HashSet<System.Guid>();
         private readonly HashSet<System.Guid> ActiveEffects = new HashSet<System.Guid>();
         private readonly Dictionary<System.Guid, Action> OnEffectStop = new Dictionary<System.Guid, Action>();
+        private static System.Guid FallbackID { get; set; } = new System.Guid();
 
         public Effect(string name, string path, bool register = true)
         {
@@ -64,24 +65,20 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
 
         public void Play([Optional] EffectProperties properties, bool clear = false)
         {
-            DequeueCompletedEffects();
-            
             if (clear)
                 Stop();
 
-            var effectId = GetAvailableEffect();
-            if (!effectId.HasValue)
+            Guid effectId;
+            if (!GetAvailableEffect(out effectId))
                 return;
-            
-            SubmitEffect(effectId.Value, properties);
+
+            SubmitEffect(effectId, properties);
         }
 
         public void Stop()
         {
             foreach (var activeEffect in ActiveEffects)
                 Mod.Instance.Haptics.Player.TurnOff(activeEffect.ToString());
-            
-            // ActiveEffects.Clear();
         }
         
         private void ResizePool(bool force = false)
@@ -124,31 +121,23 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             ActiveEffects.Add(id);
         }
 
-        private void DequeueCompletedEffects()
-        {
-            // MelonLogger.Log(ActiveEffects.Count);
-            // var readyToRemove = new HashSet<System.Guid>();
-            // foreach (var activeEffect in ActiveEffects)
-            //     if (!Mod.Instance.Haptics.Player.IsPlaying(activeEffect.ToString()))
-            //         readyToRemove.Add(activeEffect);
-            //
-            // foreach (var s in readyToRemove)
-            // {
-            //     ActiveEffects.Remove(s);
-            //     OnEffectStop[s] = DefaultOnStop;
-            // }
-        }
-
-        private System.Guid? GetAvailableEffect()
+        private bool GetAvailableEffect(out System.Guid res)
         {
             if (ActiveEffects.Count >= PoolSize)
-                return null;
+            {
+                res = FallbackID;
+                return false;
+            }
             
-            foreach (var effectName in EffectNames)
-                if (!ActiveEffects.Contains(effectName))
-                    return effectName;
+            foreach (var effectId in EffectNames)
+                if (!ActiveEffects.Contains(effectId))
+                {
+                    res = effectId;
+                    return true;
+                }
 
-            return null;
+            res = FallbackID;
+            return false;
         }
 
         private void OnEffectStopLabel(System.Guid id)

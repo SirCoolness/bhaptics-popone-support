@@ -5,6 +5,7 @@ using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
+using EffectPlayer = Coffee.UIExtensions.EffectPlayer;
 
 namespace BhapticsPopOne
 {
@@ -71,8 +72,7 @@ namespace BhapticsPopOne
             var relativeY = transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset);
             var localizedY = Mathf.Clamp(relativeY / PatternManager.VestHeight, -0.5f, 0.5f);
             
-            var effect = PatternManager.Effects["Vest/InitialTouch"];
-            effect.Play(new Effect.EffectProperties
+            Haptics.EffectHelpers.EffectPlayer.Play("Vest/InitialTouch", new Effect.EffectProperties
             {
                 Strength = Math.Min(1f, magnitude / 4f),
                 // Strength = 1f,
@@ -115,7 +115,7 @@ namespace BhapticsPopOne
             var relativeY = transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset);
             var localizedY = Mathf.Clamp(relativeY / PatternManager.VestHeight, -0.5f, 0.5f);
             
-            PatternManager.Effects["Vest/ReceiveTouch"].Play(new Effect.EffectProperties
+            Haptics.EffectHelpers.EffectPlayer.Play("Vest/ReceiveTouch", new Effect.EffectProperties
             {
                 Strength = 0.15f,
                 Time = Time.fixedDeltaTime,

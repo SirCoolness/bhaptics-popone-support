@@ -14,21 +14,21 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (!Active && WasPlaying)
             {
-                PatternManager.Effects["Arm/MeleeShield"]?.Stop();
-                PatternManager.Effects["Hand/MeleeShield"]?.Stop();
+                EffectPlayer.Stop("Arm/MeleeShield");
+                EffectPlayer.Stop("Hand/MeleeShield");
                 WasPlaying = false;
             }
         }
 
         public static void Block()
         {
-            PatternManager.Effects["Arm/MeleeBlock"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play("Arm/MeleeBlock", new Effect.EffectProperties
             {
                 Strength = 1f,
                 Time = 0.08f
             });
             
-            PatternManager.Effects["Hand/MeleeBlock"]?.Play(new Effect.EffectProperties
+            EffectPlayer.Play("Hand/MeleeBlock", new Effect.EffectProperties
             {
                 Strength = 1f,
                 Time = 0.08f
@@ -39,18 +39,16 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (!Active)
                 return;
+
+            EffectPlayer.Play("Arm/MeleeShield", new Effect.EffectProperties
+            {
+                Strength = 0.15f
+            });
+            EffectPlayer.Play("Hand/MeleeShield", new Effect.EffectProperties
+            {
+                Strength = 0.15f
+            });
             
-            if (WasPlaying && (PatternManager.Effects["Arm/MeleeShield"]?.isPlaying == true || PatternManager.Effects["Hand/MeleeShield"]?.isPlaying == true))
-                return;
-                
-            PatternManager.Effects["Arm/MeleeShield"]?.Play(new Effect.EffectProperties
-            {
-                Strength = 0.15f
-            });
-            PatternManager.Effects["Hand/MeleeShield"]?.Play(new Effect.EffectProperties
-            {
-                Strength = 0.15f
-            });
             WasPlaying = true;
         }
     }

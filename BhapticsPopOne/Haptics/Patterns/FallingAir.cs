@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
 using UnityEngine;
@@ -57,15 +58,16 @@ namespace BhapticsPopOne.Haptics.Patterns
             float fallSpeed = Mathf.Lerp(1f, 0.3f, fallSpeedProgress);
             int effectCount = Mathf.FloorToInt(Mathf.Lerp(1, MaxEffectCount, fallCountProgress));
 
-            // MelonLogger.Log($"[{Logging.StringifyVector3(player.RigidbodyVelocity)}] [{fallStrengthProgress} {fallSpeedProgress} {fallCountProgress}] [{fallStrength} {fallSpeed} {effectCount}] {ActiveEffects.Count}");
-
             EffectManager.DispatchEffect(effectCount, (name) =>
             {
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation(
+                EffectPlayer.Play(
                     name, 
-                    name, 
-                    new RotationOption(ProceduralEffect.RandomVestRotation, 0f), 
-                    new ScaleOption(fallStrength, fallSpeed)
+                    new Effect.EffectProperties
+                    {
+                        XRotation = ProceduralEffect.RandomVestRotation,
+                        Strength = fallStrength,
+                        Time = fallSpeed
+                    }
                 );
             });
         }

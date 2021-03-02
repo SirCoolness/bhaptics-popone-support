@@ -27,7 +27,7 @@ namespace BhapticsPopOne
                 DrinkSoda.Execute(__instance.PlayerUsable.EquippedSlot.ItemType, __instance.Info.TimeToApply, value);
             } else if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffBanana)
             {
-                PatternManager.EatBanana(value);
+                Food.EatBanana(value);
             }
         }
     }

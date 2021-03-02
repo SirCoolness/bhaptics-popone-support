@@ -18,7 +18,7 @@ namespace BhapticsPopOne.Patches
                 return;
             }
 
-            PatternManager.Climbing(value);
+            Climbing.Execute(value);
         }
     }
 }

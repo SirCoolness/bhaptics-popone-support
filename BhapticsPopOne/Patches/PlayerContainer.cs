@@ -37,7 +37,7 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
                 FallDamage.Execute(-info.Damage, info.Power);
             
             if (info.ArmorBroke)
-                PatternManager.ShieldBreak();
+                Health.ShieldBreak();
         }
     }
 

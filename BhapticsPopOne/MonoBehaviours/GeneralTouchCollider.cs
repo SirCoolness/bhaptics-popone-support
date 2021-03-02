@@ -112,8 +112,7 @@ namespace BhapticsPopOne
 
         private static void EnterHeadEffect(float magnitude)
         {
-            var effect = PatternManager.Effects["Head/InitialTouch"];
-            effect.Play(new Effect.EffectProperties
+            EffectPlayer.Play("Head/InitialTouch", new Effect.EffectProperties
             {
                 Strength = Math.Min(1f, magnitude / 1.5f)
             });
@@ -133,16 +132,14 @@ namespace BhapticsPopOne
         {
             if (magnitude > 1.35f)
             {
-                var effect = PatternManager.Effects[$"Foot/HighVInitialTouch{HapticUtils.HandExt(foot)}"];
-                effect.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Foot/HighVInitialTouch{HapticUtils.HandExt(foot)}", new Effect.EffectProperties
                 {
                     Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
                 });
             }
             else
             {
-                var effect = PatternManager.Effects[$"Foot/InitialTouch{HapticUtils.HandExt(foot)}"];
-                effect.Play(new Effect.EffectProperties
+                EffectPlayer.Play($"Foot/InitialTouch{HapticUtils.HandExt(foot)}", new Effect.EffectProperties
                 {
                     Time = 0.275f,
                     Strength = Mathf.Min(1f, magnitude / 1.35f),
@@ -152,8 +149,7 @@ namespace BhapticsPopOne
         
         private static void PlayHeadEffect()
         {
-            var effect = PatternManager.Effects["Head/ReceiveTouch"];
-            effect.Play();
+            EffectPlayer.Play("Head/ReceiveTouch");
         }
         
         private static void PlayFootLEffect()
@@ -168,8 +164,7 @@ namespace BhapticsPopOne
 
         private static void PlayFootEffect(Handedness foot)
         {
-            var effect = PatternManager.Effects[$"Foot/ReceiveTouch{HapticUtils.HandExt(foot)}"];
-            effect.Play();
+            EffectPlayer.Play($"Foot/ReceiveTouch{HapticUtils.HandExt(foot)}");
         }
 
         #endregion
