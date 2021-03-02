@@ -91,7 +91,7 @@ namespace BhapticsPopOne.Haptics.Patterns
                     Strength = offhandIntensity,
                     Time = effectTime
                 });
-                PatternManager.Effects[$"Hand/{effectName}{otherEffectExtension}"]?.Play(new Effect.EffectProperties
+                PatternManager.Effects[$"Hand/Recoil{otherEffectExtension}"]?.Play(new Effect.EffectProperties
                 {
                     Strength = offhandIntensity * handStrength,
                     Time = effectTime * handTime
