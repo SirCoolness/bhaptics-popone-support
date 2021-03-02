@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using BhapticsPopOne.Utils;
 using Goyfs.Signal;
 using MelonLoader;
 using UnityEngine;
@@ -8,83 +9,41 @@ namespace BhapticsPopOne.Data
 {
     public class Players
     {
-        
-        private PlayerContainer _localPlayerContainer;
+        private bool _foundLocalProperties = false;
+        private LocalProperties _localProperties;
         public PlayerContainer LocalPlayerContainer
         {
             get
             {
-                if (_localPlayerContainer != null && _localPlayerContainer.isLocalPlayer)
-                    return _localPlayerContainer;
-
-                foreach (var gameManagerAllContainer in PlayerContainers)
+                if (!_foundLocalProperties)
                 {
-                    if (gameManagerAllContainer.isLocalPlayer)
-                    {
-                        _localPlayerContainer = gameManagerAllContainer;
-                        return _localPlayerContainer;
-                    }
+                    _foundLocalProperties = GoyfsHelper.TryGet(out _localProperties);
+                    
+                    if (!_foundLocalProperties)
+                        return null;
                 }
 
-                // PlayerBuffConsumedSignal buffConsumed;
-                // BattleRoyaleExtensions.TryGet<PlayerBuffConsumedSignal>(Goyfs.Instance.Instance, out buffConsumed);
-                return null;
+                return _localProperties.Container;
             }
         }
 
         public HandHelper LocalHandHelper;
 
-        public List<PlayerContainer> PlayerContainers =>
-            new List<PlayerContainer>(GameObject.FindObjectsOfType<PlayerContainer>());
+        public Il2CppSystem.Collections.Generic.List<PlayerContainer> PlayerContainers => GoyfsHelper.Get<Il2CppSystem.Collections.Generic.List<PlayerContainer>>();
         
         public void Initialize()
         {
             LocalHandHelper = new HandHelper();
-            _localPlayerContainer = null;
         }
 
-        public PlayerContainer FindCollisionPlayerContainer(Collider collision)
+        public void Reset()
         {
-            var colliderRoot = collision.transform.root.gameObject;
-            
-            if (colliderRoot == null)
-            {
-                // MelonLogger.Log("[HIT] Cant find collider root object");
-                return null;
-            }
-            
-            var skeleton = colliderRoot.GetComponent<DamageableSkeleton>();
-            if (skeleton == null)
-            {
-                // MelonLogger.Log($"[HIT] NO SKELETON FOUND {colliderRoot.name}");
-                return null;
-            }
-            
-            PlayerContainer player = null;
-            foreach (var modPlayerContainer in PlayerContainers)
-            {
-                if (modPlayerContainer.Avatar == null || modPlayerContainer.Avatar.Rig == null)
-                    continue;
-
-                if (modPlayerContainer.Avatar.Rig.gameObject == colliderRoot)
-                {
-                    player = modPlayerContainer;
-                    break;
-                }
-            }
-
-            return player;
+            _foundLocalProperties = false;
         }
-
-        [Obsolete("Use PlayerContainer.Find")]
-        public PlayerContainer FindPlayerByNetworkID(uint networkId)
-        {
-            return PlayerContainer.Find(networkId);
-        }
-
+        
         public Transform VestReference()
         {
-            var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
+            var trans = LocalPlayerContainer?.Avatar?.Rig?.transform;
             if (trans == null)
             {
                 MelonLogger.LogError("Can not find player avatar");
@@ -92,21 +51,6 @@ namespace BhapticsPopOne.Data
             }
 
             var result = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
-                new Il2CppSystem.Text.RegularExpressions.RegexOptions());
-
-            return result;
-        }
-        
-        public Transform DebugHandReference()
-        {
-            var trans = Mod.Instance.Data.Players.LocalPlayerContainer?.Avatar?.Rig?.transform;
-            if (trans == null)
-            {
-                MelonLogger.Log("Can not find player avatar can't find transform");
-                return null;
-            }
-
-            var result = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:hand_r.*",
                 new Il2CppSystem.Text.RegularExpressions.RegexOptions());
 
             return result;

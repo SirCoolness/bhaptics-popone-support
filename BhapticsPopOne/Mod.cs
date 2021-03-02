@@ -151,6 +151,8 @@ namespace BhapticsPopOne
             ZoneDamage.Clear();
             BhapticsPopOne.Haptics.Patterns.MeleeVelocity.Reset();
             // MelonLogger.Log("init level");
+            
+            Data.Players.Reset();
         }
 
         public void Disable()

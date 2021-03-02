@@ -16,8 +16,6 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(FirearmClass type, InventoryItemType item)
         {
-            // DebugRay();
-
             var handed = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.DominantHand ?? Handedness.Right;
             var twoHanded = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.TwoHand == true;
 

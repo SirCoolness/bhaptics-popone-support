@@ -226,4 +226,9 @@ public static class ModX
     //         MelonLogger.Log(ConsoleColor.Magenta, $"{a} {b.BuffType.ToString()} {b.UsableModelType.FullName}");
     //     }));
     // }
+
+    public static void Check()
+    {
+        MelonLogger.Log(Mod.Instance.Data.Players.LocalPlayerContainer);
+    }
 }
