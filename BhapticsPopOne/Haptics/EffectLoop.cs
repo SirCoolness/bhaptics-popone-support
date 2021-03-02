@@ -1,5 +1,6 @@
 ﻿using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 
@@ -11,21 +12,19 @@ namespace BhapticsPopOne.Haptics
         
         private void PlayActiveBuff()
         {
-            var active = DrinkSoda.estimatedSodaEffects;
-
-            if (active == null)
-                return;
-            
-            if (active.Count < 1)
+            if (!DrinkSoda.Active)
             {
-                Mod.Instance.Haptics.Player.TurnOff("Vest/ActiveBuff");
+                PatternManager.Effects["Vest/ActiveBuff"]?.Stop();
                 return;
             }
             
             if (ActiveBuffPlaying)
                 return;
 
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ActiveBuff", new ScaleOption(ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity), 1f));
+            PatternManager.Effects["Vest/ActiveBuff"]?.Play(new Effect.EffectProperties
+            {
+                Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity)
+            });
         }
 
         private int statusSlowdown = 0;
@@ -39,7 +38,7 @@ namespace BhapticsPopOne.Haptics
             }
             
             statusSlowdown = 0;
-            ActiveBuffPlaying = Mod.Instance.Haptics.Player.IsPlaying("Vest/ActiveBuff");
+            ActiveBuffPlaying = PatternManager.Effects["Vest/ActiveBuff"]?.isPlaying ?? false;
         }
         
         public void FixedUpdate()

@@ -19,8 +19,6 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
         {
             if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
-            MelonLogger.Log(info.Source.ToString());
-            
 
             if (info.Source == HitSourceCategory.Melee)
                 KatanaHit.Execute(__instance, info);

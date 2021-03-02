@@ -145,6 +145,7 @@ namespace BhapticsPopOne
             EffectLoopRegistry.LevelInit();
             DrinkSoda.Clear();
             KatanaShield.Execute(false);
+            ZoneDamage.Clear();
             BhapticsPopOne.Haptics.Patterns.MeleeVelocity.Reset();
             // MelonLogger.Log("init level");
         }

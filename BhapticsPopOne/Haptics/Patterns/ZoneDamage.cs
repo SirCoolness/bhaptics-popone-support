@@ -59,6 +59,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
         }
 
+        public static void Clear()
+        {
+            ActiveSources.Clear();
+        }
+
         public static void OnFixedUpdate()
         {
             if (!Active)

@@ -68,9 +68,12 @@ namespace BhapticsPopOne.Patches.PlayerData2
             
             if (playerData == null || __instance != playerData)
                 return;
-            
+
             if (value >= PlayerData.MaxArmor)
+            {
                 PatternManager.ShieldFull();
+                DrinkSoda.FullShield();
+            }
         }
     }
     
@@ -86,6 +89,7 @@ namespace BhapticsPopOne.Patches.PlayerData2
             {
                 DrinkSoda.Clear();
                 KatanaShield.Execute(false);
+                ZoneDamage.Clear();
             }
         }
     }

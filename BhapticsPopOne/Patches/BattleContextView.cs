@@ -11,7 +11,6 @@ namespace BhapticsPopOne
     {
         public static void Postfix()
         {
-            MelonLogger.Log($"Postfix: {GoyfsHelper.DefaultContext.InstanceBinder.Cast<InstanceBinder>().bindings.Count}");
             if (!BindGlobals.BindGoyfs())
                 MelonLogger.LogError("Failed to bind to Goyfs");
         }

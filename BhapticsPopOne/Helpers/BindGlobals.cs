@@ -15,23 +15,11 @@ namespace BhapticsPopOne.Helpers
                 GoyfsHelper.TryAddListener<BattleZoneInOutSignal, bool, bool>(
                     (bool isOutsideZone, bool willTakeDamage) =>
                     {
-                        MelonLogger.Log($@"
--------
-isOutsideZone: {isOutsideZone}
-willTakeDamage: {willTakeDamage}
--------"
-                        );
                         ZoneDamage.SetActive(ZoneDamage.ZoneSource.BattleZone, willTakeDamage);
                     }),
                 GoyfsHelper.TryAddListener<ZoneGrenadeInOutSignal, bool>(
                     (bool inside) =>
                     {
-                        MelonLogger.Log(
-                            $@"
--------
-inside: {inside}
--------"
-                        );
                         ZoneDamage.SetActive(ZoneDamage.ZoneSource.ZoneGrenade, inside);
                     })
             };
