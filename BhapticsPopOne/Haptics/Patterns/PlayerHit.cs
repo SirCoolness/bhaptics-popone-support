@@ -74,7 +74,7 @@ namespace BhapticsPopOne.Haptics.Patterns
                 return;
             }
 
-            if (info.HeadImpact)
+            if (ConfigLoader.Config.EffectToggles.Face.BulletHit && info.HeadImpact)
                 EffectPlayer.Play($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
 
             var damage = info.Damage * -1;
@@ -111,7 +111,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             var damage = info.Damage * -1;
 
-            if (info.HeadImpact)
+            if (ConfigLoader.Config.EffectToggles.Face.ExplosionHit && info.HeadImpact)
                 EffectPlayer.Play($"Head/ExplosionHit_[{Random.RandomRangeInt(1, 3)}]");
 
             // TODO: add level in between

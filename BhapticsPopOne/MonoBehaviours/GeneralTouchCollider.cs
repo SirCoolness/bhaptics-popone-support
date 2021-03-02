@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.Patterns;
@@ -112,10 +113,11 @@ namespace BhapticsPopOne
 
         private static void EnterHeadEffect(float magnitude)
         {
-            EffectPlayer.Play("Head/InitialTouch", new Effect.EffectProperties
-            {
-                Strength = Math.Min(1f, magnitude / 1.5f)
-            });
+            if (ConfigLoader.Config.EffectToggles.Face.PlayerTouchVelocity)
+                EffectPlayer.Play("Head/InitialTouch", new Effect.EffectProperties
+                {
+                    Strength = Math.Min(1f, magnitude / 1.5f)
+                });
         }
         
         private static void EnterFootLEffect(float magnitude)
@@ -149,7 +151,8 @@ namespace BhapticsPopOne
         
         private static void PlayHeadEffect()
         {
-            EffectPlayer.Play("Head/ReceiveTouch");
+            if (ConfigLoader.Config.EffectToggles.Face.PlayerTouch)
+                EffectPlayer.Play("Head/ReceiveTouch");
         }
         
         private static void PlayFootLEffect()

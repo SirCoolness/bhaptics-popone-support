@@ -7,7 +7,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         [YamlIgnore] 
         public static Feet DefaultConfig = new Feet
         {
-
+            
         };
     }
 }
