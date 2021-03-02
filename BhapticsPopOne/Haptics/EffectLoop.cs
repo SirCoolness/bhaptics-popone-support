@@ -8,11 +8,13 @@ namespace BhapticsPopOne.Haptics
 {
     public class EffectLoop
     {
+        private bool WasPlaying = false;
         private void PlayActiveBuff()
         {
-            if (!DrinkSoda.Active)
+            if (WasPlaying && !DrinkSoda.Active)
             {
                 EffectPlayer.Stop("Vest/ActiveBuff");
+                WasPlaying = false;
                 return;
             }
 
@@ -20,6 +22,7 @@ namespace BhapticsPopOne.Haptics
             {
                 Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity)
             });
+            WasPlaying = true;
         }
 
         public void FixedUpdate()

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.EffectManagers
@@ -53,10 +54,8 @@ namespace BhapticsPopOne.Haptics.EffectManagers
             List<int> readyToRemove = new List<int>();
             foreach (var activeEffect in ActiveEffects)
             {
-                if (!Mod.Instance.Haptics.Player.IsPlaying($"{EffectPrefix}[{activeEffect}]"))
-                {
+                if (!EffectPlayer.IsPlaying($"{EffectPrefix}[{activeEffect}]"))
                     readyToRemove.Add(activeEffect);
-                }
             }
             
             foreach (var s in readyToRemove)
@@ -70,7 +69,7 @@ namespace BhapticsPopOne.Haptics.EffectManagers
         {
             foreach (var activeEffect in ActiveEffects)
             {
-                Mod.Instance.Haptics.Player.TurnOff($"{EffectPrefix}[{activeEffect}]");
+                EffectPlayer.Stop($"{EffectPrefix}[{activeEffect}]");
             }
             DequeueCompletedEffects();
         }

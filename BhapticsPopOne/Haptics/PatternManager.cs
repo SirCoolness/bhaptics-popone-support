@@ -79,8 +79,6 @@ namespace BhapticsPopOne.Haptics
                 if (PoolSettings.ContainsKey(effect.Name))
                     effect.PoolSize = PoolSettings[effect.Name];
 
-                Mod.Instance.Haptics.Player.Register(effect.Name, effect.Contents);
-
                 if (ConfigLoader.Config.ShowLoadedEffects)
                     MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
             }

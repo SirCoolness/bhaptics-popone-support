@@ -126,11 +126,11 @@
     <Compile Include="Haptics\EffectHelpers\ByteEffect.cs" />
     <Compile Include="Haptics\EffectHelpers\Effect.cs" />
     <Compile Include="Haptics\EffectHelpers\EffectPlayer.cs" />
+    <Compile Include="Haptics\EffectHelpers\FakeInstance.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
     <Compile Include="Haptics\EffectManagers\EffectLoopRegistry.cs" />
     <Compile Include="Haptics\EffectManagers\EffectEventsDispatcher.cs" />
     <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
-    <Compile Include="Haptics\FakeInstance.cs" />
     <Compile Include="Haptics\Loaders\InitializeByteEffects.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
     <Compile Include="Haptics\Patterns\Climbing.cs" />
