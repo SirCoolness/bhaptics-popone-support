@@ -193,5 +193,14 @@ namespace BhapticsPopOne.Haptics
         {
             Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Win");
         }
+
+        public static void Land()
+        {
+            PatternManager.Effects["Foot/LandOnGround"]?.Play(new Effect.EffectProperties
+            {
+                Strength = 0.4f,
+                Time = 0.12f
+            });
+        }
     }
 }

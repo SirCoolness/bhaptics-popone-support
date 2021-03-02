@@ -179,7 +179,6 @@
     <Compile Include="Patches\PlayerFirearmUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerInventory.cs" />
     <Compile Include="Patches\PlayerMelee.cs" />
-    <Compile Include="Patches\TestPatches.cs" />
     <Compile Include="Patches\UnetGameManager.cs" />
     <Compile Include="Patreon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

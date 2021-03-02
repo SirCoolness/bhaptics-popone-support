@@ -56,6 +56,9 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 FlyingAir.Execute(previousValue == MotionState.Falling);
             else if (value == MotionState.Falling)
                 FallingAir.Execute(previousValue == MotionState.Flying);
+            
+            if ((value == MotionState.Bipedal || value == MotionState.Idle) && (previousValue == MotionState.Flying || previousValue == MotionState.Falling))
+                PatternManager.Land();
         }
     }
 
