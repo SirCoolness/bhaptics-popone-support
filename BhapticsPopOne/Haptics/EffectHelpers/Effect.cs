@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bhaptics.Tact;
 using BhapticsPopOne.Haptics.EffectManagers;
+using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.EffectHelpers
 {
@@ -70,7 +71,13 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         public void Stop()
         {
             foreach (var activeEffect in _activeEffects)
+            {
                 Mod.Instance.Haptics.Player.TurnOff(activeEffect.ToString());
+                _onEffectStop[activeEffect].Invoke();
+                _onEffectStop[activeEffect] = DefaultOnStop;
+            }
+            
+            _activeEffects.Clear();
         }
         
         private void ResizePool(bool force = false)
@@ -88,10 +95,13 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
                 var id = System.Guid.NewGuid();
                 _effectNames.Add(id);
 
+                Mod.Instance.Haptics.Player.Register(id.ToString(), Contents);
+            }
+            
+            foreach (var id in _effectNames)
+            {
                 EffectEventsDispatcher.OnEffectStop[id.ToString()] = () => { OnEffectStopLabel(id); };
                 _onEffectStop[id] = DefaultOnStop;
-                
-                Mod.Instance.Haptics.Player.Register(id.ToString(), Contents);
             }
         }
 

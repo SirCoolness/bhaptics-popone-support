@@ -33,9 +33,9 @@ namespace BhapticsPopOne.Patches.PlayerData2
         // haptics while flying & falling
         static void Prefix(PlayerData __instance, MotionState value)
         {
-            var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
+            // var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
             
-            if (playerData == null || __instance != playerData)
+            if (!__instance.isLocalPlayer)
                 return;
 
             MotionState previousValue = __instance.MotionState;

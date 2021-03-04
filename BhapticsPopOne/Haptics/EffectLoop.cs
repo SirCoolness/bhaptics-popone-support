@@ -11,10 +11,14 @@ namespace BhapticsPopOne.Haptics
         private bool WasPlaying = false;
         private void PlayActiveBuff()
         {
-            if (WasPlaying && !DrinkSoda.Active)
+            if (!DrinkSoda.Active)
             {
-                EffectPlayer.Stop("Vest/ActiveBuff");
-                WasPlaying = false;
+                if (WasPlaying)
+                {
+                    EffectPlayer.Stop("Vest/ActiveBuff");
+                    WasPlaying = false;
+                }
+                
                 return;
             }
 
