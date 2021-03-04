@@ -11,8 +11,6 @@ namespace BhapticsPopOne.Haptics
         private HapticPlayerManager HapticPlayerManager = null;
         private PlayerResponse Status = null;
 
-        public bool Enabled => !UseFake;
-        
         private bool UseFake = false;
         private FakeInstance _fakeInstance = new FakeInstance();
 
@@ -29,13 +27,10 @@ namespace BhapticsPopOne.Haptics
         public void Start()
         {
             HapticPlayerManager = HapticPlayerManager.Instance();
+            HapticPlayerManager.BhapticsPlayerConnectionChange += ConnectionStatus;
             Player.StatusReceived += PlayerStatus;
 
-            if (!HapticPlayerManager.Connected)
-            {
-                MelonLogger.LogWarning($"!!! WARNING !!! bHaptics player is not running.");
-                Stop();
-            }
+            ConnectionStatus(HapticPlayerManager.Connected);
         }
 
         public void Stop()
@@ -54,6 +49,12 @@ namespace BhapticsPopOne.Haptics
         private void PlayerStatus(PlayerResponse res)
         {
             Status = res;
+        }
+
+        private void ConnectionStatus(bool state)
+        {
+            if (!state)
+                Stop();
         }
     }
 }

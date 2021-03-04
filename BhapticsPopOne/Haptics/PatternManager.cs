@@ -122,12 +122,6 @@ namespace BhapticsPopOne.Haptics
         {
             string rawHaptics = null;
 
-            var resources = Assembly.GetExecutingAssembly().GetManifestResourceNames();
-            foreach (var resource in resources)
-            {
-                MelonLogger.Log(resource);
-            }
-
             using (var stream = Assembly.GetExecutingAssembly()
                 .GetManifestResourceStream("BhapticsPopOne.haptics.json"))
             using (var streamReader = new StreamReader(stream))
