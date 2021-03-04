@@ -1,30 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 using Bhaptics.Tact;
 using BhapticsPopOne.Haptics.EffectManagers;
-using Il2CppSystem.Linq;
-using MelonLoader;
-using PlayFab.Json;
 
 namespace BhapticsPopOne.Haptics.EffectHelpers
 {
     public class Effect
     {
-        public class EffectProperties
-        {
-            public float XRotation { get; internal set; } = 0f;
-            public float YOffset { get; internal set; } = 0f;
-            public float Time { get; internal set; } = 1f;
-            public float Strength { get; internal set; } = 1f;
-            public Action OnComplete { get; internal set; } = () => { }; 
-            
-            public static EffectProperties Default => new EffectProperties();
-        }
-
         public string Name { get; private set; }
         public Project Contents { get; private set; }
         public bool Initialized { get; private set; } = false;
+        
+        public bool isPlaying => _activeEffects.Count > 0;
+        public bool isAllPlaying => _effectNames.Count <= _activeEffects.Count;
+
         private uint _poolSize = 1;
         public uint PoolSize
         {
@@ -35,19 +24,17 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
                 ResizePool();
             }
         }
+        
+        private readonly HashSet<System.Guid> _effectNames = new HashSet<System.Guid>();
+        private readonly HashSet<System.Guid> _activeEffects = new HashSet<System.Guid>();
+        private readonly Dictionary<System.Guid, Action> _onEffectStop = new Dictionary<System.Guid, Action>();
+        private readonly System.Guid _fallbackID = new System.Guid();
 
-        public bool isPlaying => ActiveEffects.Count > 0;
-        public bool isAllPlaying => EffectNames.Count <= ActiveEffects.Count;
-
-        private readonly HashSet<System.Guid> EffectNames = new HashSet<System.Guid>();
-        private readonly HashSet<System.Guid> ActiveEffects = new HashSet<System.Guid>();
-        private readonly Dictionary<System.Guid, Action> OnEffectStop = new Dictionary<System.Guid, Action>();
-        private static System.Guid FallbackID { get; set; } = new System.Guid();
-
-        public Effect(string name, string path, bool register = true)
+        public Effect(string name, JSONObject content, bool register = true)
         {
             Name = name;
-            Contents = Project.ToProject(JSONObject.Parse(ReadFile(path)).AsObject["project"].AsObject);
+            
+            Contents = Project.ToProject(content);
 
             if (register)
                 Register();
@@ -63,7 +50,12 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             Initialized = true;
         }
 
-        public void Play([Optional] EffectProperties properties, bool clear = false)
+        public void Play(bool clear = false)
+        {
+            Play(EffectProperties.Default, clear);
+        }
+        
+        public void Play(EffectProperties properties, bool clear = false)
         {
             if (clear)
                 Stop();
@@ -77,7 +69,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
 
         public void Stop()
         {
-            foreach (var activeEffect in ActiveEffects)
+            foreach (var activeEffect in _activeEffects)
                 Mod.Instance.Haptics.Player.TurnOff(activeEffect.ToString());
         }
         
@@ -86,30 +78,26 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             if (!Initialized && !force)
                 return;
 
-            if (PoolSize <= EffectNames.Count)
+            if (PoolSize <= _effectNames.Count)
                 return;
 
-            uint toAdd = PoolSize - (uint)EffectNames.Count;
+            uint toAdd = PoolSize - (uint)_effectNames.Count;
             
             for (uint i = 0; i < toAdd; i++)
             {
                 var id = System.Guid.NewGuid();
-                EffectNames.Add(id);
+                _effectNames.Add(id);
 
                 EffectEventsDispatcher.OnEffectStop[id.ToString()] = () => { OnEffectStopLabel(id); };
-                OnEffectStop[id] = DefaultOnStop;
+                _onEffectStop[id] = DefaultOnStop;
                 
                 Mod.Instance.Haptics.Player.Register(id.ToString(), Contents);
             }
         }
 
-        private void SubmitEffect(System.Guid id, EffectProperties _properties)
+        private void SubmitEffect(System.Guid id, EffectProperties properties)
         {
-            EffectProperties properties = EffectProperties.Default;
-            if (_properties != null)
-                properties = _properties;
-
-            OnEffectStop[id] = properties.OnComplete;
+            _onEffectStop[id] = properties.OnComplete;
             
             Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation(
                 id.ToString(), 
@@ -118,41 +106,47 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
                 new ScaleOption(properties.Strength, properties.Time)
             );
 
-            ActiveEffects.Add(id);
+            _activeEffects.Add(id);
         }
 
         private bool GetAvailableEffect(out System.Guid res)
         {
-            if (ActiveEffects.Count >= PoolSize)
+            if (_activeEffects.Count >= PoolSize)
             {
-                res = FallbackID;
+                res = _fallbackID;
                 return false;
             }
             
-            foreach (var effectId in EffectNames)
-                if (!ActiveEffects.Contains(effectId))
+            foreach (var effectId in _effectNames)
+                if (!_activeEffects.Contains(effectId))
                 {
                     res = effectId;
                     return true;
                 }
 
-            res = FallbackID;
+            res = _fallbackID;
             return false;
         }
 
         private void OnEffectStopLabel(System.Guid id)
         {
-            ActiveEffects.Remove(id);
-            OnEffectStop[id].Invoke();
-            OnEffectStop[id] = DefaultOnStop;
+            _activeEffects.Remove(id);
+            _onEffectStop[id].Invoke();
+            _onEffectStop[id] = DefaultOnStop;
         }
         
         private void DefaultOnStop()
         {}
-
-        private static string ReadFile(string path)
+        
+        public class EffectProperties
         {
-            return System.IO.File.ReadAllText(path);
+            public float XRotation { get; internal set; } = 0f;
+            public float YOffset { get; internal set; } = 0f;
+            public float Time { get; internal set; } = 1f;
+            public float Strength { get; internal set; } = 1f;
+            public Action OnComplete { get; internal set; } = () => { }; 
+            
+            public static EffectProperties Default => new EffectProperties();
         }
     }
 }

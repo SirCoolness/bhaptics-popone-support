@@ -21,7 +21,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public bool Heartbeat { get; set; }
         public bool ShieldBreak { get; set; }
         public bool FullShield { get; set; }
-        public bool SwordSlice { get; set; }
+        public bool MeleeHit { get; set; }
         public bool PickupItem { get; set; }
         public bool BulletHit { get; set; }
         public bool ExplosionHit { get; set; }
@@ -59,7 +59,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
             Heartbeat = true,
             ShieldBreak = true,
             FullShield = true,
-            SwordSlice = true,
+            MeleeHit = true,
             PickupItem = true,
             BulletHit = true,
             ExplosionHit = true,

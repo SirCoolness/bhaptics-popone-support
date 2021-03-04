@@ -7,6 +7,7 @@ using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.Loaders;
@@ -14,29 +15,27 @@ using BhapticsPopOne.Haptics.Patterns;
 
 namespace BhapticsPopOne.Haptics
 {
-    // TODO: NO
     public class PatternManager
     {
-        public static string RootDirectory => FileHelpers.RootDirectory + @"\Effects";
         // an effects name is "{gear}/{effect name}"
         
         // The subdirectories of effects
         // this can be used to organize effects based on piece of equipment
-        public static string[] subdirectories = new[]
+        private static HashSet<string> subdirectories = new HashSet<string>(new[]
         {
             "Vest",
             "Arm",
             "Head",
             "Hand",
             "Foot"
-        };
+        });
 
         public static float VestHeight = 0.35f;
         public static float VestCenterOffset = 0.2f;
         
         public static Dictionary<string, Effect> Effects = new Dictionary<string, Effect>();
 
-        public static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
+        private static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
         {
             ["Vest/ReceiveTouch"] = 32,
             ["Vest/InitialTouch"] = 8,
@@ -62,34 +61,84 @@ namespace BhapticsPopOne.Haptics
         // TODO: change to recursive
         public static void LoadPatterns()
         {
-            foreach (var subdirectory in subdirectories)
+            var rawHaptics = LoadInlineFile();
+            if (rawHaptics == null)
             {
-                LoadSubDirectory(subdirectory);
+                MelonLogger.LogError("Failed read haptics file");
+                Mod.Instance.Disable();
+                return;
+            }
+
+            var parsedHaptics = ParseHaptics(rawHaptics);
+            if (parsedHaptics == null)
+            {
+                MelonLogger.LogError("Failed to parse contents");
+                Mod.Instance.Disable();
+                return;
             }
             
+            ImportHaptics(parsedHaptics);
             InitializeByteEffects.Init();
         }
-        
-        // loads a set of patterns in a subdirectory
-        // prefixes them with that subdirectory
-        public static void LoadSubDirectory(string subdirectory)
+
+        private static void ImportEffect(string key, string label, JSONObject contents)
         {
-            string baseDir = RootDirectory + $"\\{subdirectory}";
-            var files = Directory.GetFiles(baseDir);
-
-            foreach (var file in files)
+            var effect = new Effect($"{key}/{label}", contents);
+            Effects[effect.Name] = effect;
+            
+            if (PoolSettings.ContainsKey(effect.Name))
+                effect.PoolSize = PoolSettings[effect.Name];
+            
+            if (ConfigLoader.Config.Toggles.ShowLoadedEffects)
+                MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
+        }
+        
+        private static void ImportHaptics(JSONObject hapticsObj)
+        {
+            foreach (var section in hapticsObj)
             {
-                var label = Path.GetFileNameWithoutExtension(file);
+                if (!subdirectories.Contains(section.Key))
+                    continue;
+                
+                if (!section.Value.IsObject)
+                    continue;
 
-                var effect = new Effect($"{subdirectory}/{label}", file);
-                Effects[effect.Name] = effect;
-
-                if (PoolSettings.ContainsKey(effect.Name))
-                    effect.PoolSize = PoolSettings[effect.Name];
-
-                if (ConfigLoader.Config.Toggles.ShowLoadedEffects)
-                    MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
+                foreach (var effect in section.Value)
+                {
+                    if (!effect.Value.IsObject)
+                        continue;
+                    
+                    ImportEffect(section.Key, effect.Key, effect.Value.AsObject);
+                }
             }
+        }
+        
+        private static JSONObject ParseHaptics(string rawData)
+        {
+            return JSONObject.Parse(rawData).AsObject;
+        }
+
+        private static string LoadInlineFile()
+        {
+            string rawHaptics = null;
+
+            var resources = Assembly.GetExecutingAssembly().GetManifestResourceNames();
+            foreach (var resource in resources)
+            {
+                MelonLogger.Log(resource);
+            }
+
+            using (var stream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("BhapticsPopOne.haptics.json"))
+            using (var streamReader = new StreamReader(stream))
+            {
+                rawHaptics = streamReader.ReadToEnd();
+            }
+
+            if (rawHaptics == null || rawHaptics.Length < 2)
+                return null;
+            
+            return rawHaptics;
         }
     }
 }

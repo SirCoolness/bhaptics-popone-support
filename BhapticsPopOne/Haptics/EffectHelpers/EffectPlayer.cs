@@ -35,7 +35,12 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             return effect.isAllPlaying;
         }
 
-        public static void Play(string name, [Optional] Effect.EffectProperties properties, bool clear = false)
+        public static void Play(string name, bool clear = false)
+        {
+            Play(name, Effect.EffectProperties.Default, clear);
+        }
+        
+        public static void Play(string name, Effect.EffectProperties properties, bool clear = false)
         {
             Effect effect;
             if (!TryResolve(name, out effect))

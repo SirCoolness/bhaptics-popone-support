@@ -207,8 +207,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(TargetDir)\haptics.json" LogicalName="$(TargetName).haptics.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
+    <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(ProjectDir)/Assets/Effects" "$(TargetDir)/haptics.json"</PreBuildEvent>
     <PostBuildEvent>^
 $(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll &amp;&amp; ^
 xcopy /y "$(TargetDir)$(TargetName)-Merged.dll" "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods\$(TargetName).dll*"

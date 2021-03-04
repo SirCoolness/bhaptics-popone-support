@@ -9,7 +9,7 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void Execute(PlayerContainer player, DamageableHitInfo info)
         {
-            if (!ConfigLoader.Config.EffectToggles.Vest.SwordSlice)
+            if (!ConfigLoader.Config.EffectToggles.Vest.MeleeHit)
                 return;
             
             var source = PlayerContainer.Find(info.OwningPlayer);
