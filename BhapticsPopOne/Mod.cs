@@ -69,6 +69,7 @@ namespace BhapticsPopOne
 
             RootInit();
             
+            FileHelpers.EnforceDirectory();
             ConfigLoader.InitConfig();
             
             Patreon.Run(); // (●'◡'●)
