@@ -131,7 +131,7 @@ namespace BhapticsPopOne.ConfigManager
             
             CheckBox checkBox = new CheckBox
             {
-                Text = "remember my answer",
+                Text = "remember my choice",
                 Top = 50,
                 Left = 30,
                 Width = 160
