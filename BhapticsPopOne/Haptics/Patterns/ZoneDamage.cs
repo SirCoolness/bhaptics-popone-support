@@ -46,7 +46,8 @@ namespace BhapticsPopOne.Haptics.Patterns
                 if (ConfigLoader.Config.EffectToggles.Vest.ZoneDamage)
                     EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
                     {
-                        Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
+                        // Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
+                        Strength = 0.75f
                     });   
             }
         }

@@ -24,7 +24,7 @@ namespace BhapticsPopOne.Patches
                (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
                 __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
             {
-                FallingAir.Execute(8f, false);
+                FallingAir.Execute(20f, false);
                 return;
             }
 

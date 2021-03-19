@@ -122,7 +122,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             [YamlIgnore] 
             public static ArmEffects DefaultConfig = new ArmEffects
             {
-                Strength = 1f,
+                Strength = 0.6f,
                 Target = 0.75f
             };
         }
@@ -135,7 +135,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             [YamlIgnore] 
             public static HandEffects DefaultConfig = new HandEffects
             {
-                Strength = 1f,
+                Strength = 0.5f,
                 Target = 0.75f
             };
         }
