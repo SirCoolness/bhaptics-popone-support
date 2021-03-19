@@ -8,9 +8,13 @@ namespace BhapticsPopOne
     [HarmonyPatch(typeof(MeleeShield), "ShieldActive", MethodType.Setter)]
     public class ShieldActiveSetter
     {
-        public static void Prefix(MeleeShield __instance, bool value)
+        public static void Postfix(MeleeShield __instance, bool value)
         {
-            if (!__instance.melee.container.isLocalPlayer)
+            PlayerContainer container;
+            if (!PlayerContainer.TryFind(__instance.melee.container.netId, out container))
+                return;
+            
+            if (!container.isLocalPlayer)
                 return;
             
             KatanaShield.Execute(value);
@@ -20,9 +24,13 @@ namespace BhapticsPopOne
     [HarmonyPatch(typeof(MeleeShield), "QueueShieldHitHaptic")]
     public class QueueShieldHitHaptic
     {
-        public static void Prefix(MeleeShield __instance)
+        public static void Postfix(MeleeShield __instance)
         {
-            if (!__instance.melee.container.isLocalPlayer)
+            PlayerContainer container;
+            if (!PlayerContainer.TryFind(__instance.melee.container.netId, out container))
+                return;
+            
+            if (!container.isLocalPlayer)
                 return;
             
             KatanaShield.Block();

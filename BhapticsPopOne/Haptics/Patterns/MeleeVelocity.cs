@@ -11,12 +11,10 @@ namespace BhapticsPopOne.Haptics.Patterns
         public static bool IsSlicing = false;
         private static bool trackerFound = false;
         private static VelocityTracker tracker;
-        private static PlayerContainer localPlayer;
         
         public static void LoadTrackers()
         {
-            localPlayer = Mod.Instance.Data.Players.LocalPlayerContainer;
-            tracker = localPlayer.Avatar.Rig.GetComponent<VelocityTracker>();
+            tracker = Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig.GetComponent<VelocityTracker>();
             trackerFound = tracker != null;
             
             if (!trackerFound)
@@ -25,6 +23,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(Handedness hand, Vector3 velocity)
         {
+            var localPlayer = Mod.Instance.Data.Players.LocalPlayerContainer;
             if (!IsSlicing || !trackerFound || localPlayer.Data.PlayerState != PlayerState.Active)
                 return;
             
@@ -56,7 +55,6 @@ namespace BhapticsPopOne.Haptics.Patterns
             IsSlicing = false;
             trackerFound = false;
             tracker = null;
-            localPlayer = null;
         }
     }
 }

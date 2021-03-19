@@ -88,7 +88,6 @@ namespace BhapticsPopOne.Patches.PlayerData2
             {
                 DrinkSoda.Clear();
                 KatanaShield.Execute(false);
-                ZoneDamage.Clear();
             }
         }
     }

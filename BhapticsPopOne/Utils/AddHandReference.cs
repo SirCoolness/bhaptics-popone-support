@@ -145,8 +145,9 @@ namespace BhapticsPopOne
                 velocityTracker = dest.gameObject.AddComponent<VelocityTracker>();
             else
                 velocityTracker = dest.GetComponent<VelocityTracker>();
-                    
-            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId == netId && dest.gameObject.GetComponent<MeleeVelocity>() == null)
+
+            PlayerContainer player;
+            if (PlayerContainer.TryFind(netId, out player) && player.isLocalPlayer && dest.gameObject.GetComponent<MeleeVelocity>() == null)
             {
                 var meleeVelocity = dest.gameObject.AddComponent<MeleeVelocity>();
                 meleeVelocity.Target = velocityTracker;
