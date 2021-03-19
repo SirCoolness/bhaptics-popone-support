@@ -21,7 +21,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public bool HideItem { get; set; }
 
         [YamlIgnore] 
-        public static Hands DefaultConfig = new Hands
+        public static Hands DefaultConfig => new Hands
         {
             Climbing = true,
             PlayerTouch = true,

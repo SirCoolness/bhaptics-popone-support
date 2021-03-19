@@ -69,7 +69,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
             
             var duration = internalDuration + BaselineTime;
-            if (ConfigLoader.Config.EffectToggles.Vest.FlyingWind)
+            if (DynConfig.Toggles.Vest.FlyingWind)
             {
                 ExecuteFront(duration);
                 ExecuteBack(duration);
@@ -132,7 +132,7 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static void ExecuteArms(float duration)
         {
-            if (!ConfigLoader.Config.EffectToggles.Arms.FlyingWind)
+            if (!DynConfig.Toggles.Arms.FlyingWind)
                 return;
             
             string[] effectPool = new[] {"Arm/FlyingAir_Level1", "Arm/FlyingAir_Level2"};
@@ -160,7 +160,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         private static void ExecuteHands(float duration)
         {
-            if (!ConfigLoader.Config.EffectToggles.Hands.FlyingWind)
+            if (!DynConfig.Toggles.Hands.FlyingWind)
                 return;
 
             var progress = Math.Min(duration / (HandConfig.Target * TargetMultiplier), 1f);
@@ -172,7 +172,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         private static void ExecuteFeet(float duration)
         {
-            if (!ConfigLoader.Config.EffectToggles.Feet.FlyingWind)
+            if (!DynConfig.Toggles.Feet.FlyingWind)
                 return;
             
             var progress = Math.Min(duration / (FeetConfig.Target * TargetMultiplier), 1f);

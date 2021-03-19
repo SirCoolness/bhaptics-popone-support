@@ -7,7 +7,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
     public class Config
     {
         public string Version { get; set; }
-        public EffectToggles.EffectToggles EffectToggles { get; set; }
+        public SceneConfig EffectToggles { get; set; }
         public AllEffectToggles Toggles { get; set; }
         public float VestRecoil { get; set; }
         public float OffhandRecoilStrength { get; set; }
@@ -17,13 +17,13 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
         public EffectsConfig Effects { get; set; }
 
         [YamlIgnore] 
-        public static Version CurrentVersion => new Version("0.0.6");
+        public static Version CurrentVersion => new Version("0.0.7");
         
         [YamlIgnore] 
         public static Config DefaultConfig = new Config
         {
             Version = CurrentVersion.ToString(),
-            EffectToggles = ConfigElements.EffectToggles.EffectToggles.DefaultConfig,
+            EffectToggles = SceneConfig.DefaultConfig,
             VestRecoil = 1f,
             OffhandRecoilStrength = 0.7f,
             FoodEatIntensity = 1.0f,

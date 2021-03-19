@@ -113,7 +113,7 @@ namespace BhapticsPopOne
 
         private static void EnterHeadEffect(float magnitude)
         {
-            if (ConfigLoader.Config.EffectToggles.Face.PlayerTouchVelocity)
+            if (DynConfig.Toggles.Face.PlayerTouchVelocity)
                 EffectPlayer.Play("Head/InitialTouch", new Effect.EffectProperties
                 {
                     Strength = Math.Min(1f, magnitude / 1.5f)
@@ -132,7 +132,7 @@ namespace BhapticsPopOne
 
         private static void EnterFootEffect(float magnitude, Handedness foot)
         {
-            if (!ConfigLoader.Config.EffectToggles.Feet.PlayerTouchVelocity)
+            if (!DynConfig.Toggles.Feet.PlayerTouchVelocity)
                 return;
             
             if (magnitude > 1.35f)
@@ -154,7 +154,7 @@ namespace BhapticsPopOne
         
         private static void PlayHeadEffect()
         {
-            if (ConfigLoader.Config.EffectToggles.Face.PlayerTouch)
+            if (DynConfig.Toggles.Face.PlayerTouch)
                 EffectPlayer.Play("Head/ReceiveTouch");
         }
         
@@ -170,7 +170,7 @@ namespace BhapticsPopOne
 
         private static void PlayFootEffect(Handedness foot)
         {
-            if (ConfigLoader.Config.EffectToggles.Feet.PlayerTouch)
+            if (DynConfig.Toggles.Feet.PlayerTouch)
                 EffectPlayer.Play($"Foot/ReceiveTouch{HapticUtils.HandExt(foot)}");
         }
 

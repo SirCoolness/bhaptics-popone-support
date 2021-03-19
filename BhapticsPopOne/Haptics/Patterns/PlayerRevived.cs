@@ -11,7 +11,7 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void Execute(Vector3 point, Vector3 direction)
         {
-            if (!ConfigLoader.Config.EffectToggles.Vest.Revived)
+            if (!DynConfig.Toggles.Vest.Revived)
                 return;
             
             var vestRef = Mod.Instance.Data.Players.VestReference();

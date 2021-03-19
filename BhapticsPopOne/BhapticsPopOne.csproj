@@ -121,7 +121,9 @@
     <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralEffectTarget.cs" />
     <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralPool.cs" />
     <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralStrength.cs" />
+    <Compile Include="ConfigManager\ConfigElements\SceneConfig.cs" />
     <Compile Include="ConfigManager\ConfigLoader.cs" />
+    <Compile Include="ConfigManager\DynConfig.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\HandHelper.cs" />
     <Compile Include="Data\Players.cs" />

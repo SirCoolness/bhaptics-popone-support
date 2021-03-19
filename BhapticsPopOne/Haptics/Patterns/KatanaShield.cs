@@ -23,14 +23,14 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Block()
         {
-            if (ConfigLoader.Config.EffectToggles.Arms.MeleeBlock)
+            if (DynConfig.Toggles.Arms.MeleeBlock)
                 EffectPlayer.Play("Arm/MeleeBlock", new Effect.EffectProperties
                 {
                     Strength = 1f,
                     Time = 0.08f
                 });
             
-            if (ConfigLoader.Config.EffectToggles.Hands.MeleeBlock)
+            if (DynConfig.Toggles.Hands.MeleeBlock)
                 EffectPlayer.Play("Hand/MeleeBlock", new Effect.EffectProperties
                 {
                     Strength = 1f,
@@ -43,13 +43,13 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (!Active)
                 return;
 
-            if (ConfigLoader.Config.EffectToggles.Arms.MeleeShield)
+            if (DynConfig.Toggles.Arms.MeleeShield)
                 EffectPlayer.Play("Arm/MeleeShield", new Effect.EffectProperties
                 {
                     Strength = 0.15f
                 });
             
-            if (ConfigLoader.Config.EffectToggles.Hands.MeleeShield)
+            if (DynConfig.Toggles.Hands.MeleeShield)
                 EffectPlayer.Play("Hand/MeleeShield", new Effect.EffectProperties
                 {
                     Strength = 0.15f

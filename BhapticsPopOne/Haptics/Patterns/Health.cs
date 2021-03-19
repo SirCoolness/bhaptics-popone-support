@@ -7,19 +7,19 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void LowHealthHeartbeat()
         {
-            if (ConfigLoader.Config.EffectToggles.Vest.Heartbeat)
+            if (DynConfig.Toggles.Vest.Heartbeat)
                 EffectPlayer.Play("Vest/HeartbeatMultiple");
         }
 
         public static void ShieldBreak()
         {
-            if (ConfigLoader.Config.EffectToggles.Vest.ShieldBreak)
+            if (DynConfig.Toggles.Vest.ShieldBreak)
                 EffectPlayer.Play("Vest/ShieldBreak");
         }
         
         public static void ShieldFull()
         {
-            if (ConfigLoader.Config.EffectToggles.Vest.FullShield)
+            if (DynConfig.Toggles.Vest.FullShield)
                 EffectPlayer.Play("Vest/FullShield");
         }
     }

@@ -31,7 +31,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             currentFistbump = preferredHand;
 
 
-            if (ConfigLoader.Config.EffectToggles.Arms.FistBumpFriend)
+            if (DynConfig.Toggles.Arms.FistBumpFriend)
             {
                 EffectPlayer.Play($"Arm/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
                 EffectPlayer.Play($"Arm/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}",
@@ -41,7 +41,7 @@ namespace BhapticsPopOne.Haptics.Patterns
                     });
             }
 
-            if (ConfigLoader.Config.EffectToggles.Hands.FistBumpFriend)
+            if (DynConfig.Toggles.Hands.FistBumpFriend)
             {
                 EffectPlayer.Play($"Hand/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
                 EffectPlayer.Play($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}",
@@ -56,13 +56,13 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (finished)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.FistBumpComplete)
+                if (DynConfig.Toggles.Vest.FistBumpComplete)
                     EffectPlayer.Play($"Vest/FistBump{HapticUtils.HandExt(currentFistbump)}");
                 
-                if (ConfigLoader.Config.EffectToggles.Arms.FistBumpComplete)
+                if (DynConfig.Toggles.Arms.FistBumpComplete)
                     EffectPlayer.Play($"Arm/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
                 
-                if (ConfigLoader.Config.EffectToggles.Hands.FistBumpComplete)
+                if (DynConfig.Toggles.Hands.FistBumpComplete)
                     EffectPlayer.Play($"Hand/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
             }
             

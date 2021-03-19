@@ -34,7 +34,7 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.ZoneDamage)
+                if (DynConfig.Toggles.Vest.ZoneDamage)
                     EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
                     {
                         Strength = 0.75f,
@@ -43,7 +43,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
             else
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.ZoneDamage)
+                if (DynConfig.Toggles.Vest.ZoneDamage)
                     EffectPlayer.Play("Vest/ZoneDamage", new Effect.EffectProperties
                     {
                         // Strength = 0.20f + Mathf.Clamp(((float)info.Damage / 4f) * 0.5f, 0f, 0.5f)
@@ -70,7 +70,7 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void OnFixedUpdate()
         {
-            if (!ConfigLoader.Config.EffectToggles.Vest.InsideZone)
+            if (!DynConfig.Toggles.Vest.InsideZone)
                 return;
             
             if (!Active)

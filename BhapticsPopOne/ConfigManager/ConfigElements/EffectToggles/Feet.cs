@@ -13,7 +13,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public bool PlayerTouchVelocity { get; set; }
 
         [YamlIgnore] 
-        public static Feet DefaultConfig = new Feet
+        public static Feet DefaultConfig => new Feet
         {
             LandOnGround = true,
             FallDamage = true,

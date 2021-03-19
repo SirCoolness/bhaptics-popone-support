@@ -30,13 +30,13 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             CancelLastPlayback();
             
-            if (ConfigLoader.Config.EffectToggles.Vest.SelectItem)
+            if (DynConfig.Toggles.Vest.SelectItem)
                 EffectPlayer.Play($"Vest/SelectItem{EffectExtension()}");
             
-            if (ConfigLoader.Config.EffectToggles.Arms.SelectItem)
+            if (DynConfig.Toggles.Arms.SelectItem)
                 EffectPlayer.Play( $"Arm/SelectItem{EffectExtension()}");
             
-            if (ConfigLoader.Config.EffectToggles.Hands.SelectItem)
+            if (DynConfig.Toggles.Hands.SelectItem)
                 EffectPlayer.Play( $"Hand/SelectItem{EffectExtension()}");
         }
 
@@ -46,13 +46,13 @@ namespace BhapticsPopOne.Haptics.Patterns
             lastArmEffect = $"Arm/HideWeapon{EffectExtension()}";
             lastHandEffect = $"Hand/HideWeapon{EffectExtension()}";
          
-            if (ConfigLoader.Config.EffectToggles.Vest.HideItem)
+            if (DynConfig.Toggles.Vest.HideItem)
                 EffectPlayer.Play(lastVestEffect);
             
-            if (ConfigLoader.Config.EffectToggles.Arms.HideItem)
+            if (DynConfig.Toggles.Arms.HideItem)
                 EffectPlayer.Play(lastArmEffect);
             
-            if (ConfigLoader.Config.EffectToggles.Hands.HideItem)
+            if (DynConfig.Toggles.Hands.HideItem)
                 EffectPlayer.Play(lastHandEffect);
         }
 

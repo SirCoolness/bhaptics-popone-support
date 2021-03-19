@@ -59,20 +59,20 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (effectName == "RecoilLevel0")
                 return;
             
-            if (ConfigLoader.Config.EffectToggles.Vest.Recoil)
+            if (DynConfig.Toggles.Vest.Recoil)
                 EffectPlayer.Play($"Vest/{effectName}{effectExtension}", new Effect.EffectProperties
                 {
                     Strength = _effectStrength,
                     Time = effectTime
                 });
             
-            if (ConfigLoader.Config.EffectToggles.Arms.Recoil)
+            if (DynConfig.Toggles.Arms.Recoil)
                 EffectPlayer.Play($"Arm/{effectName}{effectExtension}", new Effect.EffectProperties
                 {
                     Time = effectTime
                 });
             
-            if (ConfigLoader.Config.EffectToggles.Hands.Recoil)
+            if (DynConfig.Toggles.Hands.Recoil)
                 EffectPlayer.Play($"Hand/Recoil{effectExtension}", new Effect.EffectProperties
                 {
                     Strength = handStrength,
@@ -81,21 +81,21 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (twoHanded)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.Recoil)
+                if (DynConfig.Toggles.Vest.Recoil)
                     EffectPlayer.Play($"Vest/{effectName}{otherEffectExtension}", new Effect.EffectProperties
                     {
                         Strength = _effectStrength * offhandIntensity,
                         Time = effectTime
                     });
                 
-                if (ConfigLoader.Config.EffectToggles.Arms.Recoil)
+                if (DynConfig.Toggles.Arms.Recoil)
                     EffectPlayer.Play($"Arm/{effectName}{otherEffectExtension}", new Effect.EffectProperties
                     {
                         Strength = offhandIntensity,
                         Time = effectTime
                     });
                 
-                if (ConfigLoader.Config.EffectToggles.Hands.Recoil)
+                if (DynConfig.Toggles.Hands.Recoil)
                     EffectPlayer.Play($"Hand/Recoil{otherEffectExtension}", new Effect.EffectProperties
                     {
                         Strength = offhandIntensity * handStrength,

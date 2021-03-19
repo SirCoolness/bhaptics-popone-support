@@ -9,6 +9,7 @@ using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Patches;
 using MelonLoader;
 using UnityEngine;
+using SceneConfig = BhapticsPopOne.ConfigManager.ConfigElements.SceneConfig;
 using String = System.String;
 
 namespace BhapticsPopOne
@@ -71,6 +72,7 @@ namespace BhapticsPopOne
             
             FileHelpers.EnforceDirectory();
             ConfigLoader.InitConfig();
+            ConfigManager.DynConfig.UpdateConfig(ConfigManager.DynConfig.SceneMode.General);
             
             Patreon.Run(); // (●'◡'●)
             

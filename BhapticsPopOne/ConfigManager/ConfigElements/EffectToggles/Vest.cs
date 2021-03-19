@@ -40,7 +40,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public bool PlayerTouchVelocity { get; set; }
 
         [YamlIgnore] 
-        public static Vest DefaultConfig = new Vest
+        public static Vest DefaultConfig => new Vest
         {
             Recoil = true,
             ActiveDrink = true,

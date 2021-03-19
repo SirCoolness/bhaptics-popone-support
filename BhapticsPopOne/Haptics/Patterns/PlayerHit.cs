@@ -66,7 +66,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (Array.Exists(Shotguns, el => el == info.Weapon))
             {
                 // TODO: add shotgun effect random variants
-                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                if (DynConfig.Toggles.Vest.BulletHit)
                     EffectPlayer.Play("Vest/BulletHit_Shotgun", new Effect.EffectProperties
                     {
                         XRotation = angle
@@ -74,14 +74,14 @@ namespace BhapticsPopOne.Haptics.Patterns
                 return;
             }
 
-            if (ConfigLoader.Config.EffectToggles.Face.BulletHit && info.HeadImpact)
+            if (DynConfig.Toggles.Face.BulletHit && info.HeadImpact)
                 EffectPlayer.Play($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
 
             var damage = info.Damage * -1;
 
             if (damage > 75)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                if (DynConfig.Toggles.Vest.BulletHit)
                     EffectPlayer.Play("Vest/BulletHit_HighDamage", new Effect.EffectProperties
                     {
                         XRotation = angle,
@@ -90,7 +90,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
             else if (damage > 19)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                if (DynConfig.Toggles.Vest.BulletHit)
                     EffectPlayer.Play("Vest/BulletHit_Level2", new Effect.EffectProperties
                     {
                         XRotation = angle,
@@ -98,7 +98,7 @@ namespace BhapticsPopOne.Haptics.Patterns
                     });
             }
             else {
-                if (ConfigLoader.Config.EffectToggles.Vest.BulletHit)
+                if (DynConfig.Toggles.Vest.BulletHit)
                     EffectPlayer.Play("Vest/BulletHit_Level1", new Effect.EffectProperties
                     {
                         XRotation = angle,
@@ -111,14 +111,14 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             var damage = info.Damage * -1;
 
-            if (ConfigLoader.Config.EffectToggles.Face.ExplosionHit && info.HeadImpact)
+            if (DynConfig.Toggles.Face.ExplosionHit && info.HeadImpact)
                 EffectPlayer.Play($"Head/ExplosionHit_[{Random.RandomRangeInt(1, 3)}]");
 
             // TODO: add level in between
             // TODO: You can use ScaleOption!
             if (damage > 60)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.ExplosionHit)
+                if (DynConfig.Toggles.Vest.ExplosionHit)
                     EffectPlayer.Play("Vest/ExplosionHit_Level2", new Effect.EffectProperties
                     {
                         XRotation = angle
@@ -126,7 +126,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             }
             else
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.ExplosionHit)
+                if (DynConfig.Toggles.Vest.ExplosionHit)
                     EffectPlayer.Play("Vest/ExplosionHit_Level1", new Effect.EffectProperties
                     {
                         XRotation = angle

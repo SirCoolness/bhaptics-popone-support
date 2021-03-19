@@ -10,7 +10,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public bool PlayerTouchVelocity { get; set; }
 
         [YamlIgnore] 
-        public static Face DefaultConfig = new Face
+        public static Face DefaultConfig => new Face
         {
             BulletHit = true,
             ExplosionHit = true,

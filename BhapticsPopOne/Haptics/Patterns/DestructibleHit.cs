@@ -18,13 +18,13 @@ namespace BhapticsPopOne.Haptics.Patterns
                 effectExtension = "_R";
             }
             
-            if (ConfigLoader.Config.EffectToggles.Vest.DestructibleHit)
+            if (DynConfig.Toggles.Vest.DestructibleHit)
                 EffectPlayer.Play($"Vest/DestructibleHit{effectExtension}");
             
-            if (ConfigLoader.Config.EffectToggles.Arms.DestructibleHit)
+            if (DynConfig.Toggles.Arms.DestructibleHit)
                 EffectPlayer.Play($"Arm/DestructibleHit{effectExtension}");
             
-            if (ConfigLoader.Config.EffectToggles.Hands.DestructibleHit)
+            if (DynConfig.Toggles.Hands.DestructibleHit)
                 EffectPlayer.Play($"Hand/DestructibleHit{effectExtension}");
         }
     }

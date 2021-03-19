@@ -11,7 +11,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public Feet Feet { get; set; }
         
         [YamlIgnore] 
-        public static EffectToggles DefaultConfig = new EffectToggles
+        public static EffectToggles DefaultConfig => new EffectToggles
         {
             Face = Face.DefaultConfig,
             Vest = Vest.DefaultConfig,

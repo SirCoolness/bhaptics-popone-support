@@ -16,14 +16,14 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         private static void Play(Handedness hand)
         {
-            if (ConfigLoader.Config.EffectToggles.Arms.MeleeSlice)
+            if (DynConfig.Toggles.Arms.MeleeSlice)
                 EffectPlayer.Play($"Arm/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Strength = 0.8f,
                     Time = 0.8f
                 });
             
-            if (ConfigLoader.Config.EffectToggles.Hands.MeleeSlice)
+            if (DynConfig.Toggles.Hands.MeleeSlice)
                 EffectPlayer.Play($"Hand/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Strength = 0.8f,

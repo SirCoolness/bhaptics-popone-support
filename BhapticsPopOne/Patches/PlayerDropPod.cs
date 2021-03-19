@@ -19,7 +19,7 @@ namespace BhapticsPopOne.Patches
             PodState value = __instance.State;
 
             if(
-                ConfigLoader.Config.EffectToggles.Vest.FallPod && 
+                DynConfig.Toggles.Vest.FallPod && 
                 (value == PodState.GlidingOpened || value == PodState.Gliding || value == PodState.Falling) &&
                (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
                 __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
@@ -40,8 +40,8 @@ namespace BhapticsPopOne.Patches
             else if(value == PodState.WaitingToDrop)
                 PodLifecycle.DuringPod();
             else if (value == PodState.Impacted)
-                if (ConfigLoader.Config.EffectToggles.Vest.LandPod && (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
-                                                                      __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
+                if (DynConfig.Toggles.Vest.LandPod && (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
+                                                       __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
                 {
                     FallDamage.Execute(75, 500f);
                 }

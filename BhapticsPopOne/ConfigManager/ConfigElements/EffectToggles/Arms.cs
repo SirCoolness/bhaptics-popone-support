@@ -24,7 +24,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements.EffectToggles
         public bool HideItem { get; set; }
 
         [YamlIgnore] 
-        public static Arms DefaultConfig = new Arms
+        public static Arms DefaultConfig => new Arms
         {
             Recoil = true,
             PickupItem = true,

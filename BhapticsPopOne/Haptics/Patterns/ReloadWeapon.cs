@@ -16,17 +16,17 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             if (state == FirearmState.Prime && currentState == finalState)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.Reload)
+                if (DynConfig.Toggles.Vest.Reload)
                     EffectPlayer.Play($"Vest/ReloadStep2{ext}");
                 
-                if (ConfigLoader.Config.EffectToggles.Arms.Reload)
+                if (DynConfig.Toggles.Arms.Reload)
                     EffectPlayer.Play($"Arm/ReloadStep2{ext}");
             } else if (state == FirearmState.Prime || state == FirearmState.InsertAmmo)
             {
-                if (ConfigLoader.Config.EffectToggles.Vest.Reload)
+                if (DynConfig.Toggles.Vest.Reload)
                     EffectPlayer.Play($"Vest/ReloadStep1{ext}");
                 
-                if (ConfigLoader.Config.EffectToggles.Arms.Reload)
+                if (DynConfig.Toggles.Arms.Reload)
                     EffectPlayer.Play($"Arm/ReloadStep1{ext}");
                 
             }

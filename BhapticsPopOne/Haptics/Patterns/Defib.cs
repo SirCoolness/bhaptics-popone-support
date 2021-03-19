@@ -7,19 +7,19 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void RubbingDefib()
         {
-            if (ConfigLoader.Config.EffectToggles.Arms.RubbingDefib)
+            if (DynConfig.Toggles.Arms.RubbingDefib)
                 EffectPlayer.Play("Arm/RubbingDefib");
             
-            if (ConfigLoader.Config.EffectToggles.Vest.RubbingDefib)
+            if (DynConfig.Toggles.Vest.RubbingDefib)
                 EffectPlayer.Play("Vest/RubbingDefib");
         }
 
         public static void ChargedDefib()
         {
-            if (ConfigLoader.Config.EffectToggles.Arms.ChargedDefib)
+            if (DynConfig.Toggles.Arms.ChargedDefib)
                 EffectPlayer.Play("Arm/ChargedDefib");
             
-            if (ConfigLoader.Config.EffectToggles.Vest.ChargedDefib)
+            if (DynConfig.Toggles.Vest.ChargedDefib)
                 EffectPlayer.Play("Vest/ChargedDefib");
         }
     }

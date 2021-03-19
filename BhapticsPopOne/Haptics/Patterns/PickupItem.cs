@@ -19,13 +19,13 @@ namespace BhapticsPopOne.Haptics.Patterns
                 effectExtension = "_R";
             }
             
-            if (ConfigLoader.Config.EffectToggles.Vest.PickupItem)
+            if (DynConfig.Toggles.Vest.PickupItem)
                 EffectPlayer.Play($"Vest/ItemPickup{effectExtension}");
             
-            if (ConfigLoader.Config.EffectToggles.Arms.PickupItem)
+            if (DynConfig.Toggles.Arms.PickupItem)
                 EffectPlayer.Play($"Arm/ItemPickup{effectExtension}");
             
-            if (ConfigLoader.Config.EffectToggles.Hands.PickupItem)
+            if (DynConfig.Toggles.Hands.PickupItem)
                 EffectPlayer.Play($"Hand/ItemPickup{effectExtension}");
         }
     }

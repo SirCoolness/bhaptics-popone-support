@@ -44,7 +44,7 @@ namespace BhapticsPopOne
             
             TargetEntered = true;
             
-            if (!ConfigLoader.Config.EffectToggles.Vest.PlayerTouchVelocity)
+            if (!DynConfig.Toggles.Vest.PlayerTouchVelocity)
                 return;
             
             var targetTracker = other.transform.root.GetComponent<VelocityTracker>();
@@ -105,7 +105,7 @@ namespace BhapticsPopOne
         
         private void FixedUpdate()
         {
-            if (!ConfigLoader.Config.EffectToggles.Vest.PlayerTouch)
+            if (!DynConfig.Toggles.Vest.PlayerTouch)
                 return;
             
             if (!TargetEntered || activeParts.Count == 0)

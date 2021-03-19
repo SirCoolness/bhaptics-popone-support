@@ -35,14 +35,14 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             var relativeV = tracker.Velocity - velocity;
             
-            if (ConfigLoader.Config.EffectToggles.Arms.MeleeVelocity)
+            if (DynConfig.Toggles.Arms.MeleeVelocity)
                 EffectPlayer.Play($"Arm/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Time = Time.fixedDeltaTime,
                     Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
                 });
                 
-            if (ConfigLoader.Config.EffectToggles.Hands.MeleeVelocity)
+            if (DynConfig.Toggles.Hands.MeleeVelocity)
                 EffectPlayer.Play($"Hand/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Time = Time.fixedDeltaTime,

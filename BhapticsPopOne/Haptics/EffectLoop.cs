@@ -22,7 +22,7 @@ namespace BhapticsPopOne.Haptics
                 return;
             }
 
-            if (ConfigLoader.Config.EffectToggles.Vest.ActiveDrink)
+            if (DynConfig.Toggles.Vest.ActiveDrink)
                 EffectPlayer.Play("Vest/ActiveBuff", new Effect.EffectProperties
                 {
                     Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.SodaBubbleIntensity)

@@ -7,13 +7,13 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void Victory()
         {
-            if (ConfigLoader.Config.EffectToggles.Vest.Victory)
+            if (DynConfig.Toggles.Vest.Victory)
                 EffectPlayer.Play("Vest/Win");
         }
         
         public static void Land()
         {
-            if (ConfigLoader.Config.EffectToggles.Feet.LandOnGround)
+            if (DynConfig.Toggles.Feet.LandOnGround)
                 EffectPlayer.Play("Foot/LandOnGround", new Effect.EffectProperties
                 {
                     Strength = 0.4f,

@@ -10,10 +10,10 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (state != BuffState.Consumed)
                 return;
             
-            if (ConfigLoader.Config.EffectToggles.Vest.ConsumeItem)
+            if (DynConfig.Toggles.Vest.ConsumeItem)
                 EffectPlayer.Play("Vest/ConsumeItem");
             
-            if (ConfigLoader.Config.EffectToggles.Vest.BananaHeal)
+            if (DynConfig.Toggles.Vest.BananaHeal)
                 EffectPlayer.Play("Vest/BananaHeal");
         }
     }

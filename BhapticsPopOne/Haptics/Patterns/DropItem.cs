@@ -21,7 +21,7 @@ namespace BhapticsPopOne.Haptics.Patterns
                 effectExtension = "_R";
             }
             
-            if (ConfigLoader.Config.EffectToggles.Vest.DropItem)
+            if (DynConfig.Toggles.Vest.DropItem)
                 EffectPlayer.Play($"Vest/DropItem{effectExtension}");
         }
     }

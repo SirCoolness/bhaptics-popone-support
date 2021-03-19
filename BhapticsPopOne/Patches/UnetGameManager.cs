@@ -1,4 +1,6 @@
 ﻿using System;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics;
 using BigBoxVR;
 using Harmony;
@@ -12,6 +14,7 @@ namespace BhapticsPopOne.UnetGameManager2
         // TODO: switch to goyfs
         static void Postfix(GameState oldValue, GameState newValue)
         {
+            DynConfig.UpdateConfig(newValue == GameState.Default ? DynConfig.SceneMode.Lobby : DynConfig.SceneMode.General);
             if (newValue != GameState.MatchEnded)
                 return;
 

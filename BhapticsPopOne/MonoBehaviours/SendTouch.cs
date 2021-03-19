@@ -48,14 +48,14 @@ namespace BhapticsPopOne
 
             if (magnitude > 1.35f)
             {
-                if (ConfigLoader.Config.EffectToggles.Arms.PlayerTouchVelocity)
+                if (DynConfig.Toggles.Arms.PlayerTouchVelocity)
                     EffectPlayer.Play($"Arm/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                     {
                         Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
                         OnComplete = OnCompleteArm
                     }); 
                 
-                if (ConfigLoader.Config.EffectToggles.Hands.PlayerTouchVelocity)
+                if (DynConfig.Toggles.Hands.PlayerTouchVelocity)
                     EffectPlayer.Play($"Hand/HighVSendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                     {
                         Strength = 0.5f + Mathf.Min(1f, ((magnitude - 1.35f) / 2.5f)) * 0.5f,
@@ -64,7 +64,7 @@ namespace BhapticsPopOne
             }
             else
             {
-                if (ConfigLoader.Config.EffectToggles.Arms.PlayerTouchVelocity)
+                if (DynConfig.Toggles.Arms.PlayerTouchVelocity)
                     EffectPlayer.Play($"Arm/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                     {
                         Time = 0.275f,
@@ -72,7 +72,7 @@ namespace BhapticsPopOne
                         OnComplete = OnCompleteArm
                     });
                 
-                if (ConfigLoader.Config.EffectToggles.Hands.PlayerTouchVelocity)
+                if (DynConfig.Toggles.Hands.PlayerTouchVelocity)
                     EffectPlayer.Play($"Hand/SendInitialTouch{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                     {
                         Time = 0.275f,
@@ -84,7 +84,7 @@ namespace BhapticsPopOne
 
         private void OnCompleteArm()
         {
-            if (!ConfigLoader.Config.EffectToggles.Arms.PlayerTouch)
+            if (!DynConfig.Toggles.Arms.PlayerTouch)
                 return;
             
             if (activeParts.Count > 0)
@@ -93,7 +93,7 @@ namespace BhapticsPopOne
         
         private void OnCompleteHand()
         {
-            if (!ConfigLoader.Config.EffectToggles.Hands.PlayerTouch)
+            if (!DynConfig.Toggles.Hands.PlayerTouch)
                 return;
             
             if (activeParts.Count > 0)
