@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Utils;
+using BigBoxVR.BattleRoyale.Models.Shared;
 using MelonLoader;
 
 namespace BhapticsPopOne.Helpers
@@ -24,6 +25,10 @@ namespace BhapticsPopOne.Helpers
                     }),
                 GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded)
             };
+
+            PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(PlayerWasHit));
+            FirearmPrimeCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, int>(FirearmPrimeComplete));
+            FirearmInsertAmmoCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint>(FirearmInsertAmmoComplete));
 
             List<int> failures = new List<int>();
             for (var i = 0; i < bindStatuses.Length; i++)
@@ -56,6 +61,40 @@ namespace BhapticsPopOne.Helpers
             }
             
             AddHandReference.AddHandsToPlayer(container);
+        }
+        
+        private static void PlayerWasHit(uint netId, DamageableHitInfo info)
+        {
+            var container = Mod.Instance.Data.Players.LocalPlayerContainer;
+
+            if (info.Source == HitSourceCategory.Melee)
+                KatanaHit.Execute(container, info);
+            else if (info.Source == HitSourceCategory.Firearm)
+                PlayerHit.Execute(info);
+            else if (info.Source == HitSourceCategory.BattleZone)
+                ZoneDamage.Hit(info);
+            else if (info.Source == HitSourceCategory.Explosive)
+            {
+                if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
+                    ZoneDamage.Hit(info);
+                else if (info.Weapon == InventoryItemType.ThrowableGrenade)
+                    PlayerHit.Execute(info);
+            }
+            else if (info.Source == HitSourceCategory.Falling)
+                FallDamage.Execute(-info.Damage, info.Power);
+            
+            if (info.ArmorBroke)
+                Health.ShieldBreak();
+        }
+
+        private static void FirearmPrimeComplete(uint netId, int prime)
+        {
+            ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.UsableBehaviour.LastReloadIndex);
+        }
+        
+        private static void FirearmInsertAmmoComplete(uint netId)
+        {
+            ReloadWeapon.Execute(FirearmState.Prime, 0, 0);
         }
     }
 }

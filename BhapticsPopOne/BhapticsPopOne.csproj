@@ -186,7 +186,6 @@
     <Compile Include="Patches\PlayerBuffUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerContainer.cs" />
     <Compile Include="Patches\LootItem.cs" />
-    <Compile Include="Patches\PlayerFirearmUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerInventory.cs" />
     <Compile Include="Patches\PlayerMelee.cs" />
     <Compile Include="Patches\UnetGameManager.cs" />

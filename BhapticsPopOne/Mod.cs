@@ -134,16 +134,6 @@ namespace BhapticsPopOne
             EffectLoopRegistry.Update();
         }
 
-        public override void OnLevelWasLoaded(int level)
-        {
-            base.OnLevelWasLoaded(level);
-            
-            // clear when level reloads to avoid memory overflow
-            ReloadWeapon.PreviousStateMap.Clear();
-            
-            // MelonLogger.Log("load level");
-        }
-
         public override void OnLevelWasInitialized(int level)
         {
             EffectLoopRegistry.LevelInit();

@@ -12,35 +12,6 @@ using UnityEngine;
 
 namespace BhapticsPopOne.Patches.PlayerContainer2
 {
-    [HarmonyPatch(typeof(PlayerContainer), "HandlePlayerHit")]
-    public class HandlePlayerHit
-    {
-        static void Prefix(PlayerContainer __instance, DamageableHitInfo info)
-        {
-            if (__instance != Mod.Instance.Data.Players.LocalPlayerContainer)
-                return;
-
-            if (info.Source == HitSourceCategory.Melee)
-                KatanaHit.Execute(__instance, info);
-            else if (info.Source == HitSourceCategory.Firearm)
-                PlayerHit.Execute(info);
-            else if (info.Source == HitSourceCategory.BattleZone)
-                ZoneDamage.Hit(info);
-            else if (info.Source == HitSourceCategory.Explosive)
-            {
-                if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
-                    ZoneDamage.Hit(info);
-                else if (info.Weapon == InventoryItemType.ThrowableGrenade)
-                    PlayerHit.Execute(info);
-            }
-            else if (info.Source == HitSourceCategory.Falling)
-                FallDamage.Execute(-info.Damage, info.Power);
-            
-            if (info.ArmorBroke)
-                Health.ShieldBreak();
-        }
-    }
-
     [HarmonyPatch(typeof(PlayerContainer), "CmdStartFistBump")]
     public class CmdStartFistBump
     {
