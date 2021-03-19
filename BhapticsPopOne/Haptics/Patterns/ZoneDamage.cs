@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using UnityEngine;
@@ -32,6 +33,9 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Hit(DamageableHitInfo info)
         {
+            if (ConfigLoader.Config.Toggles.ZoneBackMassageMode)
+                return;
+            
             if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
             {
                 if (DynConfig.Toggles.Vest.ZoneDamage)
@@ -58,7 +62,10 @@ namespace BhapticsPopOne.Haptics.Patterns
             
             if (!Active && WasPlaying)
             {
-                EffectPlayer.Stop("Vest/ZonePassive");
+                if (!ConfigLoader.Config.Toggles.ZoneBackMassageMode)
+                    EffectPlayer.Stop("Vest/ZonePassive");
+                else
+                    EffectPlayer.Stop("Vest/ZoneDamage_OLD");
                 WasPlaying = false;
             }
         }
@@ -76,10 +83,14 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (!Active)
                 return;
 
-            EffectPlayer.Play("Vest/ZonePassive", new Effect.EffectProperties
-            {
-                Strength = 0.1f
-            });
+            if (!ConfigLoader.Config.Toggles.ZoneBackMassageMode)
+                EffectPlayer.Play("Vest/ZonePassive", new Effect.EffectProperties
+                {
+                    Strength = 0.1f
+                });
+            else
+                EffectPlayer.Play("Vest/ZoneDamage_OLD");
+            
             WasPlaying = true;
         }
     }
