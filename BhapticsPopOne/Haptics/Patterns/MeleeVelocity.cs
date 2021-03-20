@@ -27,7 +27,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (!IsSlicing || !trackerFound || localPlayer.Data.PlayerState != PlayerState.Active)
                 return;
             
-            if (localPlayer.Inventory.Slots[localPlayer.Inventory.EquipIndex].Info.ItemClass != InventoryItemClass.Melee)
+            if (localPlayer.Inventory.Slots[localPlayer.Inventory.EquipIndex]?.Info?.ItemClass != InventoryItemClass.Melee)
                 return;
             
             if (localPlayer.Data.DominantHand != hand && !localPlayer.Data.TwoHand)
@@ -39,14 +39,14 @@ namespace BhapticsPopOne.Haptics.Patterns
                 EffectPlayer.Play($"Arm/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Time = Time.fixedDeltaTime,
-                    Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
+                    Strength = Mathf.Clamp((relativeV.magnitude / 3f) * 0.6f, 0, 0.6f),
                 });
                 
             if (DynConfig.Toggles.Hands.MeleeVelocity)
                 EffectPlayer.Play($"Hand/MeleeVelocity{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
                     Time = Time.fixedDeltaTime,
-                    Strength = Mathf.Clamp((relativeV.magnitude / 2.5f), 0, 1f),
+                    Strength = Mathf.Clamp((relativeV.magnitude / 3f) * 0.6f, 0, 0.6f),
                 });
         }
 

@@ -19,15 +19,15 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (DynConfig.Toggles.Arms.MeleeSlice)
                 EffectPlayer.Play($"Arm/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
-                    Strength = 0.8f,
-                    Time = 0.8f
+                    Strength = 1f,
+                    Time = 0.6f
                 });
             
             if (DynConfig.Toggles.Hands.MeleeSlice)
                 EffectPlayer.Play($"Hand/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
-                    Strength = 0.8f,
-                    Time = 0.8f
+                    Strength = 1f,
+                    Time = 0.6f
                 });
         }
     }
