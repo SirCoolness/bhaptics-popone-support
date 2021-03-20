@@ -11,7 +11,7 @@ using MelonLoader;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("BhapticsPopOne")]
-[assembly: AssemblyCopyright("Copyright ©  2020")]
+[assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -37,5 +37,5 @@ using MelonLoader;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: MelonInfo(typeof(BhapticsPopOne.Mod), "Bhaptics Support", "0.1.0", "SirCoolness, jOoN, Sangwon")]
+[assembly: MelonInfo(typeof(BhapticsPopOne.Mod), "Bhaptics Support", "0.2.0 [BETA]", "SirCoolness, jOoN, Sangwon")]
 [assembly: MelonGame("BigBoxVR", "POPULATION: ONE")]

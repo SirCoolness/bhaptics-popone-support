@@ -15,14 +15,9 @@ namespace BhapticsPopOne.Patches
         static void Prefix(PlayerDefib __instance, PlayerDefib.DefibState value)
         {
             if (value == PlayerDefib.DefibState.Rubbing)
-            {
-                PatternManager.RubbingDefib();
-            }
-
-            if (value == PlayerDefib.DefibState.Charged)
-            {
-                PatternManager.ChargedDefib();
-            }
+                Defib.RubbingDefib();
+            else if (value == PlayerDefib.DefibState.Charged)
+                Defib.ChargedDefib();
         }
     }
 

@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics;
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
@@ -17,11 +18,13 @@ namespace BhapticsPopOne.Patches
 
             PodState value = __instance.State;
 
-            if((value == PodState.GlidingOpened || value == PodState.Gliding || value == PodState.Falling) &&
+            if(
+                DynConfig.Toggles.Vest.FallPod && 
+                (value == PodState.GlidingOpened || value == PodState.Gliding || value == PodState.Falling) &&
                (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
                 __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
             {
-                FallingAir.Execute(__instance.PodSpeedFalling, false);
+                FallingAir.Execute(20f, false);
                 return;
             }
 
@@ -31,24 +34,17 @@ namespace BhapticsPopOne.Patches
             }
             
             if (value == PodState.WaitingToLaunch)
-            {
-                PatternManager.EnteringPod();
-            }
+                PodLifecycle.EnteringPod();
             else if (value == PodState.Launching)
-            {
-                PatternManager.LaunchingPod();
-            }
+                PodLifecycle.LaunchingPod();
             else if(value == PodState.WaitingToDrop)
-            {
-                PatternManager.DuringPod();
-            }
+                PodLifecycle.DuringPod();
             else if (value == PodState.Impacted)
-            {
-                if (__instance.attachedContainer.playerData.MotionState == MotionState.Idle || __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal)
+                if (DynConfig.Toggles.Vest.LandPod && (__instance.attachedContainer.playerData.MotionState == MotionState.Idle ||
+                                                       __instance.attachedContainer.playerData.MotionState == MotionState.Bipedal))
                 {
                     FallDamage.Execute(75, 500f);
                 }
-            }
         }
     }
 

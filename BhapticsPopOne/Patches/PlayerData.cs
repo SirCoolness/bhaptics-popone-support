@@ -20,14 +20,10 @@ namespace BhapticsPopOne.Patches.PlayerData2
     
     
             if (newValue < 25 && oldValue >= 25)
-            {
-                PatternManager.LowHealthHeartbeat();
-            }
+                Health.LowHealthHeartbeat();
 
             if (newValue >= PlayerData.MaxHealth)
-            {
                 DrinkSoda.FullHealth();
-            }
         }
     }
 
@@ -37,9 +33,9 @@ namespace BhapticsPopOne.Patches.PlayerData2
         // haptics while flying & falling
         static void Prefix(PlayerData __instance, MotionState value)
         {
-            var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
+            // var playerData = Mod.Instance.Data.Players.LocalPlayerContainer?.playerData;
             
-            if (playerData == null || __instance != playerData)
+            if (!__instance.isLocalPlayer)
                 return;
 
             MotionState previousValue = __instance.MotionState;
@@ -56,6 +52,9 @@ namespace BhapticsPopOne.Patches.PlayerData2
                 FlyingAir.Execute(previousValue == MotionState.Falling);
             else if (value == MotionState.Falling)
                 FallingAir.Execute(previousValue == MotionState.Flying);
+            
+            if ((value == MotionState.Bipedal || value == MotionState.Idle) && (previousValue == MotionState.Flying || previousValue == MotionState.Falling))
+                GameState.Land();
         }
     }
 
@@ -68,9 +67,12 @@ namespace BhapticsPopOne.Patches.PlayerData2
             
             if (playerData == null || __instance != playerData)
                 return;
-            
+
             if (value >= PlayerData.MaxArmor)
-                PatternManager.ShieldFull();
+            {
+                Health.ShieldFull();
+                DrinkSoda.FullShield();
+            }
         }
     }
     
@@ -81,9 +83,12 @@ namespace BhapticsPopOne.Patches.PlayerData2
         {
             if (!__instance.isLocalPlayer)
                 return;
-            
+
             if (value != PlayerState.Active)
+            {
                 DrinkSoda.Clear();
+                KatanaShield.Execute(false);
+            }
         }
     }
 }

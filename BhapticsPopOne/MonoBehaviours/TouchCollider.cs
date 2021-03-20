@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
+using EffectPlayer = Coffee.UIExtensions.EffectPlayer;
 
 namespace BhapticsPopOne
 {
@@ -42,6 +44,9 @@ namespace BhapticsPopOne
             
             TargetEntered = true;
             
+            if (!DynConfig.Toggles.Vest.PlayerTouchVelocity)
+                return;
+            
             var targetTracker = other.transform.root.GetComponent<VelocityTracker>();
 
             if (targetTracker == null)
@@ -71,8 +76,7 @@ namespace BhapticsPopOne
             var relativeY = transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset);
             var localizedY = Mathf.Clamp(relativeY / PatternManager.VestHeight, -0.5f, 0.5f);
             
-            var effect = PatternManager.Effects["Vest/InitialTouch"];
-            effect.Play(new Effect.EffectProperties
+            Haptics.EffectHelpers.EffectPlayer.Play("Vest/InitialTouch", new Effect.EffectProperties
             {
                 Strength = Math.Min(1f, magnitude / 4f),
                 // Strength = 1f,
@@ -99,20 +103,18 @@ namespace BhapticsPopOne
             TargetEntered = false;
         }
         
-        private void OnTriggerStay(Collider other)
+        private void FixedUpdate()
         {
-            if (!filter.Contains(other.name) || other.transform.root != Mod.Instance.Data.Players.LocalPlayerContainer.Avatar.Rig)
+            if (!DynConfig.Toggles.Vest.PlayerTouch)
                 return;
             
-            // MelonLogger.Log(other.name);
+            if (!TargetEntered || activeParts.Count == 0)
+                return;
             
             var vestRef = Mod.Instance.Data.Players.VestReference();
-            if (vestRef == null)
-            {
-                MelonLogger.LogWarning("Cant the reference transform for the vest.");
+            if (!Mod.Instance.Data.Players.FoundVestRef)
                 return;
-            }
-
+            
             var direction = (transform.position - vestRef.position).normalized;
             var forward = Quaternion.Euler(0, -90f, 0) * vestRef.forward;
             var angle = -BhapticsUtils.Angle(forward, direction);
@@ -120,9 +122,7 @@ namespace BhapticsPopOne
             var relativeY = transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset);
             var localizedY = Mathf.Clamp(relativeY / PatternManager.VestHeight, -0.5f, 0.5f);
             
-            // MelonLogger.Log($"{Mathf.Clamp((transform.position.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f)} {transform.position.y -  (vestRef.position.y + PatternManager.VestCenterOffset)}");
-            var effect = PatternManager.Effects["Vest/ReceiveTouch"];
-            effect.Play(new Effect.EffectProperties
+            Haptics.EffectHelpers.EffectPlayer.Play("Vest/ReceiveTouch", new Effect.EffectProperties
             {
                 Strength = 0.15f,
                 Time = Time.fixedDeltaTime,

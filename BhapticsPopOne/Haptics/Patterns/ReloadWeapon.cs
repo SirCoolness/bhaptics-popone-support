@@ -1,50 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
     public class ReloadWeapon
     {
-        public static Dictionary<int, FirearmState> PreviousStateMap = new Dictionary<int, FirearmState>();
-        public static Dictionary<int, int> PreviousIndexMap = new Dictionary<int, int>();
-        
-        public static void Execute(FirearmState state, int currentState, int lastState, int instanceId)
+        public static void Execute(FirearmState state, int currentState, int finalState)
         {
-            if (!PreviousStateMap.ContainsKey(instanceId))
-            {
-                PreviousStateMap.Add(instanceId, state);
-                PreviousIndexMap.Add(instanceId, -1);
-                // return early because the only reason this would be executed is that if a weapon is spawned with ready
-                return;
-            }
+            var ext = HapticUtils.HandExt(
+                Mod.Instance.Data.Players.LocalPlayerContainer.Data.DominantHand == Handedness.Right 
+                    ? Handedness.Left : Handedness.Right);
 
-            var previous = PreviousStateMap[instanceId];
-            PreviousStateMap[instanceId] = state;
-
-            if (state != previous)
+            if (state == FirearmState.Prime && currentState == finalState)
             {
-                PreviousIndexMap[instanceId] = -1;
-            }
-            
-            var previousIndex = PreviousIndexMap[instanceId];
-            PreviousIndexMap[instanceId] = currentState;
+                if (DynConfig.Toggles.Vest.Reload)
+                    EffectPlayer.Play($"Vest/ReloadStep2{ext}");
                 
-            if (previous == FirearmState.Fire || (previous == state && currentState == previousIndex))
-                return;
-
-            var dominant = Mod.Instance.Data.Players.LocalPlayerContainer.Data.DominantHand;
-            
-            var ext = HapticUtils.HandExt(dominant == Handedness.Right ? Handedness.Left : Handedness.Right);
-
-            if (state == FirearmState.Prime)
+                if (DynConfig.Toggles.Arms.Reload)
+                    EffectPlayer.Play($"Arm/ReloadStep2{ext}");
+            } else if (state == FirearmState.Prime || state == FirearmState.InsertAmmo)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ReloadStep1{ext}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/ReloadStep1{ext}");
-            } else if (state == FirearmState.Ready && previous == FirearmState.Prime)
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/ReloadStep2{ext}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/ReloadStep2{ext}");
+                if (DynConfig.Toggles.Vest.Reload)
+                    EffectPlayer.Play($"Vest/ReloadStep1{ext}");
+                
+                if (DynConfig.Toggles.Arms.Reload)
+                    EffectPlayer.Play($"Arm/ReloadStep1{ext}");
+                
             }
         }
     }

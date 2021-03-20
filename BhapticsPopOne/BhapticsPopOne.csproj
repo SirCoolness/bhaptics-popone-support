@@ -76,6 +76,9 @@
     <Reference Include="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\deps\System.Data.dll</HintPath>
     </Reference>
+    <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\System.Windows.Forms.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
       <HintPath>..\deps\System.Xml.dll</HintPath>
     </Reference>
@@ -105,6 +108,12 @@
     <Compile Include="ConfigManager\ConfigElements\EffectsConfig.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\HighFlightModifier.cs" />
     <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\StateModifier.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Arms.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\EffectToggles.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Face.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Feet.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Hands.cs" />
+    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Vest.cs" />
     <Compile Include="ConfigManager\ConfigElements\FallEffects.cs" />
     <Compile Include="ConfigManager\ConfigElements\FlyEffects.cs" />
     <Compile Include="ConfigManager\ConfigElements\LerpGoal.cs" />
@@ -112,19 +121,25 @@
     <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralEffectTarget.cs" />
     <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralPool.cs" />
     <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralStrength.cs" />
+    <Compile Include="ConfigManager\ConfigElements\SceneConfig.cs" />
     <Compile Include="ConfigManager\ConfigLoader.cs" />
+    <Compile Include="ConfigManager\DynConfig.cs" />
     <Compile Include="Data\Data.cs" />
     <Compile Include="Data\HandHelper.cs" />
     <Compile Include="Data\Players.cs" />
     <Compile Include="Haptics\ConnectionManager.cs" />
     <Compile Include="Haptics\EffectHelpers\ByteEffect.cs" />
     <Compile Include="Haptics\EffectHelpers\Effect.cs" />
+    <Compile Include="Haptics\EffectHelpers\EffectPlayer.cs" />
+    <Compile Include="Haptics\EffectHelpers\FakeInstance.cs" />
     <Compile Include="Haptics\EffectLoop.cs" />
     <Compile Include="Haptics\EffectManagers\EffectLoopRegistry.cs" />
     <Compile Include="Haptics\EffectManagers\EffectEventsDispatcher.cs" />
     <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
     <Compile Include="Haptics\Loaders\InitializeByteEffects.cs" />
     <Compile Include="Haptics\PatternManager.cs" />
+    <Compile Include="Haptics\Patterns\Climbing.cs" />
+    <Compile Include="Haptics\Patterns\Defib.cs" />
     <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
     <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
     <Compile Include="Haptics\Patterns\DropItem.cs" />
@@ -133,24 +148,38 @@
     <Compile Include="Haptics\Patterns\FirearmFire.cs" />
     <Compile Include="Haptics\Patterns\FistBump.cs" />
     <Compile Include="Haptics\Patterns\FlyingAir.cs" />
+    <Compile Include="Haptics\Patterns\Food.cs" />
+    <Compile Include="Haptics\Patterns\GameState.cs" />
     <Compile Include="Haptics\Patterns\HapticUtils.cs" />
+    <Compile Include="Haptics\Patterns\Health.cs" />
+    <Compile Include="Haptics\Patterns\KatanaHit.cs" />
+    <Compile Include="Haptics\Patterns\KatanaShield.cs" />
+    <Compile Include="Haptics\Patterns\MeleeDamageableHit.cs" />
+    <Compile Include="Haptics\Patterns\MeleeVelocity.cs" />
     <Compile Include="Haptics\Patterns\PickupItem.cs" />
     <Compile Include="Haptics\Patterns\PlayerHit.cs" />
     <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
+    <Compile Include="Haptics\Patterns\PodLifecycle.cs" />
     <Compile Include="Haptics\Patterns\ReloadWeapon.cs" />
     <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
+    <Compile Include="Haptics\Patterns\ZoneDamage.cs" />
+    <Compile Include="Helpers\BindGlobals.cs" />
     <Compile Include="Mod.cs" />
     <Compile Include="MonoBehaviours\DebugMarker.cs" />
     <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
     <Compile Include="MonoBehaviours\GeneralTouchCollider.cs" />
     <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
+    <Compile Include="MonoBehaviours\MeleeVelocity.cs" />
     <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
     <Compile Include="MonoBehaviours\SendTouch.cs" />
     <Compile Include="MonoBehaviours\TouchCollider.cs" />
     <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
     <Compile Include="MonoBehaviours\VelocityTracker.cs" />
+    <Compile Include="Patches\BattleContextView.cs" />
     <Compile Include="Patches\DestructibleSceneItem.cs" />
     <Compile Include="Patches\FriendProgressPopup.cs" />
+    <Compile Include="Patches\MeleeCollisionDetector.cs" />
+    <Compile Include="Patches\MeleeShield.cs" />
     <Compile Include="Patches\PlayerDropPod.cs" />
     <Compile Include="Patches\PlayerDefib.cs" />
     <Compile Include="Patches\HandControllerMediator.cs" />
@@ -159,9 +188,8 @@
     <Compile Include="Patches\PlayerBuffUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerContainer.cs" />
     <Compile Include="Patches\LootItem.cs" />
-    <Compile Include="Patches\PlayerFirearmUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerInventory.cs" />
-    <Compile Include="Patches\TestPatches.cs" />
+    <Compile Include="Patches\PlayerMelee.cs" />
     <Compile Include="Patches\UnetGameManager.cs" />
     <Compile Include="Patreon.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,8 +211,12 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(TargetDir)\haptics.json" LogicalName="$(TargetName).haptics.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
+    <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(ProjectDir)/Assets/Effects" "$(TargetDir)/haptics.json"</PreBuildEvent>
     <PostBuildEvent>^
 $(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll &amp;&amp; ^
 xcopy /y "$(TargetDir)$(TargetName)-Merged.dll" "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods\$(TargetName).dll*"

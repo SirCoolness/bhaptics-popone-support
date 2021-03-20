@@ -1,4 +1,6 @@
 ﻿using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {
@@ -27,25 +29,45 @@ namespace BhapticsPopOne.Haptics.Patterns
 
 
             currentFistbump = preferredHand;
-            
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}", new ScaleOption(1f, time));
-            
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}", new ScaleOption(1f, time));
+
+
+            if (DynConfig.Toggles.Arms.FistBumpFriend)
+            {
+                EffectPlayer.Play($"Arm/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
+                EffectPlayer.Play($"Arm/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}",
+                    new Effect.EffectProperties
+                    {
+                        Time = time
+                    });
+            }
+
+            if (DynConfig.Toggles.Hands.FistBumpFriend)
+            {
+                EffectPlayer.Play($"Hand/FistBumpHit{HapticUtils.HandExt(currentFistbump)}");
+                EffectPlayer.Play($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}",
+                    new Effect.EffectProperties
+                    {
+                        Time = time
+                    });
+            }
         }
 
         public static void Stop(bool finished)
         {
             if (finished)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/FistBump{HapticUtils.HandExt(currentFistbump)}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
+                if (DynConfig.Toggles.Vest.FistBumpComplete)
+                    EffectPlayer.Play($"Vest/FistBump{HapticUtils.HandExt(currentFistbump)}");
+                
+                if (DynConfig.Toggles.Arms.FistBumpComplete)
+                    EffectPlayer.Play($"Arm/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
+                
+                if (DynConfig.Toggles.Hands.FistBumpComplete)
+                    EffectPlayer.Play($"Hand/FistBumpComplete{HapticUtils.HandExt(currentFistbump)}");
             }
             
-            Mod.Instance.Haptics.Player.TurnOff($"Arm/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}");
-            Mod.Instance.Haptics.Player.TurnOff($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}");
+            EffectPlayer.Stop($"Arm/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}");
+            EffectPlayer.Stop($"Hand/FistBumpStarted{HapticUtils.HandExt(currentFistbump)}");
 
             currentFistbump = Handedness.Unknown;
         }

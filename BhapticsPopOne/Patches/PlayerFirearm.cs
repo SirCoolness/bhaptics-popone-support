@@ -20,7 +20,7 @@ namespace BhapticsPopOne.Data
             if (__instance.container != Mod.Instance.Data.Players.LocalPlayerContainer)
                 return;
             
-            FirearmFire.Execute(__instance.usableBehaviour.Info.Class, __instance.usableBehaviour.Info.name);
+            FirearmFire.Execute(__instance.usableBehaviour.Info.Class, __instance.usableBehaviour.Info.Type);
         }
     }
 }

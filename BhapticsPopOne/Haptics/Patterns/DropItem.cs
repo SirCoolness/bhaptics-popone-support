@@ -1,4 +1,6 @@
 ﻿using System;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -19,7 +21,8 @@ namespace BhapticsPopOne.Haptics.Patterns
                 effectExtension = "_R";
             }
             
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/DropItem{effectExtension}");
+            if (DynConfig.Toggles.Vest.DropItem)
+                EffectPlayer.Play($"Vest/DropItem{effectExtension}");
         }
     }
 }

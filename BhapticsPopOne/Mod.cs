@@ -9,6 +9,7 @@ using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Patches;
 using MelonLoader;
 using UnityEngine;
+using SceneConfig = BhapticsPopOne.ConfigManager.ConfigElements.SceneConfig;
 using String = System.String;
 
 namespace BhapticsPopOne
@@ -40,6 +41,8 @@ namespace BhapticsPopOne
         public Data.Data Data;
         public ConnectionManager Haptics;
 
+        public bool Disabled { get; private set; } = false;
+
         public Mod()
         {
             _initLoggingContext = new LoggingContext("init");
@@ -67,11 +70,11 @@ namespace BhapticsPopOne
 
             RootInit();
             
+            FileHelpers.EnforceDirectory();
             ConfigLoader.InitConfig();
+            ConfigManager.DynConfig.UpdateConfig(ConfigManager.DynConfig.SceneMode.General);
             
             Patreon.Run(); // (●'◡'●)
-            
-            // Validation();
             
             MonoBehavioursLoader.Inject();
             
@@ -102,32 +105,6 @@ namespace BhapticsPopOne
         {
             Haptics = new ConnectionManager();
         }
-        
-        // private void Validation()
-        // {
-        //     var validationLogContext = new LoggingContext("validation", _initLoggingContext);
-        //     
-        //     // var patchTester = new TestPatches();
-        //     var failedMethods = new List<MethodInfo>();
-        //
-        //     var status = patchTester.Test(failedMethods);
-        //     
-        //     if (status) {
-        //         MelonLogger.Log($"{validationLogContext.Prefix} Methods have been patched successfully");
-        //     }
-        //     else
-        //     {
-        //         string failedMethodsMessage = String.Join(", ", failedMethods.Select(x =>
-        //         {
-        //             var delaringClass = x.DeclaringType;
-        //             if (delaringClass == null) return x.Name;
-        //             return $"{delaringClass.Name}.{x.Name}";
-        //         }));
-        //         
-        //         MelonLogger.Log($"{validationLogContext.Prefix} Some methods failed to be patched. Exiting early. ({failedMethods.Count})[{failedMethodsMessage}]");
-        //         Application.Quit();
-        //     }
-        // }
 
         private void StartServices()
         {
@@ -145,9 +122,12 @@ namespace BhapticsPopOne
         
         public override void OnFixedUpdate()
         {
-            base.OnFixedUpdate();
+            if (Disabled)
+                return;
             
             _effectLoop.FixedUpdate();
+            KatanaShield.FixedUpdate();
+            ZoneDamage.OnFixedUpdate();
             // TestOcilate.FixedUpdate();
         }
 
@@ -156,21 +136,26 @@ namespace BhapticsPopOne
             EffectLoopRegistry.Update();
         }
 
-        public override void OnLevelWasLoaded(int level)
-        {
-            base.OnLevelWasLoaded(level);
-            
-            // clear when level reloads to avoid memory overflow
-            ReloadWeapon.PreviousStateMap.Clear();
-            
-            // MelonLogger.Log("load level");
-        }
-
         public override void OnLevelWasInitialized(int level)
         {
             EffectLoopRegistry.LevelInit();
             DrinkSoda.Clear();
+            KatanaShield.Execute(false);
+            ZoneDamage.Clear();
+            BhapticsPopOne.Haptics.Patterns.MeleeVelocity.Reset();
             // MelonLogger.Log("init level");
+            
+            Data.Players.Reset();
+        }
+
+        public void Disable()
+        {
+            if (Disabled)
+                return;
+            
+            harmonyInstance.UnpatchAll();
+            
+            Disabled = true;
         }
     }
 }

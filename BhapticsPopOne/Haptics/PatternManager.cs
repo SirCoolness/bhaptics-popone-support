@@ -7,188 +7,132 @@ using UnityEngine;
 using System.IO;
 using System.Collections;
 using System.Collections.Generic;
+using System.Reflection;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.Loaders;
+using BhapticsPopOne.Haptics.Patterns;
 
 namespace BhapticsPopOne.Haptics
 {
-    // TODO: NO
     public class PatternManager
     {
-        public static string RootDirectory => FileHelpers.RootDirectory + @"\Effects";
         // an effects name is "{gear}/{effect name}"
         
         // The subdirectories of effects
         // this can be used to organize effects based on piece of equipment
-        public static string[] subdirectories = new[]
+        private static HashSet<string> subdirectories = new HashSet<string>(new[]
         {
             "Vest",
             "Arm",
             "Head",
             "Hand",
             "Foot"
-        };
+        });
 
         public static float VestHeight = 0.35f;
         public static float VestCenterOffset = 0.2f;
         
         public static Dictionary<string, Effect> Effects = new Dictionary<string, Effect>();
 
-        public static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
+        private static readonly Dictionary<string, uint> PoolSettings = new Dictionary<string, uint>
         {
             ["Vest/ReceiveTouch"] = 32,
-            ["Vest/InitialTouch"] = 8
+            ["Vest/InitialTouch"] = 8,
+            ["Vest/RecoilLevel9001_R"] = 5,
+            ["Vest/RecoilLevel9001_L"] = 5,
+            ["Vest/RecoilLevel3_R"] = 5,
+            ["Vest/RecoilLevel3_L"] = 5,
+            ["Vest/RecoilLevel2_R"] = 5,
+            ["Vest/RecoilLevel2_L"] = 5,
+            ["Vest/RecoilLevel1_R"] = 5,
+            ["Vest/RecoilLevel1_L"] = 5,
+            ["Arm/RecoilLevel9001_R"] = 5,
+            ["Arm/RecoilLevel9001_L"] = 5,
+            ["Arm/RecoilLevel3_R"] = 5,
+            ["Arm/RecoilLevel3_L"] = 5,
+            ["Arm/RecoilLevel2_R"] = 5,
+            ["Arm/RecoilLevel2_L"] = 5,
+            ["Arm/RecoilLevel1_R"] = 5,
+            ["Arm/RecoilLevel1_L"] = 5,
         };
         
         // loads all subdirectories
         // TODO: change to recursive
         public static void LoadPatterns()
         {
-            foreach (var subdirectory in subdirectories)
+            var rawHaptics = LoadInlineFile();
+            if (rawHaptics == null)
             {
-                LoadSubDirectory(subdirectory);
+                MelonLogger.LogError("Failed read haptics file");
+                Mod.Instance.Disable();
+                return;
+            }
+
+            var parsedHaptics = ParseHaptics(rawHaptics);
+            if (parsedHaptics == null)
+            {
+                MelonLogger.LogError("Failed to parse contents");
+                Mod.Instance.Disable();
+                return;
             }
             
+            ImportHaptics(parsedHaptics);
             InitializeByteEffects.Init();
         }
-        
-        // loads a set of patterns in a subdirectory
-        // prefixes them with that subdirectory
-        public static void LoadSubDirectory(string subdirectory)
+
+        private static void ImportEffect(string key, string label, JSONObject contents)
         {
-            string baseDir = RootDirectory + $"\\{subdirectory}";
-            var files = Directory.GetFiles(baseDir);
-
-            foreach (var file in files)
-            {
-                var label = Path.GetFileNameWithoutExtension(file);
-
-                var effect = new Effect($"{subdirectory}/{label}", file);
-                Effects[effect.Name] = effect;
-
-                if (PoolSettings.ContainsKey(effect.Name))
-                    effect.PoolSize = PoolSettings[effect.Name];
-
-                Mod.Instance.Haptics.Player.Register(effect.Name, effect.Contents);
-
-                if (ConfigLoader.Config.ShowLoadedEffects)
-                    MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
-            }
-        }
-
-        public static void ZoneHit()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ZoneDamage", 0.25f);
-        }
-
-        public static void EatBanana(BuffState state)
-        { 
-            if (state != BuffState.Consumed)
-                return;
+            var effect = new Effect($"{key}/{label}", contents);
+            Effects[effect.Name] = effect;
             
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ConsumeItem");
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/BananaHeal");
-        }
-
-        public static void LowHealthHeartbeat()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/HeartbeatMultiple");
-        }
-        
-        public static void EnteringPod()
-        {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/EnteringPod"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/EnteringPod");
-            }
+            if (PoolSettings.ContainsKey(effect.Name))
+                effect.PoolSize = PoolSettings[effect.Name];
             
+            if (ConfigLoader.Config.Toggles.ShowLoadedEffects)
+                MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
         }
-        public static void LaunchingPod()
+        
+        private static void ImportHaptics(JSONObject hapticsObj)
         {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/LaunchingPod"))
+            foreach (var section in hapticsObj)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/LaunchingPod");
+                if (!subdirectories.Contains(section.Key))
+                    continue;
+                
+                if (!section.Value.IsObject)
+                    continue;
+
+                foreach (var effect in section.Value)
+                {
+                    if (!effect.Value.IsObject)
+                        continue;
+                    
+                    ImportEffect(section.Key, effect.Key, effect.Value.AsObject);
+                }
             }
+        }
+        
+        private static JSONObject ParseHaptics(string rawData)
+        {
+            return JSONObject.Parse(rawData).AsObject;
+        }
+
+        private static string LoadInlineFile()
+        {
+            string rawHaptics = null;
+
+            using (var stream = Assembly.GetExecutingAssembly()
+                .GetManifestResourceStream("BhapticsPopOne.haptics.json"))
+            using (var streamReader = new StreamReader(stream))
+            {
+                rawHaptics = streamReader.ReadToEnd();
+            }
+
+            if (rawHaptics == null || rawHaptics.Length < 2)
+                return null;
             
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Foot/LaunchingPod"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Foot/LaunchingPod");
-            }
-        }
-
-        public static void DuringPod()
-        {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/DuringPod"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/DuringPod");
-            }
-            
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Foot/DuringPod"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Foot/DuringPod");
-            }
-        }
-        
-        public static void RubbingDefib()
-        {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/RubbingDefib_B"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/RubbingDefib_B");
-            }
-
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/RubbingDefib"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/RubbingDefib");
-            }
-        }
-
-        public static void ChargedDefib()
-        {
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Arm/ChargedDefib_B"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/ChargedDefib_B");
-            }
-
-            if (!Mod.Instance.Haptics.Player.IsPlaying("Vest/ChargedDefib"))
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ChargedDefib");
-            }
-        }
-
-        public static void Climbing(Handedness value)
-        {
-            if(value == Handedness.Left)
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_L");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Hand/Climbing_L");
-                if (ConfigLoader.Config.VestClimbEffects)
-                    Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_L");
-            }
-
-            if (value == Handedness.Right)
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Arm/Climbing_R");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Hand/Climbing_R");
-                if (ConfigLoader.Config.VestClimbEffects)
-                    Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Climbing_R");
-            }
-
-        }
-
-        public static void ShieldBreak()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/ShieldBreak");
-        }
-        
-        public static void ShieldFull()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FullShield");
-        }
-        
-        public static void Victory()
-        {
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/Win");
+            return rawHaptics;
         }
     }
 }

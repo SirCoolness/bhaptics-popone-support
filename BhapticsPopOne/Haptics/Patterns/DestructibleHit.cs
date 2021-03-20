@@ -1,4 +1,7 @@
-﻿namespace BhapticsPopOne.Haptics.Patterns
+﻿using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
+
+namespace BhapticsPopOne.Haptics.Patterns
 {
     public class DestructibleHit
     {
@@ -15,9 +18,14 @@
                 effectExtension = "_R";
             }
             
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/DestructibleHit{effectExtension}");
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Arm/DestructibleHit{effectExtension}");
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Hand/DestructibleHit{effectExtension}");
+            if (DynConfig.Toggles.Vest.DestructibleHit)
+                EffectPlayer.Play($"Vest/DestructibleHit{effectExtension}");
+            
+            if (DynConfig.Toggles.Arms.DestructibleHit)
+                EffectPlayer.Play($"Arm/DestructibleHit{effectExtension}");
+            
+            if (DynConfig.Toggles.Hands.DestructibleHit)
+                EffectPlayer.Play($"Hand/DestructibleHit{effectExtension}");
         }
     }
 }

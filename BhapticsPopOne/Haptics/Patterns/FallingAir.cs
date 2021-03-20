@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
 using UnityEngine;
@@ -30,6 +31,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Execute(bool wasFlying)
         {
+            if (!DynConfig.Toggles.Vest.FallingWind)
+                return;
+            
             var player = Mod.Instance.Data.Players.LocalPlayerContainer;
             var absVelocity = Mathf.Abs(player.RigidbodyVelocity.y);
             Execute(absVelocity, wasFlying);
@@ -37,6 +41,9 @@ namespace BhapticsPopOne.Haptics.Patterns
         
         public static void Execute(float absVelocity, bool wasFlying)
         {
+            if (!DynConfig.Toggles.Vest.FallingWind)
+                return;
+            
             if (FlyingVariants == 0 || MaxEffectCount == 0 || StrengthTarget == 0 || SpeedTarget == 0 || ConcurrentTarget == 0)
                 return;
 
@@ -57,15 +64,16 @@ namespace BhapticsPopOne.Haptics.Patterns
             float fallSpeed = Mathf.Lerp(1f, 0.3f, fallSpeedProgress);
             int effectCount = Mathf.FloorToInt(Mathf.Lerp(1, MaxEffectCount, fallCountProgress));
 
-            // MelonLogger.Log($"[{Logging.StringifyVector3(player.RigidbodyVelocity)}] [{fallStrengthProgress} {fallSpeedProgress} {fallCountProgress}] [{fallStrength} {fallSpeed} {effectCount}] {ActiveEffects.Count}");
-
             EffectManager.DispatchEffect(effectCount, (name) =>
             {
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation(
+                EffectPlayer.Play(
                     name, 
-                    name, 
-                    new RotationOption(ProceduralEffect.RandomVestRotation, 0f), 
-                    new ScaleOption(fallStrength, fallSpeed)
+                    new Effect.EffectProperties
+                    {
+                        XRotation = ProceduralEffect.RandomVestRotation,
+                        Strength = fallStrength,
+                        Time = fallSpeed
+                    }
                 );
             });
         }

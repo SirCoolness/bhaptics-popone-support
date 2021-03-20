@@ -1,6 +1,7 @@
 ﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.MonoBehaviours;
+using MelonLoader;
 using UnityEngine;
 
 namespace BhapticsPopOne
@@ -14,36 +15,53 @@ namespace BhapticsPopOne
             // is this the way to do things, no.
             Collider[] leftIgnore;
             Collider[] rightIgnore;
-
-            var leftRBRes = AddColliderHand(player.Avatar?.HandLeftAttachPoint?.gameObject, Handedness.Left);
-            var rightRBRes = AddColliderHand(player.Avatar?.HandRightAttachPoint?.gameObject, Handedness.Right);
-
-            if (leftRBRes == null)
-                leftIgnore = new Collider[]
-                {
-                    player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>()
-                };
-            else
-                leftIgnore = new Collider[]
-                {
-                    player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>(),
-                    leftRBRes.GetComponent<SphereCollider>()
-                };
             
-            if (rightRBRes == null)
-                rightIgnore = new Collider[]
-                {
-                    player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>()
-                };
-            else
-                rightIgnore = new Collider[]
-                {
-                    player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>(),
-                    rightRBRes.GetComponent<SphereCollider>()
-                };
+            if (!ConfigLoader.Config.Toggles.LowPerformanceMode)
+            {
+                var leftRBRes = AddColliderHand(player.Avatar?.HandLeftAttachPoint?.gameObject, Handedness.Left);
+                var rightRBRes = AddColliderHand(player.Avatar?.HandRightAttachPoint?.gameObject, Handedness.Right);
+
+                if (leftRBRes == null)
+                    leftIgnore = new Collider[]
+                    {
+                        player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>()
+                    };
+                else
+                    leftIgnore = new Collider[]
+                    {
+                        player.Avatar.HandLeft.gameObject.GetComponent<CapsuleCollider>(),
+                        leftRBRes.GetComponent<SphereCollider>()
+                    };
             
-            ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar?.HandLeftAttachPoint?.gameObject, leftIgnore));
-            ApplyComponents(player.netId, Handedness.Right, AddHand(player.Avatar?.HandRightAttachPoint?.gameObject, rightIgnore));
+                if (rightRBRes == null)
+                    rightIgnore = new Collider[]
+                    {
+                        player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>()
+                    };
+                else
+                    rightIgnore = new Collider[]
+                    {
+                        player.Avatar.HandRight.gameObject.GetComponent<CapsuleCollider>(),
+                        rightRBRes.GetComponent<SphereCollider>()
+                    };
+            }
+            else
+            {
+                leftIgnore = new Collider[]{};
+                rightIgnore = new Collider[]{};
+            }
+
+            if (!ConfigLoader.Config.Toggles.LowPerformanceMode)
+            {
+                ApplyComponents(player.netId, Handedness.Left, AddHand(player.Avatar?.HandLeftAttachPoint?.gameObject, leftIgnore));
+                ApplyComponents(player.netId, Handedness.Right,
+                    AddHand(player.Avatar?.HandRightAttachPoint?.gameObject, rightIgnore));
+            }
+            else
+            {
+                ApplyComponents(player.netId, Handedness.Left, player.Avatar?.HandLeftAttachPoint?.gameObject);
+                ApplyComponents(player.netId, Handedness.Right, player.Avatar?.HandRightAttachPoint?.gameObject);
+            }
         }
 
         private static GameObject AddColliderHand(GameObject dest, Handedness hand)
@@ -120,6 +138,25 @@ namespace BhapticsPopOne
             // TouchCollider.BindToTransform(dest.transform);
             // GeneralTouchCollider.BindToTransform(dest.transform);
 
+            // MelonLogger.Log($"adding trackers {PlayerContainer.Find(netId)?.isLocalPlayer} {dest.gameObject.GetComponent<MeleeVelocity>()}");
+            
+            VelocityTracker velocityTracker;
+            if (dest.GetComponent<VelocityTracker>() == null)
+                velocityTracker = dest.gameObject.AddComponent<VelocityTracker>();
+            else
+                velocityTracker = dest.GetComponent<VelocityTracker>();
+
+            PlayerContainer player;
+            if (PlayerContainer.TryFind(netId, out player) && player.isLocalPlayer && dest.gameObject.GetComponent<MeleeVelocity>() == null)
+            {
+                var meleeVelocity = dest.gameObject.AddComponent<MeleeVelocity>();
+                meleeVelocity.Target = velocityTracker;
+                meleeVelocity.Hand = hand;
+            }
+
+            if (ConfigLoader.Config.Toggles.LowPerformanceMode)
+                return;
+            
             if (Mod.Instance.Data.Players.LocalPlayerContainer.netId != netId)
             {
                 if (ConfigLoader.Config.Toggles.PlayerTouching)

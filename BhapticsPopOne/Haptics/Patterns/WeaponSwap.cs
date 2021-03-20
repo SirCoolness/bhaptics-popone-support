@@ -1,4 +1,6 @@
 ﻿using System;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -19,18 +21,23 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void CancelLastPlayback()
         {
-            Mod.Instance.Haptics.Player.TurnOff(lastVestEffect);
-            Mod.Instance.Haptics.Player.TurnOff(lastArmEffect);
-            Mod.Instance.Haptics.Player.TurnOff(lastHandEffect);
+            EffectPlayer.Stop(lastVestEffect);
+            EffectPlayer.Stop(lastArmEffect);
+            EffectPlayer.Stop(lastHandEffect);
         }
 
         public static void PlayDraw()
         {
             CancelLastPlayback();
             
-            Mod.Instance.Haptics.Player.SubmitRegistered($"Vest/SelectItem{EffectExtension()}");
-            Mod.Instance.Haptics.Player.SubmitRegistered( $"Arm/SelectItem{EffectExtension()}");
-            Mod.Instance.Haptics.Player.SubmitRegistered( $"Hand/SelectItem{EffectExtension()}");
+            if (DynConfig.Toggles.Vest.SelectItem)
+                EffectPlayer.Play($"Vest/SelectItem{EffectExtension()}");
+            
+            if (DynConfig.Toggles.Arms.SelectItem)
+                EffectPlayer.Play( $"Arm/SelectItem{EffectExtension()}");
+            
+            if (DynConfig.Toggles.Hands.SelectItem)
+                EffectPlayer.Play( $"Hand/SelectItem{EffectExtension()}");
         }
 
         public static void PlayHide()
@@ -38,10 +45,15 @@ namespace BhapticsPopOne.Haptics.Patterns
             lastVestEffect = $"Vest/HideWeapon{EffectExtension()}";
             lastArmEffect = $"Arm/HideWeapon{EffectExtension()}";
             lastHandEffect = $"Hand/HideWeapon{EffectExtension()}";
+         
+            if (DynConfig.Toggles.Vest.HideItem)
+                EffectPlayer.Play(lastVestEffect);
             
-            Mod.Instance.Haptics.Player.SubmitRegistered(lastVestEffect);
-            Mod.Instance.Haptics.Player.SubmitRegistered(lastArmEffect);
-            Mod.Instance.Haptics.Player.SubmitRegistered(lastHandEffect);
+            if (DynConfig.Toggles.Arms.HideItem)
+                EffectPlayer.Play(lastArmEffect);
+            
+            if (DynConfig.Toggles.Hands.HideItem)
+                EffectPlayer.Play(lastHandEffect);
         }
 
         private static string EffectExtension()

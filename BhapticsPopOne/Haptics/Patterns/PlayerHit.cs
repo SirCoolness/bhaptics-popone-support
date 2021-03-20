@@ -1,5 +1,7 @@
 ﻿using System;
 using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using BigBoxVR.BattleRoyale.Models.Shared;
 using MelonLoader;
 using UnityEngine;
@@ -23,7 +25,8 @@ namespace BhapticsPopOne.Haptics.Patterns
             InventoryItemType.FirearmShotgunDT11,
             InventoryItemType.FirearmShotgunM1014,
             InventoryItemType.FirearmSniperSako85,
-            InventoryItemType.FirearmSniperAWP
+            InventoryItemType.FirearmSniperAWP,
+            InventoryItemType.FirearmAssaultM60,
         };
 
         private static InventoryItemType[] ExplosionItems = new[]
@@ -63,41 +66,71 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (Array.Exists(Shotguns, el => el == info.Weapon))
             {
                 // TODO: add shotgun effect random variants
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Shotgun", new RotationOption(angle, offsetY));
+                if (DynConfig.Toggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_Shotgun", new Effect.EffectProperties
+                    {
+                        XRotation = angle
+                    });
                 return;
             }
 
-            if (info.HeadImpact)
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
-            }
+            if (DynConfig.Toggles.Face.BulletHit && info.HeadImpact)
+                EffectPlayer.Play($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
 
             var damage = info.Damage * -1;
 
             if (damage > 75)
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_HighDamage", new RotationOption(angle, offsetY));
+            {
+                if (DynConfig.Toggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_HighDamage", new Effect.EffectProperties
+                    {
+                        XRotation = angle,
+                        YOffset = offsetY
+                    });
+            }
             else if (damage > 19)
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level2", new RotationOption(angle, offsetY));
-            else
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/BulletHit_Level1", new RotationOption(angle, offsetY));
+            {
+                if (DynConfig.Toggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_Level2", new Effect.EffectProperties
+                    {
+                        XRotation = angle,
+                        YOffset = offsetY
+                    });
+            }
+            else {
+                if (DynConfig.Toggles.Vest.BulletHit)
+                    EffectPlayer.Play("Vest/BulletHit_Level1", new Effect.EffectProperties
+                    {
+                        XRotation = angle,
+                        YOffset = offsetY
+                    });
+            }
         }
 
         public static void ExplosionHit(DamageableHitInfo info, float angle)
         {
             var damage = info.Damage * -1;
 
-            if (info.HeadImpact)
-            {
-                Mod.Instance.Haptics.Player.SubmitRegistered($"Head/ExplosionHit_[{Random.RandomRangeInt(1, 3)}]");
-            }
+            if (DynConfig.Toggles.Face.ExplosionHit && info.HeadImpact)
+                EffectPlayer.Play($"Head/ExplosionHit_[{Random.RandomRangeInt(1, 3)}]");
 
             // TODO: add level in between
             // TODO: You can use ScaleOption!
             if (damage > 60)
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/ExplosionHit_Level2", new RotationOption(angle, 0f));
+            {
+                if (DynConfig.Toggles.Vest.ExplosionHit)
+                    EffectPlayer.Play("Vest/ExplosionHit_Level2", new Effect.EffectProperties
+                    {
+                        XRotation = angle
+                    });
+            }
             else
             {
-                Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/ExplosionHit_Level1", new RotationOption(angle, 0f));
+                if (DynConfig.Toggles.Vest.ExplosionHit)
+                    EffectPlayer.Play("Vest/ExplosionHit_Level1", new Effect.EffectProperties
+                    {
+                        XRotation = angle
+                    });
             }
         }
     }

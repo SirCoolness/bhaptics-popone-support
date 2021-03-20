@@ -1,5 +1,7 @@
 ﻿using System;
 using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Patterns
@@ -10,13 +12,22 @@ namespace BhapticsPopOne.Haptics.Patterns
         {
             if (damage >= 25)
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallDamage_Level2");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Foot/FallDamage", new ScaleOption(1f, 1f));
+                if (DynConfig.Toggles.Vest.FallDamage)
+                    EffectPlayer.Play("Vest/FallDamage_Level2");
+                
+                if (DynConfig.Toggles.Feet.FallDamage)
+                    EffectPlayer.Play("Foot/FallDamage");
             }
             else
             {
-                Mod.Instance.Haptics.Player.SubmitRegistered("Vest/FallDamage_Level1");
-                Mod.Instance.Haptics.Player.SubmitRegistered("Foot/FallDamage", new ScaleOption(0.6f, 1f));
+                if (DynConfig.Toggles.Vest.FallDamage)
+                    EffectPlayer.Play("Vest/FallDamage_Level1");
+                
+                if (DynConfig.Toggles.Feet.FallDamage)
+                    EffectPlayer.Play("Foot/FallDamage", new Effect.EffectProperties
+                    {
+                        Strength = 0.6f
+                    });
             }
         }
     }

@@ -1,4 +1,7 @@
 ﻿using Bhaptics.Tact;
+using BhapticsPopOne.ConfigManager;
+using BhapticsPopOne.Haptics.EffectHelpers;
+using Coffee.UIExtensions;
 using MelonLoader;
 using UnityEngine;
 
@@ -8,6 +11,9 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         public static void Execute(Vector3 point, Vector3 direction)
         {
+            if (!DynConfig.Toggles.Vest.Revived)
+                return;
+            
             var vestRef = Mod.Instance.Data.Players.VestReference();
             if (vestRef == null)
             {
@@ -18,10 +24,11 @@ namespace BhapticsPopOne.Haptics.Patterns
             Vector3 forward = Quaternion.Euler(0, -90f, 0) * vestRef.forward;
             var angle = BhapticsUtils.Angle(forward, -direction);
 
-            // float offsetY = Mathf.Clamp((point.y - vestRef.position.y) / PatternManager.VestHeight, -0.5f, 0.5f);
-            Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation("Vest/Revived", new RotationOption(angle, 0));
-            Mod.Instance.Haptics.Player.SubmitRegistered("Vest/RevivedHeartbeat");
-
+            EffectHelpers.EffectPlayer.Play("Vest/Revived", new Effect.EffectProperties
+            {
+                XRotation = angle
+            });
+            EffectHelpers.EffectPlayer.Play("Vest/RevivedHeartbeat");
         }
     }
 }
