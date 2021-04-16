@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
@@ -12,6 +12,7 @@
     <AssemblyName>BhapticsPopOne</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <GameDir><!-- write game dir here --></GameDir>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,71 +35,71 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="Bhaptics.Tact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\Bhaptics.Tact.dll</HintPath>
     </Reference>
     <Reference Include="GameLiftServerSDKNet45, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\GameLiftServerSDKNet45.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\GameLiftServerSDKNet45.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Il2Cppmscorlib.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
     </Reference>
     <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Il2CppSystem.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Il2CppSystem.dll</HintPath>
     </Reference>
     <Reference Include="Il2CppSystem.Core, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Il2CppSystem.Core.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Il2CppSystem.Core.dll</HintPath>
     </Reference>
     <Reference Include="Il2CppSystem.Reflection, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Il2CppSystem.Reflection.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Il2CppSystem.Reflection.dll</HintPath>
     </Reference>
     <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\MelonLoader.ModHandler.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
     </Reference>
     <Reference Include="Mirror, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Mirror.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Mirror.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\deps\mscorlib.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\mscorlib.dll</HintPath>
     </Reference>
     <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\deps\System.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\deps\System.Data.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\System.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\System.Windows.Forms.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\System.Windows.Forms.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>..\deps\System.Xml.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\System.Xml.dll</HintPath>
     </Reference>
     <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\UnhollowerBaseLib.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Unity.Collections.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Unity.Mathematics.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\UnityEngine.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -219,7 +220,7 @@
     <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(ProjectDir)/Assets/Effects" "$(TargetDir)/haptics.json"</PreBuildEvent>
     <PostBuildEvent>^
 $(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll &amp;&amp; ^
-xcopy /y "$(TargetDir)$(TargetName)-Merged.dll" "C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\Mods\$(TargetName).dll*"
+xcopy /y "$(TargetDir)$(TargetName)-Merged.dll" "$(GameDir)\Mods\$(TargetName).dll*"
     </PostBuildEvent>
   </PropertyGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

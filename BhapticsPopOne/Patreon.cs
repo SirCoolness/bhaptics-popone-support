@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using MelonLoader;
@@ -44,7 +44,8 @@ namespace BhapticsPopOne
             "ZstormGames",
             "NerdNational",
             "Anonymous Supporter",
-            "TheMysticle"
+            "TheMysticle",
+            "Rasta"
         };
 
         /**
@@ -57,6 +58,7 @@ namespace BhapticsPopOne
          * - NerdNational
          * - Anonymous Supporter [JR]
          * - TheMysticle
+         * - Rasta
          */
         public static void ThankBurgerKing()
         {
@@ -79,7 +81,8 @@ namespace BhapticsPopOne
             "Ham VR",
             "Delistd",
             "Sky Candy",
-            "Mike."
+            "Mike.",
+            "Maker124"
         };
 
         /**
@@ -92,6 +95,7 @@ namespace BhapticsPopOne
          * - Delistd
          * - Sky Candy
          * - Mike.
+         * - Maker124
          */
         public static void ThankCoffee()
         {
