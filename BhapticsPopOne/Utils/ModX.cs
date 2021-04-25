@@ -96,7 +96,7 @@ public static class ModX
         for (int i = 0; i < 32; i++)
         {
             if (!Physics.GetIgnoreLayerCollision(i, extra))
-                MelonLogger.Log(ConsoleColor.Green, $"Self Collision on {i}");
+                MelonLogger.Msg(ConsoleColor.Green, $"Self Collision on {i}");
         }
     }
     
@@ -106,7 +106,7 @@ public static class ModX
         Resources.Load<Material>("MainMenu--Batched");
         foreach (var material in materials)
         {
-            MelonLogger.Log(material.name);
+            MelonLogger.Msg(material.name);
         }
     }
     
@@ -173,7 +173,7 @@ public static class ModX
     public static void Simulate(int amount)
     {
         Physics.Simulate(amount);
-        MelonLogger.Log(ConsoleColor.Red, Physics.autoSimulation);
+        MelonLogger.Msg(ConsoleColor.Red, Physics.autoSimulation);
     }
 
     public static void Start()
@@ -201,7 +201,7 @@ public static class ModX
     {
         var server = GameObject.FindObjectOfType<NetworkingHost>();
         var serverDiscovery = server.GetComponent<BigBoxServerDiscovery>();
-        MelonLogger.Log(server);
+        MelonLogger.Msg(server);
         
         server.StopServer();
         server.ConnectRule = NetworkingHost.Role.DedicatedServer;
@@ -229,6 +229,6 @@ public static class ModX
 
     public static void Check()
     {
-        MelonLogger.Log(Mod.Instance.Data.Players.LocalPlayerContainer);
+        MelonLogger.Msg(Mod.Instance.Data.Players.LocalPlayerContainer);
     }
 }

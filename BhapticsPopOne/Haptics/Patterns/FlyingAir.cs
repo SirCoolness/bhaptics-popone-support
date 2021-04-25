@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics.EffectHelpers;

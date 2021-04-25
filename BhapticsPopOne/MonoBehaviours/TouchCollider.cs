@@ -65,7 +65,7 @@ namespace BhapticsPopOne
             var vestRef = Mod.Instance.Data.Players.VestReference();
             if (vestRef == null)
             {
-                MelonLogger.LogWarning("Cant the reference transform for the vest.");
+                MelonLogger.Error("Cant the reference transform for the vest.");
                 return;
             }
             

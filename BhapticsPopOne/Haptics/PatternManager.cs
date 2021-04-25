@@ -1,5 +1,4 @@
 ﻿using System;
-using Bhaptics.Tact;
 using MelonLoader;
 using MelonLoader.ICSharpCode;
 using Unity;
@@ -12,6 +11,7 @@ using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.Loaders;
 using BhapticsPopOne.Haptics.Patterns;
+using Newtonsoft.Json.Linq;
 
 namespace BhapticsPopOne.Haptics
 {
@@ -21,7 +21,7 @@ namespace BhapticsPopOne.Haptics
         
         // The subdirectories of effects
         // this can be used to organize effects based on piece of equipment
-        private static HashSet<string> subdirectories = new HashSet<string>(new[]
+        private static HashSet<string> Positions = new HashSet<string>(new[]
         {
             "Vest",
             "Arm",
@@ -64,24 +64,26 @@ namespace BhapticsPopOne.Haptics
             var rawHaptics = LoadInlineFile();
             if (rawHaptics == null)
             {
-                MelonLogger.LogError("Failed read haptics file");
+                MelonLogger.Error("Failed read haptics file");
                 Mod.Instance.Disable();
                 return;
             }
 
-            var parsedHaptics = ParseHaptics(rawHaptics);
-            if (parsedHaptics == null)
+            JObject parsed;
+            try
             {
-                MelonLogger.LogError("Failed to parse contents");
+                parsed = JObject.Parse(rawHaptics);
+            } catch (Exception e) {
+                MelonLogger.Error($"Error during parsing: {e.Message}");
                 Mod.Instance.Disable();
                 return;
             }
             
-            ImportHaptics(parsedHaptics);
+            ImportHaptics(parsed);
             InitializeByteEffects.Init();
         }
 
-        private static void ImportEffect(string key, string label, JSONObject contents)
+        private static void ImportEffect(string key, string label, string contents)
         {
             var effect = new Effect($"{key}/{label}", contents);
             Effects[effect.Name] = effect;
@@ -90,32 +92,29 @@ namespace BhapticsPopOne.Haptics
                 effect.PoolSize = PoolSettings[effect.Name];
             
             if (ConfigLoader.Config.Toggles.ShowLoadedEffects)
-                MelonLogger.Log($"[Pattern Loader] Loaded [{effect.Name}]");
+                MelonLogger.Msg($"[Pattern Loader] Loaded [{effect.Name}]");
         }
         
-        private static void ImportHaptics(JSONObject hapticsObj)
+        private static void ImportHaptics(JObject hapticsObj)
         {
             foreach (var section in hapticsObj)
             {
-                if (!subdirectories.Contains(section.Key))
+                if (!Positions.Contains(section.Key.ToString()))
                     continue;
                 
-                if (!section.Value.IsObject)
+                if (section.Value.Type != JTokenType.Object)
                     continue;
 
-                foreach (var effect in section.Value)
+                var v = section.Value.Children();
+                foreach (var effect in section.Value.ToObject<JObject>())
                 {
-                    if (!effect.Value.IsObject)
+                    if (effect.Value.Type != JTokenType.Object)
                         continue;
-                    
-                    ImportEffect(section.Key, effect.Key, effect.Value.AsObject);
+
+                    MelonLogger.Msg($"{section.Key} {effect.Key} {effect.Value.ToString()}");
+                    //ImportEffect(section.Key, effect.Key, effect.Value.ToString());
                 }
             }
-        }
-        
-        private static JSONObject ParseHaptics(string rawData)
-        {
-            return JSONObject.Parse(rawData).AsObject;
         }
 
         private static string LoadInlineFile()

@@ -1,6 +1,6 @@
-﻿using Bhaptics.Tact;
-using BhapticsPopOne.Haptics.EffectHelpers;
+﻿using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.EffectManagers;
+using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.Loaders
 {
@@ -14,7 +14,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Arm/SendTouch_L", new ByteEffect
             {
-                Position = PositionType.ForearmL,
+                Position = bHaptics.PositionType.ForearmL,
                 Steps = new []
                 {
                     new ByteEffect.Step
@@ -42,7 +42,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Arm/SendTouch_R", new ByteEffect
             {
-                Position = PositionType.ForearmR,
+                Position = bHaptics.PositionType.ForearmR,
                 Steps = new []
                 {
                     new ByteEffect.Step
@@ -70,7 +70,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Hand/SendTouch_L", new ByteEffect
             {
-                Position = PositionType.HandL,
+                Position = bHaptics.PositionType.HandL,
                 Steps = new []
                 {
                     new ByteEffect.Step
@@ -96,7 +96,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Hand/SendTouch_R", new ByteEffect
             {
-                Position = PositionType.HandR,
+                Position = bHaptics.PositionType.HandR,
                 Steps = new []
                 {
                     new ByteEffect.Step

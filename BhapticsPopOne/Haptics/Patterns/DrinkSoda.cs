@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Threading.Tasks;
-using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BigBoxVR.BattleRoyale.Models.Shared;

@@ -1,4 +1,5 @@
-﻿using System;
+﻿#if PORT_DISABLE
+using System;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Data;
 using BhapticsPopOne.Haptics;
@@ -42,3 +43,4 @@ namespace BhapticsPopOne.Patches.PlayerContainer2
         }
     }
 }
+#endif

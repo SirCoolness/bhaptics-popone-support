@@ -2,7 +2,6 @@
 using System.Collections;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows.Forms;
 using BhapticsPopOne.ConfigManager.ConfigElements;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
@@ -11,14 +10,16 @@ using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 using YamlDotNet.Serialization.NodeDeserializers;
 
+using ConfigUpdateChoice = BhapticsPopOne.ConfigManager.UpdateGUI.ConfigUpdateChoice;
+
 namespace BhapticsPopOne.ConfigManager
 {
     public class ConfigLoader
     {
         public static Config Config { get; private set; }
 
-        public static string DefaultConfigPath => FileHelpers.RootDirectory + @"\settings.yml";
-        public static string RememberMeSettings => FileHelpers.RootDirectory + @"\configupdatesettings";
+        public static string DefaultConfigPath => Path.Combine(FileHelpers.RootDirectory, "settings.yml");
+        public static string RememberMeSettings => Path.Combine(FileHelpers.RootDirectory, "configupdatesettings");
 
         public static void InitConfig()
         {
@@ -49,7 +50,7 @@ namespace BhapticsPopOne.ConfigManager
                 ConfigUpdateChoice result;
                 
                 if (!DefaultOptions(out result))
-                    result = ShowConfigPrompt();
+                    result = UpdateGUI.ShowConfigPrompt();
                 
                 if (result.Backup)
                     BackupConfig(configContents);
@@ -107,75 +108,6 @@ namespace BhapticsPopOne.ConfigManager
         {
             var serializer = new SerializerBuilder().Build();
             return serializer.Serialize(config);
-        }
-
-        private static ConfigUpdateChoice ShowConfigPrompt()
-        {
-            var form = new System.Windows.Forms.Form
-            {
-                Width = 240,
-                Height = 200,
-                FormBorderStyle = FormBorderStyle.FixedDialog,
-                Text = "bHaptics mod",
-                StartPosition = FormStartPosition.CenterScreen
-            };
-
-            Label label = new Label
-            {
-                Text = "Config needs to be regenerated.\nWould you like to back it up first?",
-                Top = 20,
-                Left = 30,
-                Width = 200,
-                Height = 30
-            };
-            
-            CheckBox checkBox = new CheckBox
-            {
-                Text = "remember my choice",
-                Top = 50,
-                Left = 30,
-                Width = 160
-            };
-            
-            Button confirmation = new Button
-            {
-                Text = "Overwrite",
-                DialogResult = DialogResult.OK,
-                Top = 80,
-                Left = 30
-            };
-            confirmation.Click += (sender, e) => { form.Close(); };
-            
-            Button backup = new Button
-            {
-                Text = "Backup",
-                DialogResult = DialogResult.Yes,
-                Top = 110,
-                Left = 30
-            };
-            confirmation.Click += (sender, e) => { form.Close(); };
-
-            form.Controls.Add(label);
-            form.Controls.Add(checkBox);
-            form.Controls.Add(backup);
-            form.Controls.Add(confirmation);
-            
-            form.AcceptButton = confirmation;
-            form.CancelButton = backup;
-            
-            var res = form.ShowDialog();
-
-            return new ConfigUpdateChoice
-            {
-                Backup = res == DialogResult.Yes,
-                Remember = checkBox.Checked
-            };
-        }
-
-        private struct ConfigUpdateChoice
-        {
-            public bool Remember;
-            public bool Backup;
         }
 
         private static void BackupConfig(string contents)

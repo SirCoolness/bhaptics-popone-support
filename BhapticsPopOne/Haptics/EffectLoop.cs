@@ -1,5 +1,4 @@
-﻿using Bhaptics.Tact;
-using BhapticsPopOne.ConfigManager;
+﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;

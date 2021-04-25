@@ -11,7 +11,7 @@ namespace BhapticsPopOne
         {
             if (injectionDone)
             {
-                MelonLogger.LogError("MonoBehaviours were already injected.");
+                MelonLogger.Error("MonoBehaviours were already injected.");
             }
             
             ClassInjector.RegisterTypeInIl2Cpp<VelocityTracker>();

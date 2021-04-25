@@ -9,7 +9,7 @@ namespace BhapticsPopOne.MonoBehaviours
 
         public void OnTriggerEnter(Collider other)
         {
-            MelonLogger.Log("OnTriggerEnter! Other: " + other.gameObject.name);
+            MelonLogger.Msg("OnTriggerEnter! Other: " + other.gameObject.name);
         }
     }
 }

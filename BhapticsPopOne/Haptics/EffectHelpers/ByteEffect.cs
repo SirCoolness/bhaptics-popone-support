@@ -1,11 +1,11 @@
-﻿using Bhaptics.Tact;
+﻿using MelonLoader;
 
 namespace BhapticsPopOne.Haptics.EffectHelpers
 {
     public class ByteEffect
     {
         public Step[] Steps { get; internal set; }
-        public PositionType Position { get; internal set; }
+        public bHaptics.PositionType Position { get; internal set; }
 
         public struct Step
         {

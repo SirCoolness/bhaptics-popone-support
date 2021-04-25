@@ -18,7 +18,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             trackerFound = tracker != null;
             
             if (!trackerFound)
-                MelonLogger.LogError("Failed to find tracked in MeleeVelocity");
+                MelonLogger.Error("Failed to find tracked in MeleeVelocity");
         }
         
         public static void Execute(Handedness hand, Vector3 velocity)

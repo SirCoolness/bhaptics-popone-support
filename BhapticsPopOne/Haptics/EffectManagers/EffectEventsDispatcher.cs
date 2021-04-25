@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bhaptics.Tact;
 using System.Collections.Specialized;
 using MelonLoader;
 
@@ -14,9 +13,12 @@ namespace BhapticsPopOne.Haptics.EffectManagers
 
         public static void Init()
         {
+#if PORT_DISABLE
             Mod.Instance.Haptics.Player.StatusReceived += StatusReceived;
+#endif
         }
-        
+
+#if PORT_DISABLE
         public static void StatusReceived(PlayerResponse playerStatus)
         {
             var removed = FindRemoved(playerStatus.ActiveKeys, previousActiveKeys);
@@ -30,7 +32,7 @@ namespace BhapticsPopOne.Haptics.EffectManagers
                 OnEffectStop[s].Invoke();
             }
         }
-
+#endif
         private static HashSet<string> FindRemoved(List<string> src, HashSet<string> previous)
         {
             HashSet<string> res = previous;

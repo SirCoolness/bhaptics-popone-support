@@ -1,208 +1,115 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <!--<Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />-->
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{789BE38B-1267-488B-8952-014F21D8F5E7}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>BhapticsPopOne</RootNamespace>
     <AssemblyName>BhapticsPopOne</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <GameDir><!-- write game dir here --></GameDir>
+    <TargetFrameworks>net4.7.2</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <LangVersion>latest</LangVersion>
+    <Platforms>Android;Desktop</Platforms>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Desktop">
+      <Configuration>Debug</Configuration>
+      <Platform>Desktop</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Desktop">
+      <Configuration>Release</Configuration>
+      <Platform>Desktop</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|Android">
+      <Configuration>Debug</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Android">
+      <Configuration>Release</Configuration>
+      <Platform>Android</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
+    <ManagedDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</ManagedDir>
+    <DefineConstants>PLATFORM_DESKTOP</DefineConstants>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <PlatformTarget>AnyCPU</PlatformTarget>
-    <DebugType>pdbonly</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+  <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
+    <ManagedDir>C:\Users\Akiva\Desktop\Pop1Dump\pop1\etc\managed</ManagedDir>
+    <DefineConstants>PLATFORM_ANDROID</DefineConstants>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
-    </Reference>
-    <Reference Include="Assembly-CSharp-firstpass, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
-    </Reference>
+  <ItemGroup Condition=" '$(Platform)' == 'Desktop' ">
     <Reference Include="Bhaptics.Tact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\deps\Bhaptics.Tact.dll</HintPath>
-    </Reference>
-    <Reference Include="GameLiftServerSDKNet45, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\GameLiftServerSDKNet45.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2CppSystem, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Il2CppSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2CppSystem.Core, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Il2CppSystem.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2CppSystem.Reflection, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Il2CppSystem.Reflection.dll</HintPath>
-    </Reference>
-    <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\MelonLoader.ModHandler.dll</HintPath>
-    </Reference>
-    <Reference Include="Mirror, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>$(GameDir)\MelonLoader\Managed\mscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="System, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>$(GameDir)\MelonLoader\Managed\System.dll</HintPath>
     </Reference>
     <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="System.Data, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>$(GameDir)\MelonLoader\Managed\System.Data.dll</HintPath>
+    <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, PublicKeyToken=null">
+      <HintPath>$(ManagedDir)\..\MelonLoader.ModHandler.dll</HintPath>
     </Reference>
-    <Reference Include="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>$(GameDir)\MelonLoader\Managed\System.Windows.Forms.dll</HintPath>
+    <Reference Include="System.Windows.Forms">
+      <HintPath>$(ManagedDir)\System.Windows.Forms.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-      <HintPath>$(GameDir)\MelonLoader\Managed\System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="UnhollowerBaseLib, Version=0.4.10.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Unity.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(GameDir)\MelonLoader\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+  </ItemGroup>
+  <ItemGroup Condition=" '$(Platform)' == 'Android' ">
+    <Reference Include="MelonLoader">
+      <HintPath>$(ManagedDir)\..\MelonLoader.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ConfigManager\ConfigElements\AllEffectToggles.cs" />
-    <Compile Include="ConfigManager\ConfigElements\Config.cs" />
-    <Compile Include="ConfigManager\ConfigElements\Disableable.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectsConfig.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\HighFlightModifier.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectSpecialization\StateModifier.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Arms.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectToggles\EffectToggles.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Face.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Feet.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Hands.cs" />
-    <Compile Include="ConfigManager\ConfigElements\EffectToggles\Vest.cs" />
-    <Compile Include="ConfigManager\ConfigElements\FallEffects.cs" />
-    <Compile Include="ConfigManager\ConfigElements\FlyEffects.cs" />
-    <Compile Include="ConfigManager\ConfigElements\LerpGoal.cs" />
-    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralEffectBase.cs" />
-    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralEffectTarget.cs" />
-    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralPool.cs" />
-    <Compile Include="ConfigManager\ConfigElements\Procedural\ProceduralStrength.cs" />
-    <Compile Include="ConfigManager\ConfigElements\SceneConfig.cs" />
-    <Compile Include="ConfigManager\ConfigLoader.cs" />
-    <Compile Include="ConfigManager\DynConfig.cs" />
-    <Compile Include="Data\Data.cs" />
-    <Compile Include="Data\HandHelper.cs" />
-    <Compile Include="Data\Players.cs" />
-    <Compile Include="Haptics\ConnectionManager.cs" />
-    <Compile Include="Haptics\EffectHelpers\ByteEffect.cs" />
-    <Compile Include="Haptics\EffectHelpers\Effect.cs" />
-    <Compile Include="Haptics\EffectHelpers\EffectPlayer.cs" />
-    <Compile Include="Haptics\EffectHelpers\FakeInstance.cs" />
-    <Compile Include="Haptics\EffectLoop.cs" />
-    <Compile Include="Haptics\EffectManagers\EffectLoopRegistry.cs" />
-    <Compile Include="Haptics\EffectManagers\EffectEventsDispatcher.cs" />
-    <Compile Include="Haptics\EffectManagers\ProceduralEffect.cs" />
-    <Compile Include="Haptics\Loaders\InitializeByteEffects.cs" />
-    <Compile Include="Haptics\PatternManager.cs" />
-    <Compile Include="Haptics\Patterns\Climbing.cs" />
-    <Compile Include="Haptics\Patterns\Defib.cs" />
-    <Compile Include="Haptics\Patterns\DestructibleHit.cs" />
-    <Compile Include="Haptics\Patterns\DrinkSoda.cs" />
-    <Compile Include="Haptics\Patterns\DropItem.cs" />
-    <Compile Include="Haptics\Patterns\FallDamage.cs" />
-    <Compile Include="Haptics\Patterns\FallingAir.cs" />
-    <Compile Include="Haptics\Patterns\FirearmFire.cs" />
-    <Compile Include="Haptics\Patterns\FistBump.cs" />
-    <Compile Include="Haptics\Patterns\FlyingAir.cs" />
-    <Compile Include="Haptics\Patterns\Food.cs" />
-    <Compile Include="Haptics\Patterns\GameState.cs" />
-    <Compile Include="Haptics\Patterns\HapticUtils.cs" />
-    <Compile Include="Haptics\Patterns\Health.cs" />
-    <Compile Include="Haptics\Patterns\KatanaHit.cs" />
-    <Compile Include="Haptics\Patterns\KatanaShield.cs" />
-    <Compile Include="Haptics\Patterns\MeleeDamageableHit.cs" />
-    <Compile Include="Haptics\Patterns\MeleeVelocity.cs" />
-    <Compile Include="Haptics\Patterns\PickupItem.cs" />
-    <Compile Include="Haptics\Patterns\PlayerHit.cs" />
-    <Compile Include="Haptics\Patterns\PlayerRevived.cs" />
-    <Compile Include="Haptics\Patterns\PodLifecycle.cs" />
-    <Compile Include="Haptics\Patterns\ReloadWeapon.cs" />
-    <Compile Include="Haptics\Patterns\WeaponSwap.cs" />
-    <Compile Include="Haptics\Patterns\ZoneDamage.cs" />
-    <Compile Include="Helpers\BindGlobals.cs" />
-    <Compile Include="Mod.cs" />
-    <Compile Include="MonoBehaviours\DebugMarker.cs" />
-    <Compile Include="MonoBehaviours\DestructibleCollisionHelp.cs" />
-    <Compile Include="MonoBehaviours\GeneralTouchCollider.cs" />
-    <Compile Include="MonoBehaviours\HighFiveTarget.cs" />
-    <Compile Include="MonoBehaviours\MeleeVelocity.cs" />
-    <Compile Include="MonoBehaviours\MonoBehavioursLoader.cs" />
-    <Compile Include="MonoBehaviours\SendTouch.cs" />
-    <Compile Include="MonoBehaviours\TouchCollider.cs" />
-    <Compile Include="MonoBehaviours\TriggerEnterTest.cs" />
-    <Compile Include="MonoBehaviours\VelocityTracker.cs" />
-    <Compile Include="Patches\BattleContextView.cs" />
-    <Compile Include="Patches\DestructibleSceneItem.cs" />
-    <Compile Include="Patches\FriendProgressPopup.cs" />
-    <Compile Include="Patches\MeleeCollisionDetector.cs" />
-    <Compile Include="Patches\MeleeShield.cs" />
-    <Compile Include="Patches\PlayerDropPod.cs" />
-    <Compile Include="Patches\PlayerDefib.cs" />
-    <Compile Include="Patches\HandControllerMediator.cs" />
-    <Compile Include="Patches\PlayerData.cs" />
-    <Compile Include="Patches\PlayerFirearm.cs" />
-    <Compile Include="Patches\PlayerBuffUsableBehaviour.cs" />
-    <Compile Include="Patches\PlayerContainer.cs" />
-    <Compile Include="Patches\LootItem.cs" />
-    <Compile Include="Patches\PlayerInventory.cs" />
-    <Compile Include="Patches\PlayerMelee.cs" />
-    <Compile Include="Patches\UnetGameManager.cs" />
-    <Compile Include="Patreon.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Utils\AddHandReference.cs" />
-    <Compile Include="Utils\BhapticsUtils.cs" />
-    <Compile Include="Utils\ConfigHelpers.cs" />
-    <Compile Include="Utils\FileHelpers.cs" />
-    <Compile Include="Utils\GoyfsUtils.cs" />
-    <Compile Include="Utils\LineDrawer.cs" />
-    <Compile Include="Utils\Logging.cs" />
-    <Compile Include="Utils\LoggingContext.cs" />
-    <Compile Include="Utils\ModX.cs" />
+    <Reference Include="Assembly-CSharp">
+      <HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp-firstpass">
+      <HintPath>$(ManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+    </Reference>
+    <Reference Include="GameLiftServerSDKNet45">
+      <HintPath>$(ManagedDir)\GameLiftServerSDKNet45.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2Cppmscorlib">
+      <HintPath>$(ManagedDir)\Il2Cppmscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem">
+      <HintPath>$(ManagedDir)\Il2CppSystem.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Core">
+      <HintPath>$(ManagedDir)\Il2CppSystem.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Il2CppSystem.Reflection">
+      <HintPath>$(ManagedDir)\Il2CppSystem.Reflection.dll</HintPath>
+    </Reference>
+    <Reference Include="Mirror">
+      <HintPath>$(ManagedDir)\Mirror.dll</HintPath>
+    </Reference>
+    <Reference Include="mscorlib">
+      <HintPath>$(ManagedDir)\mscorlib.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <HintPath>$(ManagedDir)\System.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data">
+      <HintPath>$(ManagedDir)\System.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Xml">
+      <HintPath>$(ManagedDir)\System.Xml.dll</HintPath>
+    </Reference>
+    <Reference Include="UnhollowerBaseLib">
+      <HintPath>$(ManagedDir)\UnhollowerBaseLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Collections">
+      <HintPath>$(ManagedDir)\Unity.Collections.dll</HintPath>
+    </Reference>
+    <Reference Include="Unity.Mathematics">
+      <HintPath>$(ManagedDir)\Unity.Mathematics.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule">
+      <HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.PhysicsModule">
+      <HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="ILMerge" Version="3.0.29" />
@@ -210,26 +117,27 @@
     <PackageReference Include="YamlDotNet" Version="9.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="$(TargetDir)\haptics.json" LogicalName="$(TargetName).haptics.json" />
   </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(ProjectDir)/Assets/Effects" "$(TargetDir)/haptics.json"</PreBuildEvent>
-    <PostBuildEvent>^
-$(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll &amp;&amp; ^
-xcopy /y "$(TargetDir)$(TargetName)-Merged.dll" "$(GameDir)\Mods\$(TargetName).dll*"
-    </PostBuildEvent>
+    <PreBuildEvent>python "../helperTools/bundle_effects.py" "Assets/Effects" "haptics.json"</PreBuildEvent>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
+    <PostBuildEvent>$(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll</PostBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
+    <PostBuildEvent>$(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll YamlDotNet.dll</PostBuildEvent>
+  </PropertyGroup>
+  <!--
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
     </PropertyGroup>
     <Error Condition="!Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.41\build\ILMerge.props'))" />
   </Target>
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  -->
+
+    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
          Other similar extension points exist, see Microsoft.Common.targets.
     <Target Name="BeforeBuild">
     </Target>

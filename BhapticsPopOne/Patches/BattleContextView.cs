@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Helpers;
+﻿#if PORT_DISABLE
+using BhapticsPopOne.Helpers;
 using BhapticsPopOne.Utils;
 using Goyfs.Instance;
 using Harmony;
@@ -16,3 +17,4 @@ namespace BhapticsPopOne
         }
     }
 }
+#endif

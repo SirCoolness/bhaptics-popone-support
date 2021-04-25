@@ -1,4 +1,5 @@
-﻿using BhapticsPopOne.Haptics.Patterns;
+﻿#if PORT_DISABLE
+using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
 using UnityEngine;
@@ -30,3 +31,4 @@ namespace BhapticsPopOne
         }
     }
 }
+#endif
