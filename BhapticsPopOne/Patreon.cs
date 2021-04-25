@@ -82,7 +82,8 @@ namespace BhapticsPopOne
             "Delistd",
             "Sky Candy",
             "Mike.",
-            "Maker124"
+            "Maker124",
+            "Pally's Crew"
         };
 
         /**
@@ -96,6 +97,7 @@ namespace BhapticsPopOne
          * - Sky Candy
          * - Mike.
          * - Maker124
+         * - Pally's Crew
          */
         public static void ThankCoffee()
         {
