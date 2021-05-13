@@ -23,7 +23,8 @@ namespace BhapticsPopOne.Helpers
                     {
                         ZoneDamage.SetActive(ZoneDamage.ZoneSource.ZoneGrenade, inside);
                     }),
-                GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded)
+                GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded),
+                GoyfsHelper.TryAddListener<LocalFirearmFiredSignal, uint, FirearmInfo, bool>(FirearmFired)
             };
 
             PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(PlayerWasHit));
@@ -89,7 +90,12 @@ namespace BhapticsPopOne.Helpers
 
         private static void FirearmPrimeComplete(uint netId, int prime)
         {
-            ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.UsableBehaviour.LastReloadIndex);
+            // ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.UsableBehaviour.LastReloadIndex);
+        }
+        
+        private static void FirearmFired(uint netId, FirearmInfo info, bool dominant)
+        {
+            FirearmFire.Execute(info, dominant);
         }
         
         private static void FirearmInsertAmmoComplete(uint netId)

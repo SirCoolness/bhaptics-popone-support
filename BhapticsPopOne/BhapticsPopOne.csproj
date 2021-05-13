@@ -185,7 +185,6 @@
     <Compile Include="Patches\PlayerDefib.cs" />
     <Compile Include="Patches\HandControllerMediator.cs" />
     <Compile Include="Patches\PlayerData.cs" />
-    <Compile Include="Patches\PlayerFirearm.cs" />
     <Compile Include="Patches\PlayerBuffUsableBehaviour.cs" />
     <Compile Include="Patches\PlayerContainer.cs" />
     <Compile Include="Patches\LootItem.cs" />

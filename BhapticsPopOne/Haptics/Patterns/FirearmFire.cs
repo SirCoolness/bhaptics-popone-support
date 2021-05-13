@@ -13,9 +13,13 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         private static float _effectStrength => Mathf.Clamp(ConfigLoader.Config.VestRecoil, 0f, 1f);
         
-        public static void Execute(FirearmClass type, InventoryItemType item)
+        public static void Execute(FirearmInfo info, bool dominant)
         {
-            var handed = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.DominantHand ?? Handedness.Right;
+            InventoryItemType item = info.Type;
+            FirearmClass type = info.Class;
+            PlayerContainer localPlayerContainer = Mod.Instance.Data.Players.LocalPlayerContainer;
+            
+            var handed = dominant ? localPlayerContainer.Data.DominantHand : localPlayerContainer.Data.ClimbingHand;
             var twoHanded = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.TwoHand == true;
 
             string effectExtension = HapticUtils.HandExt(handed);
