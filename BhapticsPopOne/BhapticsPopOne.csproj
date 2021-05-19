@@ -11,6 +11,9 @@
     <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
     <LangVersion>latest</LangVersion>
     <Platforms>Android;Desktop</Platforms>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
   </PropertyGroup>
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Desktop">
