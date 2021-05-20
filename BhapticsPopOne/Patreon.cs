@@ -45,7 +45,9 @@ namespace BhapticsPopOne
             "NerdNational",
             "Anonymous Supporter",
             "TheMysticle",
-            "Rasta"
+            "Rasta",
+            "bsharp",
+            "Sky Candy"
         };
 
         /**
@@ -59,6 +61,8 @@ namespace BhapticsPopOne
          * - Anonymous Supporter [JR]
          * - TheMysticle
          * - Rasta
+         * - bsharp
+         * - Sky Candy
          */
         public static void ThankBurgerKing()
         {
@@ -80,9 +84,10 @@ namespace BhapticsPopOne
             "Alex VR",
             "Ham VR",
             "Delistd",
-            "Sky Candy",
             "Mike.",
-            "Maker124"
+            "Maker124",
+            "Pally's Crew",
+            "AprilPvd"
         };
 
         /**
@@ -93,9 +98,10 @@ namespace BhapticsPopOne
          * - Alex VR
          * - Ham VR
          * - Delistd
-         * - Sky Candy
          * - Mike.
          * - Maker124
+         * - Pally's Crew
+         * - AprilPvd
          */
         public static void ThankCoffee()
         {
