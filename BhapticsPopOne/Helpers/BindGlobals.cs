@@ -24,9 +24,7 @@ namespace BhapticsPopOne.Helpers
                         ZoneDamage.SetActive(ZoneDamage.ZoneSource.ZoneGrenade, inside);
                     }),
                 GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded),
-#if PORT_DISABLED
                 GoyfsHelper.TryAddListener<LocalFirearmFiredSignal, uint, FirearmInfo, bool>(FirearmFired)
-#endif
             };
 
             PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(PlayerWasHit));

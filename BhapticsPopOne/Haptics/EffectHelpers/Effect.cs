@@ -93,7 +93,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             
             for (uint i = 0; i < toAdd; i++)
             {
-                var id = System.Guid.NewGuid();
+                var id = Guid.NewGuid();
                 _effectNames.Add(id);
 
                 Mod.Instance.Haptics.Player.RegisterTactFileStr(id.ToString(), Contents);
@@ -118,6 +118,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             );
 
             _activeEffects.Add(id);
+            EffectEventsDispatcher.RegisterPlay(id);
         }
 
         private bool GetAvailableEffect(out System.Guid res)

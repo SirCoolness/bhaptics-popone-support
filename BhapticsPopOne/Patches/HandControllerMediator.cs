@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using System;
+﻿using System;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using BigBoxVR;
@@ -23,4 +22,3 @@ namespace BhapticsPopOne.Patches
         }
     }
 }
-#endif

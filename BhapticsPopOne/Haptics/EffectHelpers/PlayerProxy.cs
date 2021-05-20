@@ -30,14 +30,8 @@ namespace BhapticsPopOne.Haptics
 
         public void SubmitRegistered(string key, string altKey, bHaptics.ScaleOption option, bHaptics.RotationOption rOptions) => bHaptics.SubmitRegistered(key, altKey, option, rOptions);
 
-        public void TurnOff(string key)
-        {
-            throw new NotImplementedException();
-        }
+        public void TurnOff(string key) => bHaptics.TurnOff(key);
 
-        public void TurnOff()
-        {
-            throw new NotImplementedException();
-        }
+        public void TurnOff() => bHaptics.TurnOff();
     }
 }

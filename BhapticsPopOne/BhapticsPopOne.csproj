@@ -1,20 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <!--<Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />-->
-  <PropertyGroup>
-    <OutputType>Library</OutputType>
-    <RootNamespace>BhapticsPopOne</RootNamespace>
-    <AssemblyName>BhapticsPopOne</AssemblyName>
-    <TargetFrameworks>net4.7.2</TargetFrameworks>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
-    <LangVersion>latest</LangVersion>
-    <Platforms>Android;Desktop</Platforms>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
-  </PropertyGroup>
+  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Desktop">
       <Configuration>Debug</Configuration>
@@ -33,35 +18,47 @@
       <Platform>Android</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">Desktop</Platform>
+    <OutputType>Library</OutputType>
+    <RootNamespace>BhapticsPopOne</RootNamespace>
+    <AssemblyName>BhapticsPopOne</AssemblyName>
+    <TargetFrameworks>net4.7.2</TargetFrameworks>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
+    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
+    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+    <LangVersion>latest</LangVersion>
+    <Platforms>Android;Desktop</Platforms>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
+    <OutputPath>$(SolutionDir)Output\$(Configuration)\$(Platform)</OutputPath>
+  </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <ManagedDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</ManagedDir>
+    <ManagedDir>$(GameDir)\MelonLoader\Managed</ManagedDir>
     <DefineConstants>PLATFORM_DESKTOP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
-    <ManagedDir>C:\Users\Akiva\Desktop\Pop1Dump\pop1\etc\managed</ManagedDir>
+    <ManagedDir><!-- fill --></ManagedDir>
     <DefineConstants>PLATFORM_ANDROID</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <Reference Include="Bhaptics.Tact, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\deps\Bhaptics.Tact.dll</HintPath>
-    </Reference>
     <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>
       <Private>True</Private>
-    </Reference>
-    <Reference Include="MelonLoader.ModHandler, Version=0.2.7.4, Culture=neutral, PublicKeyToken=null">
-      <HintPath>$(ManagedDir)\..\MelonLoader.ModHandler.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms">
       <HintPath>$(ManagedDir)\System.Windows.Forms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Android' ">
-    <Reference Include="MelonLoader">
-      <HintPath>$(ManagedDir)\..\MelonLoader.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="MelonLoader">
+      <HintPath>$(GameDir)\MelonLoader\MelonLoader.dll</HintPath>
+    </Reference>
     <Reference Include="Assembly-CSharp">
       <HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
     </Reference>
@@ -120,16 +117,16 @@
     <PackageReference Include="YamlDotNet" Version="9.1.0" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="$(TargetDir)\haptics.json" LogicalName="$(TargetName).haptics.json" />
+    <EmbeddedResource Include="$(OutputPath)\..\haptics.json" LogicalName="$(TargetName).haptics.json" />
   </ItemGroup>
   <PropertyGroup>
-    <PreBuildEvent>python "../helperTools/bundle_effects.py" "Assets/Effects" "haptics.json"</PreBuildEvent>
+    <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(SolutionDir)/BhapticsPopOne/Assets/Effects" "$(OutputPath)/haptics.json"</PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <PostBuildEvent>$(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll Bhaptics.Tact.dll YamlDotNet.dll</PostBuildEvent>
+    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
-    <PostBuildEvent>$(ILMergeConsolePath) /out:$(TargetName)-Merged.dll $(TargetName).dll YamlDotNet.dll</PostBuildEvent>
+    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>
   </PropertyGroup>
   <!--
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

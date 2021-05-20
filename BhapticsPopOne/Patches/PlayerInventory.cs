@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using System;
+﻿using System;
 using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
 using MelonLoader;
@@ -23,4 +22,3 @@ namespace BhapticsPopOne.PlayerInventory2
         }
     }
 }
-#endif

@@ -1,5 +1,4 @@
-﻿using System;
-using Bhaptics.Tact;
+﻿using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using MelonLoader;
 

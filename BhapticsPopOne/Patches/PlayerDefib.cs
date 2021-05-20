@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using System;
+﻿using System;
 using BigBoxVR;
 using Harmony;
 using MelonLoader;
@@ -34,4 +33,3 @@ namespace BhapticsPopOne.Patches
         }
     }
 }
-#endif

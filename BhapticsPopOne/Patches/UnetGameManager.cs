@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using System;
+﻿using System;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics;
@@ -28,4 +27,3 @@ namespace BhapticsPopOne.UnetGameManager2
         }
     }
 }
-#endif

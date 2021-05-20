@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using System;
+﻿using System;
 using System.Runtime.InteropServices;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Utils;
@@ -49,4 +48,3 @@ namespace BhapticsPopOne.LootItem2
         }
     }
 }
-#endif

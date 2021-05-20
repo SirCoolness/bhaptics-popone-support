@@ -111,8 +111,7 @@ namespace BhapticsPopOne.Haptics
                     if (effect.Value.Type != JTokenType.Object)
                         continue;
 
-                    MelonLogger.Msg($"{section.Key} {effect.Key} {effect.Value.ToString()}");
-                    //ImportEffect(section.Key, effect.Key, effect.Value.ToString());
+                    ImportEffect(section.Key, effect.Key, effect.Value.ToString());
                 }
             }
         }

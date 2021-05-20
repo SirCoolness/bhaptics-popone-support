@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using BhapticsPopOne.Helpers;
+﻿using BhapticsPopOne.Helpers;
 using BhapticsPopOne.Utils;
 using Goyfs.Instance;
 using Harmony;
@@ -13,8 +12,7 @@ namespace BhapticsPopOne
         public static void Postfix()
         {
             if (!BindGlobals.BindGoyfs())
-                MelonLogger.LogError("Failed to bind to Goyfs");
+                MelonLogger.Error("Failed to bind to Goyfs");
         }
     }
 }
-#endif

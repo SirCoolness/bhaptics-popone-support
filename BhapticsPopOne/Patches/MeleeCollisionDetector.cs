@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using Harmony;
+﻿using Harmony;
 using MelonLoader;
 
 namespace BhapticsPopOne
@@ -16,4 +15,3 @@ namespace BhapticsPopOne
         }
     }
 }
-#endif

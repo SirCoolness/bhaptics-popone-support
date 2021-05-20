@@ -1,5 +1,4 @@
-﻿#if PORT_DISABLE
-using BhapticsPopOne.ConfigManager;
+﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using Harmony;
@@ -49,4 +48,3 @@ namespace BhapticsPopOne.Patches
         }
     }
 }
-#endif

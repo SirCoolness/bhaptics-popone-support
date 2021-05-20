@@ -75,19 +75,19 @@ namespace BhapticsPopOne
             DynConfig.UpdateConfig(DynConfig.SceneMode.General);
             
             Patreon.Run(); // (●'◡'●)
-#if PORT_DISABLE
+            
             MonoBehavioursLoader.Inject();
 
             InitializeManagers();
             
             StartServices();
-#endif            
+            
             PatternManager.LoadPatterns();
-#if PORT_DISABLE
+
             EffectEventsDispatcher.Init();
 
             Data.Initialize();
-#endif            
+
             Physics.IgnoreLayerCollision(10, 19, false);
             
             MelonLogger.Msg("Successfully started");
@@ -121,12 +121,12 @@ namespace BhapticsPopOne
             Haptics.Stop();
         }
 
-#if PORT_DISABLE
         public override void OnFixedUpdate()
         {
             if (Disabled)
                 return;
             
+            EffectEventsDispatcher.FixedUpdate();
             _effectLoop.FixedUpdate();
             KatanaShield.FixedUpdate();
             ZoneDamage.OnFixedUpdate();
@@ -137,8 +137,8 @@ namespace BhapticsPopOne
         {
             EffectLoopRegistry.Update();
         }
-
-        public override void OnLevelWasInitialized(int level)
+        
+        public override void OnSceneWasInitialized(int level, string name)
         {
             EffectLoopRegistry.LevelInit();
             DrinkSoda.Clear();
@@ -149,7 +149,7 @@ namespace BhapticsPopOne
             
             Data.Players.Reset();
         }
-#endif
+
         public void Disable()
         {
             if (Disabled)
