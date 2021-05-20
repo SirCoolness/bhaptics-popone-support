@@ -90,7 +90,12 @@ namespace BhapticsPopOne.Helpers
 
         private static void FirearmPrimeComplete(uint netId, int prime)
         {
-            // ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.UsableBehaviour.LastReloadIndex);
+            // kinda lazy
+            // TODO: properly handle reload for both hands
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.FirearmUsableBehaviour.Type == InventoryItemType.FirearmShotgunMatador)
+                return;
+            
+            ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.FirearmUsableBehaviour.LastReloadIndex);
         }
 
         private static void FirearmFired(uint netId, FirearmInfo info, bool dominant)
