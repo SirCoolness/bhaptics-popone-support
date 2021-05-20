@@ -95,12 +95,14 @@ namespace BhapticsPopOne.Helpers
 
         private static void FirearmFired(uint netId, FirearmInfo info, bool dominant)
         {
-            FirearmFire.Execute(info, dominant);
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId == netId)
+                FirearmFire.Execute(info, dominant);
         }
         
         private static void FirearmInsertAmmoComplete(uint netId)
         {
-            ReloadWeapon.Execute(FirearmState.Prime, 0, 0);
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId == netId)
+                ReloadWeapon.Execute(FirearmState.Prime, 0, 0);
         }
     }
 }
