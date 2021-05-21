@@ -29,7 +29,7 @@ def preprocessEffect(key, effect):
         
     effect["name"] = key
         
-    return effect["project"]
+    return effect
 
 def parseContents(filesContents, preprocess = lambda x, y : y):
     output = {}

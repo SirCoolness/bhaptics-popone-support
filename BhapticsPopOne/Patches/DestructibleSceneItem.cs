@@ -1,4 +1,5 @@
 ﻿using BhapticsPopOne.Haptics.Patterns;
+using BigBoxVR;
 using Harmony;
 using MelonLoader;
 using UnityEngine;
@@ -15,14 +16,14 @@ namespace BhapticsPopOne.DestructibleSceneItem2
             
             if (!container.isLocalPlayer)
                 return;
-
+    
             var handHelper = Mod.Instance.Data.Players.LocalHandHelper;
             if (!handHelper.brokenDestructibles.ContainsKey(__instance.SceneId))
             {
                 // MelonLogger.Log("cannot find key");
                 return;
             }
-
+    
             foreach (var handedness in handHelper.brokenDestructibles[__instance.SceneId])
             {
                 DestructibleHit.Execute(handedness);

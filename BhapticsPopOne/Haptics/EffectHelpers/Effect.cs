@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bhaptics.Tact;
 using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
+
+using RotationOption = MelonLoader.bHaptics.RotationOption;
+using ScaleOption = MelonLoader.bHaptics.ScaleOption;
 
 namespace BhapticsPopOne.Haptics.EffectHelpers
 {
     public class Effect
     {
         public string Name { get; private set; }
-        public Project Contents { get; private set; }
         public bool Initialized { get; private set; } = false;
-        
+        private string Contents { get; set; }
+
         public bool isPlaying => _activeEffects.Count > 0;
         public bool isAllPlaying => _effectNames.Count <= _activeEffects.Count;
 
@@ -31,12 +33,11 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         private readonly Dictionary<System.Guid, Action> _onEffectStop = new Dictionary<System.Guid, Action>();
         private readonly System.Guid _fallbackID = new System.Guid();
 
-        public Effect(string name, JSONObject content, bool register = true)
+        public Effect(string name, string content, bool register = true)
         {
             Name = name;
+            Contents = content;
             
-            Contents = Project.ToProject(content);
-
             if (register)
                 Register();
         }
@@ -92,10 +93,10 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             
             for (uint i = 0; i < toAdd; i++)
             {
-                var id = System.Guid.NewGuid();
+                var id = Guid.NewGuid();
                 _effectNames.Add(id);
 
-                Mod.Instance.Haptics.Player.Register(id.ToString(), Contents);
+                Mod.Instance.Haptics.Player.RegisterTactFileStr(id.ToString(), Contents);
             }
             
             foreach (var id in _effectNames)
@@ -109,14 +110,15 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         {
             _onEffectStop[id] = properties.OnComplete;
             
-            Mod.Instance.Haptics.Player.SubmitRegisteredVestRotation(
+            Mod.Instance.Haptics.Player.SubmitRegistered(
                 id.ToString(), 
                 id.ToString(), 
-                new RotationOption(properties.XRotation, properties.YOffset), 
-                new ScaleOption(properties.Strength, properties.Time)
+                new ScaleOption(properties.Strength, properties.Time),
+                new RotationOption(properties.XRotation, properties.YOffset)
             );
 
             _activeEffects.Add(id);
+            EffectEventsDispatcher.RegisterPlay(id);
         }
 
         private bool GetAvailableEffect(out System.Guid res)

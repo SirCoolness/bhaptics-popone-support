@@ -52,7 +52,7 @@ namespace BhapticsPopOne.Data
                 var trans = LocalPlayerContainer?.Avatar?.Rig?.transform;
                 if (trans == null)
                 {
-                    MelonLogger.LogError("Can not find player avatar");
+                    MelonLogger.Error("Can not find player avatar");
                     return null;
                 }
 

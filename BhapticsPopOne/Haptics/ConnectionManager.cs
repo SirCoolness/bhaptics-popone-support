@@ -1,5 +1,4 @@
-﻿using System;
-using Bhaptics.Tact;
+﻿using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using MelonLoader;
 
@@ -8,11 +7,9 @@ namespace BhapticsPopOne.Haptics
     // TODO: use HapticPlayerManager
     public class ConnectionManager
     {
-        private HapticPlayerManager HapticPlayerManager = null;
-        private PlayerResponse Status = null;
-
         private bool UseFake = false;
         private FakeInstance _fakeInstance = new FakeInstance();
+        private PlayerProxy _proxy = new PlayerProxy();
 
         public IHapticPlayer Player
         {
@@ -20,17 +17,13 @@ namespace BhapticsPopOne.Haptics
             {
                 if (UseFake)
                     return _fakeInstance;
-                return HapticPlayerManager.GetHapticPlayer();
+                return _proxy;
             }
         }
 
         public void Start()
         {
-            HapticPlayerManager = HapticPlayerManager.Instance();
-            HapticPlayerManager.BhapticsPlayerConnectionChange += ConnectionStatus;
-            Player.StatusReceived += PlayerStatus;
-
-            ConnectionStatus(HapticPlayerManager.Connected);
+            
         }
 
         public void Stop()
@@ -38,23 +31,12 @@ namespace BhapticsPopOne.Haptics
             if (Mod.Instance.Disabled)
                 return;
             
-            MelonLogger.LogWarning("Disabling bHaptics support, please restart the game with bHaptics player running.");
+            MelonLogger.Warning("Disabling bHaptics support, please restart the game with bHaptics player running.");
             
             UseFake = true;
-            HapticPlayerManager.Dispose();
+            Player.TurnOff();
             
             Mod.Instance.Disable();
-        }
-
-        private void PlayerStatus(PlayerResponse res)
-        {
-            Status = res;
-        }
-
-        private void ConnectionStatus(bool state)
-        {
-            if (!state)
-                Stop();
         }
     }
 }

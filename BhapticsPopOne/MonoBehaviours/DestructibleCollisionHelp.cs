@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using BhapticsPopOne.Haptics.Patterns;
+using BigBoxVR;
 using MelonLoader;
 using UnityEngine;
 using UnhollowerRuntimeLib;
@@ -21,7 +22,7 @@ namespace BhapticsPopOne.MonoBehaviours
             if (destructible != null)
                 HandleBreak(other, destructible);
         }
-
+        
         private void HandleBreak(Collider other, DestructibleSceneItem destructibleSceneItem)
         {
             if (destructibleSceneItem == null)
@@ -29,9 +30,9 @@ namespace BhapticsPopOne.MonoBehaviours
                 // MelonLogger.LogWarning("cant find scene item");
                 return;
             }
-
+        
             var handHelper = Mod.Instance.Data.Players.LocalHandHelper;
-
+        
             if (!handHelper.brokenDestructibles.ContainsKey(destructibleSceneItem.SceneId))
             {
                 handHelper.brokenDestructibles.Add(destructibleSceneItem.SceneId, new List<Handedness>());

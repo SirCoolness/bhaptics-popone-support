@@ -23,7 +23,8 @@ namespace BhapticsPopOne.Helpers
                     {
                         ZoneDamage.SetActive(ZoneDamage.ZoneSource.ZoneGrenade, inside);
                     }),
-                GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded)
+                GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded),
+                GoyfsHelper.TryAddListener<LocalFirearmFiredSignal, uint, FirearmInfo, bool>(FirearmFired)
             };
 
             PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(PlayerWasHit));
@@ -41,7 +42,7 @@ namespace BhapticsPopOne.Helpers
 
             if (failures.Count > 0)
             {
-                MelonLogger.LogError($"Failed to binding to Goyfs: [{String.Join(", ", failures)}]");
+                MelonLogger.Error($"Failed to binding to Goyfs: [{String.Join(", ", failures)}]");
             }
 
             return failures.Count == 0;
@@ -89,12 +90,24 @@ namespace BhapticsPopOne.Helpers
 
         private static void FirearmPrimeComplete(uint netId, int prime)
         {
-            ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.UsableBehaviour.LastReloadIndex);
+            // kinda lazy
+            // TODO: properly handle reload for both hands
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.FirearmUsableBehaviour.Type == InventoryItemType.FirearmShotgunMatador)
+                return;
+            
+            ReloadWeapon.Execute(FirearmState.Prime, prime, Mod.Instance.Data.Players.LocalPlayerContainer.Firearm.FirearmUsableBehaviour.LastReloadIndex);
+        }
+
+        private static void FirearmFired(uint netId, FirearmInfo info, bool dominant)
+        {
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId == netId)
+                FirearmFire.Execute(info, dominant);
         }
         
         private static void FirearmInsertAmmoComplete(uint netId)
         {
-            ReloadWeapon.Execute(FirearmState.Prime, 0, 0);
+            if (Mod.Instance.Data.Players.LocalPlayerContainer.netId == netId)
+                ReloadWeapon.Execute(FirearmState.Prime, 0, 0);
         }
     }
 }

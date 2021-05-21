@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using BigBoxVR.BattleRoyale.Models.Shared;
@@ -13,10 +12,17 @@ namespace BhapticsPopOne.Haptics.Patterns
     {
         private static float _effectStrength => Mathf.Clamp(ConfigLoader.Config.VestRecoil, 0f, 1f);
         
-        public static void Execute(FirearmClass type, InventoryItemType item)
+        public static void Execute(FirearmInfo info, bool dominant)
         {
-            var handed = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.DominantHand ?? Handedness.Right;
-            var twoHanded = Mod.Instance.Data.Players.LocalPlayerContainer?.Data.TwoHand == true;
+            var item = info.Type;
+            var type = info.Class;
+            var local = Mod.Instance.Data.Players.LocalPlayerContainer;
+
+            if (local == null)
+                return;
+            
+            var handed = dominant ? local.Data.DominantHand : local.Data.ClimbingHand;
+            var twoHanded = local.Data.TwoHand;
 
             string effectExtension = HapticUtils.HandExt(handed);
             string otherEffectExtension = HapticUtils.HandExt(handed == Handedness.Right ? Handedness.Left : Handedness.Right);

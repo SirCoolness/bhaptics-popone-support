@@ -31,10 +31,10 @@ namespace BhapticsPopOne
             int rowSize = 1;
             int offsetLen = Mathf.CeilToInt(ExistContributors.Length / (float) rowSize);
 
-            MelonLogger.Log(color, "Thank you to the Exist contributors:");
+            MelonLogger.Msg(color, "Thank you to the Exist contributors:");
             for (int i = 0; i < offsetLen; i++)
             {
-                MelonLogger.Log(color, PatreonHelper(ExistContributors, i, rowSize));
+                MelonLogger.Msg(color, PatreonHelper(ExistContributors, i, rowSize));
             }
         }
         
@@ -72,10 +72,10 @@ namespace BhapticsPopOne
             int rowSize = 3;
             int offsetLen = Mathf.CeilToInt(BurgerKingContributors.Length / (float) rowSize);
 
-            MelonLogger.Log(color, "Thank you to the Burger King contributors:");
+            MelonLogger.Msg(color, "Thank you to the Burger King contributors:");
             for (int i = 0; i < offsetLen; i++)
             {
-                MelonLogger.Log(color, PatreonHelper(BurgerKingContributors, i, rowSize));
+                MelonLogger.Msg(color, PatreonHelper(BurgerKingContributors, i, rowSize));
             }
         }
         
@@ -111,10 +111,10 @@ namespace BhapticsPopOne
             int rowSize = 5;
             int offsetLen = Mathf.CeilToInt(CoffeeContributors.Length / (float) rowSize);
 
-            MelonLogger.Log(color, "Thank you to the Coffee contributors:");
+            MelonLogger.Msg(color, "Thank you to the Coffee contributors:");
             for (int i = 0; i < offsetLen; i++)
             {
-                MelonLogger.Log(color, PatreonHelper(CoffeeContributors, i, rowSize));
+                MelonLogger.Msg(color, PatreonHelper(CoffeeContributors, i, rowSize));
             }
         }
         
@@ -123,8 +123,8 @@ namespace BhapticsPopOne
          */
         public static void Promote()
         {
-            MelonLogger.Log(color, "If you would like to support future/ongoing projects and get your name added here.");
-            MelonLogger.Log(color, "Check out: https://www.patreon.com/SirCoolness");
+            MelonLogger.Msg(color, "If you would like to support future/ongoing projects and get your name added here.");
+            MelonLogger.Msg(color, "Check out: https://www.patreon.com/SirCoolness");
         }
 
         /**
@@ -134,13 +134,13 @@ namespace BhapticsPopOne
         {
             ThankExist();
             if (ExistContributors.Length > 0)
-                MelonLogger.Log(color, "");
+                MelonLogger.Msg(color, "");
             ThankBurgerKing();
             if (BurgerKingContributors.Length > 0)
-                MelonLogger.Log(color, "");
+                MelonLogger.Msg(color, "");
             ThankCoffee();
             if (CoffeeContributors.Length > 0)
-                MelonLogger.Log(color, "");
+                MelonLogger.Msg(color, "");
             Promote();
         }
 

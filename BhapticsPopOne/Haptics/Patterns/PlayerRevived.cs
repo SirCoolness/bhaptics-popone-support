@@ -1,5 +1,4 @@
-﻿using Bhaptics.Tact;
-using BhapticsPopOne.ConfigManager;
+﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using Coffee.UIExtensions;
 using MelonLoader;
@@ -17,7 +16,7 @@ namespace BhapticsPopOne.Haptics.Patterns
             var vestRef = Mod.Instance.Data.Players.VestReference();
             if (vestRef == null)
             {
-                MelonLogger.LogWarning("Cant the reference transform for the vest.");
+                MelonLogger.Warning("Cant the reference transform for the vest.");
                 return;
             }
 

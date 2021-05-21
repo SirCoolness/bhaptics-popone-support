@@ -47,6 +47,4 @@ namespace BhapticsPopOne.Patches
                 }
         }
     }
-
-    
 }

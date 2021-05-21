@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Bhaptics.Tact;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
@@ -8,6 +7,8 @@ using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 using Unity.Mathematics;
 using UnityEngine;
+
+using PositionType = MelonLoader.bHaptics.PositionType;
 
 namespace BhapticsPopOne
 {

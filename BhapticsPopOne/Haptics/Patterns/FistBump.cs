@@ -1,5 +1,4 @@
-﻿using Bhaptics.Tact;
-using BhapticsPopOne.ConfigManager;
+﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 
 namespace BhapticsPopOne.Haptics.Patterns

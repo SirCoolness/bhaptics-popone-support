@@ -6,7 +6,6 @@ using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectManagers;
 using BhapticsPopOne.Haptics.Patterns;
-using BhapticsPopOne.Patches;
 using MelonLoader;
 using UnityEngine;
 using SceneConfig = BhapticsPopOne.ConfigManager.ConfigElements.SceneConfig;
@@ -66,35 +65,37 @@ namespace BhapticsPopOne
         
         public override void OnApplicationStart()
         {
-            MelonLogger.Log($"{_initLoggingContext.Prefix} Application initializing");
+            MelonLogger.Msg($"{_initLoggingContext.Prefix} Application initializing");
 
             RootInit();
             
             FileHelpers.EnforceDirectory();
             ConfigLoader.InitConfig();
-            ConfigManager.DynConfig.UpdateConfig(ConfigManager.DynConfig.SceneMode.General);
+
+            DynConfig.UpdateConfig(DynConfig.SceneMode.General);
             
             Patreon.Run(); // (●'◡'●)
             
             MonoBehavioursLoader.Inject();
-            
+
             InitializeManagers();
             
             StartServices();
             
             PatternManager.LoadPatterns();
+
             EffectEventsDispatcher.Init();
-            
+
             Data.Initialize();
-            
+
             Physics.IgnoreLayerCollision(10, 19, false);
             
-            MelonLogger.Log("Successfully started");
+            MelonLogger.Msg("Successfully started");
         }
 
         public override void OnApplicationQuit()
         {
-            MelonLogger.Log($"{_disposeLoggingContext.Prefix} Application closing");
+            MelonLogger.Msg($"{_disposeLoggingContext.Prefix} Application closing");
 
             base.OnApplicationQuit();
             
@@ -108,23 +109,24 @@ namespace BhapticsPopOne
 
         private void StartServices()
         {
-            MelonLogger.Log($"{_initLoggingContext.Prefix} Starting Services");
+            MelonLogger.Msg($"{_initLoggingContext.Prefix} Starting Services");
             
             Haptics.Start();
         }
 
         private void StopServices()
         {
-            MelonLogger.Log($"{_disposeLoggingContext.Prefix} Stopping Services");
+            MelonLogger.Msg($"{_disposeLoggingContext.Prefix} Stopping Services");
 
             Haptics.Stop();
         }
-        
+
         public override void OnFixedUpdate()
         {
             if (Disabled)
                 return;
             
+            EffectEventsDispatcher.FixedUpdate();
             _effectLoop.FixedUpdate();
             KatanaShield.FixedUpdate();
             ZoneDamage.OnFixedUpdate();
@@ -135,8 +137,8 @@ namespace BhapticsPopOne
         {
             EffectLoopRegistry.Update();
         }
-
-        public override void OnLevelWasInitialized(int level)
+        
+        public override void OnSceneWasInitialized(int level, string name)
         {
             EffectLoopRegistry.LevelInit();
             DrinkSoda.Clear();
@@ -153,7 +155,7 @@ namespace BhapticsPopOne
             if (Disabled)
                 return;
             
-            harmonyInstance.UnpatchAll();
+            Harmony.UnpatchAll();
             
             Disabled = true;
         }

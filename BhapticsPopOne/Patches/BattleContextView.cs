@@ -12,7 +12,7 @@ namespace BhapticsPopOne
         public static void Postfix()
         {
             if (!BindGlobals.BindGoyfs())
-                MelonLogger.LogError("Failed to bind to Goyfs");
+                MelonLogger.Error("Failed to bind to Goyfs");
         }
     }
 }
