@@ -8,6 +8,7 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
         public bool PlayerTouching { get; set; }
         public bool ShowLoadedEffects { get; set; }
         public bool ZoneBackMassageMode { get; set; }
+        public bool DetailedBulletHits { get; set; }
 
         [YamlIgnore] 
         public static AllEffectToggles DefaultConfig = new AllEffectToggles
@@ -15,7 +16,8 @@ namespace BhapticsPopOne.ConfigManager.ConfigElements
             LowPerformanceMode = false,
             PlayerTouching = true,
             ShowLoadedEffects = false,
-            ZoneBackMassageMode = false
+            ZoneBackMassageMode = false,
+            DetailedBulletHits = false
         };
     }
 }

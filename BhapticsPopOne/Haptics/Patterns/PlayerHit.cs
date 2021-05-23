@@ -76,33 +76,12 @@ namespace BhapticsPopOne.Haptics.Patterns
             if (DynConfig.Toggles.Face.BulletHit && info.HeadImpact)
                 EffectPlayer.Play($"Head/HeadshotHit_[{Random.RandomRangeInt(1, 5)}]");
 
-            var damage = info.Damage * -1;
-
-            if (damage > 75)
+            if (DynConfig.Toggles.Vest.BulletHit)
             {
-                if (DynConfig.Toggles.Vest.BulletHit)
-                    EffectPlayer.Play("Vest/BulletHit_HighDamage", new Effect.EffectProperties
-                    {
-                        XRotation = angle,
-                        YOffset = offsetY
-                    });
-            }
-            else if (damage > 19)
-            {
-                if (DynConfig.Toggles.Vest.BulletHit)
-                    EffectPlayer.Play("Vest/BulletHit_Level2", new Effect.EffectProperties
-                    {
-                        XRotation = angle,
-                        YOffset = offsetY
-                    });
-            }
-            else {
-                if (DynConfig.Toggles.Vest.BulletHit)
-                    EffectPlayer.Play("Vest/BulletHit_Level1", new Effect.EffectProperties
-                    {
-                        XRotation = angle,
-                        YOffset = offsetY
-                    });
+                if (ConfigLoader.Config.Toggles.DetailedBulletHits)
+                    NormalBullet(info, angle, offsetY);
+                else
+                    HardBullet(info, angle, offsetY);
             }
         }
 
@@ -131,6 +110,50 @@ namespace BhapticsPopOne.Haptics.Patterns
                         XRotation = angle
                     });
             }
+        }
+
+        private static void HardBullet(DamageableHitInfo info, float angle, float offsetY)
+        {
+            var damage = info.Damage * -1;
+            
+            if (damage > 60)
+                EffectPlayer.Play("Vest/BulletHit_Pierce_V2", new Effect.EffectProperties
+                {
+                    XRotation = angle,
+                    YOffset = offsetY,
+                    Time = 0.125f
+                });
+            else
+                EffectPlayer.Play("Vest/BulletHit_V2", new Effect.EffectProperties
+                {
+                    XRotation = angle,
+                    YOffset = offsetY,
+                    Time = 0.125f
+                });
+        }
+
+        private static void NormalBullet(DamageableHitInfo info, float angle, float offsetY)
+        {
+            var damage = info.Damage * -1;
+
+            if (damage > 75)
+                EffectPlayer.Play("Vest/BulletHit_HighDamage", new Effect.EffectProperties
+                {
+                    XRotation = angle,
+                    YOffset = offsetY
+                });
+            else if (damage > 19)
+                EffectPlayer.Play("Vest/BulletHit_Level2", new Effect.EffectProperties
+                {
+                    XRotation = angle,
+                    YOffset = offsetY
+                });
+            else
+                EffectPlayer.Play("Vest/BulletHit_Level1", new Effect.EffectProperties
+                {
+                    XRotation = angle,
+                    YOffset = offsetY
+                });
         }
     }
 }
