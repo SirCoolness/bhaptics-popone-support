@@ -21,6 +21,8 @@ namespace BhapticsPopOne
                 // MelonLogger.LogWarning("container is null");
                 return;
             }
+
+            // MelonLogger.Msg($"{__instance.name} {__instance.PlayerUsable.EquippedSlot.ItemType} {value.ToString()}");
             
             if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffEnergyDrink || __instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffShieldDrink)
             {
@@ -28,6 +30,9 @@ namespace BhapticsPopOne
             } else if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffBanana)
             {
                 Food.EatBanana(value);
+            } else if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffShieldShaker)
+            {
+                DrinkSoda.ExecuteShaker(__instance.PlayerUsable.EquippedSlot.ItemType, __instance.Info.TimeToApply, value);
             }
         }
     }

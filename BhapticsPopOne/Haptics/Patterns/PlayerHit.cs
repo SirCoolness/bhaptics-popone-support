@@ -54,9 +54,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 
             float offsetY = Mathf.Clamp((info.ImpactPosition.y - (vestRef.position.y + PatternManager.VestCenterOffset)) / PatternManager.VestHeight, -0.5f, 0.5f);
             
-            if (Array.Exists(BulletWeapons, el => el == info.Weapon))
+            if (info.Source == HitSourceCategory.Firearm)
                 BulletHit(info, -angle, offsetY);
-            else if (Array.Exists(ExplosionItems, el => el == info.Weapon))
+            else if (info.Source == HitSourceCategory.Explosive || info.Source == HitSourceCategory.ExplodingBarrel)
                 ExplosionHit(info, -angle);
         }
 

@@ -48,6 +48,18 @@ namespace BhapticsPopOne.Haptics.Patterns
             });
         }
 
+        public static void ExecuteShaker(InventoryItemType type, float consumptionTime, BuffState state)
+        {
+            if (state != BuffState.Consumed)
+                return;
+            
+            if (DynConfig.Toggles.Vest.ConsumeItem)
+                EffectPlayer.Play("Vest/ConsumeItem", new Effect.EffectProperties
+                {
+                    Strength = ConfigHelpers.EnforceIntensity(ConfigLoader.Config.FoodEatIntensity)
+                });
+        }
+
         public static void FullHealth()
         {
             if (estimatedSodaEffects.ContainsKey(InventoryItemType.BuffEnergyDrink))
