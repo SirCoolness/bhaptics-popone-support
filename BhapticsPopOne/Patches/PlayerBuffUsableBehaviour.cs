@@ -18,12 +18,9 @@ namespace BhapticsPopOne
         {
             if (!(__instance?.playerContainer?.isLocalPlayer == true))
             {
-                // MelonLogger.LogWarning("container is null");
                 return;
             }
 
-            // MelonLogger.Msg($"{__instance.name} {__instance.PlayerUsable.EquippedSlot.ItemType} {value.ToString()}");
-            
             if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffEnergyDrink || __instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffShieldDrink)
             {
                 DrinkSoda.Execute(__instance.PlayerUsable.EquippedSlot.ItemType, __instance.Info.TimeToApply, value);
@@ -32,7 +29,7 @@ namespace BhapticsPopOne
                 Food.EatBanana(value);
             } else if (__instance.PlayerUsable.EquippedSlot.ItemType == InventoryItemType.BuffShieldShaker)
             {
-                DrinkSoda.ExecuteShaker(__instance.PlayerUsable.EquippedSlot.ItemType, __instance.Info.TimeToApply, value);
+                Shaker.Consume(value);
             }
         }
     }

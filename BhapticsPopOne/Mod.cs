@@ -145,11 +145,18 @@ namespace BhapticsPopOne
             KatanaShield.Execute(false);
             ZoneDamage.Clear();
             BhapticsPopOne.Haptics.Patterns.MeleeVelocity.Reset();
+            Shaker.SceneInit();
             // MelonLogger.Log("init level");
             
             Data.Players.Reset();
         }
 
+        public override void OnSceneWasLoaded(int buildIndex, string sceneName)
+        {
+            if (buildIndex == 0)
+                return;
+        }
+        
         public void Disable()
         {
             if (Disabled)

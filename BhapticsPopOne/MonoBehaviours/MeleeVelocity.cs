@@ -1,4 +1,5 @@
 ﻿using System;
+using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 using UnityEngine;
 
@@ -14,6 +15,8 @@ namespace BhapticsPopOne
         void FixedUpdate()
         {
             Haptics.Patterns.MeleeVelocity.Execute(Hand, Target.Velocity);
+            
+            Shaker.HandVelocity(Hand, Target.Velocity);
         }
     }
 }

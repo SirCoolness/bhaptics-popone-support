@@ -21,16 +21,16 @@ namespace BhapticsPopOne.Haptics.Patterns
                 MelonLogger.Error("Failed to find tracked in MeleeVelocity");
         }
         
-        public static void Execute(Handedness hand, Vector3 velocity)
+        public static void Execute(Handedness hand, Vector3 velocity, bool force = false)
         {
             var localPlayer = Mod.Instance.Data.Players.LocalPlayerContainer;
-            if (!IsSlicing || !trackerFound || localPlayer.Data.PlayerState != PlayerState.Active)
+            if (!(IsSlicing || force) || !trackerFound || localPlayer.Data.PlayerState != PlayerState.Active)
                 return;
             
-            if (localPlayer.Inventory.Slots[localPlayer.Inventory.EquipIndex]?.Info?.ItemClass != InventoryItemClass.Melee)
+            if (!force && localPlayer.Inventory.Slots[localPlayer.Inventory.EquipIndex]?.Info?.ItemClass != InventoryItemClass.Melee)
                 return;
             
-            if (localPlayer.Data.DominantHand != hand && !localPlayer.Data.TwoHand)
+            if (!force && localPlayer.Data.DominantHand != hand && !localPlayer.Data.TwoHand)
                 return;
             
             var relativeV = tracker.Velocity - velocity;
