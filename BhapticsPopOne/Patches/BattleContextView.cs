@@ -1,7 +1,7 @@
 ﻿using BhapticsPopOne.Helpers;
 using BhapticsPopOne.Utils;
 using Goyfs.Instance;
-using Harmony;
+using HarmonyLib;
 using MelonLoader;
 
 namespace BhapticsPopOne

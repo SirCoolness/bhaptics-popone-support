@@ -69,6 +69,8 @@ namespace BhapticsPopOne
 
             RootInit();
             
+            PlayerProxy.Init();
+            
             FileHelpers.EnforceDirectory();
             ConfigLoader.InitConfig();
 
@@ -162,7 +164,7 @@ namespace BhapticsPopOne
             if (Disabled)
                 return;
             
-            Harmony.UnpatchAll();
+            HarmonyInstance.UnpatchAll();
             
             Disabled = true;
         }

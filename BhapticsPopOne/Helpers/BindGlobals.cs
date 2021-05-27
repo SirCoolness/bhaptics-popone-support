@@ -67,18 +67,18 @@ namespace BhapticsPopOne.Helpers
         private static void PlayerWasHit(uint netId, DamageableHitInfo info)
         {
             var container = Mod.Instance.Data.Players.LocalPlayerContainer;
-
+            
             if (info.Source == HitSourceCategory.Melee)
                 KatanaHit.Execute(container, info);
             else if (info.Source == HitSourceCategory.Firearm)
                 PlayerHit.Execute(info);
             else if (info.Source == HitSourceCategory.BattleZone)
                 ZoneDamage.Hit(info);
-            else if (info.Source == HitSourceCategory.Explosive)
+            else if (info.Source == HitSourceCategory.Explosive || info.Source == HitSourceCategory.ExplodingBarrel)
             {
                 if (info.Weapon == InventoryItemType.ThrowableZoneGrenade)
                     ZoneDamage.Hit(info);
-                else if (info.Weapon == InventoryItemType.ThrowableGrenade)
+                else
                     PlayerHit.Execute(info);
             }
             else if (info.Source == HitSourceCategory.Falling)

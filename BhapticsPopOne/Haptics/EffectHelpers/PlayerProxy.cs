@@ -1,18 +1,35 @@
 ﻿using MelonLoader;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace BhapticsPopOne.Haptics
 {
     class PlayerProxy : Bhaptics.Tact.IHapticPlayer
     {
+        private static MethodInfo Register;
+        private static MethodInfo RegisterReflected;
+        
+        public static void Init()
+        {
+            Register = typeof(bHaptics).GetMethod("RegisterTactFileStr", BindingFlags.Static | BindingFlags.Public);
+            RegisterReflected = typeof(bHaptics).GetMethod("RegisterTactFileStrReflected", BindingFlags.Static | BindingFlags.Public);
+
+            if (Register == null)
+            {
+                Register = typeof(bHaptics).GetMethod("RegisterFeedbackFromTactFile", BindingFlags.Static | BindingFlags.Public);
+                RegisterReflected = typeof(bHaptics).GetMethod("RegisterFeedbackFromTactFileReflected", BindingFlags.Static | BindingFlags.Public);
+            }
+        }
+        
+
         public bool IsPlaying(string key) => bHaptics.IsPlaying(key);
 
         public bool IsPlaying() => bHaptics.IsPlaying();
 
-        public void RegisterTactFileStr(string key, string tactFileStr) => bHaptics.RegisterTactFileStr(key, tactFileStr);
+        public void RegisterTactFileStr(string key, string tactFileStr) => Register.Invoke(null, new [] { key, tactFileStr });
 
-        public void RegisterTactFileStrReflected(string key, string tactFileStr) => bHaptics.RegisterTactFileStrReflected(key, tactFileStr);
+        public void RegisterTactFileStrReflected(string key, string tactFileStr) => RegisterReflected.Invoke(null, new [] { key, tactFileStr });
 
         public void Submit(string key, bHaptics.PositionType position, byte[] motorBytes, int startTimeMillis) => bHaptics.Submit(key, position, motorBytes, startTimeMillis);
 
