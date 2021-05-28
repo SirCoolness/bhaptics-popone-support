@@ -2,7 +2,7 @@
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using BigBoxVR;
-using HarmonyLib;
+using Harmony;
 using MelonLoader;
 
 namespace BhapticsPopOne.Patches

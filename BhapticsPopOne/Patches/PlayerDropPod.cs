@@ -1,7 +1,7 @@
 ﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
-using HarmonyLib;
+using Harmony;
 using MelonLoader;
 using BigBoxVR.BattleRoyale.Models.Shared;
 

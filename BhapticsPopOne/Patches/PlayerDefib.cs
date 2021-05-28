@@ -1,6 +1,6 @@
 ﻿using System;
 using BigBoxVR;
-using HarmonyLib;
+using Harmony;
 using MelonLoader;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;

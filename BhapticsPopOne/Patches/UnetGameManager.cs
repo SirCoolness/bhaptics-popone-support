@@ -3,7 +3,7 @@ using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics;
 using BigBoxVR;
-using HarmonyLib;
+using Harmony;
 using MelonLoader;
 
 namespace BhapticsPopOne.UnetGameManager2

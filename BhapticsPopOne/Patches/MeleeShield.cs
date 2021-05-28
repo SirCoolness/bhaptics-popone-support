@@ -1,5 +1,5 @@
 ﻿using BhapticsPopOne.Haptics.Patterns;
-using HarmonyLib;
+using Harmony;
 using MelonLoader;
 using UnityEngine;
 

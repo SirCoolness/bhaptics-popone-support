@@ -1,6 +1,6 @@
 ﻿using System;
 using BhapticsPopOne.Haptics.Patterns;
-using HarmonyLib;
+using Harmony;
 using MelonLoader;
 
 namespace BhapticsPopOne.FriendProgressPopup2

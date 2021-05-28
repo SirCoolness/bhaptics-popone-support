@@ -1,4 +1,4 @@
-﻿using HarmonyLib;
+﻿using Harmony;
 using MelonLoader;
 
 namespace BhapticsPopOne
