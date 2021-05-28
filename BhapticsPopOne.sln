@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthenticationHelper", "Aut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginCapture", "LoginCapture\LoginCapture.csproj", "{C0F66D54-3E3C-4BCB-A2B4-B60EFF6E4C89}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LivFix", "LivFix\LivFix.csproj", "{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
@@ -37,6 +39,14 @@ Global
 		{C0F66D54-3E3C-4BCB-A2B4-B60EFF6E4C89}.Release|Android.ActiveCfg = Release|x64
 		{C0F66D54-3E3C-4BCB-A2B4-B60EFF6E4C89}.Release|Android.Build.0 = Release|x64
 		{C0F66D54-3E3C-4BCB-A2B4-B60EFF6E4C89}.Release|Desktop.ActiveCfg = Release|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Android.Build.0 = Debug|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Desktop.ActiveCfg = Debug|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Desktop.Build.0 = Debug|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Android.ActiveCfg = Release|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Android.Build.0 = Release|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Desktop.ActiveCfg = Release|Any CPU
+		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Desktop.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
