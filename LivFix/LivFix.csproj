@@ -32,11 +32,20 @@
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
     <ItemGroup>
-        <Reference Include="Assembly-CSharp">
+        <Reference Include="Assembly-CSharp, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Assembly-CSharp.dll</HintPath>
         </Reference>
-        <Reference Include="Il2Cppmscorlib">
+        <Reference Include="Assembly-CSharp-firstpass, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+          <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2Cppmscorlib, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Il2Cppmscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+          <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Il2CppSystem.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="MelonLoader, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null">
+          <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\MelonLoader.dll</HintPath>
         </Reference>
         <Reference Include="MelonLoader, Version=0.3.0.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\MelonLoader.dll</HintPath>
@@ -48,10 +57,13 @@
         <Reference Include="System.Core" />
         <Reference Include="System.Data" />
         <Reference Include="System.Xml" />
-        <Reference Include="UnhollowerBaseLib">
+        <Reference Include="UnhollowerBaseLib, Version=0.4.13.0, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\UnhollowerBaseLib.dll</HintPath>
         </Reference>
-        <Reference Include="UnityEngine.CoreModule">
+        <Reference Include="Unity.Addressables, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
+          <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\Unity.Addressables.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule, Version=3.7.1.6, Culture=neutral, PublicKeyToken=null">
           <HintPath>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\UnityEngine.CoreModule.dll</HintPath>
         </Reference>
     </ItemGroup>
