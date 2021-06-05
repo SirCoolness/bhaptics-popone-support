@@ -47,7 +47,8 @@ namespace BhapticsPopOne
             "TheMysticle",
             "Rasta",
             "bsharp",
-            "Sky Candy"
+            "Sky Candy",
+            "Brandon Hughey"
         };
 
         /**
@@ -63,6 +64,7 @@ namespace BhapticsPopOne
          * - Rasta
          * - bsharp
          * - Sky Candy
+         * - Brandon Hughey
          */
         public static void ThankBurgerKing()
         {

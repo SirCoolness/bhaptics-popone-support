@@ -47,7 +47,8 @@ namespace LivFix
             "TheMysticle",
             "Rasta",
             "bsharp",
-            "Sky Candy"
+            "Sky Candy",
+            "Brandon Hughey"
         };
 
         /**
@@ -63,6 +64,7 @@ namespace LivFix
          * - Rasta
          * - bsharp
          * - Sky Candy
+         * - Brandon Hughey
          */
         public static void ThankBurgerKing()
         {
