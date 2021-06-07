@@ -24,10 +24,13 @@ namespace BhapticsPopOne.Helpers
                         ZoneDamage.SetActive(ZoneDamage.ZoneSource.ZoneGrenade, inside);
                     }),
                 GoyfsHelper.TryAddListener<PlayerContainerAddedSignal, PlayerContainer>(OnPlayerAdded),
-                GoyfsHelper.TryAddListener<LocalFirearmFiredSignal, uint, FirearmInfo, bool>(FirearmFired)
+                GoyfsHelper.TryAddListener<LocalFirearmFiredSignal, uint, FirearmInfo, bool>(FirearmFired),
+                GoyfsHelper.TryAddListener<BuffStateChangedSignal, InventorySlot.BuffRecord, BuffState>(Harmonica.OnBuffStateChangedSignal),
+                GoyfsHelper.TryAddListener<PlayerBuffConsumedSignal, uint, int, BuffInfo>(Harmonica.OnPlayerBuffConsumed)
             };
-
+            
             PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(PlayerWasHit));
+            PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(Harmonica.OnPlayerWasHit));
             FirearmPrimeCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, int>(FirearmPrimeComplete));
             FirearmInsertAmmoCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint>(FirearmInsertAmmoComplete));
 

@@ -14,20 +14,20 @@ namespace BhapticsPopOne.Haptics.Patterns
                 Play(container.Data.DominantHand == Handedness.Left ? Handedness.Right : Handedness.Left);
         }
 
-        private static void Play(Handedness hand)
+        public static void Play(Handedness hand, float strength = 1f, float time = 0.6f)
         {
             if (DynConfig.Toggles.Arms.MeleeSlice)
                 EffectPlayer.Play($"Arm/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
-                    Strength = 1f,
-                    Time = 0.6f
+                    Strength = strength,
+                    Time = time
                 });
             
             if (DynConfig.Toggles.Hands.MeleeSlice)
                 EffectPlayer.Play($"Hand/MeleeSlice{HapticUtils.HandExt(hand)}", new Effect.EffectProperties
                 {
-                    Strength = 1f,
-                    Time = 0.6f
+                    Strength = strength,
+                    Time = time
                 });
         }
     }

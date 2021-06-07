@@ -6,6 +6,7 @@ using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectManagers;
 using BhapticsPopOne.Haptics.Patterns;
+using BhapticsPopOne.Helpers;
 using MelonLoader;
 using UnityEngine;
 using SceneConfig = BhapticsPopOne.ConfigManager.ConfigElements.SceneConfig;
@@ -148,6 +149,7 @@ namespace BhapticsPopOne
             ZoneDamage.Clear();
             BhapticsPopOne.Haptics.Patterns.MeleeVelocity.Reset();
             Shaker.SceneInit();
+            Harmonica.OnLevelInit();
             // MelonLogger.Log("init level");
             
             Data.Players.Reset();
