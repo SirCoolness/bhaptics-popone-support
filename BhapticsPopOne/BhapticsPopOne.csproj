@@ -33,7 +33,7 @@
     <Platforms>Android;Desktop</Platforms>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
+    <GameDir>J:\SteamLibrary\steamapps\common\PopulationONE</GameDir>
     <OutputPath>$(SolutionDir)Output\$(Configuration)\$(Platform)</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">

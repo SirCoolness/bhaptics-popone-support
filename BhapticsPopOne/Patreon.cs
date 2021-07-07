@@ -48,7 +48,8 @@ namespace BhapticsPopOne
             "Rasta",
             "bsharp",
             "Sky Candy",
-            "Brandon Hughey"
+            "Brandon Hughey",
+            "MV7945"
         };
 
         /**
@@ -65,6 +66,7 @@ namespace BhapticsPopOne
          * - bsharp
          * - Sky Candy
          * - Brandon Hughey
+         * - MV7945
          */
         public static void ThankBurgerKing()
         {
@@ -89,7 +91,8 @@ namespace BhapticsPopOne
             "Mike.",
             "Maker124",
             "Pally's Crew",
-            "AprilPvd"
+            "AprilPvd",
+            "Stan Beener"
         };
 
         /**
@@ -104,6 +107,7 @@ namespace BhapticsPopOne
          * - Maker124
          * - Pally's Crew
          * - AprilPvd
+         * - Stan Beener
          */
         public static void ThankCoffee()
         {

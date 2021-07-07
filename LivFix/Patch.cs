@@ -97,36 +97,36 @@ namespace LivFix
             if (properties.Container.Avatar?.SkinObj == null)
                 return;
 
-            if (LivFix.HideGameAvatar.Value || true)
+            if (LivFix.HideGameAvatar.Value)
             {
                 properties.Container.Avatar.SkinObj.GetComponentInChildren<MeshRenderer>().gameObject.layer = 7;
                 return;
             }
             
-            var renderer = properties.Container.Avatar.SkinObj.GetComponentInChildren<MeshRenderer>();
-            var parent = renderer.transform.parent;
-            // var go = GameObject.Instantiate(renderer.gameObject, parent);
-
-            string name = properties.Container.Avatar.activePresetName;
-            
-            AvatarSkinsData.Preset preset = properties.Container.Avatar.avatarSkins.enabledPresetCache[name];
-            if (preset == null)
-            {
-                MelonLogger.Error($"Failed to get preset for {properties.Container.Avatar.activePresetName}");
-                return;
-            }
-
-            if (!preset.Enabled)
-            {
-                MelonLogger.Error($"Preset {preset.Name} is not enabled");
-                return;
-            }
-            
-            MelonLogger.Msg($"{preset.Name} {preset.Enabled} {preset.ThirdPerson == null}");
-            BigBoxAddressablesUtil.LoadAsync<GameObject>(preset.ThirdPerson, GoyfsHelper.ConvertAction<GameObject>(SpawnHead));
-            
-            MelonLogger.Msg(
-                $"{properties.Container.Avatar.activePresetName}");
+            // var renderer = properties.Container.Avatar.SkinObj.GetComponentInChildren<MeshRenderer>();
+            // var parent = renderer.transform.parent;
+            // // var go = GameObject.Instantiate(renderer.gameObject, parent);
+            //
+            // string name = properties.Container.Avatar.activePresetName;
+            //
+            // AvatarSkinsData.Preset preset = properties.Container.Avatar.avatarSkins.enabledPresetCache[name];
+            // if (preset == null)
+            // {
+            //     MelonLogger.Error($"Failed to get preset for {properties.Container.Avatar.activePresetName}");
+            //     return;
+            // }
+            //
+            // if (!preset.Enabled)
+            // {
+            //     MelonLogger.Error($"Preset {preset.Name} is not enabled");
+            //     return;
+            // }
+            //
+            // MelonLogger.Msg($"{preset.Name} {preset.Enabled} {preset.ThirdPerson == null}");
+            // BigBoxAddressablesUtil.LoadAsync<GameObject>(preset.ThirdPerson, GoyfsHelper.ConvertAction<GameObject>(SpawnHead));
+            //
+            // MelonLogger.Msg(
+            //     $"{properties.Container.Avatar.activePresetName}");
         }
 
         private static void SpawnHead(GameObject o)
