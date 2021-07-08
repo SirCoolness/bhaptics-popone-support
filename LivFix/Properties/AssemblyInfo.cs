@@ -35,5 +35,5 @@ using MelonLoader;
 [assembly: AssemblyVersion("1.0.0.0")]
 [assembly: AssemblyFileVersion("1.0.0.0")]
 
-[assembly: MelonInfo(typeof(LivFix.LivFix), "LIV Support Fix", "1.0.0", "SirCoolness")]
+[assembly: MelonInfo(typeof(LivFix.LivFix), "LIV Support Fix", "1.0.1", "SirCoolness")]
 [assembly: MelonGame("BigBoxVR", "POPULATION: ONE")]
