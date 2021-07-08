@@ -92,7 +92,8 @@ namespace LivFix
             "Maker124",
             "Pally's Crew",
             "AprilPvd",
-            "Stan Beener"
+            "Stan Beener",
+            "Gordon"
         };
 
         /**
@@ -108,6 +109,7 @@ namespace LivFix
          * - Pally's Crew
          * - AprilPvd
          * - Stan Beener
+         * - Gordon
          */
         public static void ThankCoffee()
         {
