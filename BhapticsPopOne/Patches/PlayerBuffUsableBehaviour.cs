@@ -16,7 +16,7 @@ namespace BhapticsPopOne
     {
         static void Prefix(PlayerBuffUsableBehaviour __instance, BuffState value)
         {
-            if (!(__instance?.playerContainer?.isLocalPlayer == true))
+            if (!(__instance?.PlayerUsable?.isLocalPlayer == true))
             {
                 return;
             }

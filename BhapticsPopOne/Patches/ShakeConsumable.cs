@@ -10,7 +10,7 @@ namespace BhapticsPopOne.Patches.ShakeConsumablePatched
     {
         public static void Prefix(ShakeConsumable __instance, InventorySlot equippedSlot)
         {
-            if (__instance.UsableBehaviour.playerContainer.netId != Mod.Instance.Data.Players.LocalPlayerContainer.netId)
+            if (__instance.UsableBehaviour.PlayerUsable.netId != Mod.Instance.Data.Players.LocalPlayerContainer.netId)
                 return;
             
             if (equippedSlot.Info.Type != InventoryItemType.BuffShieldShaker)

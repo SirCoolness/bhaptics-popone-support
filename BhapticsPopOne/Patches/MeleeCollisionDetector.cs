@@ -8,7 +8,7 @@ namespace BhapticsPopOne
     {
         public static void Prefix(MeleeCollisionDetector __instance)
         {
-            if (!__instance.UsableBehaviour.playerContainer.isLocalPlayer)
+            if (!__instance.UsableBehaviour.PlayerUsable.isLocalPlayer)
                 return;
             
             Haptics.Patterns.MeleeVelocity.IsSlicing = false;

@@ -94,12 +94,12 @@ namespace LivFix
             if (properties.Container.netId != container.netId)
                 return;
             
-            if (properties.Container.Avatar?.SkinObj == null)
+            if (properties.Container.Avatar?.skinObj == null)
                 return;
 
             if (LivFix.HideGameAvatar.Value)
             {
-                properties.Container.Avatar.SkinObj.GetComponentInChildren<MeshRenderer>().gameObject.layer = 7;
+                properties.Container.Avatar.skinObj.GetComponentInChildren<MeshRenderer>().gameObject.layer = 7;
                 return;
             }
             
@@ -129,57 +129,56 @@ namespace LivFix
             //     $"{properties.Container.Avatar.activePresetName}");
         }
 
-        private static void SpawnHead(GameObject o)
-        {
-            LocalProperties properties = GoyfsHelper.Get<LocalProperties>();
-
-            if (o.name == "BundleItem")
-                return;
-            MelonLogger.Msg($"Prefab {o.name}");
-            var go = MemoryUtil.Instantiate<GameObject>(o, null, true);
-
-            go.name = "Worked";
-            go.transform.position = properties.Container.Avatar.SkinObj.transform.position + new Vector3(0, 0, -2f);
-
-            MelonLogger.Msg("me");
-
-            MelonLogger.Msg("v");
-            try
-            {
-                BigBoxVR.AvatarSkinning.GetRootAndTransform(skin: null, dstRoot: out var dst, dstBones: out var dstBones);
-                MelonLogger.Msg("1");
-            }
-            catch (Exception e)
-            {
-                MelonLogger.Error(e);
-            }
-            
-            try
-            {
-                BigBoxVR.AvatarSkinning.GetRootAndTransform(skin: (UnityEngine.GameObject)go, dstRoot: out var dst, dstBones: out var dstBones);
-                MelonLogger.Msg("2");
-            }
-            catch (Exception e)
-            {
-                MelonLogger.Error(e);
-            }
-            
-            try
-            {
-                BigBoxVR.AvatarSkinning.GetRootAndTransform(skin: o, dstRoot: out var  dst, dstBones: out var dstBones);
-                MelonLogger.Msg("3");
-            }
-            catch (Exception e)
-            {
-                MelonLogger.Error(e);
-            }
-
-            MelonLogger.Msg($"z");
-            // AvatarSkinning.RemapBones(properties.Container.Avatar.dicBones, properties.Container.transform.root, ref dst, ref dstBones);
-
-            // MelonLogger.Msg($"{dst.name}");
-        }
-        
+        // private static void SpawnHead(GameObject o)
+        // {
+        //     LocalProperties properties = GoyfsHelper.Get<LocalProperties>();
+        //
+        //     if (o.name == "BundleItem")
+        //         return;
+        //     MelonLogger.Msg($"Prefab {o.name}");
+        //     var go = MemoryUtil.Instantiate<GameObject>(o, null, true);
+        //
+        //     go.name = "Worked";
+        //     go.transform.position = properties.Container.Avatar.SkinObj.transform.position + new Vector3(0, 0, -2f);
+        //
+        //     MelonLogger.Msg("me");
+        //
+        //     MelonLogger.Msg("v");
+        //     try
+        //     {
+        //         BigBoxVR.AvatarSkinning.GetRootAndTransform(skin: null, dstRoot: out var dst, dstBones: out var dstBones);
+        //         MelonLogger.Msg("1");
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         MelonLogger.Error(e);
+        //     }
+        //     
+        //     try
+        //     {
+        //         BigBoxVR.AvatarSkinning.GetRootAndTransform(skin: (UnityEngine.GameObject)go, dstRoot: out var dst, dstBones: out var dstBones);
+        //         MelonLogger.Msg("2");
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         MelonLogger.Error(e);
+        //     }
+        //     
+        //     try
+        //     {
+        //         BigBoxVR.AvatarSkinning.GetRootAndTransform(skin: o, dstRoot: out var  dst, dstBones: out var dstBones);
+        //         MelonLogger.Msg("3");
+        //     }
+        //     catch (Exception e)
+        //     {
+        //         MelonLogger.Error(e);
+        //     }
+        //
+        //     MelonLogger.Msg($"z");
+        //     // AvatarSkinning.RemapBones(properties.Container.Avatar.dicBones, properties.Container.transform.root, ref dst, ref dstBones);
+        //
+        //     // MelonLogger.Msg($"{dst.name}");
+        // }
     }
     
     
