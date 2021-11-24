@@ -1,5 +1,5 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />
+<!--  <Import Project="..\packages\ILMerge.3.0.41\build\ILMerge.props" Condition="Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" />-->
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Desktop">
       <Configuration>Debug</Configuration>
@@ -33,7 +33,7 @@
     <Platforms>Android;Desktop</Platforms>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <GameDir>J:\SteamLibrary\steamapps\common\PopulationONE</GameDir>
+    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
     <OutputPath>$(SolutionDir)Output\$(Configuration)\$(Platform)</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
@@ -45,10 +45,10 @@
     <DefineConstants>PLATFORM_ANDROID</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>
-      <Private>True</Private>
-    </Reference>
+<!--    <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">-->
+<!--      <HintPath>..\packages\System.Collections.NonGeneric.4.3.0\lib\net46\System.Collections.NonGeneric.dll</HintPath>-->
+<!--      <Private>True</Private>-->
+<!--    </Reference>-->
     <Reference Include="System.Windows.Forms">
       <HintPath>$(ManagedDir)\System.Windows.Forms.dll</HintPath>
     </Reference>
@@ -77,9 +77,9 @@
     <Reference Include="Il2CppSystem.Core">
       <HintPath>$(ManagedDir)\Il2CppSystem.Core.dll</HintPath>
     </Reference>
-    <Reference Include="Il2CppSystem.Reflection">
-      <HintPath>$(ManagedDir)\Il2CppSystem.Reflection.dll</HintPath>
-    </Reference>
+<!--    <Reference Include="Il2CppSystem.Reflection">-->
+<!--      <HintPath>$(ManagedDir)\Il2CppSystem.Reflection.dll</HintPath>-->
+<!--    </Reference>-->
     <Reference Include="Mirror">
       <HintPath>$(ManagedDir)\Mirror.dll</HintPath>
     </Reference>
@@ -111,10 +111,14 @@
       <HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <PropertyGroup>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+  </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="ILMerge" Version="3.0.29" />
+<!--    <PackageReference Include="ILRepack" Version="2.0.18" />-->
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="YamlDotNet" Version="9.1.0" />
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(OutputPath)\..\haptics.json" LogicalName="$(TargetName).haptics.json" />
@@ -122,12 +126,22 @@
   <PropertyGroup>
     <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(SolutionDir)/BhapticsPopOne/Assets/Effects" "$(OutputPath)/haptics.json"</PreBuildEvent>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
-    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>
-  </PropertyGroup>
+<!--  <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">-->
+<!--    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>-->
+<!--  </PropertyGroup>-->
+<!--  <PropertyGroup Condition=" '$(Platform)' == 'Android' ">-->
+<!--    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>-->
+<!--  </PropertyGroup>-->
+
+<!--  <Target Name="ILRepack" AfterTargets="Build">-->
+<!--    <PropertyGroup>-->
+<!--      <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>-->
+<!--    </PropertyGroup>-->
+<!--    <ItemGroup>-->
+<!--      <InputAssemblies Include="YamlDotNet.dll" />-->
+<!--    </ItemGroup>-->
+<!--    <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />-->
+<!--  </Target>-->
   <!--
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
@@ -144,4 +158,7 @@
     <Target Name="AfterBuild">
     </Target>
     -->
+  <ItemDefinitionGroup>
+    <PackageReference ExcludeAssets="runtime" />
+  </ItemDefinitionGroup>
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 using BhapticsPopOne.Haptics.Patterns;
-using Harmony;
+using HarmonyLib;
 using MelonLoader;
 
 namespace BhapticsPopOne.PlayerInventory2

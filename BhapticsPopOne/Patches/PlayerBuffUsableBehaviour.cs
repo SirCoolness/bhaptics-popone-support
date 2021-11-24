@@ -5,7 +5,7 @@ using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using BigBoxVR;
 using BigBoxVR.BattleRoyale.Models.Shared;
-using Harmony;
+using HarmonyLib;
 using MelonLoader;
 using UnhollowerBaseLib;
 

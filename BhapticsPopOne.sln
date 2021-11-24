@@ -42,11 +42,9 @@ Global
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Android.ActiveCfg = Debug|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Android.Build.0 = Debug|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Desktop.ActiveCfg = Debug|Any CPU
-		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Debug|Desktop.Build.0 = Debug|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Android.ActiveCfg = Release|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Android.Build.0 = Release|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Desktop.ActiveCfg = Release|Any CPU
-		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Desktop.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

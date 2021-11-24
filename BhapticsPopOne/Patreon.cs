@@ -93,7 +93,9 @@ namespace BhapticsPopOne
             "Pally's Crew",
             "AprilPvd",
             "Stan Beener",
-            "Gordon"
+            "Gordon",
+            "Whodat",
+            "Paul Eckhoff"
         };
 
         /**
@@ -110,6 +112,8 @@ namespace BhapticsPopOne
          * - AprilPvd
          * - Stan Beener
          * - Gordon
+         * - Whodat
+         * - Paul Eckhoff
          */
         public static void ThankCoffee()
         {

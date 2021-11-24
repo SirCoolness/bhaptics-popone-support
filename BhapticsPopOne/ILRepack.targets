@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <Target Name="ILRepacker_Debug" AfterTargets="Build" Condition="'$(Configuration)' == 'Debug'">
+        <ItemGroup>
+<!--            <ReferencePathWithRefAssemblies Include="C:\Users\Akiva\RiderProjects\bhaptics-popone-support\Output\Debug\Desktop\net4.7.2"/>-->
+        </ItemGroup>
+        <ItemGroup>
+            <AssemblyFile Include="$(OutputPath)$(AssemblyName).dll" />
+        </ItemGroup>
+        <ItemGroup>
+            <!-- Must be a fully qualified name -->
+            <DoNotInternalizeAssemblies Include="MelonLoader" />
+        </ItemGroup>
+        <ItemGroup>
+            <InputAssemblies Include="@(AssemblyFile)" />
+            <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'YamlDotNet'" />
+        </ItemGroup>
+        <ILRepack
+                Parallel="true"
+                DebugInfo="true"
+                InternalizeExclude="@(DoNotInternalizeAssemblies)"
+                InputAssemblies="@(InputAssemblies)"
+                TargetKind="Dll"
+                OutputFile="$(OutputPath)\$(AssemblyName).dll"
+                LibraryPath="$(OutputPath)"
+        />
+    </Target>
+
+    <Target Name="ILRepacker_Release" AfterTargets="Build" Condition="'$(Configuration)' == 'Release'">
+        <ItemGroup>
+            <AssemblyFile Include="$(OutputPath)$(AssemblyName).dll" />
+        </ItemGroup>
+        <ItemGroup>
+            <InputAssemblies Include="@(AssemblyFile)" />
+            <InputAssemblies Include="@(ReferencePathWithRefAssemblies)" Condition="'%(filename)' == 'YamlDotNet'" />
+        </ItemGroup>
+        <ILRepack
+                Parallel="true"
+                DebugInfo="false"
+                InputAssemblies="@(InputAssemblies)"
+                TargetKind="Dll"
+                OutputFile="@(AssemblyFile)"
+                LibraryPath="$(OutputPath)"
+        />
+    </Target>
+
+    <Target Name="Cleanup" AfterTargets="ILRepack">
+        <ItemGroup>
+            <FilesToDelete Include="$(OutputPath)YamlDotNet.dll" />
+        </ItemGroup>
+        <Delete Files="@(FilesToDelete)" />
+    </Target>
+</Project>

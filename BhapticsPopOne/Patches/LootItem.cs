@@ -3,7 +3,7 @@ using System.Runtime.InteropServices;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Utils;
 using BigBoxVR.BattleRoyale.Models.Shared;
-using Harmony;
+using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
 

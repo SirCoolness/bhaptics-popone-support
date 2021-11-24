@@ -166,7 +166,7 @@ namespace BhapticsPopOne
             if (Disabled)
                 return;
             
-            Harmony.UnpatchAll();
+            HarmonyInstance.UnpatchAll();
             
             Disabled = true;
         }

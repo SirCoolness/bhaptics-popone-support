@@ -1,6 +1,6 @@
 ﻿using BhapticsPopOne.Haptics.Patterns;
 using BigBoxVR.BattleRoyale.Models.Shared;
-using Harmony;
+using HarmonyLib;
 using MelonLoader;
 
 namespace BhapticsPopOne.Patches.ShakeConsumablePatched
