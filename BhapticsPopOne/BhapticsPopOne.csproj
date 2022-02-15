@@ -33,15 +33,16 @@
     <Platforms>Android;Desktop</Platforms>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
+<!--    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader</GameDir>-->
+    <GameDir>/home/akiva/RiderProjects/bhaptics-popone-support/deps</GameDir>
     <OutputPath>$(SolutionDir)Output\$(Configuration)\$(Platform)</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <ManagedDir>$(GameDir)\MelonLoader\Managed</ManagedDir>
+    <ManagedDir>$(GameDir)/Managed</ManagedDir>
     <DefineConstants>PLATFORM_DESKTOP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
-    <ManagedDir><!-- fill --></ManagedDir>
+    <ManagedDir>$(GameDir)/Managed</ManagedDir>
     <DefineConstants>PLATFORM_ANDROID</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Desktop' ">
@@ -50,65 +51,62 @@
 <!--      <Private>True</Private>-->
 <!--    </Reference>-->
     <Reference Include="System.Windows.Forms">
-      <HintPath>$(ManagedDir)\System.Windows.Forms.dll</HintPath>
+      <HintPath>$(ManagedDir)/System.Windows.Forms.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Android' ">
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MelonLoader">
-      <HintPath>$(GameDir)\MelonLoader\MelonLoader.dll</HintPath>
+      <HintPath>$(GameDir)/MelonLoader.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp">
-      <HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
+      <HintPath>$(ManagedDir)/Assembly-CSharp.dll</HintPath>
     </Reference>
     <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>$(ManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+      <HintPath>$(ManagedDir)/Assembly-CSharp-firstpass.dll</HintPath>
     </Reference>
     <Reference Include="GameLiftServerSDKNet45">
-      <HintPath>$(ManagedDir)\GameLiftServerSDKNet45.dll</HintPath>
+      <HintPath>$(ManagedDir)/GameLiftServerSDKNet45.dll</HintPath>
     </Reference>
     <Reference Include="Il2Cppmscorlib">
-      <HintPath>$(ManagedDir)\Il2Cppmscorlib.dll</HintPath>
+      <HintPath>$(ManagedDir)/Il2Cppmscorlib.dll</HintPath>
     </Reference>
     <Reference Include="Il2CppSystem">
-      <HintPath>$(ManagedDir)\Il2CppSystem.dll</HintPath>
+      <HintPath>$(ManagedDir)/Il2CppSystem.dll</HintPath>
     </Reference>
     <Reference Include="Il2CppSystem.Core">
-      <HintPath>$(ManagedDir)\Il2CppSystem.Core.dll</HintPath>
+      <HintPath>$(ManagedDir)/Il2CppSystem.Core.dll</HintPath>
     </Reference>
 <!--    <Reference Include="Il2CppSystem.Reflection">-->
-<!--      <HintPath>$(ManagedDir)\Il2CppSystem.Reflection.dll</HintPath>-->
+<!--      <HintPath>$(ManagedDir)/Il2CppSystem.Reflection.dll</HintPath>-->
 <!--    </Reference>-->
     <Reference Include="Mirror">
-      <HintPath>$(ManagedDir)\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib">
-      <HintPath>$(ManagedDir)\mscorlib.dll</HintPath>
+      <HintPath>$(ManagedDir)/Mirror.dll</HintPath>
     </Reference>
     <Reference Include="System">
-      <HintPath>$(ManagedDir)\System.dll</HintPath>
+      <HintPath>$(ManagedDir)/System.dll</HintPath>
     </Reference>
     <Reference Include="System.Data">
-      <HintPath>$(ManagedDir)\System.Data.dll</HintPath>
+      <HintPath>$(ManagedDir)/System.Data.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml">
-      <HintPath>$(ManagedDir)\System.Xml.dll</HintPath>
+      <HintPath>$(ManagedDir)/System.Xml.dll</HintPath>
     </Reference>
     <Reference Include="UnhollowerBaseLib">
-      <HintPath>$(ManagedDir)\UnhollowerBaseLib.dll</HintPath>
+      <HintPath>$(ManagedDir)/UnhollowerBaseLib.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Collections">
-      <HintPath>$(ManagedDir)\Unity.Collections.dll</HintPath>
+      <HintPath>$(ManagedDir)/Unity.Collections.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Mathematics">
-      <HintPath>$(ManagedDir)\Unity.Mathematics.dll</HintPath>
+      <HintPath>$(ManagedDir)/Unity.Mathematics.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
+      <HintPath>$(ManagedDir)/UnityEngine.CoreModule.dll</HintPath>
     </Reference>
     <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
+      <HintPath>$(ManagedDir)/UnityEngine.PhysicsModule.dll</HintPath>
     </Reference>
   </ItemGroup>
   <PropertyGroup>
