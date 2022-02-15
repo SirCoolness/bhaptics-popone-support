@@ -34,8 +34,6 @@ namespace BhapticsPopOne
             }
         }
 
-        private LoggingContext _initLoggingContext;
-        private LoggingContext _disposeLoggingContext;
         private EffectLoop _effectLoop;
 
         public Data.Data Data;
@@ -43,12 +41,6 @@ namespace BhapticsPopOne
 
         public bool Disabled { get; private set; } = false;
 
-        public Mod()
-        {
-            _initLoggingContext = new LoggingContext("init");
-            _disposeLoggingContext = new LoggingContext("exit");
-        }
-        
         /**
          * The first call made on application start
          */
@@ -66,7 +58,7 @@ namespace BhapticsPopOne
         
         public override void OnApplicationStart()
         {
-            MelonLogger.Msg($"{_initLoggingContext.Prefix} Application initializing");
+            MelonLogger.Msg("Application initializing");
 
             RootInit();
             
@@ -98,7 +90,7 @@ namespace BhapticsPopOne
 
         public override void OnApplicationQuit()
         {
-            MelonLogger.Msg($"{_disposeLoggingContext.Prefix} Application closing");
+            MelonLogger.Msg("Application closing");
 
             base.OnApplicationQuit();
             
@@ -112,14 +104,14 @@ namespace BhapticsPopOne
 
         private void StartServices()
         {
-            MelonLogger.Msg($"{_initLoggingContext.Prefix} Starting Services");
+            MelonLogger.Msg("Starting Services");
             
             Haptics.Start();
         }
 
         private void StopServices()
         {
-            MelonLogger.Msg($"{_disposeLoggingContext.Prefix} Stopping Services");
+            MelonLogger.Msg("Stopping Services");
 
             Haptics.Stop();
         }
