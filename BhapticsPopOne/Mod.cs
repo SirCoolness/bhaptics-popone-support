@@ -79,8 +79,6 @@ namespace BhapticsPopOne
             
             PatternManager.LoadPatterns();
 
-            EffectEventsDispatcher.Init();
-
             Data.Initialize();
 
             Physics.IgnoreLayerCollision(10, 19, false);

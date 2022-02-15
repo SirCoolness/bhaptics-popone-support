@@ -32,6 +32,8 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         private readonly HashSet<System.Guid> _activeEffects = new HashSet<System.Guid>();
         private readonly Dictionary<System.Guid, Action> _onEffectStop = new Dictionary<System.Guid, Action>();
         private readonly System.Guid _fallbackID = new System.Guid();
+        
+        private readonly Dictionary<System.Guid, string> _nameCache = new Dictionary<System.Guid, string>();
 
         public Effect(string name, string content, bool register = true)
         {
@@ -73,7 +75,7 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         {
             foreach (var activeEffect in _activeEffects)
             {
-                Mod.Instance.Haptics.Player.TurnOff(activeEffect.ToString());
+                Mod.Instance.Haptics.Player.TurnOff(PrepareName(activeEffect));
                 _onEffectStop[activeEffect].Invoke();
                 _onEffectStop[activeEffect] = DefaultOnStop;
             }
@@ -94,14 +96,18 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             for (uint i = 0; i < toAdd; i++)
             {
                 var id = Guid.NewGuid();
-                _effectNames.Add(id);
+                RegisterEffectId(id);
 
-                Mod.Instance.Haptics.Player.RegisterTactFileStr(id.ToString(), Contents);
+                Mod.Instance.Haptics.Player.RegisterTactFileStr(PrepareName(id), Contents);
             }
             
             foreach (var id in _effectNames)
             {
-                EffectEventsDispatcher.OnEffectStop[id.ToString()] = () => { OnEffectStopLabel(id); };
+                EffectEventsDispatcher.RegisterEffect(
+                    id,
+                    () => Mod.Instance.Haptics.Player.IsPlaying(PrepareName(id)), 
+                    () => { OnEffectStopLabel(id); }
+                    );
                 _onEffectStop[id] = DefaultOnStop;
             }
         }
@@ -111,8 +117,8 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
             _onEffectStop[id] = properties.OnComplete;
             
             Mod.Instance.Haptics.Player.SubmitRegistered(
-                id.ToString(), 
-                id.ToString(), 
+                PrepareName(id), 
+                PrepareName(id), 
                 new ScaleOption(properties.Strength, properties.Time),
                 new RotationOption(properties.XRotation, properties.YOffset)
             );
@@ -149,6 +155,23 @@ namespace BhapticsPopOne.Haptics.EffectHelpers
         
         private void DefaultOnStop()
         {}
+
+        private string PrepareName(System.Guid id)
+        {
+            #if PLATFORM_DESKTOP
+            return id.ToString();
+            #else
+            return _nameCache[id];
+            #endif
+        }
+
+        private void RegisterEffectId(System.Guid id)
+        {
+            _effectNames.Add(id);
+            #if PLATFORM_ANDROID
+            _nameCache[id] = Name + "-" + _nameCache.Count;
+            #endif
+        }
         
         public class EffectProperties
         {
