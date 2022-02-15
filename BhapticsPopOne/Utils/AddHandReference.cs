@@ -12,6 +12,7 @@ namespace BhapticsPopOne
 
         public static void AddHandsToPlayer(PlayerContainer player)
         {
+            return;
             // is this the way to do things, no.
             Collider[] leftIgnore;
             Collider[] rightIgnore;

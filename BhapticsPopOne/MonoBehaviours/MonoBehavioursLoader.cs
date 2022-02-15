@@ -14,15 +14,15 @@ namespace BhapticsPopOne
                 MelonLogger.Error("MonoBehaviours were already injected.");
             }
             
-            ClassInjector.RegisterTypeInIl2Cpp<VelocityTracker>();
-            ClassInjector.RegisterTypeInIl2Cpp<TriggerEnterTest>();
-            ClassInjector.RegisterTypeInIl2Cpp<DebugMarker>();
-            ClassInjector.RegisterTypeInIl2Cpp<DestructibleCollisionHelp>();
-            ClassInjector.RegisterTypeInIl2Cpp<HighFiveTarget>();
-            ClassInjector.RegisterTypeInIl2Cpp<TouchCollider>();
-            ClassInjector.RegisterTypeInIl2Cpp<SendTouch>();
-            ClassInjector.RegisterTypeInIl2Cpp<GeneralTouchCollider>();
-            ClassInjector.RegisterTypeInIl2Cpp<MeleeVelocity>();
+            ClassInjector.RegisterTypeInIl2Cpp<VelocityTracker>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<TriggerEnterTest>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<DebugMarker>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<DestructibleCollisionHelp>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<HighFiveTarget>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<TouchCollider>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<SendTouch>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<GeneralTouchCollider>(true);
+            ClassInjector.RegisterTypeInIl2Cpp<MeleeVelocity>(true);
         }
     }
 }

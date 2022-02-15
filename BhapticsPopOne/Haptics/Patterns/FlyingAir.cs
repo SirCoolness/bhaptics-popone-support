@@ -48,6 +48,9 @@ namespace BhapticsPopOne.Haptics.Patterns
 
         public static void Execute(bool wasFalling)
         {
+            #if PLATFORM_ANDROID
+            return;
+            #endif
             if (ResetFlight)
             {
                 ResetFlight = false;
