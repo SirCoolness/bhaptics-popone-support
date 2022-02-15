@@ -24,7 +24,8 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BhapticsPopOne</RootNamespace>
     <AssemblyName>BhapticsPopOne</AssemblyName>
-    <TargetFrameworks>net4.7.2</TargetFrameworks>
+    <OutputType>Library</OutputType>
+    <TargetFramework>net4.7.2</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
     <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
@@ -33,9 +34,12 @@
     <Platforms>Android;Desktop</Platforms>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
 <!--    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader</GameDir>-->
     <GameDir>/home/akiva/RiderProjects/bhaptics-popone-support/deps</GameDir>
-    <OutputPath>$(SolutionDir)Output\$(Configuration)\$(Platform)</OutputPath>
+    <OutputPath>$(SolutionDir)Output/$(Configuration)/$(Platform)/</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
     <ManagedDir>$(GameDir)/Managed</ManagedDir>
@@ -44,6 +48,8 @@
   <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
     <ManagedDir>$(GameDir)/Managed</ManagedDir>
     <DefineConstants>PLATFORM_ANDROID</DefineConstants>
+    <DebugType>portable</DebugType>
+    <Optimize>false</Optimize>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Desktop' ">
 <!--    <Reference Include="System.Collections.NonGeneric, Version=4.0.2.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">-->
@@ -55,6 +61,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Android' ">
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2" />
+    <!--    <PackageReference Include="ILRepack" Version="2.0.18" />-->
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="YamlDotNet" Version="9.1.0" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MelonLoader">
@@ -112,12 +124,6 @@
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
-  <ItemGroup>
-<!--    <PackageReference Include="ILRepack" Version="2.0.18" />-->
-    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
-    <PackageReference Include="YamlDotNet" Version="9.1.0" />
-    <PackageReference Include="ILRepack.Lib.MSBuild.Task" Version="2.0.18.2" />
-  </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="$(OutputPath)\..\haptics.json" LogicalName="$(TargetName).haptics.json" />
   </ItemGroup>
