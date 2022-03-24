@@ -4,7 +4,7 @@ using System.Linq;
 using MelonLoader;
 using UnityEngine;
 
-namespace BhapticsPopOne
+namespace SirCoolness
 {
     /**
      * This class is a thank you to all the Patreon members
@@ -49,7 +49,8 @@ namespace BhapticsPopOne
             "bsharp",
             "Sky Candy",
             "Brandon Hughey",
-            "MV7945"
+            "MV7945",
+            "halfwaymexican"
         };
 
         /**
@@ -67,6 +68,7 @@ namespace BhapticsPopOne
          * - Sky Candy
          * - Brandon Hughey
          * - MV7945
+         * - halfwaymexican
          */
         public static void ThankBurgerKing()
         {
@@ -95,7 +97,14 @@ namespace BhapticsPopOne
             "Stan Beener",
             "Gordon",
             "Whodat",
-            "Paul Eckhoff"
+            "Paul Eckhoff",
+            "G-Tricks",
+            "Dallon Duke",
+            "Florian Farhrenberger",
+            "Curtis Pedersen",
+            "Jo Swannymcswanerson",
+            "Niclas Klinterhäll",
+            "Ludovit Kopcsanyi"
         };
 
         /**
@@ -114,6 +123,13 @@ namespace BhapticsPopOne
          * - Gordon
          * - Whodat
          * - Paul Eckhoff
+         * - G-Tricks
+         * - Dallon Duke
+         * - Florian Farhrenberger
+         * - Curtis Pedersen
+         * - Jo Swannymcswanerson
+         * - Niclas Klinterhäll
+         * - Ludovit Kopcsanyi
          */
         public static void ThankCoffee()
         {
@@ -135,6 +151,8 @@ namespace BhapticsPopOne
          */
         public static void Promote()
         {
+            MelonLogger.Msg(color, "Last Updated: 3/23/2022 - If you don't see your name here, you will be added in the next update to the mod.");
+            MelonLogger.Msg(color, "");
             MelonLogger.Msg(color, "If you would like to support future/ongoing projects and get your name added here.");
             MelonLogger.Msg(color, "Check out: https://www.patreon.com/SirCoolness");
         }

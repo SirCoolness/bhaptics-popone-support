@@ -77,7 +77,7 @@ namespace BhapticsPopOne
 
             DynConfig.UpdateConfig(DynConfig.SceneMode.General);
             
-            Patreon.Run(); // (●'◡'●)
+            SirCoolness.Patreon.Run(); // (●'◡'●)
             
             MonoBehavioursLoader.Inject();
 
