@@ -1,6 +1,7 @@
 using System.IO;
 using BigBoxVR;
 using HarmonyLib;
+using Il2CppSystem;
 using MelonLoader;
 using PlayFab;
 using PlayFab.ClientModels;
@@ -9,85 +10,30 @@ using PlayFab.SharedModels;
 using UnhollowerBaseLib;
 using UnityEngine;
 
-[assembly: MelonInfo(typeof(AuthenticationHelper.AuthenticationHelper), "Quest Authentication Helper", "0.0.1", "SirCoolness")]
+[assembly: MelonInfo(typeof(AuthenticationHelper.AuthenticationHelper), "Quest Authentication Helper", "0.0.2", "SirCoolness")]
 [assembly: MelonGame("BigBoxVR", "Population: ONE")]
 
 namespace AuthenticationHelper
 {
     public class AuthenticationHelper : MelonMod
     {
-        private static LoginResult LoginRes;
-        
-        public override void OnApplicationStart()
+        public static void ManualAuthentication(string oculusId, GetPlayerCombinedInfoRequestParams infoParams,
+            Il2CppSystem.Action<LoginResult> resultCallback, Il2CppSystem.Action<PlayFabError> errorCallback)
         {
-            base.OnApplicationStart();
-            
-            if (!LoadLogin())
+            var loginRequest = new LoginWithCustomIDRequest
             {
-                MelonLogger.Error("Failed to load login data");
-                Application.Quit(1);
-            }
-        }
-
-        private static bool LoadLogin()
-        {
-            var outputDir = Path.Combine(MelonHandler.ModsDirectory, nameof(AuthenticationHelper));
-            Directory.CreateDirectory(outputDir);
-            
-            var outputFile = Path.Combine(outputDir, "login.json");
-
-            string rawSessionInfo = "";
-            try
-            {
-                rawSessionInfo = System.IO.File.ReadAllText(outputFile);
-            }
-            catch (FileNotFoundException err)
-            {
-                return false;
-            }
-            
-            if (rawSessionInfo.Length < 2)
-                return false;
-            
-            LoginRes = BigBoxJsonUtility.ParseAs<LoginResult>(rawSessionInfo);
-
-            return true;
-        }
-        
-        public static void ProxyRequest(GetPlayerCombinedInfoRequestParams infoParams, Il2CppSystem.Action<LoginResult> resultCallback, Il2CppSystem.Action<PlayFabError> errorCallback)
-        {
-            PlayFabHttp.InitializeHttp();
-
-            var instanceApi = new PlayFabClientInstanceAPI
-            {
-                apiSettings = PlayFabSettings.staticSettings,
-                authenticationContext = PlayFabSettings.staticPlayer
-            };
-            var reqContainer = new CallRequestContainer
-            {
-                ApiEndpoint = "/Client/LoginWithCustomID",
-                ApiResult = LoginRes,
-                context = instanceApi.authenticationContext,
-                settings = instanceApi.apiSettings,
-                instanceApi = instanceApi.Cast<IPlayFabInstanceApi>(),
+                TitleId = PlayFabConnection.IsProduction ? PlayFabConnection.ProductionTitleId : PlayFabConnection.StagingTitleId, 
+                CustomId = oculusId, 
+                InfoRequestParameters = new GetPlayerCombinedInfoRequestParams
+                {
+                    GetUserAccountInfo = true,
+                    GetTitleData = true,
+                    GetUserData = true,
+                    GetUserReadOnlyData = true,
+                }
             };
             
-            PlayFabHttp.instance.OnPlayFabApiResult(reqContainer);
-            
-            PlayFabDeviceUtil.OnPlayFabLogin(LoginRes, reqContainer.settings, reqContainer.instanceApi);
-            
-            try
-            {
-                PlayFabHttp.SendEvent("/Client/LoginWithCustomID", new LoginWithCustomIDRequest(), LoginRes, ApiProcessingEventType.Post);
-            }
-            catch (Il2CppException e)
-            {
-                MelonLogger.Msg(e.Message);
-            }
-            
-            PlayFabSettings.staticPlayer.CopyFrom(LoginRes.AuthenticationContext);
-            
-            resultCallback.Invoke(LoginRes);
+            PlayFabClientAPI.LoginWithCustomID(loginRequest, resultCallback, errorCallback);
         }
     }
     
@@ -104,7 +50,7 @@ namespace AuthenticationHelper
         {
             MelonLogger.Msg($"Postfix {oculusID}");
             
-            AuthenticationHelper.ProxyRequest(infoParams, resultCallback, errorCallback);
+            AuthenticationHelper.ManualAuthentication(oculusID, infoParams, resultCallback, errorCallback);
         }
     }
     
