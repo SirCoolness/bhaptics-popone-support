@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoginCapture", "LoginCaptur
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LivFix", "LivFix\LivFix.csproj", "{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CyberShoesMod", "CyberShoesMod\CyberShoesMod.csproj", "{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Android = Debug|Android
@@ -26,7 +28,6 @@ Global
 		{789BE38B-1267-488B-8952-014F21D8F5E7}.Release|Desktop.ActiveCfg = Release|Desktop
 		{789BE38B-1267-488B-8952-014F21D8F5E7}.Release|Desktop.Build.0 = Release|Desktop
 		{789BE38B-1267-488B-8952-014F21D8F5E7}.Debug|Desktop.ActiveCfg = Debug|Desktop
-		{789BE38B-1267-488B-8952-014F21D8F5E7}.Debug|Desktop.Build.0 = Debug|Desktop
 		{02A34CDD-F38E-4E36-B6A4-5B308679D065}.Debug|Android.ActiveCfg = Debug|Any CPU
 		{02A34CDD-F38E-4E36-B6A4-5B308679D065}.Debug|Android.Build.0 = Debug|Any CPU
 		{02A34CDD-F38E-4E36-B6A4-5B308679D065}.Release|Android.ActiveCfg = Release|x64
@@ -45,6 +46,14 @@ Global
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Android.ActiveCfg = Release|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Android.Build.0 = Release|Any CPU
 		{62E50C35-BE4C-4EAC-9DC2-A9E22EADFAB8}.Release|Desktop.ActiveCfg = Release|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Debug|Android.ActiveCfg = Debug|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Debug|Android.Build.0 = Debug|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Debug|Desktop.ActiveCfg = Debug|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Debug|Desktop.Build.0 = Debug|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Release|Android.ActiveCfg = Release|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Release|Android.Build.0 = Release|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Release|Desktop.ActiveCfg = Release|Any CPU
+		{ECE9FAE0-263C-427D-9800-7F92D5DE8D10}.Release|Desktop.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,30 @@
+﻿{
+  "SessionTicket": "170182ADF6DD8EC1--7E135C029BE6019F-CA875-8DA33C117370F2C-Gp071zefeSTv/t6X8StF59PWjWfYHaPpRGd/teN5ueo=",
+  "PlayFabId": "170182ADF6DD8EC1",
+  "NewlyCreated": false,
+  "SettingsForUser": {
+    "NeedsAttribution": false,
+    "GatherDeviceInfo": true,
+    "GatherFocusInfo": false
+  },
+  "LastLoginTime": "2022-05-12T02:41:55.327Z",
+  "EntityToken": {
+    "EntityToken": "NHx1NFFXV3g1b2I3dVpDblhqTGEvRVlFS2taVlJRMDJPa0Y0ME53b1RpdHMwPXx7ImkiOiIyMDIyLTA1LTEyVDAyOjQyOjQzLjc1MzU1MzJaIiwiaWRwIjoiQ3VzdG9tIiwiZSI6IjIwMjItMDUtMTNUMDI6NDI6NDMuNzUzNTUzMloiLCJ0aWQiOiI3NjZjOWM0MTc4NzE0ZjI0OWUzMGQyZWI0YjMyNmZiZSIsImlkaSI6Im9jdWx1czozNDM0MTU2Njg2Njk4MjA2IiwiaCI6IkRDMDAzM0RCNzJGMUJCREUiLCJlYyI6InRpdGxlX3BsYXllcl9hY2NvdW50ITQ3MUQ3NzVDRkMwMDBFNEMvQ0E4NzUvMTcwMTgyQURGNkREOEVDMS9EMEM1ODQzMEM5Q0QyREY0LyIsImVpIjoiRDBDNTg0MzBDOUNEMkRGNCIsImV0IjoidGl0bGVfcGxheWVyX2FjY291bnQifQ==",
+    "TokenExpiration": "2022-05-13T02:42:43.753Z",
+    "Entity": {
+      "Id": "D0C58430C9CD2DF4",
+      "Type": "title_player_account",
+      "TypeString": "title_player_account",
+      "IsTitle": false,
+      "IsNamespace": false,
+      "IsService": false,
+      "IsMasterPlayer": false,
+      
+      "IsTitlePlayer": true
+    }
+  },
+  "TreatmentAssignment": {
+    "Variants": [],
+    "Variables": []
+  }
+}

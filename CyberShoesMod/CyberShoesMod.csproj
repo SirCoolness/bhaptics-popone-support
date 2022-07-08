@@ -1,0 +1,82 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net472</TargetFramework>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>Desktop</Platforms>
+
+        <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader</GameDir>
+        <!--    <GameDir>/home/akiva/RiderProjects/bhaptics-popone-support/deps</GameDir>-->
+
+        <ManagedDir>$(GameDir)/Managed</ManagedDir>
+        <LangVersion>latest</LangVersion>
+
+        <RootNamespace>CyberShoes</RootNamespace>
+    </PropertyGroup>
+    <ItemGroup>
+        <Reference Include="MelonLoader">
+            <HintPath>$(GameDir)/MelonLoader.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp">
+            <HintPath>$(ManagedDir)/Assembly-CSharp.dll</HintPath>
+        </Reference>
+        <Reference Include="Assembly-CSharp-firstpass">
+            <HintPath>$(ManagedDir)/Assembly-CSharp-firstpass.dll</HintPath>
+        </Reference>
+        <Reference Include="GameLiftServerSDKNet45">
+            <HintPath>$(ManagedDir)/GameLiftServerSDKNet45.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2Cppmscorlib">
+            <HintPath>$(ManagedDir)/Il2Cppmscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppSystem">
+            <HintPath>$(ManagedDir)/Il2CppSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="Il2CppSystem.Core">
+            <HintPath>$(ManagedDir)/Il2CppSystem.Core.dll</HintPath>
+        </Reference>
+        <Reference Include="Mirror">
+            <HintPath>$(ManagedDir)/Mirror.dll</HintPath>
+        </Reference>
+        <Reference Include="System">
+            <HintPath>$(ManagedDir)/System.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Data">
+            <HintPath>$(ManagedDir)/System.Data.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Xml">
+            <HintPath>$(ManagedDir)/System.Xml.dll</HintPath>
+        </Reference>
+        <Reference Include="UnhollowerBaseLib">
+            <HintPath>$(ManagedDir)/UnhollowerBaseLib.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.Collections">
+            <HintPath>$(ManagedDir)/Unity.Collections.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.Mathematics">
+            <HintPath>$(ManagedDir)/Unity.Mathematics.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.CoreModule">
+            <HintPath>$(ManagedDir)/UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputModule">
+          <HintPath>..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader\Managed\UnityEngine.InputModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+            <HintPath>$(ManagedDir)/UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
+        <Reference Include="PlayFab">
+            <HintPath>$(ManagedDir)/PlayFab.dll</HintPath>
+        </Reference>
+        <Reference Include="UniverseLib.IL2CPP">
+            <HintPath>packages\UniverseLib.IL2CPP.1.4.2\lib\net472\UniverseLib.IL2CPP.dll</HintPath>
+            <Private>True</Private>
+        </Reference>
+    </ItemGroup>
+    <ItemGroup>
+      <PackageReference Include="UniverseLib.IL2CPP" Version="1.4.2" targetFramework="net472" />
+    </ItemGroup>
+</Project>

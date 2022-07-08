@@ -5,7 +5,8 @@
     <Configurations>Debug;Release</Configurations>
     <Platforms>Desktop</Platforms>
 
-    <GameDir>/home/akiva/RiderProjects/bhaptics-popone-support/deps</GameDir>
+    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE\MelonLoader</GameDir>
+<!--    <GameDir>/home/akiva/RiderProjects/bhaptics-popone-support/deps</GameDir>-->
 
     <ManagedDir>$(GameDir)/Managed</ManagedDir>
   </PropertyGroup>

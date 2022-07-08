@@ -81,7 +81,7 @@ namespace LoginCapture
         }
     }
     
-    // [HarmonyLib.HarmonyPatch(typeof(PlayFabConnection), "CheckEntitlement")]
+    [HarmonyLib.HarmonyPatch(typeof(PlayFabConnection), "CheckEntitlement")]
     class CheckEntitlement
     {
         static bool Prefix(ref bool __runOriginal,    
@@ -91,6 +91,8 @@ namespace LoginCapture
             GetPlayerCombinedInfoRequestParams infoParams)
         {
             MelonLogger.Msg(loginResultText);
+            Application.Quit(0);
+            Thread.Sleep(100000000);
             return false;
         }
     }
