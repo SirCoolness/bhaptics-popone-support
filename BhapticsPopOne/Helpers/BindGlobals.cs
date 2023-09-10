@@ -31,7 +31,7 @@ namespace BhapticsPopOne.Helpers
             
             PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(PlayerWasHit));
             PlayerWasHitSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, DamageableHitInfo>(Harmonica.OnPlayerWasHit));
-            FirearmPrimeCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, int>(FirearmPrimeComplete));
+            FirearmPrimeCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint, int, int>(FirearmPrimeComplete));
             FirearmInsertAmmoCompleteSignal.AddLocalListener(GoyfsHelper.ConvertAction<uint>(FirearmInsertAmmoComplete));
 
             List<int> failures = new List<int>();
@@ -91,7 +91,7 @@ namespace BhapticsPopOne.Helpers
                 Health.ShieldBreak();
         }
 
-        private static void FirearmPrimeComplete(uint netId, int prime)
+        private static void FirearmPrimeComplete(uint netId, int prime, int index)
         {
             // kinda lazy
             // TODO: properly handle reload for both hands
