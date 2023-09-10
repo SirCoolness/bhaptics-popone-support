@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -69,8 +69,6 @@ namespace BhapticsPopOne
             MelonLogger.Msg($"{_initLoggingContext.Prefix} Application initializing");
 
             RootInit();
-            
-            PlayerProxy.Init();
             
             FileHelpers.EnforceDirectory();
             ConfigLoader.InitConfig();

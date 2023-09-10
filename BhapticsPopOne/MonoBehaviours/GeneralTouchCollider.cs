@@ -9,7 +9,7 @@ using Unity.Mathematics;
 using UnityEngine;
 using Il2Cpp;
 
-using PositionType = MelonLoader.bHaptics.PositionType;
+using PositionType = bHapticsLib.PositionID;
 
 namespace BhapticsPopOne
 {
@@ -19,10 +19,10 @@ namespace BhapticsPopOne
 
         public static Dictionary<string, PositionType> filter = new Dictionary<string, PositionType>
         {
-            ["male_a_rig:foot_l"] = PositionType.FootL, 
-            ["male_a_rig:calf_l"] = PositionType.FootL, 
-            ["male_a_rig:foot_r"] = PositionType.FootR, 
-            ["male_a_rig:calf_r"] = PositionType.FootR, 
+            ["male_a_rig:foot_l"] = PositionType.FootLeft, 
+            ["male_a_rig:calf_l"] = PositionType.FootLeft, 
+            ["male_a_rig:foot_r"] = PositionType.FootRight, 
+            ["male_a_rig:calf_r"] = PositionType.FootRight, 
             ["male_a_rig:head"] = PositionType.Head
         };
         
@@ -31,8 +31,8 @@ namespace BhapticsPopOne
         private Dictionary<PositionType, HashSet<string>> activeParts = new Dictionary<PositionType, HashSet<string>>
         {
             [PositionType.Head] = new HashSet<string>(),
-            [PositionType.FootL] = new HashSet<string>(),
-            [PositionType.FootR] = new HashSet<string>(),
+            [PositionType.FootLeft] = new HashSet<string>(),
+            [PositionType.FootRight] = new HashSet<string>(),
         };
         
         private Dictionary<PositionType, Action<float>> onEnterActionMap = new Dictionary<PositionType, Action<float>>();
@@ -42,12 +42,12 @@ namespace BhapticsPopOne
         private void Awake()
         {
             onEnterActionMap[PositionType.Head] = EnterHeadEffect;
-            onEnterActionMap[PositionType.FootL] = EnterFootLEffect;
-            onEnterActionMap[PositionType.FootR] = EnterFootREffect;
+            onEnterActionMap[PositionType.FootLeft] = EnterFootLEffect;
+            onEnterActionMap[PositionType.FootRight] = EnterFootREffect;
 
             onPlayActionMap[PositionType.Head] = PlayHeadEffect;
-            onPlayActionMap[PositionType.FootL] = PlayFootLEffect;
-            onPlayActionMap[PositionType.FootR] = PlayFootREffect;
+            onPlayActionMap[PositionType.FootLeft] = PlayFootLEffect;
+            onPlayActionMap[PositionType.FootRight] = PlayFootREffect;
         }
 
         private void OnTriggerEnter(Collider other)

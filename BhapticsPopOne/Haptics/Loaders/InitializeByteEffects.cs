@@ -14,7 +14,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Arm/SendTouch_L", new ByteEffect
             {
-                Position = bHaptics.PositionType.ForearmL,
+                Position = bHapticsLib.PositionID.ArmLeft,
                 Steps = new []
                 {
                     new ByteEffect.Step
@@ -42,7 +42,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Arm/SendTouch_R", new ByteEffect
             {
-                Position = bHaptics.PositionType.ForearmR,
+                Position = bHapticsLib.PositionID.ArmRight,
                 Steps = new []
                 {
                     new ByteEffect.Step
@@ -70,7 +70,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Hand/SendTouch_L", new ByteEffect
             {
-                Position = bHaptics.PositionType.HandL,
+                Position = bHapticsLib.PositionID.GloveLeft,
                 Steps = new []
                 {
                     new ByteEffect.Step
@@ -96,7 +96,7 @@ namespace BhapticsPopOne.Haptics.Loaders
             
             EffectLoopRegistry.Register("Hand/SendTouch_R", new ByteEffect
             {
-                Position = bHaptics.PositionType.HandR,
+                Position = bHapticsLib.PositionID.GloveRight,
                 Steps = new []
                 {
                     new ByteEffect.Step

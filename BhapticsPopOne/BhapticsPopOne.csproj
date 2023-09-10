@@ -67,6 +67,7 @@
     
     <MLCoreReference Include="Il2CppInterop.Common" />
     <MLCoreReference Include="Il2CppInterop.Runtime" />
+    <MLCoreReference Include="bHapticsLib" />
     
     <ManagedReference Include="mscorlib" />
     <ManagedReference Include="System" />

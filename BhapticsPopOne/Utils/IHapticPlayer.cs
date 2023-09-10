@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-
-using PositionType = MelonLoader.bHaptics.PositionType;
-using DotPoint = MelonLoader.bHaptics.DotPoint;
-using PathPoint = MelonLoader.bHaptics.PathPoint;
-using RotationOption = MelonLoader.bHaptics.RotationOption;
-using ScaleOption = MelonLoader.bHaptics.ScaleOption;
+using PositionType = bHapticsLib.PositionID;
+using DotPoint = bHapticsLib.DotPoint;
+using PathPoint = bHapticsLib.PathPoint;
+using RotationOption = bHapticsLib.RotationOption;
+using ScaleOption = bHapticsLib.ScaleOption;
 
 namespace Bhaptics.Tact
 {
@@ -17,9 +16,9 @@ namespace Bhaptics.Tact
         void RegisterTactFileStr(string key, string tactFileStr);
         void RegisterTactFileStrReflected(string key, string tactFileStr);
 
-        void Submit(string key, PositionType position, byte[] motorBytes, int startTimeMillis);
-        void Submit(string key, PositionType position, List<DotPoint> points, int startTimeMillis);
-        void Submit(string key, PositionType position, List<PathPoint> points, int startTimeMillis);
+        void Submit(string key, PositionType position, byte[] motorBytes, int durationMillis);
+        void Submit(string key, PositionType position, List<DotPoint> points, int durationMillis);
+        void Submit(string key, PositionType position, List<PathPoint> points, int durationMillis);
 
         void SubmitRegistered(string key, ScaleOption option);
         void SubmitRegistered(string key, string altKey, ScaleOption option);

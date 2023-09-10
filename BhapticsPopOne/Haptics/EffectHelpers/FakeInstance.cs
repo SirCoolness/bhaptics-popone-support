@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using Bhaptics.Tact;
 
-using PositionType = MelonLoader.bHaptics.PositionType;
-using DotPoint = MelonLoader.bHaptics.DotPoint;
-using PathPoint = MelonLoader.bHaptics.PathPoint;
-using RotationOption = MelonLoader.bHaptics.RotationOption;
-using ScaleOption = MelonLoader.bHaptics.ScaleOption;
+using PositionType = bHapticsLib.PositionID;
+using DotPoint = bHapticsLib.DotPoint;
+using PathPoint = bHapticsLib.PathPoint;
+using RotationOption = bHapticsLib.RotationOption;
+using ScaleOption = bHapticsLib.ScaleOption;
 
 namespace BhapticsPopOne.Haptics
 {

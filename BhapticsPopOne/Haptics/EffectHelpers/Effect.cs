@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using BhapticsPopOne.Haptics.EffectManagers;
 using MelonLoader;
 
-using RotationOption = MelonLoader.bHaptics.RotationOption;
-using ScaleOption = MelonLoader.bHaptics.ScaleOption;
+using RotationOption = bHapticsLib.RotationOption;
+using ScaleOption = bHapticsLib.ScaleOption;
 
 namespace BhapticsPopOne.Haptics.EffectHelpers
 {
