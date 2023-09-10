@@ -2,9 +2,10 @@
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics;
-using BigBoxVR;
+using Il2CppBigBoxVR;
 using HarmonyLib;
 using MelonLoader;
+using Il2Cpp;
 
 namespace BhapticsPopOne.UnetGameManager2
 {

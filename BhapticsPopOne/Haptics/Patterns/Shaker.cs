@@ -4,6 +4,7 @@ using BhapticsPopOne.Haptics.EffectHelpers;
 using BhapticsPopOne.Utils;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {

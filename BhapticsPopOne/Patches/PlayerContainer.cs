@@ -4,11 +4,12 @@ using BhapticsPopOne.Data;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.MonoBehaviours;
-using BigBoxVR.BattleRoyale.Models.Shared;
+using Il2CppBigBoxVR.BattleRoyale.Models.Shared;
 using HarmonyLib;
 using MelonLoader;
-using Mirror;
+using Il2CppMirror;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Patches.PlayerContainer2
 {

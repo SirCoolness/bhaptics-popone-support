@@ -24,24 +24,30 @@
     <OutputType>Library</OutputType>
     <RootNamespace>BhapticsPopOne</RootNamespace>
     <AssemblyName>BhapticsPopOne</AssemblyName>
-    <TargetFrameworks>net4.7.2</TargetFrameworks>
+    <TargetFramework>net4.8</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
-    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>
-    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>
-    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>
+<!--    <GenerateAssemblyFileVersionAttribute>false</GenerateAssemblyFileVersionAttribute>-->
+<!--    <GenerateAssemblyInformationalVersionAttribute>false</GenerateAssemblyInformationalVersionAttribute>-->
+<!--    <GenerateAssemblyVersionAttribute>false</GenerateAssemblyVersionAttribute>-->
     <LangVersion>latest</LangVersion>
     <Platforms>Android;Desktop</Platforms>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <GameDir>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameDir>
+    <!--        <GameFolder>~/.steam/steam/steamapps/common/PopulationONE</GameFolder>-->
+    <GameFolder>C:\Program Files (x86)\Steam\steamapps\common\PopulationONE</GameFolder>
     <OutputPath>$(SolutionDir)Output\$(Configuration)\$(Platform)</OutputPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">
-    <ManagedDir>$(GameDir)\MelonLoader\Managed</ManagedDir>
+    <Il2CppDir>$(GameFolder)\MelonLoader\Il2CppAssemblies</Il2CppDir>
+    <ManagedDir>$(GameFolder)\MelonLoader\Managed</ManagedDir>
+    <MLCoreDir>$(GameFolder)\MelonLoader\net6</MLCoreDir>
+    <MLCoreLegacyDir>$(GameFolder)\MelonLoader\net35</MLCoreLegacyDir>
     <DefineConstants>PLATFORM_DESKTOP</DefineConstants>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Platform)' == 'Android' ">
+    <Il2CppDir><!-- fill --></Il2CppDir>
     <ManagedDir><!-- fill --></ManagedDir>
+    <MLCoreDir><!-- fill --></MLCoreDir>
     <DefineConstants>PLATFORM_ANDROID</DefineConstants>
   </PropertyGroup>
   <ItemGroup Condition=" '$(Platform)' == 'Desktop' ">
@@ -56,64 +62,89 @@
   <ItemGroup Condition=" '$(Platform)' == 'Android' ">
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MelonLoader">
-      <HintPath>$(GameDir)\MelonLoader\MelonLoader.dll</HintPath>
+    <MLCoreLegacyReference Include="0Harmony" />
+    <MLCoreLegacyReference Include="MelonLoader" />
+    
+    <MLCoreReference Include="Il2CppInterop.Common" />
+    <MLCoreReference Include="Il2CppInterop.Runtime" />
+    
+    <ManagedReference Include="mscorlib" />
+    <ManagedReference Include="System" />
+    <ManagedReference Include="System.Data" />
+    <ManagedReference Include="System.Xml" />
+    <ManagedReference Include="System.Windows.Forms" />
+    
+    <Il2CppReference Include="Assembly-CSharp" />
+    <Il2CppReference Include="Assembly-CSharp-firstpass" />
+    <Il2CppReference Include="Il2CppAWSSDK.GameLift" />
+    <Il2CppReference Include="Il2CppBestHTTP" />
+    <Il2CppReference Include="Il2CppFMODUnity" />
+    <Il2CppReference Include="Il2CppGameLiftServerSDKNet45" />
+    <Il2CppReference Include="Il2CppMirror" />
+    <Il2CppReference Include="Il2CppMirror.Components" />
+    <Il2CppReference Include="Il2Cppmscorlib" />
+    <Il2CppReference Include="Il2CppNewtonsoft.Json" />
+    <Il2CppReference Include="Il2CppOculus.Platform" />
+    <Il2CppReference Include="Il2CppOculus.VR" />
+    <Il2CppReference Include="Il2CppOSA" />
+    <Il2CppReference Include="Il2CppPlayFab" />
+    <Il2CppReference Include="Il2CppSteamVR" />
+    <Il2CppReference Include="Il2CppSystem" />
+    <Il2CppReference Include="Il2CppSystem.Core" />
+    <Il2CppReference Include="Unity.Addressables" />
+    <Il2CppReference Include="Unity.Collections" />
+    <Il2CppReference Include="Unity.Mathematics" />
+    <Il2CppReference Include="Unity.Postprocessing.Runtime" />
+    <Il2CppReference Include="Unity.RenderPipelines.Universal.Runtime" />
+    <Il2CppReference Include="Unity.ResourceManager" />
+    <Il2CppReference Include="Unity.TextMeshPro" />
+    <Il2CppReference Include="UnityEngine" />
+    <Il2CppReference Include="UnityEngine.AIModule" />
+    <Il2CppReference Include="UnityEngine.AndroidJNIModule" />
+    <Il2CppReference Include="UnityEngine.AnimationModule" />
+    <Il2CppReference Include="UnityEngine.AudioModule" />
+    <Il2CppReference Include="UnityEngine.ClothModule" />
+    <Il2CppReference Include="UnityEngine.CoreModule" />
+    <Il2CppReference Include="UnityEngine.IMGUIModule" />
+    <Il2CppReference Include="UnityEngine.ParticleSystemModule" />
+    <Il2CppReference Include="UnityEngine.Physics2DModule" />
+    <Il2CppReference Include="UnityEngine.PhysicsModule" />
+    <Il2CppReference Include="UnityEngine.TerrainModule" />
+    <Il2CppReference Include="UnityEngine.TerrainPhysicsModule" />
+    <Il2CppReference Include="UnityEngine.TextRenderingModule" />
+    <Il2CppReference Include="UnityEngine.UI" />
+    <Il2CppReference Include="UnityEngine.UIModule" />
+    <Il2CppReference Include="UnityEngine.UnityWebRequestModule" />
+    <Il2CppReference Include="UnityEngine.UnityWebRequestWWWModule" />
+    <Il2CppReference Include="UnityEngine.VehiclesModule" />
+    <Il2CppReference Include="UnityEngine.XRModule" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="@(MLCoreLegacyReference->'%(Identity)')" >
+      <HintPath>$(MLCoreLegacyDir)\%(Identity).dll</HintPath>
+      <Visibile>false</Visibile>
     </Reference>
-    <Reference Include="Assembly-CSharp">
-      <HintPath>$(ManagedDir)\Assembly-CSharp.dll</HintPath>
+    <Reference Include="@(MLCoreReference->'%(Identity)')">
+      <HintPath>$(MLCoreDir)\%(Identity).dll</HintPath>
+      <Visibile>false</Visibile>
     </Reference>
-    <Reference Include="Assembly-CSharp-firstpass">
-      <HintPath>$(ManagedDir)\Assembly-CSharp-firstpass.dll</HintPath>
+    <Reference Include="@(ManagedReference->'%(Identity)')" >
+      <HintPath>$(ManagedDir)\%(Identity).dll</HintPath>
+      <Visibile>false</Visibile>
     </Reference>
-    <Reference Include="GameLiftServerSDKNet45">
-      <HintPath>$(ManagedDir)\GameLiftServerSDKNet45.dll</HintPath>
+    <Reference Include="@(Il2CppReference->'%(Identity)')" >
+      <HintPath>$(Il2CppDir)\%(Identity).dll</HintPath>
+      <Visibile>false</Visibile>
     </Reference>
-    <Reference Include="Il2Cppmscorlib">
-      <HintPath>$(ManagedDir)\Il2Cppmscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2CppSystem">
-      <HintPath>$(ManagedDir)\Il2CppSystem.dll</HintPath>
-    </Reference>
-    <Reference Include="Il2CppSystem.Core">
-      <HintPath>$(ManagedDir)\Il2CppSystem.Core.dll</HintPath>
-    </Reference>
-<!--    <Reference Include="Il2CppSystem.Reflection">-->
-<!--      <HintPath>$(ManagedDir)\Il2CppSystem.Reflection.dll</HintPath>-->
-<!--    </Reference>-->
-    <Reference Include="Mirror">
-      <HintPath>$(ManagedDir)\Mirror.dll</HintPath>
-    </Reference>
-    <Reference Include="mscorlib">
-      <HintPath>$(ManagedDir)\mscorlib.dll</HintPath>
-    </Reference>
-    <Reference Include="System">
-      <HintPath>$(ManagedDir)\System.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Data">
-      <HintPath>$(ManagedDir)\System.Data.dll</HintPath>
-    </Reference>
-    <Reference Include="System.Xml">
-      <HintPath>$(ManagedDir)\System.Xml.dll</HintPath>
-    </Reference>
-    <Reference Include="UnhollowerBaseLib">
-      <HintPath>$(ManagedDir)\UnhollowerBaseLib.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Collections">
-      <HintPath>$(ManagedDir)\Unity.Collections.dll</HintPath>
-    </Reference>
-    <Reference Include="Unity.Mathematics">
-      <HintPath>$(ManagedDir)\Unity.Mathematics.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.CoreModule">
-      <HintPath>$(ManagedDir)\UnityEngine.CoreModule.dll</HintPath>
-    </Reference>
-    <Reference Include="UnityEngine.PhysicsModule">
-      <HintPath>$(ManagedDir)\UnityEngine.PhysicsModule.dll</HintPath>
-    </Reference>
+    <MLCoreLegacyReference Remove="@(MLCoreLegacyReference->'%(Identity)')" />
+    <MLCoreReference Remove="@(MLCoreReference->'%(Identity)')" />
+    <ManagedReference Remove="@(ManagedReference->'%(Identity)')" />
+    <Il2CppReference Remove="@(Il2CppReference->'%(Identity)')" />
   </ItemGroup>
   <PropertyGroup>
     <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
   </PropertyGroup>
+  
   <ItemGroup>
 <!--    <PackageReference Include="ILRepack" Version="2.0.18" />-->
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
@@ -126,38 +157,6 @@
   <PropertyGroup>
     <PreBuildEvent>python "$(SolutionDir)/helperTools/bundle_effects.py" "$(SolutionDir)/BhapticsPopOne/Assets/Effects" "$(OutputPath)/haptics.json"</PreBuildEvent>
   </PropertyGroup>
-<!--  <PropertyGroup Condition=" '$(Platform)' == 'Desktop' ">-->
-<!--    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>-->
-<!--  </PropertyGroup>-->
-<!--  <PropertyGroup Condition=" '$(Platform)' == 'Android' ">-->
-<!--    <PostBuildEvent>$(ILMergeConsolePath) /out:$(AssemblyName)-Merged.dll $(AssemblyName).dll YamlDotNet.dll</PostBuildEvent>-->
-<!--  </PropertyGroup>-->
-
-<!--  <Target Name="ILRepack" AfterTargets="Build">-->
-<!--    <PropertyGroup>-->
-<!--      <WorkingDirectory>$(MSBuildThisFileDirectory)bin\$(Configuration)\$(TargetFramework)</WorkingDirectory>-->
-<!--    </PropertyGroup>-->
-<!--    <ItemGroup>-->
-<!--      <InputAssemblies Include="YamlDotNet.dll" />-->
-<!--    </ItemGroup>-->
-<!--    <ILRepack OutputType="$(OutputType)" MainAssembly="$(AssemblyName).dll" OutputAssembly="$(AssemblyName).dll" InputAssemblies="@(InputAssemblies)" InternalizeExcludeAssemblies="@(InternalizeExcludeAssemblies)" WorkingDirectory="$(WorkingDirectory)" />-->
-<!--  </Target>-->
-  <!--
-  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
-    <PropertyGroup>
-      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105.The missing file is {0}.</ErrorText>
-    </PropertyGroup>
-    <Error Condition="!Exists('..\packages\ILMerge.3.0.41\build\ILMerge.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\ILMerge.3.0.41\build\ILMerge.props'))" />
-  </Target>
-  -->
-
-    <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
-         Other similar extension points exist, see Microsoft.Common.targets.
-    <Target Name="BeforeBuild">
-    </Target>
-    <Target Name="AfterBuild">
-    </Target>
-    -->
   <ItemDefinitionGroup>
     <PackageReference ExcludeAssets="runtime" />
   </ItemDefinitionGroup>

@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using BhapticsPopOne.Haptics.Patterns;
-using BigBoxVR;
+using Il2CppBigBoxVR;
 using MelonLoader;
 using UnityEngine;
-using UnhollowerRuntimeLib;
+using Il2Cpp;
 
 namespace BhapticsPopOne.MonoBehaviours
 {

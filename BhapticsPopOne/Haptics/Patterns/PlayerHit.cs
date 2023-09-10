@@ -1,10 +1,11 @@
 ﻿using System;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
-using BigBoxVR.BattleRoyale.Models.Shared;
+using Il2CppBigBoxVR.BattleRoyale.Models.Shared;
 using MelonLoader;
 using UnityEngine;
 using Random = UnityEngine.Random;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {

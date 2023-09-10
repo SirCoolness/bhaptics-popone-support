@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using BhapticsPopOne.Utils;
-using Goyfs.Signal;
+using Il2CppGoyfs.Signal;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Data
 {

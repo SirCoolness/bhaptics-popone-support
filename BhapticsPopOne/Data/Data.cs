@@ -1,9 +1,11 @@
-﻿namespace BhapticsPopOne.Data
+﻿using Il2Cpp;
+
+namespace BhapticsPopOne.Data
 {
     public class Data
     {
         public Players Players;
-        public static PhysicsSystem PhysicsSystem => PhysicsWrapper.System.Cast<PhysicsSystem>();
+        // public static PhysicsSystem PhysicsSystem => PhysicsWrapper.System.Cast<PhysicsSystem>();
 
         public Data()
         {

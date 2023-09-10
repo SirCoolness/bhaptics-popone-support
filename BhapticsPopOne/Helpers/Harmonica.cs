@@ -1,12 +1,13 @@
 ﻿using System.Reflection;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Utils;
-using BigBoxVR;
-using BigBoxVR.BattleRoyale.Models.Shared;
+using Il2CppBigBoxVR;
+using Il2CppBigBoxVR.BattleRoyale.Models.Shared;
 using Il2CppSystem;
 using MelonLoader;
-using UnhollowerRuntimeLib;
 using UnityEngine;
+using Il2Cpp;
+using Il2CppInterop.Runtime;
 
 namespace BhapticsPopOne.Helpers
 {

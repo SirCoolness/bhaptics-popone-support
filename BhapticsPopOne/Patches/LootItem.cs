@@ -2,10 +2,11 @@
 using System.Runtime.InteropServices;
 using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Utils;
-using BigBoxVR.BattleRoyale.Models.Shared;
+using Il2CppBigBoxVR.BattleRoyale.Models.Shared;
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.LootItem2
 {

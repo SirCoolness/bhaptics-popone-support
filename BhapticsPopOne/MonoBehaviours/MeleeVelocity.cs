@@ -3,6 +3,7 @@ using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.Helpers;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne
 {

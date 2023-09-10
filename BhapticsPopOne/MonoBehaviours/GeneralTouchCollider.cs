@@ -7,6 +7,7 @@ using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 using Unity.Mathematics;
 using UnityEngine;
+using Il2Cpp;
 
 using PositionType = MelonLoader.bHaptics.PositionType;
 

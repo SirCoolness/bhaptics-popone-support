@@ -1,9 +1,10 @@
 ﻿using System;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.Patterns;
-using BigBoxVR;
+using Il2CppBigBoxVR;
 using HarmonyLib;
 using MelonLoader;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Patches
 {

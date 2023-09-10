@@ -6,7 +6,7 @@ using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
-using EffectPlayer = Coffee.UIExtensions.EffectPlayer;
+
 
 namespace BhapticsPopOne
 {

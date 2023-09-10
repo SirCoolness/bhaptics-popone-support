@@ -1,8 +1,9 @@
 ﻿using BhapticsPopOne.Haptics.Patterns;
-using BigBoxVR;
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
+using Il2CppBigBoxVR;
 
 namespace BhapticsPopOne.DestructibleSceneItem2
 {

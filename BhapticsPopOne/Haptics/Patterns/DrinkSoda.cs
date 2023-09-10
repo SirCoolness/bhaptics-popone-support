@@ -2,9 +2,10 @@
 using System.Threading.Tasks;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
-using BigBoxVR.BattleRoyale.Models.Shared;
+using Il2CppBigBoxVR.BattleRoyale.Models.Shared;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {

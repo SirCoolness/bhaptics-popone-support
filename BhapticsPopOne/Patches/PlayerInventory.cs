@@ -2,6 +2,7 @@
 using BhapticsPopOne.Haptics.Patterns;
 using HarmonyLib;
 using MelonLoader;
+using Il2Cpp;
 
 namespace BhapticsPopOne.PlayerInventory2
 {

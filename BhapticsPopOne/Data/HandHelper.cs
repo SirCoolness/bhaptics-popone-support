@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using BhapticsPopOne.MonoBehaviours;
 using MelonLoader;
-using UnhollowerRuntimeLib;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Data
 {

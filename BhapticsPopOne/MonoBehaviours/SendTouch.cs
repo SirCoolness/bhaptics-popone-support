@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Aws.GameLift.Server.Model;
+using Il2CppAws.GameLift.Server.Model;
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics;
 using BhapticsPopOne.Haptics.EffectHelpers;
@@ -8,6 +8,7 @@ using BhapticsPopOne.Haptics.EffectManagers;
 using BhapticsPopOne.Haptics.Patterns;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne
 {

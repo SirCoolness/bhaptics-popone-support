@@ -1,6 +1,7 @@
 ﻿using BhapticsPopOne.MonoBehaviours;
 using MelonLoader;
-using UnhollowerRuntimeLib;
+using Il2Cpp;
+using Il2CppInterop.Runtime.Injection;
 
 namespace BhapticsPopOne
 {

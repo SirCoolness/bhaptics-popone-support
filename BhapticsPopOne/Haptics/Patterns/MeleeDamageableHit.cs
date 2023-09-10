@@ -1,6 +1,7 @@
 ﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {

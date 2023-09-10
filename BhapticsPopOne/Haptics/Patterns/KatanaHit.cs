@@ -2,6 +2,7 @@
 using BhapticsPopOne.Haptics.EffectHelpers;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.Haptics.Patterns
 {

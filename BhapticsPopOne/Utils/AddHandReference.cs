@@ -3,6 +3,9 @@ using BhapticsPopOne.Haptics.Patterns;
 using BhapticsPopOne.MonoBehaviours;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
+using Il2CppPlayFab;
+using Il2Cpp;
 
 namespace BhapticsPopOne
 {
@@ -87,10 +90,10 @@ namespace BhapticsPopOne
             collider.radius = width / 2f;
             collider.isTrigger = false;
             
-            var proxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
-            proxy.useBounce = false;
-            proxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
-            proxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
+            // var proxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
+            // proxy.useBounce = false;
+            // proxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
+            // proxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
 
             return gameObject;
         }
@@ -121,10 +124,10 @@ namespace BhapticsPopOne
                 Physics.IgnoreCollision(collider, collider1);
             }
 
-            var proxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
-            proxy.useBounce = false;
-            proxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
-            proxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
+            // var proxy = gameObject.AddComponent<CustomPhysicsObjectProxy>();
+            // proxy.useBounce = false;
+            // proxy.PhysicsObjectType = PhysicsObjectType.Dynamic;
+            // proxy.ColliderUpdatePolicy = ColliderUpdatePolicy.All;
 
             return gameObject;
         }

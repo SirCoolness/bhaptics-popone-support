@@ -2,6 +2,7 @@
 using HarmonyLib;
 using MelonLoader;
 using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne
 {

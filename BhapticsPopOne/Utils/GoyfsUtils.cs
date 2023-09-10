@@ -1,7 +1,9 @@
-﻿using Goyfs.Context;
-using Goyfs.Instance;
-using UnhollowerBaseLib;
-using UnhollowerRuntimeLib;
+﻿using Il2Cpp;
+using Il2CppGoyfs.Context;
+using Il2CppGoyfs.Instance;
+using Il2CppInterop.Runtime;
+using Il2CppInterop.Runtime.InteropTypes;
+using Goyfs = Il2CppGoyfs;
 
 namespace BhapticsPopOne.Utils
 {

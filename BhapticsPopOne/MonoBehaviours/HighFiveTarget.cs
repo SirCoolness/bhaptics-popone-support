@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using Il2Cpp;
 
 namespace BhapticsPopOne.MonoBehaviours
 {

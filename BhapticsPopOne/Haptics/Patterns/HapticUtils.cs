@@ -1,4 +1,6 @@
-﻿namespace BhapticsPopOne.Haptics.Patterns
+﻿using Il2Cpp;
+
+namespace BhapticsPopOne.Haptics.Patterns
 {
     public class HapticUtils
     {

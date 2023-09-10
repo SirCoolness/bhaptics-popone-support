@@ -1,6 +1,5 @@
 ﻿using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.Haptics.EffectHelpers;
-using Coffee.UIExtensions;
 using MelonLoader;
 using UnityEngine;
 

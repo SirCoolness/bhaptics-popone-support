@@ -2,9 +2,10 @@
 using BhapticsPopOne.ConfigManager;
 using BhapticsPopOne.ConfigManager.ConfigElements;
 using BhapticsPopOne.Haptics.EffectHelpers;
-using BigBoxVR.BattleRoyale.Models.Shared;
+using Il2CppBigBoxVR.BattleRoyale.Models.Shared;
 using UnityEngine;
 
+using Il2Cpp;
 namespace BhapticsPopOne.Haptics.Patterns
 {
     public class ZoneDamage
