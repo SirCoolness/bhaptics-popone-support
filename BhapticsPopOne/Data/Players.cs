@@ -57,7 +57,7 @@ namespace BhapticsPopOne.Data
                     return null;
                 }
 
-                VestRef = BattleRoyaleExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
+                VestRef = BBVRExtensions.FindRecursivelyRegex(trans, @".*:spine_02.*",
                     new Il2CppSystem.Text.RegularExpressions.RegexOptions());
 
                 if (VestRef != null)
